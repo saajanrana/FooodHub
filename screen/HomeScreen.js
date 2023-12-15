@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { it } from '@jest/globals';
+import Header from '../components/Header';
 
 //git remote add origin https://github.com/saajanrana/FooodHub.git
 
@@ -81,79 +80,74 @@ const HomeScreen = ({navigation}) => {
     </TouchableOpacity>
   );
 
-
-  const renderfeaturerest = ({item}) =>(
-    <TouchableOpacity style={{width: 290, height: 240, borderRadius: 20, marginTop: 20}}>
-    <View style={{width: '100%', height: '60%'}}>
-      <Image
-        source={item.src}
-        style={{
-          width: '100%',
-          height: '100%',
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-        }}
-      />
-    </View>
-    <View
-      style={{
-        backgroundColor: '#FFF',
-        padding: 10,
-        width: '100%',
-        height: '40%',
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-      }}>
-      <View>
-        <Text style={{color: '#000', fontSize: 15, fontWeight: '600'}}>
-          {item.name}
-        </Text>
+  const renderfeaturerest = ({item}) => (
+    <TouchableOpacity
+      style={{width: 290, height: 240, borderRadius: 20, marginTop: 20}}>
+      <View style={{width: '100%', height: '60%'}}>
+        <Image
+          source={item.src}
+          style={{
+            width: '100%',
+            height: '100%',
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+          }}
+        />
       </View>
       <View
         style={{
-          flexDirection: 'row',
-          gap: 10,
-          justifyContent: 'space-',
+          backgroundColor: '#FFF',
+          padding: 10,
+          width: '100%',
+          height: '40%',
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
         }}>
         <View>
-          <Text
-            style={{color: '#7E8392', fontSize: 12, fontWeight: '400'}}>
-            Free delivery
+          <Text style={{color: '#000', fontSize: 15, fontWeight: '600'}}>
+            {item.name}
           </Text>
         </View>
-        <View>
-          <Text
-            style={{color: '#7E8392', fontSize: 12, fontWeight: '400'}}>
-            10-15 mins
-          </Text>
-        </View>
-      </View>
-      <View
-        style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View
           style={{
-            width: 70,
-            flexWrap: 'wrap',
-            backgroundColor: 'light-gray',
-            borderRadius: 5,
-            marginLeft: 10,
+            flexDirection: 'row',
+            gap: 10,
+            justifyContent: 'space-',
           }}>
-          <Text
+          <View>
+            <Text style={{color: '#7E8392', fontSize: 12, fontWeight: '400'}}>
+              Free delivery
+            </Text>
+          </View>
+          <View>
+            <Text style={{color: '#7E8392', fontSize: 12, fontWeight: '400'}}>
+              10-15 mins
+            </Text>
+          </View>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View
             style={{
-              color: '#8A8E9B',
-              fontSize: 12,
-              fontWeight: 400,
-              textAlign: 'center',
+              width: 70,
+              flexWrap: 'wrap',
+              backgroundColor: 'light-gray',
+              borderRadius: 5,
+              marginLeft: 10,
             }}>
-            Burger
-          </Text>
+            <Text
+              style={{
+                color: '#8A8E9B',
+                fontSize: 12,
+                fontWeight: 400,
+                textAlign: 'center',
+              }}>
+              Burger
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
-  </TouchableOpacity>
-
+    </TouchableOpacity>
   );
-
 
   return (
     <GestureHandlerRootView>
@@ -165,14 +159,13 @@ const HomeScreen = ({navigation}) => {
             justifyContent: 'space-between',
             padding: 15,
           }}>
-          <View>
-            <TouchableOpacity>
-              <Image
-                source={require('../assets/drawericon.png')}
-                style={{width: 90, height: 90}}
-              />
-            </TouchableOpacity>
-          </View>
+          {/* <Header
+            onPressMenu={() => {
+              // console.log('holaamigo')
+            props.navigation.openDrawer();
+            }}
+            isMenu={true}
+          /> */}
           <View>
             <View>
               <Text>Delivery To --</Text>
@@ -224,7 +217,7 @@ const HomeScreen = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{marginLeft:20}}>
+        <View style={{marginLeft: 20}}>
           <FlatList
             data={fliterdata}
             keyExtractor={item => item.key}
@@ -260,8 +253,8 @@ const HomeScreen = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{marginLeft:20}}>
-           <FlatList
+        <View>
+          <FlatList
             data={featurerestdata}
             keyExtractor={item => item.key}
             renderItem={renderfeaturerest}
@@ -269,7 +262,7 @@ const HomeScreen = ({navigation}) => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.flatListContainer}
           />
-          </View>
+        </View>
       </SafeAreaView>
     </GestureHandlerRootView>
   );
@@ -298,7 +291,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   flatListContainer: {
-    marginLeft: 10,
+    padding: 30,
     gap: 20,
     flexGrow: 1,
   },
