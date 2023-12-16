@@ -11,6 +11,7 @@ import MyLocationScreen from '../screen/MyLocationScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeDrawer from './HomeDrawer';
+import FoodDetailScreen from '../screen/FoodDetailScreen';
 
 
 
@@ -35,7 +36,7 @@ const Navigation = () => {
         <Drawer.Screen
           name="HomeTabs"
           options={{headerShown: false}}
-          component={HomeTabNavigator}
+          component={HomeScreen}
         />
       </Drawer.Navigator>
     );
@@ -53,10 +54,9 @@ const Navigation = () => {
 
     console.log('screen>>>>',screen);
     return (
-      <Tab.Navigator initialRouteName={'HomeScreen'}>
-        <Tab.Screen name='HomeScreen' component={HomeScreen} />
+      <Tab.Navigator initialRouteName={ screen ||'HomeScreen'}>
         <Tab.Screen
-          name="Home"
+          name="HomeScreen"
           component={HomeScreenDrawer}
         />
         <Tab.Screen
@@ -73,14 +73,13 @@ const Navigation = () => {
 
     return (
         <NavigationContainer>
-        <Stack.Navigator screenOptions={{gestureEnabled:true}} initialRouteName='LoginScreen'>
+        <Stack.Navigator screenOptions={{gestureEnabled:true}}>
             {/* <Stack.Screen name="Start" component={StartScreen} options={{headerShown:false}} />
             <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown:false}}/> */}
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}} /> 
-            <Stack.Screen name="HomeScreen" component={HomeScreen}  options={{headerShown:false}} />
-           
-            {/* <Stack.Screen name="HomeDrawer" component={HomeTabNavigator} options={{headerShown: false}}/> */}
+            <Stack.Screen name="HomeDrawer" component={HomeTabNavigator} options={{headerShown: false}}/>
             {/* <Stack.Screen name='HomeDrawer' component={HomeDrawer} /> */}
+            <Stack.Screen name='FoodDetail' component={FoodDetailScreen}/> 
         </Stack.Navigator>
     </NavigationContainer>
 

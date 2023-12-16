@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 
-const HomeDrawer = ({ navigation }) => {
+const HomeDrawer = (props,{ navigation }) => {
   const DrawerData = [
     {
       key: '1',
@@ -59,12 +59,12 @@ const HomeDrawer = ({ navigation }) => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.itemContainer}
-      onPress={() => navigation.navigate(item.screen)}>
+      onPress={() => navigation.navigate(item?.screen)}>
       <View style={styles.iconContainer}>
-        <Image source={item.src} style={styles.icon} />
+        <Image source={item?.src} style={styles?.icon} />
       </View>
       <View>
-        <Text style={styles.itemText}>{item.name}</Text>
+        <Text style={styles?.itemText}>{item?.name}</Text>
       </View>
     </TouchableOpacity>
   );

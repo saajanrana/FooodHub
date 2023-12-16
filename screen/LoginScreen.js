@@ -68,7 +68,7 @@ const LoginScreen = ({navigation}) => {
               borderRadius: 40,
               justifyContent: 'center',
               alignItems: 'center',
-            }} onPress={()=>{ navigation.navigate('HomeScreen')}} >
+            }} onPress={()=>{ navigation.navigate('HomeDrawer')}} >
             <Text style={{color: 'white'}}>Login</Text>
           </TouchableOpacity>
         </View>

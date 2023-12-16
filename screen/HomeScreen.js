@@ -70,19 +70,21 @@ const HomeScreen = ({navigation}) => {
   ];
 
   const renderItem = ({item}) => (
-    <TouchableOpacity style={styles.filtericon}>
+    <TouchableOpacity style={styles?.filtericon}>
       <View>
-        <Image source={item.src} style={styles.filterimgae} />
+        <Image source={item?.src} style={styles?.filterimgae} />
       </View>
       <View>
-        <Text style={styles.filtername}>{item.name}</Text>
+        <Text style={styles?.filtername}>{item?.name}</Text>
       </View>
     </TouchableOpacity>
   );
 
   const renderfeaturerest = ({item}) => (
     <TouchableOpacity
-      style={{width: 290, height: 240, borderRadius: 20, marginTop: 20}}>
+      style={{width: 290, height: 240, borderRadius: 20, marginTop: 20}}
+      onPress={()=>{navigation.navigate('FoodDetail')}}
+      >
       <View style={{width: '100%', height: '60%'}}>
         <Image
           source={item.src}
@@ -159,13 +161,13 @@ const HomeScreen = ({navigation}) => {
             justifyContent: 'space-between',
             padding: 15,
           }}>
-          {/* <Header
+          <Header
             onPressMenu={() => {
               // console.log('holaamigo')
-            props.navigation.openDrawer();
+            navigation.openDrawer();
             }}
             isMenu={true}
-          /> */}
+          />
           <View>
             <View>
               <Text>Delivery To --</Text>
@@ -220,7 +222,7 @@ const HomeScreen = ({navigation}) => {
         <View style={{marginLeft: 20}}>
           <FlatList
             data={fliterdata}
-            keyExtractor={item => item.key}
+            keyExtractor={item => item?.key}
             renderItem={renderItem}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -256,7 +258,7 @@ const HomeScreen = ({navigation}) => {
         <View>
           <FlatList
             data={featurerestdata}
-            keyExtractor={item => item.key}
+            keyExtractor={item => item?.key}
             renderItem={renderfeaturerest}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
