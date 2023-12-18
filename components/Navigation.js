@@ -58,14 +58,17 @@ const Navigation = () => {
         <Tab.Screen
           name="HomeScreen"
           component={HomeScreenDrawer}
+          options={{headerShown: false}}
         />
         <Tab.Screen
           name="MyOrder"
           component={MyOrderScreen}
+          options={{headerShown: false}}
         />
         <Tab.Screen
           name="MyLocation"
           component={MyLocationScreen}
+          options={{headerShown: false}}
         />
       </Tab.Navigator>
     );
@@ -74,11 +77,10 @@ const Navigation = () => {
     return (
         <NavigationContainer>
         <Stack.Navigator screenOptions={{gestureEnabled:true}}>
-            {/* <Stack.Screen name="Start" component={StartScreen} options={{headerShown:false}} />
-            <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown:false}}/> */}
+            <Stack.Screen name="Start" component={StartScreen} options={{headerShown:false}} />
+            <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown:false}}/>
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}} /> 
             <Stack.Screen name="HomeDrawer" component={HomeTabNavigator} options={{headerShown: false}}/>
-            {/* <Stack.Screen name='HomeDrawer' component={HomeDrawer} /> */}
             <Stack.Screen name='FoodDetail' component={FoodDetailScreen}/> 
         </Stack.Navigator>
     </NavigationContainer>

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   StyleSheet,
@@ -7,13 +8,11 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
-import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Header from '../components/Header';
 
-//git remote add origin https://github.com/saajanrana/FooodHub.git
-
-const HomeScreen = ({navigation}) => {
+const HomeScreen = (props) => {
   const fliterdata = [
     {
       key: '1',
@@ -41,6 +40,7 @@ const HomeScreen = ({navigation}) => {
       src: require('../assets/pizaa.jpg'),
     },
   ];
+
   const featurerestdata = [
     {
       key: '1',
@@ -69,80 +69,52 @@ const HomeScreen = ({navigation}) => {
     },
   ];
 
-  const renderItem = ({item}) => (
-    <TouchableOpacity style={styles?.filtericon}>
+  const renderItem = ({ item }) => (
+    <TouchableOpacity>
       <View>
-        <Image source={item?.src} style={styles?.filterimgae} />
+        <Image source={item.src} style={styles.filterimgae} />
       </View>
       <View>
-        <Text style={styles?.filtername}>{item?.name}</Text>
+        <Text style={styles.filtername}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
-
-  const renderfeaturerest = ({item}) => (
+  const renderfeaturerest = ({ item }) => (
     <TouchableOpacity
-      style={{width: 290, height: 240, borderRadius: 20, marginTop: 20}}
-      onPress={()=>{navigation.navigate('FoodDetail')}}
-      >
-      <View style={{width: '100%', height: '60%'}}>
+      style={styles.featuredRestaurantContainer}
+      onPress={() => props.navigation.navigate('FoodDetail')}
+    >
+      <View style={styles.featuredRestaurantImageContainer}>
         <Image
           source={item.src}
-          style={{
-            width: '100%',
-            height: '100%',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-          }}
+          style={styles.featuredRestaurantImage}
         />
       </View>
-      <View
-        style={{
-          backgroundColor: '#FFF',
-          padding: 10,
-          width: '100%',
-          height: '40%',
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
-        }}>
-        <View>
-          <Text style={{color: '#000', fontSize: 15, fontWeight: '600'}}>
-            {item.name}
-          </Text>
+      <View style={styles.featuredRestaurantDetailsContainer}>
+        <Text style={styles.featuredRestaurantName}>{item.name}</Text>
+        <View style={styles.featuredRestaurantInfoContainer}>
+          <Text style={styles.featuredRestaurantInfoText}>Free delivery</Text>
+          <Text style={styles.featuredRestaurantInfoText}>10-15 mins</Text>
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            gap: 10,
-            justifyContent: 'space-',
-          }}>
-          <View>
-            <Text style={{color: '#7E8392', fontSize: 12, fontWeight: '400'}}>
-              Free delivery
-            </Text>
-          </View>
-          <View>
-            <Text style={{color: '#7E8392', fontSize: 12, fontWeight: '400'}}>
-              10-15 mins
-            </Text>
-          </View>
-        </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={styles.featuredRestaurantCategoryContainer}>
+        
           <View
             style={{
               width: 70,
               flexWrap: 'wrap',
-              backgroundColor: 'light-gray',
+              backgroundColor: 'lightgray', 
               borderRadius: 5,
               marginLeft: 10,
-            }}>
+            }}
+          >
             <Text
               style={{
                 color: '#8A8E9B',
                 fontSize: 12,
-                fontWeight: 400,
+                fontWeight: '400',
                 textAlign: 'center',
-              }}>
+              }}
+            >
               Burger
             </Text>
           </View>
@@ -153,112 +125,70 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <GestureHandlerRootView>
-      <SafeAreaView
-        style={{backgroundColor: '#FCFCFD', width: '100%', height: '100%'}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: 15,
-          }}>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.headerContainer}>
           <Header
-            onPressMenu={() => {
-              // console.log('holaamigo')
-            navigation.openDrawer();
-            }}
+            onPressMenu={() => props.navigation.openDrawer()}
             isMenu={true}
           />
-          <View>
-            <View>
-              <Text>Delivery To --</Text>
-            </View>
-            <View>
-              <Text>4102 Pretty View Lane</Text>
-            </View>
+          <View style={styles.deliveryInfoContainer}>
+            <Text>Delivery To --</Text>
+            <Text>4102 Pretty View Lane</Text>
           </View>
-          <View>
+          <View style={styles.profileImageContainer}>
+            <TouchableOpacity>  
             <Image
-              style={{height: 50, width: 50, borderRadius: 20}}
+              style={styles.profileImage}
               source={require('../assets/food.png')}
             />
+            </TouchableOpacity>
           </View>
         </View>
-        <View style={{marginLeft: 30, marginRight: 40}}>
-          <Text style={{color: '#323643', fontWeight: '700', fontSize: 30}}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.titleText}>
             What would you like to order
           </Text>
         </View>
-        <View style={{flexDirection: 'row'}}>
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: '#EFEFEF',
-              width: 300,
-              height: 71,
-              marginLeft: 30,
-              justifyContent: 'center',
-              borderRadius: 10,
-              marginTop: 15,
-            }}>
+        <View style={styles.searchContainer}>
+          <View style={styles.inputContainer}>
             <TextInput
               placeholder="Find for food or restaurant..."
-              style={{
-                color: '#9AA0B4',
-                fontSize: 14,
-                fontWeight: '400',
-                marginLeft: 10,
-              }}
+              style={styles.inputText}
             />
           </View>
-          <View style={{height: '100%', width: '100%'}}>
+          <View style={styles.filterIconContainer}>
             <TouchableOpacity>
               <Image
                 source={require('../assets/fliter.png')}
-                style={{width: 110, height: 110}}
+                style={styles.filterIcon}
               />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{marginLeft: 20}}>
+        <View style={styles.filterContainer}>
           <FlatList
             data={fliterdata}
-            keyExtractor={item => item?.key}
+            keyExtractor={(item) => item.key}
             renderItem={renderItem}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.flatListContainer}
           />
         </View>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingLeft: 25,
-            paddingRight: 25,
-          }}>
-          <View>
-            <Text style={{color: '#323643', fontSize: 18, fontWeight: '600'}}>
-              {' '}
-              Featured Restaurants{' '}
+        <View style={styles.featuredRestaurantsContainer}>
+          <View style={styles.featuredRestaurantsHeader}>
+            <Text style={styles.featuredRestaurantsHeaderText}>
+              Featured Restaurants
             </Text>
           </View>
           <TouchableOpacity>
-            <Text
-              style={{
-                color: '#F56844',
-                fontWeight: '400',
-                fontSize: 14,
-                marginTop: 5,
-              }}>
-              View All
-            </Text>
+            <Text style={styles.viewAllText}>View All</Text>
           </TouchableOpacity>
         </View>
         <View>
           <FlatList
             data={featurerestdata}
-            keyExtractor={item => item?.key}
+            keyExtractor={(item) => item.key}
             renderItem={renderfeaturerest}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -271,31 +201,142 @@ const HomeScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  filtericon: {
-    width: 70,
+  container: {
+    backgroundColor: '#FCFCFD',
+    width: '100%',
+    height: '100%',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 15,
+  },
+  deliveryInfoContainer: {
+    marginLeft: 10,
+  },
+  profileImageContainer: {
+    marginLeft: 10,
+  },
+  profileImage: {
+    height: 50,
+    width: 50,
+    borderRadius: 20,
+  },
+  titleContainer: {
+    marginLeft: 30,
+    marginRight: 40,
+  },
+  titleText: {
+    color: '#323643',
+    fontWeight: '700',
+    fontSize: 30,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+  },
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: '#EFEFEF',
+    width: 300,
+    height: 71,
+    marginLeft: 30,
+    justifyContent: 'center',
+    borderRadius: 10,
+    marginTop: 15,
+  },
+  inputText: {
+    color: '#9AA0B4',
+    fontSize: 14,
+    fontWeight: '400',
+    marginLeft: 10,
+  },
+  filterIconContainer: {
+    height: '100%',
+    width: '100%',
+  },
+  filterIcon: {
+    width: 110,
     height: 110,
-    borderRadius: 40,
-    backgroundColor: '#FFF',
-    shadowColor: '#D3D1D8',
-    shadowOpacity: 1,
-    shadowRadius: 40,
-    elevation: 5,
-    alignItems: 'center',
   },
-  filterimgae: {
-    width: 70,
-    height: 70,
-    borderRadius: 50,
-  },
-  filtername: {
-    color: '#67666D',
-    fontSize: 11,
-    textAlign: 'center',
+  filterContainer: {
+    marginLeft: 20,
   },
   flatListContainer: {
     padding: 30,
     gap: 20,
     flexGrow: 1,
+  },
+  featuredRestaurantsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 25,
+    paddingRight: 25,
+  },
+  featuredRestaurantsHeader: {},
+  featuredRestaurantsHeaderText: {
+    color: '#323643',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  viewAllText: {
+    color: '#F56844',
+    fontWeight: '400',
+    fontSize: 14,
+    marginTop: 5,
+  },
+  featuredRestaurantContainer: {
+    width: 290,
+    height: 240,
+    borderRadius: 20,
+    marginTop: 20,
+  },
+  featuredRestaurantImageContainer: {
+    width: '100%',
+    height: '60%',
+  },
+  featuredRestaurantImage: {
+    width: '100%',
+    height: '100%',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  featuredRestaurantDetailsContainer: {
+    backgroundColor: '#FFF',
+    padding: 10,
+    width: '100%',
+    height: '40%',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  featuredRestaurantName: {
+    color: '#000',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  featuredRestaurantInfoContainer: {
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'space-between',
+  },
+  featuredRestaurantInfoText: {
+    color: '#7E8392',
+    fontSize: 12,
+    fontWeight: '400',
+  },
+  featuredRestaurantCategoryContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  featuredRestaurantCategoryText: {
+    width: 70,
+    flexWrap: 'wrap',
+    backgroundColor: 'light-gray',
+    borderRadius: 5,
+    marginLeft: 10,
+    color: '#8A8E9B',
+    fontSize: 12,
+    fontWeight: 400,
+    textAlign: 'center',
   },
 });
 
