@@ -84,6 +84,7 @@ const Navigation = () => {
             <Stack.Screen name="HomeDrawer" component={HomeTabNavigator} options={{headerShown: false}}/>
             <Stack.Screen name='FoodDetail' component={FoodDetailScreen}/> 
             <Stack.Screen name='AddToCartScreen' component={AddToCartScreen}/> 
+            <Stack.Screen name='MyOrderScreen' component={MyOrderScreen}/> 
         </Stack.Navigator>
     </NavigationContainer>
 
