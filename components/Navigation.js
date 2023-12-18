@@ -12,6 +12,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeDrawer from './HomeDrawer';
 import FoodDetailScreen from '../screen/FoodDetailScreen';
+import AddToCartScreen from '../screen/AddToCartScreen';
 
 
 
@@ -82,6 +83,7 @@ const Navigation = () => {
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}} /> 
             <Stack.Screen name="HomeDrawer" component={HomeTabNavigator} options={{headerShown: false}}/>
             <Stack.Screen name='FoodDetail' component={FoodDetailScreen}/> 
+            <Stack.Screen name='AddToCartScreen' component={AddToCartScreen}/> 
         </Stack.Navigator>
     </NavigationContainer>
 
