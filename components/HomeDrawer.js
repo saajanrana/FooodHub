@@ -22,7 +22,7 @@ const HomeDrawer = (props,{ navigation }) => {
       key: '2',
       name: 'My Profile',
       src: require('../assets/profileicon.png'),
-      screen: 'MyProfile',
+      screen: 'MyProfileScreen',
     },
     {
       key: '3',
@@ -59,7 +59,7 @@ const HomeDrawer = (props,{ navigation }) => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.itemContainer}
-      onPress={() => navigation.navigate(item?.screen)}>
+      onPress={() => props.navigation.navigate(item?.screen)}>
       <View style={styles.iconContainer}>
         <Image source={item?.src} style={styles?.icon} />
       </View>

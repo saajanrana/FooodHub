@@ -1,22 +1,407 @@
-import React,{useState} from 'react';
-import {View, StyleSheet, Text,Switch,TouchableOpacity} from 'react-native';
-
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Switch,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native';
 
 const MyOrderScreen = () => {
+  return (
+    <ScrollView
+      style={{
+        backgroundColor: '#FFF',
+        width: '100%',
+        height: '100%',
+        padding: 20,
+        paddinBottom:0,
+        
+       }}>
+      <View
+        style={{
+          borderWidth: 2,
+          borderColor: '#F2EAEA',
+          width: 370,
+          height: 70,
+          borderRadius: 30,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#FE724C',
+            width: 160,
+            height: 65,
+            borderRadius: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: '#FFF'}}>Upcoming</Text>
+        </TouchableOpacity>
 
-    return (
-        <View style={{backgroundColor:'#FFF',width:'100%',height:'100%'}} >
-            <View style={{borderWidth:2,borderColor:'#F2EAEA',width: 400,height:60,borderRadius:30,marginTop:20}}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#FFF',
+            width: 160,
+            height: 65,
+            borderRadius: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: '#FE724C'}}>History</Text>
+        </TouchableOpacity>
+      </View>
 
-                <TouchableOpacity style={{backgroundColor:'#FE724C',width: 150,height:40,borderRadius:20}}>
-                      <Text>Upcoming</Text>
-                </TouchableOpacity>
-                
+      <View
+        style={{
+          marginTop: 20,
+          backgroundColor: '#FFFFFF',
+          paddingRight: 20,
+          paddingLeft: 20,
+          shadowOpacity: 10,
+          elevation: 6,
+          shadowColor: 'light-brown',
+          borderRadius: 20,
+          marginLeft: 10,
+          marginRight: 10,
+        }}>
+        <View style={{padding: 20, gap: 10}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View
+              style={{
+                width: 80,
+                height: 80,
+                shadowOpacity: 10,
+                elevation: 6,
+                backgroundColor: '#FFF',
+                shadowColor: 'light-brown',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 20,
+              }}>
+              <Image source={require('../assets/starbuckicon.png')} />
             </View>
-         </View>
-    );
-}
+            <View>
+              <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
+                3 Items
+              </Text>
+              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                Starbuck
+              </Text>
+            </View>
+            <View>
+              <Text style={{color: '#FE724C', fontSize: 16, fontWeight: '400'}}>
+                $17.10
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 10,
+            }}>
+            <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
+              Estimated Arrival
+            </Text>
+            <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
+              Now
+            </Text>
+          </View>
 
-const styles = StyleSheet.create({})
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{color: '#000', fontSize: 40, fontWeight: '600'}}>
+                25
+              </Text>
+              <View
+                style={{alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+                <Text style={{color: '#000'}}>min</Text>
+              </View>
+            </View>
+            <View>
+              <Text style={{color: '#000', fontWeight: '400', fontSize: 14}}>
+                Food on the way
+              </Text>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#FFF',
+                borderWidth: 1,
+                width: 145,
+                height: 55,
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderColor: '#F1F2F3',
+              }}>
+              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#FE724C',
+                width: 145,
+                height: 55,
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#FFF', fontSize: 16, fontWeight: '600'}}>
+                Track Order
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+
+      <View style={{marginTop: 30, marginLeft: 10}}>
+        <Text style={{color: '#111719', fontWeight: '600', fontSize: 18}}>
+          Lasted Orders
+        </Text>
+      </View>
+
+      <View
+        style={{
+          marginTop: 20,
+          backgroundColor: '#FFFFFF',
+          paddingRight: 20,
+          paddingLeft: 20,
+          shadowOpacity: 10,
+          elevation: 6,
+          shadowColor: 'light-brown',
+          borderRadius: 20,
+          marginLeft: 10,
+          marginRight: 10,
+        }}>
+        <View style={{padding: 20, gap: 10}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View
+              style={{
+                width: 80,
+                height: 80,
+                shadowOpacity: 10,
+                elevation: 6,
+                backgroundColor: '#FFF',
+                shadowColor: 'light-brown',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 20,
+              }}>
+              <Image source={require('../assets/subwayicon.png')} />
+            </View>
+            <View>
+              <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
+                20 jun, 10:30
+              </Text>
+              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                Subway
+              </Text>
+            </View>
+            <View>
+              <Text style={{color: '#FE724C', fontSize: 16, fontWeight: '400'}}>
+                $17.10
+              </Text>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#FFF',
+                borderWidth: 1,
+                width: 145,
+                height: 55,
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderColor: '#F1F2F3',
+              }}>
+              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                Rate
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#FE724C',
+                width: 145,
+                height: 55,
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#FFF', fontSize: 16, fontWeight: '600'}}>
+                Re-Order
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+
+      <View
+        style={{
+          marginTop: 20,
+          backgroundColor: '#FFFFFF',
+          paddingRight: 20,
+          paddingLeft: 20,
+          shadowOpacity: 10,
+          elevation: 6,
+          shadowColor: 'light-brown',
+          borderRadius: 20,
+          marginLeft: 10,
+          marginRight: 10,
+        }}>
+        <View style={{padding: 20, gap: 10}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View
+              style={{
+                width: 80,
+                height: 80,
+                shadowOpacity: 10,
+                elevation: 6,
+                backgroundColor: '#FFF',
+                shadowColor: 'light-brown',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 20,
+              }}>
+              <Image source={require('../assets/subwayicon.png')} />
+            </View>
+            <View>
+              <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
+                20 jun, 10:30
+              </Text>
+              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                Subway
+              </Text>
+            </View>
+            <View>
+              <Text style={{color: '#FE724C', fontSize: 16, fontWeight: '400'}}>
+                $17.10
+              </Text>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#FFF',
+                borderWidth: 1,
+                width: 145,
+                height: 55,
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderColor: '#F1F2F3',
+              }}>
+              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                Rate
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#FE724C',
+                width: 145,
+                height: 55,
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#FFF', fontSize: 16, fontWeight: '600'}}>
+                Re-Order
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+
+      <View
+        style={{
+          marginTop: 20,
+          backgroundColor: '#FFFFFF',
+          paddingRight: 20,
+          paddingLeft: 20,
+          shadowOpacity: 10,
+          elevation: 6,
+          shadowColor: 'light-brown',
+          borderRadius: 20,
+          marginLeft: 10,
+          marginRight: 10,
+        }}>
+        <View style={{padding: 20, gap: 10}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View
+              style={{
+                width: 80,
+                height: 80,
+                shadowOpacity: 10,
+                elevation: 6,
+                backgroundColor: '#FFF',
+                shadowColor: 'light-brown',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 20,
+              }}>
+              <Image source={require('../assets/subwayicon.png')} />
+            </View>
+            <View>
+              <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
+                20 jun, 10:30
+              </Text>
+              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                Subway
+              </Text>
+            </View>
+            <View>
+              <Text style={{color: '#FE724C', fontSize: 16, fontWeight: '400'}}>
+                $17.10
+              </Text>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#FFF',
+                borderWidth: 1,
+                width: 145,
+                height: 55,
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderColor: '#F1F2F3',
+              }}>
+              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                Rate
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#FE724C',
+                width: 145,
+                height: 55,
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#FFF', fontSize: 16, fontWeight: '600'}}>
+                Re-Order
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({});
 
 export default MyOrderScreen;

@@ -13,6 +13,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeDrawer from './HomeDrawer';
 import FoodDetailScreen from '../screen/FoodDetailScreen';
 import AddToCartScreen from '../screen/AddToCartScreen';
+import MyProfile from '../screen/MyProfile';
 
 
 
@@ -85,6 +86,7 @@ const Navigation = () => {
             <Stack.Screen name='FoodDetail' component={FoodDetailScreen}/> 
             <Stack.Screen name='AddToCartScreen' component={AddToCartScreen}/> 
             <Stack.Screen name='MyOrderScreen' component={MyOrderScreen}/> 
+            <Stack.Screen name="MyProfileScreen" component={MyProfile} />
         </Stack.Navigator>
     </NavigationContainer>
 
