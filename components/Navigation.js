@@ -14,6 +14,7 @@ import HomeDrawer from './HomeDrawer';
 import FoodDetailScreen from '../screen/FoodDetailScreen';
 import AddToCartScreen from '../screen/AddToCartScreen';
 import MyProfile from '../screen/MyProfile';
+import EditProfileScreen from '../screen/EditProfileScreen';
 
 
 
@@ -68,8 +69,8 @@ const Navigation = () => {
           options={{headerShown: false}}
         />
         <Tab.Screen
-          name="MyLocation"
-          component={MyLocationScreen}
+          name="MyProfile"
+          component={MyProfile}
           options={{headerShown: false}}
         />
       </Tab.Navigator>
@@ -87,6 +88,8 @@ const Navigation = () => {
             <Stack.Screen name='AddToCartScreen' component={AddToCartScreen}/> 
             <Stack.Screen name='MyOrderScreen' component={MyOrderScreen}/> 
             <Stack.Screen name="MyProfileScreen" component={MyProfile} />
+            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+
         </Stack.Navigator>
     </NavigationContainer>
 

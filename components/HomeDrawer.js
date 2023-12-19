@@ -14,7 +14,7 @@ const HomeDrawer = (props,{ navigation }) => {
   const DrawerData = [
     {
       key: '1',
-      name: 'My Orders',
+      name: 'MyOrderScreen',
       src: require('../assets/Document.png'),
       screen: 'MyOrder',
     },
