@@ -13,7 +13,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeDrawer from './HomeDrawer';
 import FoodDetailScreen from '../screen/FoodDetailScreen';
 import AddToCartScreen from '../screen/AddToCartScreen';
-import MyProfile from '../screen/MyProfile';
+import MyProfile from '../screen/MyProfile'; 
 import EditProfileScreen from '../screen/EditProfileScreen';
 
 const Stack = createNativeStackNavigator();
@@ -69,7 +69,7 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{gestureEnabled: true}}>
+      <Stack.Navigator screenOptions={{gestureEnabled: true}} initialRouteName='LoginScreen'>
         <Stack.Screen
           name="Start"
           component={StartScreen}

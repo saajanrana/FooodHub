@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect}from 'react';
 import {
   View,
   StyleSheet,
@@ -13,6 +13,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Header from '../components/Header';
 
 const HomeScreen = (props) => {
+
   const fliterdata = [
     {
       key: '1',

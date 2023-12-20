@@ -1,7 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { url } from '../components/url';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
+
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+
+
+
+
+  
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(`${url}api/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, password}),
+      });
+
+      if (response.ok) {
+        // Registration successful, handle accordingly (e.g., navigate to another screen)
+        console.log('Login success successful');
+      
+        navigation.navigate('HomeDrawer',{isLoggedIn:true});
+      } else {
+        // Registration failed, parse and set validation errors
+        const data = await response.json();
+        setErrors(data.errors || { message: data.message });
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+  };
+
+
+
+  useEffect(() => {
+    const gettoken = async () => {
+      const value = await AsyncStorage.getItem('isLoggedIn');
+      if (value === 'true') {
+        navigation.navigate('HomeDrawer');
+      } else {
+        navigation.navigate('LoginScreen');
+      }
+    };
+    gettoken();
+  }, []);
   return (
     <View>
       <View style={styles.header}>
@@ -11,12 +61,17 @@ const LoginScreen = ({ navigation }) => {
       <View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Email</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input}
+           onChangeText={(text)=>setEmail(text)}
+          />
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Password</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input}
+             onChangeText={(text)=>setPassword(text)}
+          />
         </View>
+        {errors.message&& <Text style={styles.error}>{errors.message}</Text>}
         <View style={styles.forgotPassword}>
           <TouchableOpacity>
             <Text style={styles.forgotPasswordText}>Forgot password?</Text>
@@ -26,7 +81,8 @@ const LoginScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.loginButton}
-            onPress={() => navigation.replace('HomeDrawer')}>
+            onPress={handleLogin}
+           >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
@@ -157,6 +213,10 @@ const styles = StyleSheet.create({
   },
   socialButtonText: {
     color: 'black',
+  },
+  error: {
+    marginLeft:40,
+    color: 'red',
   },
 });
 

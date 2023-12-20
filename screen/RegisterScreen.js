@@ -1,7 +1,42 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { url } from '../components/url';
 
 const RegisterScreen = ({ navigation }) => {
+
+
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+
+  const handleRegister = async () => {
+    try {
+      const response = await fetch(`${url}api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fullName, email, password }),
+      });
+
+      if (response.ok) {
+        // Registration successful, handle accordingly (e.g., navigate to another screen)
+        console.log('Registration successful');
+        setErrors({});
+        navigation.navigate('LoginScreen');
+
+      } else {
+        // Registration failed, parse and set validation errors
+        const data = await response.json();
+        setErrors(data.errors || { message: data.message });
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+  };
+
+  console.log('error>>>',errors);
   return (
     <View>
       <View style={styles.header}>
@@ -11,19 +46,35 @@ const RegisterScreen = ({ navigation }) => {
       <View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Full name</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input} 
+            onChangeText={(text)=>setFullName(text)}
+            onFocus={() => setErrors({}) }
+          />
+          {errors.fullName && <Text style={styles.error}>{errors.fullName}</Text>}
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Email</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input}
+          onChangeText={(text)=>setEmail(text)}
+          onFocus={() => setErrors({}) }
+           
+          />
+          {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+          {errors.message&& <Text style={styles.error}>{errors.message}</Text>}
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Password</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input}
+           onChangeText={(text)=>setPassword(text)}
+           onFocus={() => setErrors({}) }
+          />
+          {errors.password && <Text style={styles.error}>{errors.password}</Text>}
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.signupButton}>
+          <TouchableOpacity style={styles.signupButton}
+           onPress={handleRegister}
+          >
             <Text style={styles.buttonText}>Sign up</Text>
           </TouchableOpacity>
         </View>
@@ -142,6 +193,10 @@ const styles = StyleSheet.create({
   },
   socialButtonText: {
     color: 'black',
+  },
+  error: {
+    color: 'red',
+    marginBottom: 10,
   },
 });
 

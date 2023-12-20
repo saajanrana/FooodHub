@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -10,7 +10,25 @@ import {
 } from 'react-native';
 
 
-const HomeDrawer = (props,{ navigation }) => {
+const HomeDrawer = (props) => {
+
+  // console.log("props>>>>>",props);
+
+  useEffect(() => {
+    const {isLoggedIn} = props?.route?.params || {};
+
+    if (isLoggedIn) {
+      // Set the login status in AsyncStorage
+      AsyncStorage.setItem('isLoggedIn', 'true')
+        .then(() => {
+          console.log('Login status stored in AsyncStorage');
+        })
+        .catch(error => {
+          console.error('Error storing login status:', error);
+        });
+    }
+  }, []);
+
   const DrawerData = [
     {
       key: '1',
@@ -94,7 +112,9 @@ const HomeDrawer = (props,{ navigation }) => {
       </ScrollView>
 
       <View style={styles.logoutContainer}>
-        <TouchableOpacity style={styles.logoutButton}>
+        <TouchableOpacity style={styles.logoutButton} 
+         onPress={()=>props.navigation.navigate('LoginScreen')}
+        >
           <View style={styles.logoutIconContainer}>
             <Image source={require('../assets/logoutbutton.png')} style={styles.logoutIcon} />
           </View>
