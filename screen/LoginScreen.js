@@ -11,9 +11,6 @@ const LoginScreen = ({ navigation }) => {
 
 
 
-
-  
-
   const handleLogin = async () => {
     try {
       const response = await fetch(`${url}api/login`, {
@@ -28,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
         console.log('Login success successful');
       
-        navigation.navigate('HomeDrawer',{isLoggedIn:true});
+        navigation.navigate('HomeDrawer',{islogin:true});
       } else {
         // Registration failed, parse and set validation errors
         const data = await response.json();
@@ -41,17 +38,6 @@ const LoginScreen = ({ navigation }) => {
 
 
 
-  useEffect(() => {
-    const gettoken = async () => {
-      const value = await AsyncStorage.getItem('isLoggedIn');
-      if (value === 'true') {
-        navigation.navigate('HomeDrawer');
-      } else {
-        navigation.navigate('LoginScreen');
-      }
-    };
-    gettoken();
-  }, []);
   return (
     <View>
       <View style={styles.header}>
