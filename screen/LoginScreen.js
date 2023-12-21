@@ -2,15 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import { url } from '../components/url';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { beinhome, loginUser } from '../context/AuthSlice';
 
 const LoginScreen = ({ navigation }) => {
+
+  const dispatch = useDispatch();
 
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const refer = async() =>{
+          const newasy = await AsyncStorage.getItem('isLoggedIn');
+          console.log('newassync>>>>',newasy);
+           if(newasy ==='true'){
+              dispatch(beinhome(newasy));
+              navigation.replace('HomeDrawer');
+           }
+           else {
+            navigation.navigate('LoginScreen');
+           }
+           }
 
-
-
+  useEffect(()=>{
+    refer();
+  },[]);
+    
   const handleLogin = async () => {
     try {
       const response = await fetch(`${url}api/login`, {
@@ -24,8 +41,9 @@ const LoginScreen = ({ navigation }) => {
       if (response.ok) {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
         console.log('Login success successful');
-      
-        navigation.navigate('HomeDrawer',{islogin:true});
+        dispatch(loginUser('usercanlogin'));
+
+        navigation.navigate('HomeDrawer');
       } else {
         // Registration failed, parse and set validation errors
         const data = await response.json();

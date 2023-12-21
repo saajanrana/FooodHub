@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React,{useEffect} from 'react';
 import {
   View,
@@ -8,26 +9,24 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 
 
 const HomeDrawer = (props) => {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const setasync = ()=> {
+     AsyncStorage.setItem('isLoggedIn','true');   
 
-  // console.log("props>>>>>",props);
+  } 
+  useEffect(()=>{
+    if(isLoggedIn) {
+      setasync();
+ }
+},[]);
 
-  useEffect(() => {
-    const {isLoggedIn} = props?.route?.params || {};
 
-    if (isLoggedIn) {
-      // Set the login status in AsyncStorage
-      AsyncStorage.setItem('isLoggedIn', 'true')
-        .then(() => {
-          console.log('Login status stored in AsyncStorage');
-        })
-        .catch(error => {
-          console.error('Error storing login status:', error);
-        });
-    }
-  }, []);
+  
+  
 
   const DrawerData = [
     {

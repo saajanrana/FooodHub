@@ -15,9 +15,13 @@ import FoodDetailScreen from '../screen/FoodDetailScreen';
 import AddToCartScreen from '../screen/AddToCartScreen';
 import MyProfile from '../screen/MyProfile'; 
 import EditProfileScreen from '../screen/EditProfileScreen';
+import { useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
+
+  const canbeinhome =useSelector(state => state.auth.canbeinhome);
+  console.log("in navaigation",canbeinhome);
   // Drawernavigator
   const Drawer = createDrawerNavigator();
   const HomeScreenDrawer = props => {
@@ -37,11 +41,9 @@ const Navigation = () => {
   const Tab = createBottomTabNavigator();
   const HomeTabNavigator = props => {
     const screen = props?.route?.params?.screen;
-
-    console.log('screen>>>>', screen);
     return (
       <Tab.Navigator
-        initialRouteName={screen || 'HomeScreen'}
+        initialRouteName={'HomeScreen'}
         screenOptions={{
           keyboardHidesTabBar: true,
           activeTintColor: '#FF5722',
@@ -69,7 +71,7 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{gestureEnabled: true}} initialRouteName='LoginScreen'>
+      <Stack.Navigator screenOptions={{gestureEnabled: true}} initialRouteName={canbeinhome?'HomeDrawer':'LoginScreen'}>
         <Stack.Screen
           name="Start"
           component={StartScreen}
