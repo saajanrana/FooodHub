@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity,Image } from 'react-native';
 import { url } from '../components/url';
 
 const RegisterScreen = ({ navigation }) => {
@@ -19,7 +19,7 @@ const RegisterScreen = ({ navigation }) => {
         },
         body: JSON.stringify({ fullName, email, password }),
       });
-
+      
       if (response.ok) {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
         console.log('Registration successful');
@@ -95,9 +95,11 @@ const RegisterScreen = ({ navigation }) => {
 
       <View style={styles.socialButtonsContainer}>
         <TouchableOpacity style={styles.socialButton}>
+          <Image source={require('../assets/fbicon.png')}  style={{height: 40,width:40}}  />
           <Text style={styles.socialButtonText}>Facebook</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialButton}>
+        <Image source={require('../assets/googleicon.png')}  style={{height: 40,width:40}}  />
           <Text style={styles.socialButtonText}>Google</Text>
         </TouchableOpacity>
       </View>
@@ -190,6 +192,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection:'row',
+    gap:8
   },
   socialButtonText: {
     color: 'black',

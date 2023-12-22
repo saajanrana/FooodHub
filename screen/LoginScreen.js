@@ -1,33 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
-import { url } from '../components/url';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import {url} from '../components/url';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch } from 'react-redux';
-import { beinhome, loginUser } from '../context/AuthSlice';
+import {useDispatch} from 'react-redux';
+import {beinhome, loginUser, usertoken} from '../context/AuthSlice';
 
-const LoginScreen = ({ navigation }) => {
-
+const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
-  const refer = async() =>{
-          const newasy = await AsyncStorage.getItem('isLoggedIn');
-          console.log('newassync>>>>',newasy);
-           if(newasy ==='true'){
-              dispatch(beinhome(newasy));
-              navigation.replace('HomeDrawer');
-           }
-           else {
-            navigation.navigate('LoginScreen');
-           }
-           }
+  const refer = async () => {
+    const newasy = await AsyncStorage.getItem('isLoggedIn');
+    console.log('newassync>>>>', newasy);
+    if (newasy === 'true') {
+      dispatch(beinhome(newasy));
+      navigation.replace('HomeDrawer');
+    } else {
+      navigation.navigate('LoginScreen');
+    }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     refer();
-  },[]);
-    
+  }, []);
+
+  
+
   const handleLogin = async () => {
     try {
       const response = await fetch(`${url}api/login`, {
@@ -38,23 +45,25 @@ const LoginScreen = ({ navigation }) => {
         body: JSON.stringify({email, password}),
       });
 
+      const data = await response.json();
+
+      console.log('data>>>>>', data);
       if (response.ok) {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
-        console.log('Login success successful');
+        console.log('Login successful');
+        // await AsyncStorage.setItem('token',data.token);
         dispatch(loginUser('usercanlogin'));
-
+        dispatch(usertoken(data.token));
         navigation.navigate('HomeDrawer');
       } else {
         // Registration failed, parse and set validation errors
         const data = await response.json();
-        setErrors(data.errors || { message: data.message });
+        setErrors(data.errors || {message: data.message});
       }
     } catch (error) {
       console.error('Error during registration:', error);
     }
   };
-
-
 
   return (
     <View>
@@ -65,17 +74,21 @@ const LoginScreen = ({ navigation }) => {
       <View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Email</Text>
-          <TextInput style={styles.input}
-           onChangeText={(text)=>setEmail(text)}
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setEmail(text)}
+            // value='saajan@gmail.com'
           />
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Password</Text>
-          <TextInput style={styles.input}
-             onChangeText={(text)=>setPassword(text)}
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setPassword(text)}
+            // value='Saajan1'
           />
         </View>
-        {errors.message&& <Text style={styles.error}>{errors.message}</Text>}
+        {errors.message && <Text style={styles.error}>{errors.message}</Text>}
         <View style={styles.forgotPassword}>
           <TouchableOpacity>
             <Text style={styles.forgotPasswordText}>Forgot password?</Text>
@@ -83,10 +96,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.loginButton}
-            onPress={handleLogin}
-           >
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
@@ -109,9 +119,11 @@ const LoginScreen = ({ navigation }) => {
 
       <View style={styles.socialButtonsContainer}>
         <TouchableOpacity style={styles.socialButton}>
+          <Image source={require('../assets/fbicon.png')}  style={{height: 40,width:40}}  />
           <Text style={styles.socialButtonText}>Facebook</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialButton}>
+        <Image source={require('../assets/googleicon.png')}  style={{height: 40,width:40}}  />
           <Text style={styles.socialButtonText}>Google</Text>
         </TouchableOpacity>
       </View>
@@ -126,7 +138,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily:'NotoSans_Condensed-Black',
   },
   inputContainer: {
     marginTop: 25,
@@ -214,12 +226,15 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
+   flexDirection:'row',
+   gap:8
+  
   },
   socialButtonText: {
     color: 'black',
   },
   error: {
-    marginLeft:40,
+    marginLeft: 40,
     color: 'red',
   },
 });

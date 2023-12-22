@@ -4,6 +4,7 @@ const authSlice = createSlice ({
     initialState:{
        isLoggedIn:false,
        canbeinhome:false,
+       usertoken:null,
     },
     reducers:{
         loginUser:(state,action)=>{
@@ -38,10 +39,16 @@ const authSlice = createSlice ({
                }
                console.log("hueeee>>>",state.canbeinhome);
             
+        },
+        usertoken:(state,action)=>{
+              action.payload;
+              console.log('tokeninredux',action.payload);
+              state.usertoken = action.payload;
+              console.log("2nd redux>>>>>>>>>>",state.usertoken);
         }
     }
 });
 
 
-export const {loginUser,beinhome} = authSlice.actions;
+export const {loginUser,beinhome,usertoken} = authSlice.actions;
 export default authSlice.reducer;

@@ -9,22 +9,13 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+
 
 
 const HomeDrawer = (props) => {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  const setasync = ()=> {
-     AsyncStorage.setItem('isLoggedIn','true');   
-
-  } 
-  useEffect(()=>{
-    if(isLoggedIn) {
-      setasync();
- }
-},[]);
 
 
+  
   
   
 

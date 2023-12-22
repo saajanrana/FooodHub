@@ -1,4 +1,4 @@
-import React,{useEffect}from 'react';
+import React,{useEffect, useState}from 'react';
 import {
   View,
   StyleSheet,
@@ -7,12 +7,87 @@ import {
   ImageBackground,
   SafeAreaView,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Header from '../components/Header';
+import { useSelector } from 'react-redux';
+import { url } from '../components/url';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = (props) => {
+
+  const [token,setToken] = useState();
+  const [user,setUser] = useState();
+
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const usertoken = useSelector(state => state.auth.usertoken);
+
+  
+  const setasync = ()=> {
+     AsyncStorage.setItem('isLoggedIn','true');
+     AsyncStorage.setItem('token',usertoken);
+    //  e.preventDefault(); 
+
+  } 
+  useEffect(()=>{
+    if(isLoggedIn) {
+      setasync();
+
+ }
+
+},[]);
+
+ const gettoke= async () =>{
+        const usertok =   await AsyncStorage.getItem('token');
+        setToken(usertok);
+ }
+
+
+gettoke();
+
+ console.log('tokeen>>>>>>>>>>>>>>>>>',token);
+
+
+useEffect(()=>{
+const profiledata = async() =>{
+  // const userToken = token; // Replace with the actual token
+      console.log('ueeee>>>.',token);
+  try {
+    const response = await fetch(`${url}api/profile`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token?token:usertoken
+      },
+    });
+
+    console.log("token inside>>>>>>>>>>",token);
+    console.log("token of usertoken>>>>",usertoken);
+
+    console.log("hiiting the route>>>>");
+
+    console.log("res>>>>>>>>>>>>>>",response);
+
+    if (response.ok) {
+      const userData = await response.json();
+      console.log('userdatrainside>>>>>>>',userData);
+      setUser(userData);
+    } else {
+      console.error('Error fetching user profile:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error fetching user profile:', error.message);
+  }
+}
+    profiledata();
+},[]);
+
+
+console.log('userdata>>>>>',user);
+
+
 
     
 
@@ -128,7 +203,7 @@ const HomeScreen = (props) => {
   );
 
   return (
-    <GestureHandlerRootView>
+    <ScrollView>
       <SafeAreaView style={styles.container}>
         <View style={styles.headerContainer}>
           <Header
@@ -200,7 +275,7 @@ const HomeScreen = (props) => {
           />
         </View>
       </SafeAreaView>
-    </GestureHandlerRootView>
+    </ScrollView>
   );
 };
 
