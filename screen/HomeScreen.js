@@ -195,7 +195,7 @@ const HomeScreen = props => {
           <TouchableOpacity>
             <Image
               style={styles.profileImage}
-              source={require('../assets/food.png')}
+              source={require('../assets/profileiconhd.png')}
             />
           </TouchableOpacity>
         </View>

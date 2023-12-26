@@ -6,14 +6,15 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  ScrollView
 } from 'react-native';
 
 const MyProfile = (props,{naivgation}) => {
   return (
-    <View>
+    <ScrollView>
       <View style={{alignItems: 'center'}}>
         <View>
-          <Image source={require('../assets/profile.png')} />
+          <Image source={require('../assets/profileiconhd.png')} />
         </View>
         <View>
           <Text style={{color: '#000', fontSize: 20, fontWeight: '600'}}>
@@ -42,27 +43,28 @@ const MyProfile = (props,{naivgation}) => {
           <TextInput style={styles.input} placeholder='45984268' />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginTop: 25,
-    marginLeft: 30,
+    marginTop: '7%',
+    flexDirection:'column',
+    alignItems:'center'
   },
   inputLabel: {
-    marginLeft: 15,
+    
   },
   input: {
     borderWidth: 2,
     borderColor: '#B3B3B3',
     width: '90%',
     height: 70,
-    marginTop: 10,
+    marginTop: '3%',
     fontSize: 20,
     borderRadius: 20,
-    paddingLeft: 20,
+    paddingLeft:'5%',
     
   },
 });

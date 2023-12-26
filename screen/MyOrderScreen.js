@@ -15,7 +15,6 @@ const MyOrderScreen = () => {
       style={{
         backgroundColor: '#FFF',
         paddingTop:'5%',
-        
        }}>
         <View style={{justifyContent:'center',alignItems:"center"}}>
       <View
