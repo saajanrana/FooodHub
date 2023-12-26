@@ -169,13 +169,13 @@ const styles = StyleSheet.create({
   },
   logoutContainer: {
     position: 'absolute',
-    bottom: 30,
-    left: 40,
+    bottom: '1%',
+    left: '10%',
   },
   logoutButton: {
     backgroundColor: '#FE724C',
-    width: 125,
-    height: 55,
+    width:'80%',
+    height:50,
     borderRadius: 28,
     flexDirection: 'row',
     justifyContent: 'center',

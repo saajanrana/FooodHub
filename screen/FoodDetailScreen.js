@@ -7,20 +7,28 @@ import {
   Linking,
   Touchable,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
 
 const FoodDetailScreen = ({navigation}) => {
   const [checked, setChecked] = useState('first');
   return (
-    <View style={{backgroundColor: '#FFF', height: '100%', width: '100%'}}>
-      <View>
-        <View style={{height: 242, width: 428, borderRadius: 10, padding: 20}}>
+    <ScrollView style={{backgroundColor: '#FFF'}}>
+      <View style={{marginTop: '5%'}}>
+        <View
+          style={{
+            height: 242,
+            width: '100%',
+            borderRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <Image
             source={require('../assets/diss1.jpg')}
             style={{
               height: '100%',
-              width: '100%',
+              width: '90%',
               borderRadius: 10,
               justifyContent: 'center',
               alignContent: 'center',
@@ -28,7 +36,7 @@ const FoodDetailScreen = ({navigation}) => {
             }}
           />
         </View>
-        <View style={{paddingLeft: 20, paddingRight: 20}}>
+        <View style={{paddingLeft: '6%', paddingRight: '6%'}}>
           <Text style={{color: '#323643', fontSize: 28, fontWeight: '600'}}>
             Ground Beef Tacos
           </Text>
@@ -36,14 +44,14 @@ const FoodDetailScreen = ({navigation}) => {
         <View
           style={{
             flexDirection: 'row',
-            gap: 20,
-            paddingLeft: 20,
-            paddingRight: 20,
+            gap: 10,
+            paddingLeft: '6%',
+            paddingRight: '6%',
           }}>
           <View>
             <Text
               style={{
-                color: 'var(--ffffff, #111719)',
+                color: '#111719',
                 fontSize: 14,
                 fontWeight: '600',
               }}>
@@ -67,8 +75,8 @@ const FoodDetailScreen = ({navigation}) => {
         </View>
         <View
           style={{
-            paddingLeft: 20,
-            paddingRight: 20,
+            paddingLeft: '6%',
+            paddingRight: '6%',
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
@@ -78,7 +86,7 @@ const FoodDetailScreen = ({navigation}) => {
                 color: '#FE724C',
                 fontSize: 17,
                 fontWeight: '500',
-                marginTop: 18,
+                marginTop: '3%',
               }}>
               $
             </Text>
@@ -86,52 +94,64 @@ const FoodDetailScreen = ({navigation}) => {
               9.5
             </Text>
           </View>
-          <View style={{flexDirection: 'row', gap: 20, marginTop: 10}}>
-            <Text
+          <View style={{flexDirection: 'row', gap: 20, marginTop: '3%'}}>
+            <View
               style={{
+                justifyContent: 'center',
+                alignItems: 'center',
                 borderWidth: 1,
                 height: 30,
                 width: 30,
                 borderRadius: 30,
-                textAlign: 'center',
-                color: '#FE724C',
               }}>
-              +
-            </Text>
+              <Text
+                style={{
+                  color: '#FE724C',
+                }}>
+                +
+              </Text>
+            </View>
+
             <Text style={{color: 'black', fontSize: 18, fontWeight: '600'}}>
               02
             </Text>
-            <Text
+
+            <View
               style={{
                 borderWidth: 1,
                 height: 30,
                 width: 30,
                 borderRadius: 30,
-                textAlign: 'center',
                 backgroundColor: '#FE724C',
-                color: 'white',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
-              -
-            </Text>
+              <Text
+                style={{
+                  color: 'white',
+                }}>
+                -
+              </Text>
+            </View>
           </View>
         </View>
       </View>
 
-      <View style={{padding: 20}}>
+      <View style={{paddingLeft: '6%', paddingRight: '6%', marginTop: '2%'}}>
         <Text style={{color: '#858992'}}>
           Brown the beef better. Lean ground beef – I like to use 85% lean
           angus. Garlic – use fresh chopped. Spices – chili powder, cumin, onion
           powder.
         </Text>
       </View>
-      <View>
-        <View style={{marginLeft: 20}}>
+      <View style={{marginTop: '2%'}}>
+        <View style={{marginLeft: '6%'}}>
           <Text style={{color: '#323643', fontSize: 18, fontWeight: '600'}}>
             Choice of Add On
           </Text>
         </View>
 
-        <View style={{marginTop: 15}}>
+        <View style={{marginTop: '3%', padding: '6%'}}>
           <RadioButton.Group
             onValueChange={value => setChecked(value)}
             value={checked}>
@@ -207,12 +227,22 @@ const FoodDetailScreen = ({navigation}) => {
           </RadioButton.Group>
         </View>
       </View>
-         <TouchableOpacity style={{marginLeft:'25%',marginTop:60}} onPress={()=>navigation.navigate('AddToCartScreen')}  >
-             <Image source={require('../assets/addtocart.png')}/>
-             <Text style={{position:'absolute',top:32,left:85,color:'#FFF'}}>Add To Cart</Text>
-         </TouchableOpacity>
-    
-    </View>
+      <TouchableOpacity
+        style={{marginLeft: '25%'}}
+        onPress={() => navigation.navigate('AddToCartScreen')}>
+        <Image source={require('../assets/addtocart.png')} />
+        <Text
+          style={{
+            position: 'absolute',
+            top: '35%',
+            left: '30%',
+            color: '#FFF',
+            textAlign: 'center',
+          }}>
+          Add To Cart
+        </Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 

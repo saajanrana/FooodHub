@@ -1,4 +1,4 @@
-import React,{useEffect, useState}from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -9,114 +9,101 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Header from '../components/Header';
-import { useSelector } from 'react-redux';
-import { url } from '../components/url';
+import {useSelector} from 'react-redux';
+import {url} from '../components/url';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const HomeScreen = (props) => {
-
-  const [token,setToken] = useState();
-  const [user,setUser] = useState();
+const HomeScreen = props => {
+  const [token, setToken] = useState();
+  const [user, setUser] = useState();
 
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const usertoken = useSelector(state => state.auth.usertoken);
 
-  
-  const setasync = ()=> {
-     AsyncStorage.setItem('isLoggedIn','true');
-     AsyncStorage.setItem('token',usertoken);
-    //  e.preventDefault(); 
-
-  } 
-  useEffect(()=>{
-    if(isLoggedIn) {
+  const setasync = () => {
+    AsyncStorage.setItem('isLoggedIn', 'true');
+    AsyncStorage.setItem('token', usertoken);
+    //  e.preventDefault();
+  };
+  useEffect(() => {
+    if (isLoggedIn) {
       setasync();
-
- }
-
-},[]);
-
- const gettoke= async () =>{
-        const usertok =   await AsyncStorage.getItem('token');
-        setToken(usertok);
- }
-
-
-gettoke();
-
- console.log('tokeen>>>>>>>>>>>>>>>>>',token);
-
-
-useEffect(()=>{
-const profiledata = async() =>{
-  // const userToken = token; // Replace with the actual token
-      console.log('ueeee>>>.',token);
-  try {
-    const response = await fetch(`${url}api/profile`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token?token:usertoken
-      },
-    });
-
-    console.log("token inside>>>>>>>>>>",token);
-    console.log("token of usertoken>>>>",usertoken);
-
-    console.log("hiiting the route>>>>");
-
-    console.log("res>>>>>>>>>>>>>>",response);
-
-    if (response.ok) {
-      const userData = await response.json();
-      console.log('userdatrainside>>>>>>>',userData);
-      setUser(userData);
-    } else {
-      console.error('Error fetching user profile:', response.statusText);
     }
-  } catch (error) {
-    console.error('Error fetching user profile:', error.message);
-  }
-}
+  }, []);
+
+  const gettoke = async () => {
+    const usertok = await AsyncStorage.getItem('token');
+    setToken(usertok);
+  };
+
+  gettoke();
+
+  console.log('tokeen>>>>>>>>>>>>>>>>>', token);
+
+  useEffect(() => {
+    const profiledata = async () => {
+      // const userToken = token; // Replace with the actual token
+      console.log('ueeee>>>.', token);
+      try {
+        const response = await fetch(`${url}api/profile`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token ? token : usertoken,
+          },
+        });
+
+        console.log('token inside>>>>>>>>>>', token);
+        console.log('token of usertoken>>>>', usertoken);
+
+        console.log('hiiting the route>>>>');
+
+        console.log('res>>>>>>>>>>>>>>', response);
+
+        if (response.ok) {
+          const userData = await response.json();
+          console.log('userdatrainside>>>>>>>', userData);
+          setUser(userData);
+        } else {
+          console.error('Error fetching user profile:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error.message);
+      }
+    };
     profiledata();
-},[]);
+  }, []);
 
-
-console.log('userdata>>>>>',user);
-
-
-
-    
-
+  console.log('userdata>>>>>', user);
 
   const fliterdata = [
     {
       key: '1',
       name: 'Assian',
-      src: require('../assets/asian.jpg'),
+      src: require('../assets/foodiconhd1.png'),
     },
     {
       key: '2',
       name: 'Burger',
-      src: require('../assets/burger.png'),
+      src: require('../assets/burgericonhd.png'),
     },
     {
       key: '3',
       name: 'Donat',
-      src: require('../assets/donat.png'),
+      src: require('../assets/foodiconhd2.png'),
     },
     {
       key: '4',
       name: 'Maxican',
-      src: require('../assets/mexican.png'),
+      src: require('../assets/foodiconhd3.png'),
     },
     {
       key: '5',
       name: 'Pizaa',
-      src: require('../assets/pizaa.jpg'),
+      src: require('../assets/pizaiconhd.png'),
     },
   ];
 
@@ -148,133 +135,144 @@ console.log('userdata>>>>>',user);
     },
   ];
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity>
-      <View>
-        <Image source={item.src} style={styles.filterimgae} />
+  const renderItem = ({item}) => (
+    <TouchableOpacity
+      style={{
+        backgroundColor: '#FFFFFF',
+        shadowOpacity: 10,
+        elevation: 6,
+        shadowColor: 'light-brown',
+        borderRadius: 40,
+        height: '90%',
+        width: 70,
+        justifyContent: 'center',
+      }}>
+      <View style={{alignItems: 'center'}}>
+        <Image source={item.src} style={{width: 40, height: 40}} />
       </View>
-      <View>
+      <View style={{alignItems: 'center'}}>
         <Text style={styles.filtername}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
-  const renderfeaturerest = ({ item }) => (
+  const renderfeaturerest = ({item}) => (
     <TouchableOpacity
-      style={styles.featuredRestaurantContainer}
-      onPress={() => props.navigation.navigate('FoodDetail')}
-    >
-      <View style={styles.featuredRestaurantImageContainer}>
-        <Image
-          source={item.src}
-          style={styles.featuredRestaurantImage}
-        />
-      </View>
+      style={styles.featuredRestaurantContainerr}
+      onPress={() => props.navigation.navigate('FoodDetail')}>
+      <Image source={item.src} style={styles.featuredRestaurantImage} />
+
       <View style={styles.featuredRestaurantDetailsContainer}>
         <Text style={styles.featuredRestaurantName}>{item.name}</Text>
         <View style={styles.featuredRestaurantInfoContainer}>
           <Text style={styles.featuredRestaurantInfoText}>Free delivery</Text>
           <Text style={styles.featuredRestaurantInfoText}>10-15 mins</Text>
         </View>
-        <View style={styles.featuredRestaurantCategoryContainer}>
-        
-          <View
-            style={{
-              width: 70,
-              flexWrap: 'wrap',
-              backgroundColor: 'lightgray', 
-              borderRadius: 5,
-              marginLeft: 10,
-            }}
-          >
-            <Text
-              style={{
-                color: '#8A8E9B',
-                fontSize: 12,
-                fontWeight: '400',
-                textAlign: 'center',
-              }}
-            >
-              Burger
-            </Text>
-          </View>
-        </View>
+
+        <Text
+          style={{
+            color: '#8A8E9B',
+            fontSize: 12,
+            fontWeight: '400',
+          }}>
+          Burger
+        </Text>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Header
-            onPressMenu={() => props.navigation.openDrawer()}
-            isMenu={true}
-          />
-          <View style={styles.deliveryInfoContainer}>
+    <ScrollView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Header
+          onPressMenu={() => props.navigation.openDrawer()}
+          isMenu={true}
+        />
+        {/* <View style={styles.deliveryInfoContainer}>
             <Text>Delivery To --</Text>
             <Text>4102 Pretty View Lane</Text>
-          </View>
-          <View style={styles.profileImageContainer}>
-            <TouchableOpacity>  
+          </View> */}
+        <View style={styles.profileImageContainer}>
+          <TouchableOpacity>
             <Image
               style={styles.profileImage}
               source={require('../assets/food.png')}
             />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>
-            What would you like to order
-          </Text>
-        </View>
-        <View style={styles.searchContainer}>
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder="Find for food or restaurant..."
-              style={styles.inputText}
-            />
-          </View>
-          <View style={styles.filterIconContainer}>
-            <TouchableOpacity>
-              <Image
-                source={require('../assets/fliter.png')}
-                style={styles.filterIcon}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.filterContainer}>
-          <FlatList
-            data={fliterdata}
-            keyExtractor={(item) => item.key}
-            renderItem={renderItem}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.flatListContainer}
-          />
-        </View>
-        <View style={styles.featuredRestaurantsContainer}>
-          <View style={styles.featuredRestaurantsHeader}>
-            <Text style={styles.featuredRestaurantsHeaderText}>
-              Featured Restaurants
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Text style={styles.viewAllText}>View All</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <FlatList
-            data={featurerestdata}
-            keyExtractor={(item) => item.key}
-            renderItem={renderfeaturerest}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.flatListContainer}
+      </View>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>What would you like to order</Text>
+      </View>
+      <View style={styles.searchContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Find for food or restaurant..."
+            style={styles.inputText}
           />
         </View>
-      </SafeAreaView>
+
+        <TouchableOpacity style={styles.filterIconContainer}>
+          <Image
+            source={require('../assets/filtericonhd.png')}
+            style={styles.filterIcon}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.filterContainer}>
+        <FlatList
+          data={fliterdata}
+          keyExtractor={item => item.key}
+          renderItem={renderItem}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.flatListContainerone}
+        />
+      </View>
+
+      <View style={styles.featuredRestaurantsContainer}>
+        <View style={styles.featuredRestaurantsHeader}>
+          <Text style={styles.featuredRestaurantsHeaderText}>
+            Featured Restaurants
+          </Text>
+        </View>
+        <TouchableOpacity>
+          <Text style={styles.viewAllText}>View All</Text>
+        </TouchableOpacity>
+      </View>
+
+      <FlatList
+        data={featurerestdata}
+        keyExtractor={item => item.key}
+        renderItem={renderfeaturerest}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.flatListContainer}
+      />
+
+      {/* <View style={{flexGrow:1}}>
+          <View style={{width:100,height:100,borderWidth:2}}>
+               
+          </View>
+          <View style={{width:100,height:100,borderWidth:2}}>
+               
+          </View>
+          <View style={{width:100,height:100,borderWidth:2}}>
+               
+          </View>
+          <View style={{width:100,height:100,borderWidth:2}}>
+               
+          </View>
+          <View style={{width:100,height:100,borderWidth:2}}>
+               
+          </View>
+          <View style={{width:100,height:100,borderWidth:2}}>
+               
+          </View>
+          <View style={{width:100,height:100,borderWidth:2}}>
+               
+          </View>
+
+      </View> */}
     </ScrollView>
   );
 };
@@ -282,46 +280,45 @@ console.log('userdata>>>>>',user);
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FCFCFD',
-    width: '100%',
-    height: '100%',
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 15,
+    // padding:'5%',
   },
-  deliveryInfoContainer: {
-    marginLeft: 10,
-  },
+  deliveryInfoContainer: {},
   profileImageContainer: {
-    marginLeft: 10,
+    marginTop: '5%',
+    marginRight: '7%',
   },
   profileImage: {
-    height: 50,
-    width: 50,
-    borderRadius: 20,
+    height: 40,
+    width: 40,
+    borderRadius: 10,
   },
   titleContainer: {
-    marginLeft: 30,
-    marginRight: 40,
+    marginLeft: '7%',
   },
   titleText: {
     color: '#323643',
-    fontWeight: '700',
+    fontWeight: '800',
     fontSize: 30,
   },
   searchContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: '7%',
+    marginRight: '7%',
+    marginTop: '3%',
+    height: '8%',
   },
   inputContainer: {
     borderWidth: 1,
     borderColor: '#EFEFEF',
-    width: 300,
-    height: 71,
-    marginLeft: 30,
+    width: '70%',
+    height: '100%',
     justifyContent: 'center',
     borderRadius: 10,
-    marginTop: 15,
   },
   inputText: {
     color: '#9AA0B4',
@@ -331,25 +328,36 @@ const styles = StyleSheet.create({
   },
   filterIconContainer: {
     height: '100%',
-    width: '100%',
+    width: '20%',
   },
   filterIcon: {
-    width: 110,
-    height: 110,
+    // width: '100%',
+    // height: '100%',
   },
   filterContainer: {
-    marginLeft: 20,
+    // marginLeft: 20,
+    marginTop: '5%',
+    width: '100%',
+    height: '18%',
+  },
+
+  flatListContainerone: {
+    paddingLeft: '7%',
+    paddingRight: '7%',
+    gap: 12,
+    flexGrow:1
   },
   flatListContainer: {
-    padding: 30,
-    gap: 20,
+    paddingLeft: '7%',
+    paddingRight: '7%',
+    gap: 12,
     flexGrow: 1,
   },
   featuredRestaurantsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 25,
-    paddingRight: 25,
+    marginLeft: '7%',
+    marginRight: '7%',
   },
   featuredRestaurantsHeader: {},
   featuredRestaurantsHeaderText: {
@@ -361,27 +369,28 @@ const styles = StyleSheet.create({
     color: '#F56844',
     fontWeight: '400',
     fontSize: 14,
-    marginTop: 5,
+    marginTop: '3%',
   },
-  featuredRestaurantContainer: {
-    width: 290,
-    height: 240,
+  featuredRestaurantContainerr: {
+    width: 300,
+    height: 300,
     borderRadius: 20,
     marginTop: 20,
   },
   featuredRestaurantImageContainer: {
-    width: '100%',
-    height: '60%',
+    width: 500,
+    height: '45%',
   },
   featuredRestaurantImage: {
     width: '100%',
-    height: '100%',
+    height: '60%',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
   featuredRestaurantDetailsContainer: {
     backgroundColor: '#FFF',
     padding: 10,
+    paddingBottom: 0,
     width: '100%',
     height: '40%',
     borderBottomLeftRadius: 20,
@@ -409,10 +418,8 @@ const styles = StyleSheet.create({
   featuredRestaurantCategoryText: {
     width: 70,
     flexWrap: 'wrap',
-    backgroundColor: 'light-gray',
     borderRadius: 5,
     marginLeft: 10,
-    color: '#8A8E9B',
     fontSize: 12,
     fontWeight: 400,
     textAlign: 'center',

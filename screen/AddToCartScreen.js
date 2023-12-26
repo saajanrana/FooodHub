@@ -6,18 +6,19 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  ScrollView
 } from 'react-native';
 
 const AddToCartScreen = ({navigation}) => {
   return (
-    <View style={{backgroundColor: '#FFF', width: '100%', height: '100%'}}>
+    <ScrollView style={{backgroundColor: '#FFF'}}>
       <View
         style={{
           flexDirection: 'row',
           gap: 10,
-          marginTop: 20,
-          marginLeft: 20,
-          marginLeft: 20,
+          marginTop:'3%',
+          marginLeft: '6%',
+          marginLeft: '6%',
         }}>
         <View style={{height: 100, width: 100, borderRadius: 20}}>
           <Image
@@ -51,7 +52,9 @@ const AddToCartScreen = ({navigation}) => {
                 borderColor: '#FF3600',
                 borderWidth: 1,
                 alignItems: 'center',
+                justifyContent:'center'
               }}>
+
               <Text style={{color: '#FF3600'}}>-</Text>
             </TouchableOpacity>
             <Text style={{color: '#000', fontWeight: '600', fontSize: 16}}>
@@ -64,6 +67,7 @@ const AddToCartScreen = ({navigation}) => {
                 borderRadius: 50,
                 backgroundColor: '#FF3600',
                 alignItems: 'center',
+                justifyContent:'center'
               }}>
               <Text style={{color: '#FFF'}}>+</Text>
             </TouchableOpacity>
@@ -111,6 +115,7 @@ const AddToCartScreen = ({navigation}) => {
                 borderColor: '#FF3600',
                 borderWidth: 1,
                 alignItems: 'center',
+                justifyContent:'center'
               }}>
               <Text style={{color: '#FF3600'}}>-</Text>
             </TouchableOpacity>
@@ -124,6 +129,7 @@ const AddToCartScreen = ({navigation}) => {
                 borderRadius: 50,
                 backgroundColor: '#FF3600',
                 alignItems: 'center',
+                justifyContent:'center'
               }}>
               <Text style={{color: '#FFF'}}>+</Text>
             </TouchableOpacity>
@@ -131,11 +137,11 @@ const AddToCartScreen = ({navigation}) => {
         </View>
       </View>
 
-      <View style={{padding: 20, marginTop: 15}}>
+      <View style={{marginTop:'3%',justifyContent:"center",alignItems:"center"}}>
         <View
           style={{
             borderWidth: 2,
-            width: 380,
+            width:'90%',
             height: 70,
             borderRadius: 40,
             borderColor: '#EEE',
@@ -147,24 +153,23 @@ const AddToCartScreen = ({navigation}) => {
           <TouchableOpacity
             style={{
               backgroundColor: '#FE724C',
-              width: 120,
+              width: '35%',
               height: 55,
               borderRadius: 30,
               justifyContent: 'center',
               alignItems: 'center',
-              marginRight: 15,
+              marginRight:'2%',
             }}>
             <Text style={{color: '#FFF'}}>Apply</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      <View>
+      <View style={{padding:'7%',gap:20}}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            padding: 20,
             borderBottomColor:'#F1F2F3',
             borderBottomWidth:2
           }}>
@@ -188,7 +193,6 @@ const AddToCartScreen = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            padding: 20,
             borderBottomColor:'#F1F2F3',
             borderBottomWidth:2
           }}>
@@ -212,7 +216,7 @@ const AddToCartScreen = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            padding: 20,
+           
             borderBottomColor:'#F1F2F3',
             borderBottomWidth:2
           }}>
@@ -237,7 +241,7 @@ const AddToCartScreen = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            padding: 20,
+           
           }}>
           <View style={{flexDirection:'row',gap:10}}>
             <Text style={{color: '#000', fontSize: 16, fontWeight: '400'}}>
@@ -259,12 +263,12 @@ const AddToCartScreen = ({navigation}) => {
         </View>
       </View>
 
-      <View style={{marginLeft:30,marginTop:20}}>
-          <TouchableOpacity style={{backgroundColor:'#FE724C',width:350,height:60,borderRadius:30,justifyContent:'center',alignItems:'center'}} onPress={()=>navigation.navigate('MyOrderScreen')} >
+      <View style={{justifyContent:'center',alignItems:'center'}}>
+          <TouchableOpacity style={{backgroundColor:'#FE724C',width:'80%',height:60,borderRadius:30,justifyContent:'center',alignItems:'center'}} onPress={()=>navigation.navigate('MyOrderScreen')} >
                   <Text style={{color:'#FFF',fontSize:15,fontWeight:'600'}}>CHECKOUT</Text>
           </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
