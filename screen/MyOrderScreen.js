@@ -14,26 +14,25 @@ const MyOrderScreen = () => {
     <ScrollView
       style={{
         backgroundColor: '#FFF',
-        width: '100%',
-        height: '100%',
-        padding: 20,
-        paddinBottom:0,
+        paddingTop:'5%',
         
        }}>
+        <View style={{justifyContent:'center',alignItems:"center"}}>
       <View
         style={{
           borderWidth: 2,
           borderColor: '#F2EAEA',
-          width: 370,
+          width: '90%',
           height: 70,
           borderRadius: 30,
           flexDirection: 'row',
           justifyContent: 'space-between',
+          alignItems:'center'
         }}>
         <TouchableOpacity
           style={{
             backgroundColor: '#FE724C',
-            width: 160,
+            width:"50%",
             height: 65,
             borderRadius: 50,
             justifyContent: 'center',
@@ -45,7 +44,7 @@ const MyOrderScreen = () => {
         <TouchableOpacity
           style={{
             backgroundColor: '#FFF',
-            width: 160,
+            width: '50%',
             height: 65,
             borderRadius: 50,
             justifyContent: 'center',
@@ -54,25 +53,24 @@ const MyOrderScreen = () => {
           <Text style={{color: '#FE724C'}}>History</Text>
         </TouchableOpacity>
       </View>
+      </View>
+
+      <View style={{alignItems:'center'}}>
 
       <View
         style={{
-          marginTop: 20,
+          marginTop: '5%',
           backgroundColor: '#FFFFFF',
-          paddingRight: 20,
-          paddingLeft: 20,
           shadowOpacity: 10,
           elevation: 6,
           shadowColor: 'light-brown',
           borderRadius: 20,
-          marginLeft: 10,
-          marginRight: 10,
         }}>
-        <View style={{padding: 20, gap: 10}}>
+        <View style={{padding:'7%', gap: 10}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View
               style={{
-                width: 80,
+                width: '30%',
                 height: 80,
                 shadowOpacity: 10,
                 elevation: 6,
@@ -134,7 +132,7 @@ const MyOrderScreen = () => {
               style={{
                 backgroundColor: '#FFF',
                 borderWidth: 1,
-                width: 145,
+                width: '45%',
                 height: 55,
                 borderRadius: 30,
                 justifyContent: 'center',
@@ -148,7 +146,7 @@ const MyOrderScreen = () => {
             <TouchableOpacity
               style={{
                 backgroundColor: '#FE724C',
-                width: 145,
+                width: '45%',
                 height: 55,
                 borderRadius: 30,
                 justifyContent: 'center',
@@ -161,31 +159,29 @@ const MyOrderScreen = () => {
           </View>
         </View>
       </View>
+      </View>
 
-      <View style={{marginTop: 30, marginLeft: 10}}>
+      <View style={{marginTop:'7%', marginLeft:'8%'}}>
         <Text style={{color: '#111719', fontWeight: '600', fontSize: 18}}>
           Lasted Orders
         </Text>
       </View>
-
+    <View style={{alignItems:"center"}}>
       <View
         style={{
-          marginTop: 20,
+          marginTop:'5%',
           backgroundColor: '#FFFFFF',
-          paddingRight: 20,
-          paddingLeft: 20,
           shadowOpacity: 10,
           elevation: 6,
           shadowColor: 'light-brown',
           borderRadius: 20,
-          marginLeft: 10,
-          marginRight: 10,
+          
         }}>
-        <View style={{padding: 20, gap: 10}}>
+        <View style={{padding:'5%', gap: 10}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View
               style={{
-                width: 80,
+                width: '30%',
                 height: 80,
                 shadowOpacity: 10,
                 elevation: 6,
@@ -217,7 +213,7 @@ const MyOrderScreen = () => {
               style={{
                 backgroundColor: '#FFF',
                 borderWidth: 1,
-                width: 145,
+                width:'40%',
                 height: 55,
                 borderRadius: 30,
                 justifyContent: 'center',
@@ -231,7 +227,7 @@ const MyOrderScreen = () => {
             <TouchableOpacity
               style={{
                 backgroundColor: '#FE724C',
-                width: 145,
+                width:'40%',
                 height: 55,
                 borderRadius: 30,
                 justifyContent: 'center',
@@ -244,25 +240,23 @@ const MyOrderScreen = () => {
           </View>
         </View>
       </View>
-
+      </View>
+      <View style={{alignItems:"center"}}>
       <View
         style={{
-          marginTop: 20,
+          marginTop:'5%',
           backgroundColor: '#FFFFFF',
-          paddingRight: 20,
-          paddingLeft: 20,
           shadowOpacity: 10,
           elevation: 6,
           shadowColor: 'light-brown',
           borderRadius: 20,
-          marginLeft: 10,
-          marginRight: 10,
+          
         }}>
-        <View style={{padding: 20, gap: 10}}>
+        <View style={{padding:'5%', gap: 10}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View
               style={{
-                width: 80,
+                width: '30%',
                 height: 80,
                 shadowOpacity: 10,
                 elevation: 6,
@@ -294,7 +288,7 @@ const MyOrderScreen = () => {
               style={{
                 backgroundColor: '#FFF',
                 borderWidth: 1,
-                width: 145,
+                width:'40%',
                 height: 55,
                 borderRadius: 30,
                 justifyContent: 'center',
@@ -308,7 +302,7 @@ const MyOrderScreen = () => {
             <TouchableOpacity
               style={{
                 backgroundColor: '#FE724C',
-                width: 145,
+                width:'40%',
                 height: 55,
                 borderRadius: 30,
                 justifyContent: 'center',
@@ -321,25 +315,24 @@ const MyOrderScreen = () => {
           </View>
         </View>
       </View>
+      </View>
 
+      <View style={{alignItems:"center",marginBottom:'10%'}}>
       <View
         style={{
-          marginTop: 20,
+          marginTop:'5%',
           backgroundColor: '#FFFFFF',
-          paddingRight: 20,
-          paddingLeft: 20,
           shadowOpacity: 10,
           elevation: 6,
           shadowColor: 'light-brown',
           borderRadius: 20,
-          marginLeft: 10,
-          marginRight: 10,
+          
         }}>
-        <View style={{padding: 20, gap: 10}}>
+        <View style={{padding:'5%', gap: 10}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View
               style={{
-                width: 80,
+                width: '30%',
                 height: 80,
                 shadowOpacity: 10,
                 elevation: 6,
@@ -371,7 +364,7 @@ const MyOrderScreen = () => {
               style={{
                 backgroundColor: '#FFF',
                 borderWidth: 1,
-                width: 145,
+                width:'40%',
                 height: 55,
                 borderRadius: 30,
                 justifyContent: 'center',
@@ -385,7 +378,7 @@ const MyOrderScreen = () => {
             <TouchableOpacity
               style={{
                 backgroundColor: '#FE724C',
-                width: 145,
+                width:'40%',
                 height: 55,
                 borderRadius: 30,
                 justifyContent: 'center',
@@ -397,6 +390,7 @@ const MyOrderScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
+      </View>
       </View>
     </ScrollView>
   );
