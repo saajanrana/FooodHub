@@ -20,9 +20,11 @@ const LoginScreen = ({navigation}) => {
   const [errors, setErrors] = useState({});
   const refer = async () => {
     const newasy = await AsyncStorage.getItem('isLoggedIn');
+    const token = await AsyncStorage.getItem('token');
     console.log('newassync>>>>', newasy);
     if (newasy === 'true') {
       dispatch(beinhome(newasy));
+      dispatch(usertoken(token));
       navigation.replace('HomeDrawer');
     } else {
       navigation.navigate('LoginScreen');

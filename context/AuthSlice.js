@@ -5,6 +5,7 @@ const authSlice = createSlice ({
        isLoggedIn:false,
        canbeinhome:false,
        usertoken:null,
+       profiledata:[],
     },
     reducers:{
         loginUser:(state,action)=>{
@@ -45,10 +46,14 @@ const authSlice = createSlice ({
               console.log('tokeninredux',action.payload);
               state.usertoken = action.payload;
               console.log("2nd redux>>>>>>>>>>",state.usertoken);
+        },
+        profile:(state,action)=>{
+               state.profiledata = action.payload;
+               console.log('data profile>>>>>',state.profiledata);
         }
     }
 });
 
 
-export const {loginUser,beinhome,usertoken} = authSlice.actions;
+export const {loginUser,beinhome,usertoken,profile} = authSlice.actions;
 export default authSlice.reducer;

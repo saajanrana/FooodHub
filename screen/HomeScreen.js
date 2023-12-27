@@ -12,9 +12,11 @@ import {
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Header from '../components/Header';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {url} from '../components/url';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { profile } from '../context/AuthSlice';
+
 
 const HomeScreen = props => {
   const [token, setToken] = useState();
@@ -22,37 +24,35 @@ const HomeScreen = props => {
 
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const usertoken = useSelector(state => state.auth.usertoken);
+  const dispatch = useDispatch();
 
   const setasync = () => {
     AsyncStorage.setItem('isLoggedIn', 'true');
     AsyncStorage.setItem('token', usertoken);
-    //  e.preventDefault();
   };
   useEffect(() => {
     if (isLoggedIn) {
       setasync();
+      console.log("render home>>>>>");
     }
   }, []);
 
-  const gettoke = async () => {
-    const usertok = await AsyncStorage.getItem('token');
-    setToken(usertok);
-  };
 
-  gettoke();
 
-  console.log('tokeen>>>>>>>>>>>>>>>>>', token);
+
+
 
   useEffect(() => {
-    const profiledata = async () => {
-      // const userToken = token; // Replace with the actual token
-      console.log('ueeee>>>.', token);
+
+
+    const fetchdata = async () =>{
+      console.log('ueeee>>>.',token);
       try {
         const response = await fetch(`${url}api/profile`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: token ? token : usertoken,
+            Authorization: token||usertoken,
           },
         });
 
@@ -73,12 +73,15 @@ const HomeScreen = props => {
       } catch (error) {
         console.error('Error fetching user profile:', error.message);
       }
-    };
-    profiledata();
+    }
+
+    fetchdata();
+     
+   
   }, []);
 
-  console.log('userdata>>>>>', user);
-
+  console.log('userdata>>>>>',user);
+  dispatch(profile(user));
   const fliterdata = [
     {
       key: '1',
@@ -248,31 +251,6 @@ const HomeScreen = props => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContainer}
       />
-
-      {/* <View style={{flexGrow:1}}>
-          <View style={{width:100,height:100,borderWidth:2}}>
-               
-          </View>
-          <View style={{width:100,height:100,borderWidth:2}}>
-               
-          </View>
-          <View style={{width:100,height:100,borderWidth:2}}>
-               
-          </View>
-          <View style={{width:100,height:100,borderWidth:2}}>
-               
-          </View>
-          <View style={{width:100,height:100,borderWidth:2}}>
-               
-          </View>
-          <View style={{width:100,height:100,borderWidth:2}}>
-               
-          </View>
-          <View style={{width:100,height:100,borderWidth:2}}>
-               
-          </View>
-
-      </View> */}
     </ScrollView>
   );
 };

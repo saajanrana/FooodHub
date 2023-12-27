@@ -9,11 +9,15 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const HomeDrawer = (props) => {
 
+  const profiledata = useSelector(state => state.auth.profiledata);
+
+  console.log("profiledata>>>>>>>>>>>>>",profiledata);
 
   
   
@@ -85,8 +89,8 @@ const HomeDrawer = (props) => {
             <Image source={require('../assets/profileiconhd.png')} style={styles.profileImage} />
           </View>
           <View style={styles.profileTextContainer}>
-            <Text style={styles.profileName}>Farion Wick</Text>
-            <Text style={styles.profileEmail}>farionwick@gmail.com</Text>
+            <Text style={styles.profileName}>{profiledata?.fullName}</Text>
+            <Text style={styles.profileEmail}>{profiledata?.email}</Text>
           </View>
         </View>
 
