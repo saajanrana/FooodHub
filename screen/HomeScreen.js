@@ -238,7 +238,7 @@ const HomeScreen = props => {
             Featured Restaurants
           </Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate('ViewScreen')}>
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
       </View>

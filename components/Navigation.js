@@ -16,6 +16,7 @@ import AddToCartScreen from '../screen/AddToCartScreen';
 import MyProfile from '../screen/MyProfile'; 
 import EditProfileScreen from '../screen/EditProfileScreen';
 import { useSelector } from 'react-redux';
+import ViewScreen from '../screen/ViewScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -97,6 +98,7 @@ const Navigation = () => {
         <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
         <Stack.Screen name="MyProfileScreen" component={MyProfile} />
         <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+        <Stack.Screen name="ViewScreen" component={ViewScreen} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
