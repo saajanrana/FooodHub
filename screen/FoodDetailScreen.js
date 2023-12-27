@@ -151,7 +151,7 @@ const FoodDetailScreen = ({navigation}) => {
           </Text>
         </View>
 
-        <View style={{marginTop: '3%', padding: '6%'}}>
+        <View style={{marginTop: '3%', padding: '6%',paddingBottom:0}}>
           <RadioButton.Group
             onValueChange={value => setChecked(value)}
             value={checked}>

@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
-import {View, StyleSheet,Text,TextInput,TouchableOpacity} from 'react-native';
+import {View, StyleSheet,Text,TextInput,TouchableOpacity,ScrollView} from 'react-native';
 
 
 const EditProfileScreen = () => {
     const [selectedLanguage, setSelectedLanguage] = useState();
     return (
-        <View>
-        <View>
+        <ScrollView>
+        <View style={{justifyContent:"center"}} >
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Full name</Text>
             <TextInput style={styles.input} placeholder='Eljad Eendaz' />
@@ -28,25 +28,25 @@ const EditProfileScreen = () => {
             <TextInput style={styles.input} placeholder='Kargi Chowk' />
           </View>
         </View>
-        <View style={{marginTop:20,marginLeft:80}}>
-            <TouchableOpacity style={{width:248,height:60,backgroundColor:"#FE724C",borderRadius:30,justifyContent:'center',alignItems:'center'}}>
+        <View style={{marginTop:'5%',alignItems:'center'}}>
+            <TouchableOpacity style={{width:'70%',height:60,backgroundColor:"#FE724C",borderRadius:30,justifyContent:'center',alignItems:'center'}}>
                   <Text style={{color:'#FFF',fontSize:15,fontWeight:'600'}}>Save</Text>
             </TouchableOpacity>
         </View>
-      </View>
-    );
+      </ScrollView>
+    )
   };
   
   const styles = StyleSheet.create({
     inputContainer: {
-      marginTop: 25,
-      marginLeft: 30,
+      marginTop: '4%',
+      marginLeft: '6%',
     },
     inputLabel: {
-      marginLeft: 15,
+      marginLeft: '3%',
     },
     input: {
-      borderWidth: 2,
+      borderWidth: 1,
       borderColor: '#B3B3B3',
       width: '90%',
       height: 70,

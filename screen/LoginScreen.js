@@ -51,19 +51,20 @@ const LoginScreen = ({navigation}) => {
       if (response.ok) {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
         console.log('Login successful');
+        setErrors(data);
         // await AsyncStorage.setItem('token',data.token);
         dispatch(loginUser('usercanlogin'));
         dispatch(usertoken(data.token));
         navigation.navigate('HomeDrawer');
       } else {
-        // Registration failed, parse and set validation errors
-        const data = await response.json();
-        setErrors(data.errors || {message: data.message});
+        setErrors(data);
       }
     } catch (error) {
       console.error('Error during registration:', error);
     }
   };
+
+  console.log('eror>>>',errors);
 
   return (
     <View>
@@ -88,7 +89,10 @@ const LoginScreen = ({navigation}) => {
             // value='Saajan1'
           />
         </View>
+        <View style={{marginTop:'2%'}}>
         {errors.message && <Text style={styles.error}>{errors.message}</Text>}
+        </View>
+        
         <View style={styles.forgotPassword}>
           <TouchableOpacity>
             <Text style={styles.forgotPasswordText}>Forgot password?</Text>
@@ -133,19 +137,20 @@ const LoginScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   header: {
-    marginLeft: 50,
-    marginTop: 20,
+    marginLeft:'10%',
+    marginTop: '5%',
   },
   headerText: {
     fontSize: 30,
-    fontFamily:'NotoSans_Condensed-Black',
+    fontFamily:'NotoSans-ExtraBold',
   },
   inputContainer: {
-    marginTop: 25,
-    marginLeft: 30,
+    marginTop: '6%',
+    marginLeft: '6%',
   },
   inputLabel: {
     marginLeft: 15,
+    fontFamily:'Roboto-Medium'
   },
   input: {
     borderWidth: 2,

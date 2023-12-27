@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity,Image } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity,Image,ScrollView } from 'react-native';
 import { url } from '../components/url';
 
 const RegisterScreen = ({ navigation }) => {
@@ -38,7 +38,7 @@ const RegisterScreen = ({ navigation }) => {
 
   console.log('error>>>',errors);
   return (
-    <View>
+    <ScrollView>
       <View style={styles.header}>
         <Text style={styles.headerText}>Sign Up</Text>
       </View>
@@ -50,16 +50,22 @@ const RegisterScreen = ({ navigation }) => {
             onChangeText={(text)=>setFullName(text)}
             onFocus={() => setErrors({}) }
           />
-          {errors.fullName && <Text style={styles.error}>{errors.fullName}</Text>}
+     
         </View>
-        <View style={styles.inputContainer}>
+        <View style={{alignItems:'flex-start',marginLeft:'9%',width:'80%'}}>
+        {errors.fullName && <Text style={styles.error}>{errors.fullName}</Text>}
+        </View>
+                  <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Email</Text>
           <TextInput style={styles.input}
           onChangeText={(text)=>setEmail(text)}
           onFocus={() => setErrors({}) }
            
           />
-          {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+ 
+        </View>
+        <View style={{alignItems:'flex-start',marginLeft:'9%',width:'80%'}}>
+        {errors.email && <Text style={styles.error}>{errors.email}</Text>}
           {errors.message&& <Text style={styles.error}>{errors.message}</Text>}
         </View>
         <View style={styles.inputContainer}>
@@ -68,7 +74,10 @@ const RegisterScreen = ({ navigation }) => {
            onChangeText={(text)=>setPassword(text)}
            onFocus={() => setErrors({}) }
           />
-          {errors.password && <Text style={styles.error}>{errors.password}</Text>}
+          
+        </View>
+        <View style={{alignItems:'flex-start',marginLeft:'9%',width:'80%'}}>
+        {errors.password && <Text style={styles.error}>{errors.password}</Text>}
         </View>
 
         <View style={styles.buttonContainer}>
@@ -103,39 +112,43 @@ const RegisterScreen = ({ navigation }) => {
           <Text style={styles.socialButtonText}>Google</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    marginLeft: 50,
-    marginTop: 20,
+    marginLeft:'10%',
+    marginTop: '4%',
+    alignItems:'flex-start'
   },
   headerText: {
     fontSize: 30,
     fontWeight: 'bold',
   },
   inputContainer: {
-    marginTop: 25,
-    marginLeft: 30,
+    marginTop:'5%',
+    marginLeft: '7%',
+    alignItems:'flex-start'
+    
   },
   inputLabel: {
-    marginLeft: 15,
+     marginLeft:"5%"
   },
   input: {
     borderWidth: 2,
     borderColor: '#B3B3B3',
     width: '90%',
     height: 70,
-    marginTop: 10,
+    marginTop:'2%',
     fontSize: 25,
     borderRadius: 20,
-    paddingLeft: 20,
+    paddingLeft:'4%',
   },
   buttonContainer: {
-    marginTop: 20,
-    marginLeft: '15%',
+      marginTop:'6%',
+      alignItems:"center",
+      justifyContent:'center'
   },
   signupButton: {
     backgroundColor: '#FE724C',
@@ -150,7 +163,7 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     marginLeft: '18%',
-    marginTop: 20,
+    marginTop: '5%',
     flexDirection: 'row',
   },
   loginText: {
@@ -160,10 +173,10 @@ const styles = StyleSheet.create({
   signupLink: {
     color: '#FE724C',
     fontSize: 15,
-    marginLeft: 10,
+    marginLeft: '3%',
   },
   divider: {
-    marginTop: 20,
+    marginTop: '5%',
     marginLeft: '5%',
     flexDirection: 'row',
   },
@@ -171,19 +184,21 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     borderBottomWidth: 2,
     width: '30%',
-    marginBottom: 8,
+    marginBottom:'2%',
   },
   dividerText: {
     color: 'black',
     fontSize: 16,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: '4%',
+    marginRight: '4%',
     justifyContent: 'space-between',
   },
   socialButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 20,
+    margin:'4%'
+    
+    
   },
   socialButton: {
     backgroundColor: 'white',
@@ -200,7 +215,6 @@ const styles = StyleSheet.create({
   },
   error: {
     color: 'red',
-    marginBottom: 10,
   },
 });
 
