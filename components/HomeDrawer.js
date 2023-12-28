@@ -86,7 +86,7 @@ const HomeDrawer = (props) => {
       <ScrollView>
         <View style={styles.profileContainer}>
           <View style={styles.profileImageContainer}>
-            <Image source={require('../assets/profileiconhd.png')} style={styles.profileImage} />
+            <Image source={require('../assets/usericon.png')} style={styles.profileImage} />
           </View>
           <View style={styles.profileTextContainer}>
             <Text style={styles.profileName}>{profiledata?.fullName}</Text>

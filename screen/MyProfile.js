@@ -14,19 +14,23 @@ const MyProfile = (props,{naivgation}) => {
 
   const profiledata = useSelector(state => state.auth.profiledata);
   return (
-    <ScrollView>
-      <View style={{alignItems: 'center'}}>
+    <ScrollView style={{flex:1}}>
+      <View style={{alignItems: 'center',marginTop:"4%"}}>
         <View>
-          <Image source={require('../assets/profileiconhd.png')} />
+          <Image source={require('../assets/usericon.png')} style={{width:100,height:100}} />
         </View>
         <View>
-          <Text style={{color: '#000', fontSize: 20, fontWeight: '600'}}>
+          <Text style={{color: '#000', fontSize: 20, fontWeight: '600',textAlign: 'center'}}>
           {profiledata?.fullName}
           </Text>
+          <Text
+              style={{fontSize: 14, fontWeight: '400', textAlign: 'center'}}>
+              {profiledata?.email}
+            </Text>
           <TouchableOpacity onPress={()=> props.navigation.navigate('EditProfileScreen')}>
             <Text
               style={{fontSize: 14, fontWeight: '400', textAlign: 'center'}}>
-              {profiledata?.email}
+              Edit Profile
             </Text>
           </TouchableOpacity>
         </View>
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   inputLabel: {
-    
+     textAlign:'left'
   },
   input: {
     borderWidth: 2,
