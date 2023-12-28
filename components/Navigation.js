@@ -17,6 +17,7 @@ import MyProfile from '../screen/MyProfile';
 import EditProfileScreen from '../screen/EditProfileScreen';
 import { useSelector } from 'react-redux';
 import ViewScreen from '../screen/ViewScreen';
+import SplashScreen from '../screen/SplashScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -72,7 +73,12 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{gestureEnabled: true}} initialRouteName={canbeinhome?'HomeDrawer':'LoginScreen'}>
+      <Stack.Navigator screenOptions={{gestureEnabled: true}} initialRouteName={SplashScreen}>
+        <Stack.Screen 
+         name='Splash'
+         component={SplashScreen}
+         options={{headerShown:false}}
+        />
         <Stack.Screen
           name="Start"
           component={StartScreen}

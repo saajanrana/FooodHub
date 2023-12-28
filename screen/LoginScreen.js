@@ -18,22 +18,22 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
-  const refer = async () => {
-    const newasy = await AsyncStorage.getItem('isLoggedIn');
-    const token = await AsyncStorage.getItem('token');
-    console.log('newassync>>>>', newasy);
-    if (newasy === 'true') {
-      dispatch(beinhome(newasy));
-      dispatch(usertoken(token));
-      navigation.replace('HomeDrawer');
-    } else {
-      navigation.navigate('LoginScreen');
-    }
-  };
+  // const refer = async () => {
+  //   const newasy = await AsyncStorage.getItem('isLoggedIn');
+  //   const token = await AsyncStorage.getItem('token');
+  //   console.log('newassync>>>>', newasy);
+  //   if (newasy === 'true') {
+  //     dispatch(beinhome(newasy));
+  //     dispatch(usertoken(token));
+  //     navigation.replace('HomeDrawer');
+  //   } else {
+  //     navigation.navigate('LoginScreen');
+  //   }
+  // };
 
-  useEffect(() => {
-    refer();
-  }, []);
+  // useEffect(() => {
+  //   refer();
+  // }, []);
 
   
 
@@ -57,7 +57,7 @@ const LoginScreen = ({navigation}) => {
         // await AsyncStorage.setItem('token',data.token);
         dispatch(loginUser('usercanlogin'));
         dispatch(usertoken(data.token));
-        navigation.navigate('HomeDrawer');
+        navigation.replace('HomeDrawer');
       } else {
         setErrors(data);
       }
