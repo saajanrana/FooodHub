@@ -18,6 +18,7 @@ import EditProfileScreen from '../screen/EditProfileScreen';
 import { useSelector } from 'react-redux';
 import ViewScreen from '../screen/ViewScreen';
 import SplashScreen from '../screen/SplashScreen';
+import { Carticon, HomeIcon, Usericon } from './AppIcons';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -47,25 +48,34 @@ const Navigation = () => {
       <Tab.Navigator
         initialRouteName={'HomeScreen'}
         screenOptions={{
-          keyboardHidesTabBar: true,
-          activeTintColor: '#FF5722',
-          inactiveTintColor: '#919191',
-          labelStyle: {fontWeight: 'bold', marginBottom: '8%'},
+    
         }}>
         <Tab.Screen
           name="HomeScreen"
           component={HomeScreenDrawer}
-          options={{headerShown: false}}
+          options={{
+            tabBarShowLabel: false,
+            headerShown: false,
+            tabBarIcon: item => <HomeIcon item={item} />,
+          }}
         />
         <Tab.Screen
           name="MyOrder"
           component={MyOrderScreen}
-          options={{headerShown: false}}
+          options={{
+            tabBarShowLabel: false,
+            headerShown: false,
+            tabBarIcon: item => <Carticon item={item} />,
+          }}
         />
         <Tab.Screen
           name="MyProfile"
           component={MyProfile}
-          options={{headerShown: false}}
+          options={{
+            tabBarShowLabel: false,
+            headerShown: false,
+            tabBarIcon: item => <Usericon item={item} />,
+          }}
         />
       </Tab.Navigator>
     );
