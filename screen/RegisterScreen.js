@@ -1,6 +1,7 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity,Image,ScrollView } from 'react-native';
 import { url } from '../components/url';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 const RegisterScreen = ({ navigation }) => {
 
@@ -9,6 +10,62 @@ const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+
+  ///AIzaSyDagmAH-J36EW33DXLZrIg2G45ErsX7wLA
+
+
+//
+// useEffect(() => {
+//   GoogleSignin.configure({
+//     webClientId: '384787010717-op8j2g5l5i1qnlbj641brt4mskgvcgn0.apps.googleusercontent.com',
+//     offlineAccess: true
+//   });
+// }, []);
+//
+
+// GoogleSignin.configure({
+//   webClientId:'384787010717-op8j2g5l5i1qnlbj641brt4mskgvcgn0.apps.googleusercontent.com',
+// });
+
+
+
+
+const signIn = async () => {
+  try {
+    console.log('Before checking Play Services');
+    await GoogleSignin.hasPlayServices();
+    console.log('After checking Play Services, before signIn');
+    const userInfo = await GoogleSignin.signIn();
+    console.log('User Info:', userInfo);
+    // setState({ userInfo });
+  } catch (error) {
+    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      // user cancelled the login flow
+    } else if (error.code === statusCodes.IN_PROGRESS) {
+      // operation (e.g. sign in) is in progress already
+    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      // play services not available or outdated
+    } else {
+      // some other error happened
+      console.log("error:>>",error)
+    }
+  }
+};
+
+useEffect(() => {
+  GoogleSignin.configure(
+  {
+  webClientId:'384787010717-41i5j0959vlm6foql2g1jh7gscchbt7v.apps.googleusercontent.com'
+  }
+  );
+}, []);
+
+
+
+
+
+
+
 
   const handleRegister = async () => {
     try {
@@ -35,6 +92,28 @@ const RegisterScreen = ({ navigation }) => {
       console.error('Error during registration:', error);
     }
   };
+
+
+// google login
+// const signIn = async () => {
+//   try {
+//     console.log('huee');
+//     await GoogleSignin.hasPlayServices();
+//     const {idToken} = await GoogleSignin.signIn();
+//     console.log('userdata>>>>>',idToken);
+ 
+//   } catch (error) {
+//     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+//       // user cancelled the login flow
+//     } else if (error.code === statusCodes.IN_PROGRESS) {
+//       // operation (e.g. sign in) is in progress already
+//     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+//       // play services not available or outdated
+//     } else {
+//       // some other error happened
+//     }
+//   }
+// };
 
   console.log('error>>>',errors);
   return (
@@ -107,7 +186,7 @@ const RegisterScreen = ({ navigation }) => {
           <Image source={require('../assets/fbicon.png')}  style={{height: 40,width:40}}  />
           <Text style={styles.socialButtonText}>Facebook</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.socialButton}>
+        <TouchableOpacity style={styles.socialButton} onPress={signIn}>
         <Image source={require('../assets/googleicon.png')}  style={{height: 40,width:40}}  />
           <Text style={styles.socialButtonText}>Google</Text>
         </TouchableOpacity>

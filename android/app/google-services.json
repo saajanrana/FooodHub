@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "384787010717",
+    "project_id": "fooodhub",
+    "storage_bucket": "fooodhub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384787010717:android:d35589528d230637453074",
+        "android_client_info": {
+          "package_name": "com.fooodhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384787010717-1er4vbk44lh0c13pedne67aulqi60v9u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fooodhub",
+            "certificate_hash": "ccb789465522f7fda4d02d834c05e461bd60e964"
+          }
+        },
+        {
+          "client_id": "384787010717-i0udv9dagfo6eol0rtb5n9taamd5764r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDagmAH-J36EW33DXLZrIg2G45ErsX7wLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384787010717-41i5j0959vlm6foql2g1jh7gscchbt7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
