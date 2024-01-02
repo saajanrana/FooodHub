@@ -1,31 +1,33 @@
 import React,{useState} from 'react';
 import {View, StyleSheet,Text,TextInput,TouchableOpacity,ScrollView} from 'react-native';
+import { useSelector } from 'react-redux';
 
 
 const EditProfileScreen = () => {
+  const profiledata = useSelector(state => state.auth.profiledata);
     const [selectedLanguage, setSelectedLanguage] = useState();
     return (
         <ScrollView>
         <View style={{justifyContent:"center"}} >
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Full name</Text>
-            <TextInput style={styles.input} placeholder='Eljad Eendaz' />
+            <TextInput style={styles.input} placeholder={profiledata?.fullName} />
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>E-mail</Text>
-            <TextInput style={styles.input} placeholder='Eljad@gmail.com' />
+            <TextInput style={styles.input} placeholder={profiledata?.email} />
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Phone Number</Text>
-            <TextInput style={styles.input} placeholder='45984268' />
+            <TextInput style={styles.input}  />
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>City</Text>
-            <TextInput style={styles.input} placeholder='Dehradun' />
+            <TextInput style={styles.input}  />
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Strit</Text>
-            <TextInput style={styles.input} placeholder='Kargi Chowk' />
+            <TextInput style={styles.input}  />
           </View>
         </View>
         <View style={{marginTop:'5%',alignItems:'center'}}>

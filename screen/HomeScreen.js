@@ -195,7 +195,7 @@ const HomeScreen = props => {
             <Text>4102 Pretty View Lane</Text>
           </View> */}
         <View style={styles.profileImageContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>props.navigation.navigate('MyProfileScreen')}>
             <Image
               style={styles.profileImage}
               source={require('../assets/usericon.png')}

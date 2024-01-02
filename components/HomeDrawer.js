@@ -36,36 +36,36 @@ const HomeDrawer = (props) => {
       src: require('../assets/profileicon.png'),
       screen: 'MyProfileScreen',
     },
-    {
-      key: '3',
-      name: 'Delivery Address',
-      src: require('../assets/Location.png'),
-      screen: 'DeliveryAddress',
-    },
-    {
-      key: '4',
-      name: 'Payment Methods',
-      src: require('../assets/Wallet.png'),
-      screen: 'PaymentMethods',
-    },
-    {
-      key: '5',
-      name: 'Contact Us',
-      src: require('../assets/Message.png'),
-      screen: 'ContactUs',
-    },
-    {
-      key: '6',
-      name: 'Settings',
-      src: require('../assets/Setting.png'),
-      screen: 'Settings',
-    },
-    {
-      key: '7',
-      name: 'Helps & FAQs',
-      src: require('../assets/Helps.png'),
-      screen: 'HelpandFaq',
-    },
+    // {
+    //   key: '3',
+    //   name: 'Delivery Address',
+    //   src: require('../assets/Location.png'),
+    //   screen: 'DeliveryAddress',
+    // },
+    // {
+    //   key: '4',
+    //   name: 'Payment Methods',
+    //   src: require('../assets/Wallet.png'),
+    //   screen: 'PaymentMethods',
+    // },
+    // {
+    //   key: '5',
+    //   name: 'Contact Us',
+    //   src: require('../assets/Message.png'),
+    //   screen: 'ContactUs',
+    // },
+    // {
+    //   key: '6',
+    //   name: 'Settings',
+    //   src: require('../assets/Setting.png'),
+    //   screen: 'Settings',
+    // },
+    // {
+    //   key: '7',
+    //   name: 'Helps & FAQs',
+    //   src: require('../assets/Helps.png'),
+    //   screen: 'HelpandFaq',
+    // },
   ];
 
   const renderItem = ({ item }) => (

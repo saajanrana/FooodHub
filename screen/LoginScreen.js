@@ -17,7 +17,7 @@ const LoginScreen = ({navigation}) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState();
   // const refer = async () => {
   //   const newasy = await AsyncStorage.getItem('isLoggedIn');
   //   const token = await AsyncStorage.getItem('token');
@@ -49,11 +49,10 @@ const LoginScreen = ({navigation}) => {
 
       const data = await response.json();
 
-      console.log('data>>>>>', data);
+      // console.log('data>>>>>', data);
       if (response.ok) {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
         console.log('Login successful');
-        setErrors(data);
         // await AsyncStorage.setItem('token',data.token);
         dispatch(loginUser('usercanlogin'));
         dispatch(usertoken(data.token));
@@ -76,23 +75,27 @@ const LoginScreen = ({navigation}) => {
 
       <View>
         <View style={styles.inputContainer}>
+        
           <Text style={styles.inputLabel}>Email</Text>
           <TextInput
             style={styles.input}
             onChangeText={text => setEmail(text)}
+            onFocus={() => setErrors({}) }
             // value='saajan@gmail.com'
           />
         </View>
+        {(errors?.errors?.email ||errors?.message1 ) && <Text style={styles.error}>{(errors?.errors?.email||errors?.message1)}</Text>}
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Password</Text>
           <TextInput
             style={styles.input}
             onChangeText={text => setPassword(text)}
+            onFocus={() => setErrors({}) }
             // value='Saajan1'
           />
         </View>
+        {(errors?.errors?.password ||errors?.message2 ) && <Text style={styles.error}>{(errors?.errors?.password||errors?.message2)}</Text>}
         <View style={{marginTop:'2%'}}>
-        {errors.message && <Text style={styles.error}>{errors.message}</Text>}
         </View>
         
         <View style={styles.forgotPassword}>
