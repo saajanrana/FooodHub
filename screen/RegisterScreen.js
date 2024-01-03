@@ -2,8 +2,12 @@ import React,{useState,useEffect} from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity,Image,ScrollView } from 'react-native';
 import { url } from '../components/url';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth';
+import { loginUser, usertoken } from '../context/AuthSlice';
+import { useDispatch } from 'react-redux';
 
 const RegisterScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
 
 
   const [fullName, setFullName] = useState('');
@@ -11,62 +15,8 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
-  ///AIzaSyDagmAH-J36EW33DXLZrIg2G45ErsX7wLA
 
-
-//
-// useEffect(() => {
-//   GoogleSignin.configure({
-//     webClientId: '384787010717-op8j2g5l5i1qnlbj641brt4mskgvcgn0.apps.googleusercontent.com',
-//     offlineAccess: true
-//   });
-// }, []);
-//
-
-// GoogleSignin.configure({
-//   webClientId:'384787010717-op8j2g5l5i1qnlbj641brt4mskgvcgn0.apps.googleusercontent.com',
-// });
-
-
-
-
-const signIn = async () => {
-  try {
-    console.log('Before checking Play Services');
-    await GoogleSignin.hasPlayServices();
-    console.log('After checking Play Services, before signIn');
-    const userInfo = await GoogleSignin.signIn();
-    console.log('User Info:', userInfo);
-    // setState({ userInfo });
-  } catch (error) {
-    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-      // user cancelled the login flow
-    } else if (error.code === statusCodes.IN_PROGRESS) {
-      // operation (e.g. sign in) is in progress already
-    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      // play services not available or outdated
-    } else {
-      // some other error happened
-      console.log("error:>>",error)
-    }
-  }
-};
-
-useEffect(() => {
-  GoogleSignin.configure(
-  {
-  webClientId:'384787010717-41i5j0959vlm6foql2g1jh7gscchbt7v.apps.googleusercontent.com'
-  }
-  );
-}, []);
-
-
-
-
-
-
-
-
+  
   const handleRegister = async () => {
     try {
       const response = await fetch(`${url}api/register`, {
@@ -94,26 +44,109 @@ useEffect(() => {
   };
 
 
-// google login
-// const signIn = async () => {
-//   try {
-//     console.log('huee');
-//     await GoogleSignin.hasPlayServices();
-//     const {idToken} = await GoogleSignin.signIn();
-//     console.log('userdata>>>>>',idToken);
- 
-//   } catch (error) {
-//     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-//       // user cancelled the login flow
-//     } else if (error.code === statusCodes.IN_PROGRESS) {
-//       // operation (e.g. sign in) is in progress already
-//     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-//       // play services not available or outdated
-//     } else {
-//       // some other error happened
-//     }
-//   }
-// };
+const signIn = async () => {
+
+
+
+
+
+
+  
+  try {
+    console.log('Before checking Play Services');
+    await GoogleSignin.hasPlayServices();
+    console.log('After checking Play Services, before signIn');
+    const userInfo = await GoogleSignin.signIn();
+    console.log('User Info:>>>>>>>', userInfo);
+      try {
+        const idtoken = userInfo?.idToken;
+        const user = userInfo?.user;
+        const credential = auth.GoogleAuthProvider.credential(idtoken);
+        const userverfiydata =  await auth().signInWithCredential(credential);
+        // The user is now signed in, and you can navigate to the main part of your app.
+        console.log('User signed in with Firebase:>>>>>>>',userverfiydata);
+        const emailverified = userverfiydata?.additionalUserInfo?.profile?.email_verified;
+        console.log('user data after >>>>>>>>>>>>>>>>>>',user);
+        console.log(user.name);
+        console.log(user.email);
+
+        const fullName = user?.name;
+        const email = user?.email;
+        const password =user?.email.charAt(0).toUpperCase()+email.slice(1,3)+'goo1';
+        console.log('hueee>>>>',fullName,email,password);
+
+        // setFullName(name);
+        // setEmail(mail);
+        // setPassword(userpass);
+        if(emailverified){
+          try {
+            const response = await fetch(`${url}api/goregister`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({fullName , email , password}),
+            });
+            const data = await response.json();
+            
+            if (response.ok) {
+              // Registration successful, handle accordingly (e.g., navigate to another screen)
+              console.log('Registration successful');
+              setErrors({});
+              console.log('ress>>>>',data.token);
+              dispatch(loginUser('usercanlogin'));
+               dispatch(usertoken(data.token));
+              navigation.navigate('HomeDrawer');
+      
+            } else {
+              // Registration failed, parse and set validation errors
+              const data = await response.json();
+              setErrors(data.errors || { message: data.message });
+            }
+          } catch (error) {
+            console.error('Error during registration:', error);
+          }
+        }
+      } catch (error) {
+        console.error('Error creating user in Firebase:', error);
+      }
+  
+
+      
+  } catch (error) {
+    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      console.log('user cancelled the login flow');
+      // user cancelled the login flow
+    } else if (error.code === statusCodes.IN_PROGRESS) {
+      console.log('operation (e.g. sign in) is in progress already');
+      // operation (e.g. sign in) is in progress already
+    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      console.log('play services not available or outdated');
+      // play services not available or outdated
+    } else {
+      // some other error happened
+      console.log("error:>>",error)
+    }
+  }
+};
+
+useEffect(() => {
+  GoogleSignin.configure(
+  {
+  webClientId:'384787010717-41i5j0959vlm6foql2g1jh7gscchbt7v.apps.googleusercontent.com'
+  }
+  );
+}, []);
+
+
+
+
+
+
+
+  
+
+
 
   console.log('error>>>',errors);
   return (
