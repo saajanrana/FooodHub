@@ -10,9 +10,14 @@ import {
   ScrollView,
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
+import { addfood, removefood } from '../context/StoreSlice';
 
 const FoodDetailScreen = ({navigation}) => {
-  const [checked, setChecked] = useState('first');
+  const dispatch = useDispatch();
+  const totalitem = useSelector(state => state.store.totalitem);
+ 
+  const [checked, setChecked] = useState();
   return (
     <ScrollView style={{backgroundColor: '#FFF'}}>
       <View style={{marginTop: '5%'}}>
@@ -94,45 +99,45 @@ const FoodDetailScreen = ({navigation}) => {
               9.5
             </Text>
           </View>
-          <View style={{flexDirection: 'row', gap: 20, marginTop: '3%'}}>
-            <View
+          <View style={{flexDirection: 'row', gap: 20, marginTop: '1%'}}>
+            <TouchableOpacity
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderWidth: 1,
-                height: 30,
-                width: 30,
+                height: 40,
+                width: 40,
                 borderRadius: 30,
-              }}>
+                borderColor:'#FE724C'
+              }}    onPress={()=> dispatch(addfood(1)) }>
               <Text
                 style={{
                   color: '#FE724C',
                 }}>
                 +
               </Text>
-            </View>
+            </TouchableOpacity>
 
             <Text style={{color: 'black', fontSize: 18, fontWeight: '600'}}>
-              02
+              {totalitem}
             </Text>
 
-            <View
+            <TouchableOpacity
               style={{
-                borderWidth: 1,
-                height: 30,
-                width: 30,
-                borderRadius: 30,
+                height: 40,
+                width: 40,
+                borderRadius: 50,
                 backgroundColor: '#FE724C',
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}>
+              }}  onPress={()=> dispatch(removefood(1))} >
               <Text
                 style={{
                   color: 'white',
                 }}>
                 -
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -219,9 +224,9 @@ const FoodDetailScreen = ({navigation}) => {
                     +$2.50
                   </Text>
                 </View>
-                <View>
+                
                   <RadioButton color="#FE724C" value="third" />
-                </View>
+              
               </View>
             </View>
           </RadioButton.Group>
@@ -234,8 +239,8 @@ const FoodDetailScreen = ({navigation}) => {
         <Text
           style={{
             position: 'absolute',
-            top: '35%',
-            left: '30%',
+            top:'30%',
+            left:'25%',
             color: '#FFF',
             textAlign: 'center',
           }}>
