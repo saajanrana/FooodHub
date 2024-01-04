@@ -5,6 +5,7 @@ import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-si
 import auth from '@react-native-firebase/auth';
 import { loginUser, usertoken } from '../context/AuthSlice';
 import { useDispatch } from 'react-redux';
+import { LoginManager, AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk-next';
 
 const RegisterScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -139,6 +140,108 @@ useEffect(() => {
 }, []);
 
 
+// async function onFacebookButtonPress() {
+//   // Attempt login with permissions
+//   const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+
+//   if (result.isCancelled) {
+//     throw 'User cancelled the login process';
+//   }
+
+//   // Once signed in, get the users AccessToken
+//   const data = await AccessToken.getCurrentAccessToken();
+
+//   if (!data) {
+//     console.log('data>>>>',data);
+//     throw 'Something went wrong obtaining access token';
+//   }
+
+//   // Create a Firebase credential with the AccessToken
+//   const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+
+//   // Sign-in the user with the credential
+//   auth().signInWithCredential(facebookCredential);
+
+//    return facebookCredential;
+// }
+
+const getResponseInfo = async(error, result) => {
+  if (error) {
+    console.log('Error fetching data: ' + error.toString());
+  } else {
+
+    console.log('resutl>>>>>',result);
+    
+    // const userdata = JSON.stringify(result);
+    // console.log("data>>>>>>>>>>>>>>>>>>>>>>>>>>>",userdata);
+    // const UserData = JSON.parse(userdata);
+    // console.log('userdata<>>>>>',UserData);
+         const fullName = result?.name;
+         const email = result?.email;
+        const password =result?.email.charAt(0).toUpperCase()+email.slice(1,3)+'goo1';
+        console.log('hueee>>>>',fullName,email,password);
+
+    try {
+      const response = await fetch(`${url}api/goregister`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({fullName , email , password}),
+      });
+      const data = await response.json();
+      
+      if (response.ok) {
+        // Registration successful, handle accordingly (e.g., navigate to another screen)
+        console.log('Registration successful');
+        setErrors({});
+        console.log('ress>>>>',data.token);
+        dispatch(loginUser('usercanlogin'));
+         dispatch(usertoken(data.token));
+        navigation.navigate('HomeDrawer');
+
+      } else {
+        // Registration failed, parse and set validation errors
+        const data = await response.json();
+        setErrors(data.errors || { message: data.message });
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+    
+    // setUserName('Welcome ' + result.name);
+    // setToken('User Token: ' + result.id);
+    // setProfilePic(result.picture.data.url);
+    // setEmail('Email: ' + result.email);
+  }
+};
+const onFacebookButtonPress = async () => {
+  console.log("login button clicked")
+  try {
+    const result = await LoginManager.logInWithPermissions(['public_profile','email']);
+
+    if (result.isCancelled) {
+      console.log('Login is cancelled.');
+    } else {
+      const data = await AccessToken.getCurrentAccessToken();
+      console.log("data",data);
+      console.log("data access token",data.accessToken.toString());
+
+      const processRequest = new GraphRequest('/me?fields=name,email,picture.type(large)', null, getResponseInfo);
+
+      new GraphRequestManager().addRequest(processRequest).start();
+    }
+  } catch (error) {
+    console.log('Error during Facebook login: ' + error.message);
+  }
+};
+
+// const signefb = async () =>{
+//      const cred = onFacebookButtonPress();
+//      console.log('cred>>>>>',cred);
+// }
+
+
 
 
 
@@ -215,7 +318,7 @@ useEffect(() => {
       </View>
 
       <View style={styles.socialButtonsContainer}>
-        <TouchableOpacity style={styles.socialButton}>
+        <TouchableOpacity style={styles.socialButton} onPress={onFacebookButtonPress}>
           <Image source={require('../assets/fbicon.png')}  style={{height: 40,width:40}}  />
           <Text style={styles.socialButtonText}>Facebook</Text>
         </TouchableOpacity>

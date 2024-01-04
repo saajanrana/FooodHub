@@ -124,8 +124,12 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:flipper-integration")
-    implementation 'com.google.android.gms:play-services-auth:20.0.0'
-    implementation "androidx.browser:browser:1.2.0"
+    // implementation 'com.google.android.gms:play-services-auth:20.0.0'
+    // implementation "androidx.browser:browser:1.2.0"
+    // implementation project(path: ":@react-native-firebase_auth") 
+    // implementation project(':react-native-fbsdk-next')
+    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
+
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {

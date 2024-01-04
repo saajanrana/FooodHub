@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">FooodHub</string>
     <string name="web_client_id">384787010717-41i5j0959vlm6foql2g1jh7gscchbt7v.apps.googleusercontent.com</string>
+    
+   <string name="facebook_app_id">1300557900723070</string>
+   <string name="fb_login_protocol_scheme">fb1300557900723070</string>
+   <string name="facebook_client_token">7c6c376602ae34f9110de563f6a28189</string>
+
+
 </resources>

@@ -19,6 +19,15 @@ const HomeDrawer = (props) => {
 
   console.log("profiledata>>>>>>>>>>>>>",profiledata);
 
+
+  const logout = async()=>{
+    await AsyncStorage.removeItem('isLoggedIn');
+    await AsyncStorage.removeItem('token');
+
+    props.navigation.navigate('LoginScreen');
+
+  }
+
   
   
   
@@ -107,7 +116,7 @@ const HomeDrawer = (props) => {
 
       <View style={styles.logoutContainer}>
         <TouchableOpacity style={styles.logoutButton} 
-         onPress={()=>props.navigation.navigate('LoginScreen')}
+         onPress={logout}
         >
           <View style={styles.logoutIconContainer}>
             <Image source={require('../assets/logoutbutton.png')} style={styles.logoutIcon} />
