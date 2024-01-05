@@ -150,6 +150,28 @@ const FoodDetailScreen = ({navigation}) => {
             </Text>
           </View>
           <View style={{flexDirection: 'row', gap: 20, marginTop: '1%'}}>
+          <TouchableOpacity
+              style={{
+                height: 40,
+                width: 40,
+                borderRadius: 50,
+                backgroundColor: '#FE724C',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}  onPress={()=> dispatch(removefood(1))} >
+              <Text
+                style={{
+                  color: 'white',
+                }}>
+                -
+              </Text>
+            </TouchableOpacity>
+            
+
+            <Text style={{color: 'black', fontSize: 28, fontWeight: '600'}}>
+              {totalitem}
+            </Text>
+
             <TouchableOpacity
               style={{
                 justifyContent: 'center',
@@ -168,26 +190,7 @@ const FoodDetailScreen = ({navigation}) => {
               </Text>
             </TouchableOpacity>
 
-            <Text style={{color: 'black', fontSize: 28, fontWeight: '600'}}>
-              {totalitem}
-            </Text>
-
-            <TouchableOpacity
-              style={{
-                height: 40,
-                width: 40,
-                borderRadius: 50,
-                backgroundColor: '#FE724C',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}  onPress={()=> dispatch(removefood(1))} >
-              <Text
-                style={{
-                  color: 'white',
-                }}>
-                -
-              </Text>
-            </TouchableOpacity>
+           
           </View>
         </View>
       </View>

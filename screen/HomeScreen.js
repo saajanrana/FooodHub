@@ -187,14 +187,14 @@ const HomeScreen = props => {
           <Text style={styles.featuredRestaurantInfoText}>10-15 mins</Text>
         </View>
 
-        <Text
+        {/* <Text
           style={{
             color: '#8A8E9B',
             fontSize: 12,
             fontWeight: '400',
           }}>
           Burger
-        </Text>
+        </Text> */}
       </View>
     </TouchableOpacity>
   );
