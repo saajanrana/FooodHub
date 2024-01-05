@@ -13,7 +13,7 @@ const storeSlice = createSlice ({
         },
         removefood:(state,action)=>{
             console.log(">>>",action.payload);
-            if(state.totalitem >= 1){
+            if(state.totalitem > 1){
                 state.totalitem = state.totalitem - action.payload; 
             }
         }

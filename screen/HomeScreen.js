@@ -111,30 +111,46 @@ const HomeScreen = props => {
   ];
 
   const featurerestdata = [
+
     {
-      key: '1',
-      name: 'McDonald’s',
-      src: require('../assets/diss1.jpg'),
+      id:1,
+      foodname:'Ground Beef Tacos',
+      price:'9.5',
+      fooddetails:`Brown the beef better. Lean ground beef – I like to use 85% leanangus. Garlic – use fresh chopped. Spices – chili powder, cumin, onion powder.`,
+      rating:'4.5',
+      imgsrc :require('../assets/somemoredis.jpg'),
+      taxandfee:'5.30',
+      delivery:'1.00',
     },
     {
-      key: '2',
-      name: 'McDonald’s',
-      src: require('../assets/diss1.jpg'),
+      id: 2,
+      foodname: 'Margherita Pizza',
+      price: '12.99',
+      fooddetails: 'Classic pizza with tomato, mozzarella, and basil.',
+      rating: '4.8',
+      imgsrc: require('../assets/pizadis.jpg'),
+      taxandfee: '6.50',
+      delivery: '1.50',
     },
     {
-      key: '3',
-      name: 'McDonald’s',
-      src: require('../assets/diss1.jpg'),
+      id: 3,
+      foodname: 'Chicken Caesar Salad',
+      price: '8.99',
+      fooddetails: 'Fresh salad with grilled chicken, romaine lettuce, and Caesar dressing.',
+      rating: '4.6',
+      imgsrc: require('../assets/saladdis.jpg'),
+      taxandfee: '4.00',
+      delivery: '0.75',
     },
     {
-      key: '4',
-      name: 'McDonald’s',
-      src: require('../assets/diss1.jpg'),
-    },
-    {
-      key: '5',
-      name: 'McDonald’s',
-      src: require('../assets/diss1.jpg'),
+      id: 4,
+      foodname: 'Spaghetti Bolognese',
+      price: '10.50',
+      fooddetails: 'Classic Italian dish with ground beef, tomatoes, and pasta.',
+      rating: '4.7',
+      imgsrc: require('../assets/somedisss.jpg'),
+      taxandfee: '5.75',
+      delivery: '1.25',
     },
   ];
 
@@ -161,13 +177,13 @@ const HomeScreen = props => {
   const renderfeaturerest = ({item}) => (
     <TouchableOpacity
       style={styles.featuredRestaurantContainerr}
-      onPress={() => props.navigation.navigate('FoodDetail')}>
-      <Image source={item.src} style={styles.featuredRestaurantImage} />
+      onPress={() => props.navigation.navigate('FoodDetail',{foodId:item?.id})}>
+      <Image source={item?.imgsrc} style={styles.featuredRestaurantImage} />
 
       <View style={styles.featuredRestaurantDetailsContainer}>
-        <Text style={styles.featuredRestaurantName}>{item.name}</Text>
+        <Text style={styles.featuredRestaurantName}>{item?.foodname}</Text>
         <View style={styles.featuredRestaurantInfoContainer}>
-          <Text style={styles.featuredRestaurantInfoText}>Free delivery</Text>
+          <Text style={styles.featuredRestaurantInfoText}>${item?.delivery}</Text>
           <Text style={styles.featuredRestaurantInfoText}>10-15 mins</Text>
         </View>
 
@@ -224,7 +240,7 @@ const HomeScreen = props => {
       <View style={styles.filterContainer}>
         <FlatList
           data={fliterdata}
-          keyExtractor={item => item.key}
+          keyExtractor={item => item.id}
           renderItem={renderItem}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -251,6 +267,9 @@ const HomeScreen = props => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContainer}
       />
+      <View style={{height:30}}>
+         
+      </View>
     </ScrollView>
   );
 };
