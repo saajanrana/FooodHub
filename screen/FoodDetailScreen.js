@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { addfood, removefood } from '../context/StoreSlice';
+import { addfood, additemtocart, removefood } from '../context/StoreSlice';
 import { useRoute } from '@react-navigation/native';
 
 const FoodDetailScreen = ({navigation}) => {
@@ -169,7 +169,7 @@ const FoodDetailScreen = ({navigation}) => {
             
 
             <Text style={{color: 'black', fontSize: 28, fontWeight: '600'}}>
-              {totalitem}
+              {/* {totalitem} */}
             </Text>
 
             <TouchableOpacity
@@ -285,7 +285,11 @@ const FoodDetailScreen = ({navigation}) => {
       </View>
       <TouchableOpacity
         style={{marginLeft: '25%'}}
-        onPress={() => navigation.navigate('AddToCartScreen',{foodId:userfood?.id})}>
+        onPress={() => {
+          dispatch(additemtocart({userfood}))
+          navigation.navigate('AddToCartScreen',{foodId:userfood?.id});
+        }
+        }>
         <Image source={require('../assets/addtocart.png')} />
         <Text
           style={{
