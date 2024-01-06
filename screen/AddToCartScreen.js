@@ -54,6 +54,10 @@ const AddToCartScreen = ({navigation}) => {
 
   console.log('totlaitem>>>>>',totalitem);
 
+  const removeitem = (id) =>{
+    dispatch(removeitemformcart(id))
+  }
+
 
 
 
@@ -82,7 +86,7 @@ const AddToCartScreen = ({navigation}) => {
               <Text style={{color: '#000', fontSize: 18, fontWeight: '800'}}>
                 {item?.userfood?.foodname}
                </Text>
-          <TouchableOpacity style={{alignItems:'flex-end'}} onPress={()=>dispatch(removeitemformcart(item?.userfood?.id))}>
+          <TouchableOpacity style={{alignItems:'flex-end'}} onPress={()=>removeitem(item?.userfood?.id)}>
               <Text style={{color: '#FF3600', fontSize: 18}}>X</Text>
           </TouchableOpacity>
           </View>
@@ -108,7 +112,7 @@ const AddToCartScreen = ({navigation}) => {
               <Text style={{color: '#FF3600',fontSize:18}}>-</Text>
             </TouchableOpacity>
             <Text style={{color: '#000', fontWeight: '600', fontSize: 20}}>
-            {totalitem[item.userfood.id] || 0}
+            {totalitem[item?.userfood?.id] ||removeitem(item?.userfood?.id) }
             </Text>
             <TouchableOpacity
               style={{
