@@ -169,7 +169,7 @@ const FoodDetailScreen = ({navigation}) => {
             
 
             <Text style={{color: 'black', fontSize: 28, fontWeight: '600'}}>
-              {/* {totalitem} */}
+            {totalitem[userfood.id] || 0}
             </Text>
 
             <TouchableOpacity

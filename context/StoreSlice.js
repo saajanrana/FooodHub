@@ -2,22 +2,26 @@ import {createSlice} from '@reduxjs/toolkit';
 const storeSlice = createSlice ({
     name:"store",
     initialState:{
-        totalitem:[],
+        totalitem:{},
         Addtocart:[]
     },
     reducers:{
         addfood:(state,action)=>{
-            action.payload;
-            state.totalitem.push(action.payload);
-          
+         const itemId = action.payload;
+      if (state.totalitem[itemId]) {
+        state.totalitem[itemId]++;
+      } else {
+        state.totalitem[itemId] = 1;
+      } 
         },
         removefood:(state,action)=>{
-
-            
-            // console.log(">>>",action.payload);
-            // if(state.totalitem > 1){
-            //     state.totalitem = state.totalitem - action.payload;
-            // }
+            const itemIdToRemove = action.payload;
+            if (state.totalitem[itemIdToRemove]) {
+                state.totalitem[itemIdToRemove]--;
+                if (state.totalitem[itemIdToRemove] === 0) {
+                  delete state.totalitem[itemIdToRemove];
+                }
+              }
         },
         additemtocart:(state,action)=>{
             const cartitem = action.payload;
@@ -27,17 +31,17 @@ const storeSlice = createSlice ({
             // If it doesn't exist, add it to the cart
             if (!isItemAlreadyInCart) {
               state.Addtocart.push(action.payload);
-              state.totalitem.push(cartitemid);
+              if (state.totalitem[cartitemid]) {
+                state.totalitem[cartitemid]++;
+              } else {
+                state.totalitem[cartitemid] = 1;
+              }
+            
             }
-            else{
-                 state.totalitem.push(cartitemid);
-                
-            }
+           
         },
         removeitemformcart:(state,action)=>{
-           
              const itemIdToRemove = action.payload;
-            
              state.Addtocart = state.Addtocart.filter(item => item.userfood.id !== itemIdToRemove);
         }
     }

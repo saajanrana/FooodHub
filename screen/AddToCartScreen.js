@@ -54,14 +54,10 @@ const AddToCartScreen = ({navigation}) => {
 
   console.log('totlaitem>>>>>',totalitem);
 
-  // [2,2,2,1,3,4]
 
 
 
-
-
-
- 
+  // [2,2,2,1,3,4] 
   return (
     <ScrollView style={{backgroundColor: '#FFF',flex:1,width:'100vw'}}>
       <View style={{alignItems:'center',width:'100vw',justifyContent:"center"}}>
@@ -95,7 +91,7 @@ const AddToCartScreen = ({navigation}) => {
           </Text>
           <View style={{flexDirection:'row',justifyContent:'space-between',flexWrap:'wrap'}}>
           <Text style={{color: '#FE724C', fontSize: 16, fontWeight: '600'}}>
-            {/* ${(item?.userfood?.price*totalitem).toFixed(2)} */}
+            ${(item?.userfood?.price*(totalitem[item.userfood.id] || 0)).toFixed(2)}
           </Text>
           <View style={{flexDirection:'row',gap:10}}>
             <TouchableOpacity
@@ -107,12 +103,12 @@ const AddToCartScreen = ({navigation}) => {
                 borderWidth: 1,
                 alignItems: 'center',
                 justifyContent:'center'
-              }}  onPress={()=> dispatch(removefood(1))}>
+              }}  onPress={()=> dispatch(removefood(item?.userfood?.id))}>
 
               <Text style={{color: '#FF3600',fontSize:18}}>-</Text>
             </TouchableOpacity>
             <Text style={{color: '#000', fontWeight: '600', fontSize: 20}}>
-              {/* {totalitem} */}
+            {totalitem[item.userfood.id] || 0}
             </Text>
             <TouchableOpacity
               style={{
