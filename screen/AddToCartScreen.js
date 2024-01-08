@@ -54,14 +54,26 @@ const AddToCartScreen = ({navigation}) => {
 
   console.log('totlaitem>>>>>',totalitem);
 
+
+  const calculateSubtotal = () => {
+    let subtotal = 0;
+
+    Addtocart.forEach((item) => {
+      const itemId = item?.userfood?.id;
+      const itemPrice = item?.userfood?.price || 0;
+      const itemCount = totalitem[itemId] || 0;
+
+      subtotal += itemPrice * itemCount;
+    });
+
+    return subtotal.toFixed(2);
+  };
+
   const removeitem = (id) =>{
     dispatch(removeitemformcart(id))
   }
 
 
-
-
-  // [2,2,2,1,3,4] 
   return (
     <ScrollView style={{backgroundColor: '#FFF',flex:1,width:'100vw'}}>
       <View style={{alignItems:'center',width:'100vw',justifyContent:"center"}}>
@@ -176,7 +188,7 @@ const AddToCartScreen = ({navigation}) => {
           </View>
           <View style={{flexDirection: 'row',justifyContent:"space-between",}}>
             <Text style={{color: '#000', fontSize: 19, fontWeight: '500'}}>
-              {/* ${userfood?.price*totalitem} */}10
+            {calculateSubtotal()}
             </Text>
             {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400' ,}}>
               USD

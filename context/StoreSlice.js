@@ -3,14 +3,18 @@ const storeSlice = createSlice ({
     name:"store",
     initialState:{
         totalitem:{},
-        Addtocart:[]
+        Addtocart:[],
+        totalprice:0,
     },
     reducers:{
         addfood:(state,action)=>{
          const itemId = action.payload;
       if (state.totalitem[itemId]) {
+
+      
         state.totalitem[itemId]++;
       } else {
+     
         state.totalitem[itemId] = 1;
       } 
         },
