@@ -38,49 +38,7 @@ const HomeScreen = props => {
   }, []);
 
 
-  const featurerestdata = [
-
-    {
-      id:1,
-      foodname:'Ground Beef Tacos',
-      price:'9.5',
-      fooddetails:`Brown the beef better. Lean ground beef – I like to use 85% leanangus. Garlic – use fresh chopped. Spices – chili powder, cumin, onion powder.`,
-      rating:'4.5',
-      imgsrc :require('../assets/somemoredis.jpg'),
-      taxandfee:'5.30',
-      delivery:'1.00',
-    },
-    {
-      id: 2,
-      foodname: 'Margherita Pizza',
-      price: '12.99',
-      fooddetails: 'Classic pizza with tomato, mozzarella, and basil.',
-      rating: '4.8',
-      imgsrc: require('../assets/pizadis.jpg'),
-      taxandfee: '6.50',
-      delivery: '1.50',
-    },
-    {
-      id: 3,
-      foodname: 'Chicken Caesar Salad',
-      price: '8.99',
-      fooddetails: 'Fresh salad with grilled chicken, romaine lettuce, and Caesar dressing.',
-      rating: '4.6',
-      imgsrc: require('../assets/saladdis.jpg'),
-      taxandfee: '4.00',
-      delivery: '0.75',
-    },
-    {
-      id: 4,
-      foodname: 'Spaghetti Bolognese',
-      price: '10.50',
-      fooddetails: 'Classic Italian dish with ground beef, tomatoes, and pasta.',
-      rating: '4.7',
-      imgsrc: require('../assets/somedisss.jpg'),
-      taxandfee: '5.75',
-      delivery: '1.25',
-    },
-  ];
+  
 
   const viewallitem = [
 
@@ -148,6 +106,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss2.jpg'),
       taxandfee: '5.50',
       delivery: '1.20',
+      featured:false
     },
     {
       id: 7,
@@ -158,6 +117,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss2.jpg'),
       taxandfee: '4.50',
       delivery: '0.80',
+      featured:false
     },
     {
       id: 8,
@@ -168,6 +128,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss3.jpg'),
       taxandfee: '3.50',
       delivery: '0.60',
+      featured:false
     },
     {
       id: 9,
@@ -178,6 +139,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss4.jpg'),
       taxandfee: '5.25',
       delivery: '1.10',
+      featured:false
     },
     {
       id: 10,
@@ -188,6 +150,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss5.jpg'),
       taxandfee: '2.50',
       delivery: '0.50',
+      featured:false
     },
 
     {
@@ -199,6 +162,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss6.jpg'),
       taxandfee: '4.20',
       delivery: '0.90',
+      featured:false
     },
     {
       id: 12,
@@ -209,6 +173,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss7.jpg'),
       taxandfee: '3.75',
       delivery: '0.70',
+      featured:false
     },
     {
       id: 13,
@@ -219,6 +184,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss8.jpg'),
       taxandfee: '6.00',
       delivery: '1.20',
+      featured:false
     },
     {
       id: 14,
@@ -229,6 +195,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss9.jpg'),
       taxandfee: '3.00',
       delivery: '0.50',
+      featured:false
     },
     {
       id: 15,
@@ -239,6 +206,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss10.jpg'),
       taxandfee: '5.50',
       delivery: '1.10',
+      featured:false
     },
     {
       id: 16,
@@ -249,6 +217,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss1.jpg'),
       taxandfee: '4.80',
       delivery: '0.95',
+      featured:false
     },
     {
       id: 17,
@@ -259,6 +228,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss2.jpg'),
       taxandfee: '3.50',
       delivery: '0.60',
+      featured:false
     },
     {
       id: 18,
@@ -269,6 +239,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss3.jpg'),
       taxandfee: '5.75',
       delivery: '1.25',
+      featured:false
     },
     {
       id: 19,
@@ -279,6 +250,7 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss4.jpg'),
       taxandfee: '3.80',
       delivery: '0.75',
+      featured:false
     },
     {
       id: 20,
@@ -289,9 +261,15 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss5.jpg'),
       taxandfee: '4.50',
       delivery: '1.00',
+      featured:false
     },
 
   ]
+
+
+  const featurerestdata = viewallitem.filter(item => item.featured === true);
+
+  
 
 
 

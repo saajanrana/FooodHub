@@ -268,7 +268,7 @@ const ViewScreen = ({navigation}) => {
 
      { viewallitem.map((item)=>{
       return (
-        <TouchableOpacity key={item.id} style={{flex: 1, alignItems: 'center', marginTop: 30, gap: 30,marginBottom:10}}>
+        <View key={item.id} style={{flex: 1, alignItems: 'center', marginTop: 30, gap: 30,marginBottom:10}} >
         <View
           style={{
             backgroundColor: '#FFF',
@@ -295,16 +295,16 @@ const ViewScreen = ({navigation}) => {
                <Text style={{color:'#000',fontWeight:'600',fontSize:18}}>{item.rating}</Text>
             </View>
           </View>
-          <View style={{padding: '5%'}}>
+          <TouchableOpacity style={{padding: '5%'}} onPress={()=> navigation.navigate('FoodDetail',{foodId:item?.id})}>
             <Text style={{color: '#000', fontSize: 19, fontWeight: '600'}}>
               {item.foodname}
             </Text>
             <Text style={{color: '#5B5B5E', fontSize: 15, fontWeight: '400'}}>
               Chicken,Cheese and pineapple
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </View>
       )
      })  
 }
