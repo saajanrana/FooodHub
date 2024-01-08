@@ -74,6 +74,24 @@ const AddToCartScreen = ({navigation}) => {
   }
 
 
+  // const calculatedeliverycharges = () =>{
+  //   let delcharage = 0;
+
+  //   Addtocart.forEach((item)=>{
+  //     const delprice = item?.userfood?.delivery ||0;
+
+  //     console.log('price>>>>',delprice)
+  //     delcharage = delcharage+delprice;
+  //   });
+
+  //   return delcharage;
+  // }
+    const total = () =>{
+      const totalpriceattocart = calculateSubtotal() +50+100;
+      return totalpriceattocart;
+    }
+
+
   return (
     <ScrollView style={{backgroundColor: '#FFF',flex:1,width:'100vw'}}>
       <View style={{alignItems:'center',width:'100vw',justifyContent:"center"}}>
@@ -107,7 +125,7 @@ const AddToCartScreen = ({navigation}) => {
           </Text>
           <View style={{flexDirection:'row',justifyContent:'space-between',flexWrap:'wrap'}}>
           <Text style={{color: '#FE724C', fontSize: 16, fontWeight: '600'}}>
-            ${(item?.userfood?.price*(totalitem[item.userfood.id] || 0)).toFixed(2)}
+            ${(item?.userfood?.price*(totalitem[item?.userfood?.id] || 0)).toFixed(2)}
           </Text>
           <View style={{flexDirection:'row',gap:10}}>
             <TouchableOpacity
@@ -213,7 +231,7 @@ const AddToCartScreen = ({navigation}) => {
 
           <View style={{flexDirection: 'row'}}>
             <Text style={{color: '#000', fontSize: 19, fontWeight: '500'}}>
-              {/* ${userfood?.taxandfee} */}10
+              {/* {calculatedeliverycharges()} */}00
             </Text>
             {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400'}}>
               USD
@@ -267,7 +285,7 @@ const AddToCartScreen = ({navigation}) => {
 
           <View style={{flexDirection: 'row'}}>
             <Text style={{color: '#000', fontSize: 19, fontWeight: '500'}}>
-              {/* ${finalvalue} */} 
+              {/* ${finalvalue} */} {calculateSubtotal()}
             </Text>
             {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400'}}>
               USD

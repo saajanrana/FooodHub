@@ -38,7 +38,7 @@ const HomeScreen = props => {
   }, []);
 
 
-  
+
 
   const viewallitem = [
 
@@ -46,12 +46,13 @@ const HomeScreen = props => {
       id: 1,
       foodname: 'Ground Beef Tacos',
       price: '9.5',
-      fooddetails: 'Brown the beef better. Lean ground beef – I like to use 85% leanangus. Garlic – use fresh chopped. Spices – chili powder, cumin, onion powder.',
+      fooddetails: 'Brown the beef better. Lean ground beef – I like to use 85% lean angus. Garlic – use fresh chopped. Spices – chili powder, cumin, onion powder.',
       rating: '4.5',
       imgsrc: require('../assets/somemoredis.jpg'),
       taxandfee: '5.30',
       delivery: '1.00',
-      featured:true
+      featured: false,
+      tag: 'pizza'
     },
     {
       id: 2,
@@ -62,7 +63,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/pizadis.jpg'),
       taxandfee: '6.50',
       delivery: '1.50',
-      featured:true
+      featured: false,
+      tag: 'pizza'
     },
     {
       id: 3,
@@ -73,7 +75,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/saladdis.jpg'),
       taxandfee: '4.00',
       delivery: '0.75',
-      featured:true
+      featured: false,
+      tag: 'salad'
     },
     {
       id: 4,
@@ -84,7 +87,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/somedisss.jpg'),
       taxandfee: '5.75',
       delivery: '1.25',
-      featured:true
+      featured: false,
+      tag: 'pasta'
     },
     {
       id: 5,
@@ -95,7 +99,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss1.jpg'),
       taxandfee: '7.00',
       delivery: '1.75',
-      featured:true
+      featured: false,
+      tag: 'seafood'
     },
     {
       id: 6,
@@ -106,7 +111,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss2.jpg'),
       taxandfee: '5.50',
       delivery: '1.20',
-      featured:false
+      featured: false,
+      tag: 'sushi'
     },
     {
       id: 7,
@@ -117,7 +123,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss2.jpg'),
       taxandfee: '4.50',
       delivery: '0.80',
-      featured:false
+      featured: false,
+      tag: 'burger'
     },
     {
       id: 8,
@@ -128,7 +135,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss3.jpg'),
       taxandfee: '3.50',
       delivery: '0.60',
-      featured:false
+      featured: false,
+      tag: 'wrap'
     },
     {
       id: 9,
@@ -139,7 +147,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss4.jpg'),
       taxandfee: '5.25',
       delivery: '1.10',
-      featured:false
+      featured: false,
+      tag: 'wings'
     },
     {
       id: 10,
@@ -150,7 +159,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss5.jpg'),
       taxandfee: '2.50',
       delivery: '0.50',
-      featured:false
+      featured: false,
+      tag: 'smoothie'
     },
 
     {
@@ -162,7 +172,9 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss6.jpg'),
       taxandfee: '4.20',
       delivery: '0.90',
-      featured:false
+      featured:false,
+      tag: 'smoothie'
+
     },
     {
       id: 12,
@@ -173,7 +185,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss7.jpg'),
       taxandfee: '3.75',
       delivery: '0.70',
-      featured:false
+      featured:false,
+      tag: 'smoothie'
     },
     {
       id: 13,
@@ -184,7 +197,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss8.jpg'),
       taxandfee: '6.00',
       delivery: '1.20',
-      featured:false
+      featured:false,
+      tag: 'smoothie'
     },
     {
       id: 14,
@@ -195,7 +209,8 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss9.jpg'),
       taxandfee: '3.00',
       delivery: '0.50',
-      featured:false
+      featured:false,
+      tag: 'smoothie'
     },
     {
       id: 15,
@@ -206,76 +221,506 @@ const HomeScreen = props => {
       imgsrc: require('../assets/dissss10.jpg'),
       taxandfee: '5.50',
       delivery: '1.10',
-      featured:false
+      featured:false,
+      tag: 'smoothie'
     },
     {
-      id: 16,
-      foodname: 'Mediterranean Hummus Wrap',
-      price: '10.50',
-      fooddetails: 'Wrap filled with hummus, roasted vegetables, and feta cheese.',
-      rating: '4.5',
-      imgsrc: require('../assets/dissss1.jpg'),
-      taxandfee: '4.80',
-      delivery: '0.95',
-      featured:false
-    },
-    {
-      id: 17,
-      foodname: 'Chocolate Lava Cake',
-      price: '7.99',
-      fooddetails: 'Indulgent chocolate lava cake with a gooey center.',
+      id: 21,
+      foodname: 'Classic Margherita Pizza',
+      price: '12.99',
+      fooddetails: 'A timeless favorite topped with fresh tomato, mozzarella, and basil.',
       rating: '4.8',
-      imgsrc: require('../assets/dissss2.jpg'),
-      taxandfee: '3.50',
-      delivery: '0.60',
-      featured:false
+      imgsrc: require('../assets/pizaa1.jpg'),
+      taxandfee: '6.50',
+      delivery: '1.50',
+      featured: false,
+      tag: 'pizza'
     },
     {
-      id: 18,
-      foodname: 'Greek Gyro',
-      price: '12.50',
-      fooddetails: 'Authentic Greek gyro with seasoned meat, tzatziki, and veggies.',
-      rating: '4.6',
-      imgsrc: require('../assets/dissss3.jpg'),
+      id: 22,
+      foodname: 'Pepperoni Passion Pizza',
+      price: '11.50',
+      fooddetails: 'Loaded with zesty pepperoni slices for a flavorful experience.',
+      rating: '4.7',
+      imgsrc: require('../assets/pizaa2.jpg'),
       taxandfee: '5.75',
       delivery: '1.25',
-      featured:false
+      featured: false,
+      tag: 'pizza'
     },
     {
-      id: 19,
-      foodname: 'Berry Blast Smoothie Bowl',
-      price: '8.25',
-      fooddetails: 'Acai bowl with a blend of berries, granola, and coconut.',
-      rating: '4.7',
-      imgsrc: require('../assets/dissss4.jpg'),
-      taxandfee: '3.80',
-      delivery: '0.75',
-      featured:false
+      id: 23,
+      foodname: 'Vegetarian Supreme Pizza',
+      price: '13.99',
+      fooddetails: 'An assortment of fresh vegetables and olives on a bed of cheesy goodness.',
+      rating: '4.6',
+      imgsrc: require('../assets/pizaa3.jpg'),
+      taxandfee: '6.75',
+      delivery: '1.50',
+      featured: false,
+      tag: 'pizza'
     },
     {
-      id: 20,
-      foodname: 'Crispy Tofu Tacos',
+      id: 24,
+      foodname: 'BBQ Chicken Delight Pizza',
+      price: '14.50',
+      fooddetails: 'Succulent BBQ chicken, red onions, and cilantro make this pizza a hit.',
+      rating: '4.9',
+      imgsrc: require('../assets/pizaa4.jpg'),
+      taxandfee: '7.00',
+      delivery: '1.75',
+      featured: false,
+      tag: 'pizza'
+    },
+    {
+      id: 25,
+      foodname: 'Hawaiian Luau Pizza',
       price: '10.99',
-      fooddetails: 'Tacos filled with crispy tofu, salsa, and fresh toppings.',
-      rating: '4.4',
-      imgsrc: require('../assets/dissss5.jpg'),
+      fooddetails: 'A tropical delight with ham, pineapple, and a sprinkle of sunshine.',
+      rating: '4.5',
+      imgsrc: require('../assets/pizaa5.jpg'),
+      taxandfee: '5.25',
+      delivery: '1.00',
+      featured: false,
+      tag: 'pizza'
+    },
+    {
+      id: 26,
+      foodname: 'Meat Lover\'s Feast Pizza',
+      price: '15.99',
+      fooddetails: 'A carnivore\'s dream featuring a medley of savory meats and sausage.',
+      rating: '4.8',
+      imgsrc: require('../assets/pizaa6.jpg'),
+      taxandfee: '7.50',
+      delivery: '1.80',
+      featured: false,
+      tag: 'pizza'
+    },
+    {
+      id: 27,
+      foodname: 'White Garlic Parmesan Pizza',
+      price: '12.75',
+      fooddetails: 'A garlic lover\'s paradise with creamy white sauce and parmesan.',
+      rating: '4.7',
+      imgsrc: require('../assets/pizaa7.jpg'),
+      taxandfee: '6.25',
+      delivery: '1.30',
+      featured: false,
+      tag: 'pizza'
+    },
+    {
+      id: 28,
+      foodname: 'Mushroom Madness Pizza',
+      price: '11.99',
+      fooddetails: 'A fungi-filled delight with assorted mushrooms and truffle oil.',
+      rating: '4.6',
+      imgsrc: require('../assets/pizaa8.jpg'),
+      taxandfee: '5.80',
+      delivery: '1.10',
+      featured: false,
+      tag: 'pizza'
+    },
+    {
+      id: 29,
+      foodname: 'Supreme Seafood Pizza',
+      price: '16.50',
+      fooddetails: 'A seafood extravaganza featuring shrimp, clams, and calamari.',
+      rating: '4.9',
+      imgsrc: require('../assets/pizaa9.jpg'),
+      taxandfee: '7.80',
+      delivery: '1.90',
+      featured: false,
+      tag: 'pizza'
+    },
+   
+
+    {
+      id: 31,
+      foodname: 'Classic Cheeseburger',
+      price: '8.99',
+      fooddetails: 'A timeless favorite featuring a juicy beef patty and melted cheese.',
+      rating: '4.5',
+      imgsrc: require('../assets/burger1.jpg'),
       taxandfee: '4.50',
       delivery: '1.00',
-      featured:false
+      featured: false,
+      tag: 'burger'
+    },
+    {
+      id: 32,
+      foodname: 'Bacon BBQ Burger',
+      price: '10.50',
+      fooddetails: 'Savory bacon, tangy BBQ sauce, and a perfectly grilled burger patty.',
+      rating: '4.7',
+      imgsrc: require('../assets/burger2.jpg'),
+      taxandfee: '5.25',
+      delivery: '1.25',
+      featured: false,
+      tag: 'burger'
+    },
+    {
+      id: 33,
+      foodname: 'Veggie Delight Burger',
+      price: '9.75',
+      fooddetails: 'A flavorful vegetarian option with a plant-based patty and fresh veggies.',
+      rating: '4.6',
+      imgsrc: require('../assets/burger3.jpg'),
+      taxandfee: '4.75',
+      delivery: '1.10',
+      featured: false,
+      tag: 'burger'
+    },
+    {
+      id: 34,
+      foodname: 'Spicy Jalapeno Burger',
+      price: '11.99',
+      fooddetails: 'Kick up the heat with sliced jalapenos and spicy mayo on a beef patty.',
+      rating: '4.8',
+      imgsrc: require('../assets/burger4.jpg'),
+      taxandfee: '6.00',
+      delivery: '1.30',
+      featured: false,
+      tag: 'burger'
+    },
+    {
+      id: 35,
+      foodname: 'Mushroom Swiss Burger',
+      price: '10.25',
+      fooddetails: 'A savory combination of sautéed mushrooms and melted Swiss cheese.',
+      rating: '4.5',
+      imgsrc: require('../assets/burger5.jpg'),
+      taxandfee: '5.00',
+      delivery: '1.20',
+      featured: false,
+      tag: 'burger'
+    },
+    {
+      id: 36,
+      foodname: 'Avocado Turkey Burger',
+      price: '12.50',
+      fooddetails: 'A healthier option with a turkey patty, avocado, and fresh toppings.',
+      rating: '4.6',
+      imgsrc: require('../assets/burger6.jpg'),
+      taxandfee: '6.25',
+      delivery: '1.40',
+      featured: false,
+      tag: 'burger'
+    },
+    {
+      id: 37,
+      foodname: 'Double Bacon Cheeseburger',
+      price: '13.99',
+      fooddetails: 'Double the bacon, double the cheese – a hearty burger for meat lovers.',
+      rating: '4.9',
+      imgsrc: require('../assets/bburger7.jpg'),
+      taxandfee: '7.00',
+      delivery: '1.50',
+      featured: false,
+      tag: 'burger'
+    },
+    {
+      id: 38,
+      foodname: 'Teriyaki Chicken Burger',
+      price: '11.25',
+      fooddetails: 'Grilled chicken glazed with teriyaki sauce and topped with pineapple.',
+      rating: '4.7',
+      imgsrc: require('../assets/burger8.jpg'),
+      taxandfee: '5.50',
+      delivery: '1.20',
+      featured: false,
+      tag: 'burger'
+    },
+    {
+      id: 41,
+      foodname: 'Butter Chicken',
+      price: '12.99',
+      fooddetails: 'Tender chicken cooked in a rich and creamy tomato-based sauce with butter and spices.',
+      rating: '4.7',
+      imgsrc: require('../assets/indfood1.jpg'),
+      taxandfee: '6.50',
+      delivery: '1.50',
+      featured: true,
+      tag: 'indian'
+    },
+    {
+      id: 42,
+      foodname: 'Paneer Tikka Masala',
+      price: '11.75',
+      fooddetails: 'Marinated and grilled paneer (Indian cottage cheese) served in a flavorful tomato-based curry.',
+      rating: '4.8',
+      imgsrc: require('../assets/indfood2.jpg'),
+      taxandfee: '5.80',
+      delivery: '1.25',
+      featured: true,
+      tag: 'indian'
+    },
+    {
+      id: 43,
+      foodname: 'Chicken Biryani',
+      price: '13.50',
+      fooddetails: 'Fragrant basmati rice cooked with tender chicken, aromatic spices, and herbs.',
+      rating: '4.6',
+      imgsrc: require('../assets/indfood3.jpg'),
+      taxandfee: '6.75',
+      delivery: '1.60',
+      featured: true,
+      tag: 'indian'
+    },
+    {
+      id: 44,
+      foodname: 'Aloo Gobi',
+      price: '9.99',
+      fooddetails: 'A vegetarian dish featuring potatoes (aloo) and cauliflower (gobi) cooked with spices and herbs.',
+      rating: '4.5',
+      imgsrc: require('../assets/indfood4.jpg'),
+      taxandfee: '4.80',
+      delivery: '1.00',
+      featured: true,
+      tag: 'indian'
+    },
+    {
+      id: 45,
+      foodname: 'Palak Paneer',
+      price: '10.25',
+      fooddetails: 'Paneer cubes cooked in a creamy spinach (palak) gravy with Indian spices.',
+      rating: '4.7',
+      imgsrc: require('../assets/indfood5.jpg'),
+      taxandfee: '5.20',
+      delivery: '1.10',
+      featured: true,
+      tag: 'indian'
+    },
+    {
+      id: 46,
+      foodname: 'Chicken Korma',
+      price: '14.25',
+      fooddetails: 'Chicken pieces simmered in a rich and flavorful korma sauce made with yogurt, nuts, and spices.',
+      rating: '4.9',
+      imgsrc: require('../assets/indfood6.jpg'),
+      taxandfee: '7.00',
+      delivery: '1.75',
+      featured: true,
+      tag: 'indian'
+    },
+    {
+      id: 47,
+      foodname: 'Masala Dosa',
+      price: '8.50',
+      fooddetails: 'South Indian delicacy consisting of a thin rice crepe filled with spiced potatoes.',
+      rating: '4.6',
+      imgsrc: require('../assets/indfood7.jpg'),
+      taxandfee: '4.00',
+      delivery: '0.90',
+      featured: true,
+      tag: 'indian'
+    },
+    {
+      id: 48,
+      foodname: 'Chana Masala',
+      price: '9.25',
+      fooddetails: 'A vegetarian dish made with chickpeas (chana) cooked in a spiced tomato-based sauce.',
+      rating: '4.5',
+      imgsrc: require('../assets/indfood8.jpg'),
+      taxandfee: '4.50',
+      delivery: '1.00',
+      featured: true,
+      tag: 'indian'
+    },
+    {
+      id: 51,
+      foodname: 'Tacos al Pastor',
+      price: '10.99',
+      fooddetails: 'Marinated pork cooked on a vertical rotisserie, served with pineapple and onions.',
+      rating: '4.8',
+      imgsrc: require('../assets/maxican1.jpg'),
+      taxandfee: '5.50',
+      delivery: '1.20',
+      featured: false,
+      tag: 'mexican'
+    },
+    {
+      id: 52,
+      foodname: 'Guacamole and Chips',
+      price: '8.50',
+      fooddetails: 'Creamy avocado dip with tomatoes, onions, and cilantro, served with crispy tortilla chips.',
+      rating: '4.7',
+      imgsrc: require('../assets/maxican2.jpg'),
+      taxandfee: '4.00',
+      delivery: '0.90',
+      featured: false,
+      tag: 'mexican'
+    },
+    {
+      id: 53,
+      foodname: 'Enchiladas Verdes',
+      price: '12.75',
+      fooddetails: 'Chicken-filled tortillas topped with green chili sauce and melted cheese.',
+      rating: '4.6',
+      imgsrc: require('../assets/maxican3.jpg'),
+      taxandfee: '6.25',
+      delivery: '1.30',
+      featured: false,
+      tag: 'mexican'
+    },
+    {
+      id: 54,
+      foodname: 'Chiles Rellenos',
+      price: '11.25',
+      fooddetails: 'Poblano peppers stuffed with cheese, then battered and fried.',
+      rating: '4.5',
+      imgsrc: require('../assets/maxican4.jpg'),
+      taxandfee: '5.50',
+      delivery: '1.10',
+      featured: false,
+      tag: 'mexican'
+    },
+    {
+      id: 55,
+      foodname: 'Quesadilla with Salsa',
+      price: '9.99',
+      fooddetails: 'Grilled tortilla filled with cheese and served with spicy salsa.',
+      rating: '4.8',
+      imgsrc: require('../assets/maxican5.jpg'),
+      taxandfee: '5.00',
+      delivery: '1.00',
+      featured: false,
+      tag: 'mexican'
+    },
+    {
+      id: 56,
+      foodname: 'Burrito Bowl',
+      price: '13.50',
+      fooddetails: 'A bowl with rice, beans, grilled chicken, salsa, and guacamole.',
+      rating: '4.6',
+      imgsrc: require('../assets/maxican6.jpg'),
+      taxandfee: '6.75',
+      delivery: '1.60',
+      featured: false,
+      tag: 'mexican'
+    },
+    {
+      id: 57,
+      foodname: 'Sopes',
+      price: '10.99',
+      fooddetails: 'Thick corn tortillas topped with beans, meat, lettuce, and crumbled cheese.',
+      rating: '4.7',
+      imgsrc: require('../assets/maxican7.jpg'),
+      taxandfee: '5.50',
+      delivery: '1.20',
+      featured: false,
+      tag: 'mexican'
+    },
+    {
+      id: 58,
+      foodname: 'Mexican Street Corn (Elote)',
+      price: '8.75',
+      fooddetails: 'Grilled corn on the cob coated with mayo, cotija cheese, chili powder, and lime.',
+      rating: '4.5',
+      imgsrc: require('../assets/maxican8.jpg'),
+      taxandfee: '4.00',
+      delivery: '0.90',
+      featured: false,
+      tag: 'mexican'
     },
 
+    {
+      id: 61,
+      foodname: 'Kung Pao Chicken',
+      price: '12.99',
+      fooddetails: 'Spicy and savory stir-fried chicken with peanuts, vegetables, and chili peppers.',
+      rating: '4.8',
+      imgsrc: require('../assets/chaina1.jpg'),
+      taxandfee: '6.50',
+      delivery: '1.50',
+      featured: false,
+      tag: 'chinese'
+    },
+    {
+      id: 62,
+      foodname: 'Dim Sum Platter',
+      price: '11.50',
+      fooddetails: 'Assorted steamed dumplings filled with shrimp, pork, and vegetables.',
+      rating: '4.7',
+      imgsrc: require('../assets/chaina1.jpg'),
+      taxandfee: '5.75',
+      delivery: '1.25',
+      featured: false,
+      tag: 'chinese'
+    },
+    {
+      id: 63,
+      foodname: 'Beef and Broccoli Stir-Fry',
+      price: '13.75',
+      fooddetails: 'Tender beef strips and broccoli florets cooked in a flavorful soy-based sauce.',
+      rating: '4.6',
+      imgsrc: require('../assets/chaina3.jpg'),
+      taxandfee: '6.80',
+      delivery: '1.40',
+      featured: false,
+      tag: 'chinese'
+    },
+    {
+      id: 64,
+      foodname: 'Sweet and Sour Pork',
+      price: '10.99',
+      fooddetails: 'Crispy fried pork tossed in a tangy and sweet sauce with bell peppers and pineapple.',
+      rating: '4.9',
+      imgsrc: require('../assets/chaina4.jpg'),
+      taxandfee: '5.50',
+      delivery: '1.00',
+      featured: false,
+      tag: 'chinese'
+    },
+    {
+      id: 65,
+      foodname: 'Shrimp Fried Rice',
+      price: '9.99',
+      fooddetails: 'Stir-fried rice with shrimp, vegetables, and soy sauce.',
+      rating: '4.7',
+      imgsrc: require('../assets/chaina5.jpg'),
+      taxandfee: '4.80',
+      delivery: '1.10',
+      featured: false,
+      tag: 'chinese'
+    },
+    {
+      id: 66,
+      foodname: 'General Tso\'s Chicken',
+      price: '14.50',
+      fooddetails: 'Deep-fried chicken in a sweet and spicy sauce, garnished with green onions.',
+      rating: '4.8',
+      imgsrc: require('../assets/chaina6.jpg'),
+      taxandfee: '7.00',
+      delivery: '1.75',
+      featured: false,
+      tag: 'chinese'
+    },
+    {
+      id: 67,
+      foodname: 'Wonton Soup',
+      price: '8.75',
+      fooddetails: 'Clear broth with wonton dumplings filled with minced pork and shrimp.',
+      rating: '4.5',
+      imgsrc: require('../assets/chaina7.jpg'),
+      taxandfee: '4.00',
+      delivery: '0.90',
+      featured: false,
+      tag: 'chinese'
+    },
+    {
+      id: 68,
+      foodname: 'Szechuan Beef',
+      price: '11.25',
+      fooddetails: 'Spicy beef stir-fry with Szechuan peppers, vegetables, and a savory sauce.',
+      rating: '4.6',
+      imgsrc: require('../assets/chaina8.jpg'),
+      taxandfee: '5.50',
+      delivery: '1.20',
+      featured: false,
+      tag: 'chinese'
+    },
   ]
-
-
   const featurerestdata = viewallitem.filter(item => item.featured === true);
-
-  
-
-
-
-
-
-
   useEffect(() => {
 
 
@@ -321,26 +766,32 @@ const HomeScreen = props => {
       key: '1',
       name: 'Assian',
       src: require('../assets/foodiconhd1.png'),
+      tag:'indian'
+
     },
     {
       key: '2',
       name: 'Burger',
       src: require('../assets/burgericonhd.png'),
+      tag:'burger'
     },
     {
       key: '3',
       name: 'Donat',
       src: require('../assets/foodiconhd2.png'),
+      tag:'chinese'
     },
     {
       key: '4',
       name: 'Maxican',
       src: require('../assets/foodiconhd3.png'),
+      tag:'mexican'
     },
     {
       key: '5',
       name: 'Pizaa',
       src: require('../assets/pizaiconhd.png'),
+      tag:'pizza'
     },
   ];
 
@@ -351,17 +802,21 @@ const HomeScreen = props => {
       style={{
         backgroundColor: '#FFFFFF',
         shadowOpacity: 10,
-        elevation: 6,
+        elevation: 1,
         shadowColor: 'light-brown',
-        borderRadius: 40,
+        borderRadius: 50,
         height: '90%',
-        width: 70,
+        width: 80,
         justifyContent: 'center',
-      }}>
-      <View style={{alignItems: 'center'}}>
+        alignItems:'center',
+       
+      }}
+      onPress={() => props.navigation.navigate('ViewScreen',{foodtag:item?.tag})}
+      >
+      <View style={{alignItems: 'center',justifyContent:'center'}}>
         <Image source={item.src} style={{width: 40, height: 40}} />
       </View>
-      <View style={{alignItems: 'center'}}>
+      <View style={{alignItems: 'center',justifyContent:'center'}}>
         <Text style={styles.filtername}>{item.name}</Text>
       </View>
     </TouchableOpacity>
@@ -375,24 +830,24 @@ const HomeScreen = props => {
       <View style={styles.featuredRestaurantDetailsContainer}>
         <Text style={styles.featuredRestaurantName}>{item?.foodname}</Text>
         <View style={styles.featuredRestaurantInfoContainer}>
-          <Text style={styles.featuredRestaurantInfoText}>${item?.delivery}</Text>
+          <Text style={styles.featuredRestaurantInfoText}>${item?.price}</Text>
           <Text style={styles.featuredRestaurantInfoText}>10-15 mins</Text>
         </View>
 
-        {/* <Text
+        <Text
           style={{
             color: '#8A8E9B',
             fontSize: 12,
             fontWeight: '400',
           }}>
-          Burger
-        </Text> */}
+          {item?.tag}
+        </Text>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} >
       <View style={styles.headerContainer}>
         <Header
           onPressMenu={() => props.navigation.openDrawer()}
@@ -429,7 +884,7 @@ const HomeScreen = props => {
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.filterContainer}>
+      
         <FlatList
           data={fliterdata}
           keyExtractor={item => item.id}
@@ -437,8 +892,9 @@ const HomeScreen = props => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContainerone}
+          style={styles.filterContainer}
         />
-      </View>
+      
 
       <View style={styles.featuredRestaurantsContainer}>
         <View style={styles.featuredRestaurantsHeader}>
@@ -446,7 +902,7 @@ const HomeScreen = props => {
             Featured Restaurants
           </Text>
         </View>
-        <TouchableOpacity onPress={() => props.navigation.navigate('ViewScreen')}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('ViewScreen',{foodId:'viewall'})}>
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
       </View>
@@ -458,10 +914,27 @@ const HomeScreen = props => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContainer}
+        style={styles.outerflatList}
       />
-      <View style={{height:30}}>
-         
-      </View>
+
+
+      {/* <View style={{flex:1,flexDirection:'row',flexWrap:"wrap",gap:20,justifyContent:'center',marginTop:'5%'}} >
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+        <View style={{width:100, height:100, borderWidth:2}}></View>
+      </View> */}
+
+     
+     
     </ScrollView>
   );
 };
@@ -469,10 +942,12 @@ const HomeScreen = props => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FCFCFD',
+    flex:1
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginLeft:'3%'
     // padding:'5%',
   },
   deliveryInfoContainer: {},
@@ -525,24 +1000,35 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     // marginLeft: 20,
-    marginTop: '5%',
+    marginTop: '3%',
     width: '100%',
-    height: '18%',
+    height: '30%',
+    
   },
 
   flatListContainerone: {
     paddingLeft: '7%',
     paddingRight: '7%',
     gap: 12,
-    flexGrow:1
+    flexGrow:1,
+    justifyContent:'center',
+    alignItems:'center'
+   
   },
   flatListContainer: {
+
     paddingLeft: '7%',
     paddingRight: '7%',
     gap: 12,
     flexGrow: 1,
   },
+  outerflatList:{
+       width:'100%',
+       height:'60%',
+       
+  },
   featuredRestaurantsContainer: {
+    marginTop:'2%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: '7%',
@@ -561,10 +1047,13 @@ const styles = StyleSheet.create({
     marginTop: '3%',
   },
   featuredRestaurantContainerr: {
+    flex:1,
     width: 300,
     height: 300,
     borderRadius: 20,
-    marginTop: 20,
+    marginTop:15,
+   
+   
   },
   featuredRestaurantImageContainer: {
     width: 500,
@@ -572,7 +1061,7 @@ const styles = StyleSheet.create({
   },
   featuredRestaurantImage: {
     width: '100%',
-    height: '60%',
+    height: '50%',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
@@ -581,7 +1070,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 0,
     width: '100%',
-    height: '40%',
+    height: '50%',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
