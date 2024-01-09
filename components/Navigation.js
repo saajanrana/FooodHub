@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 import ViewScreen from '../screen/ViewScreen';
 import SplashScreen from '../screen/SplashScreen';
 import { Carticon, HomeIcon, Usericon } from './AppIcons';
+import AllItemScreen from '../screen/AllItemScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -115,6 +116,7 @@ const Navigation = () => {
         <Stack.Screen name="MyProfileScreen" component={MyProfile} />
         <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen name="ViewScreen" component={ViewScreen} options={{headerShown: false}} />
+        <Stack.Screen name="AllItemScreen" component={AllItemScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

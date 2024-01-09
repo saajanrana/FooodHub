@@ -902,7 +902,7 @@ const HomeScreen = props => {
             Featured Restaurants
           </Text>
         </View>
-        <TouchableOpacity onPress={() => props.navigation.navigate('ViewScreen',{foodId:'viewall'})}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('AllItemScreen')}>
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
       </View>
