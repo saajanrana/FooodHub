@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 const MyOrderScreen = () => {
+  const [clicktab,setClicktab] = useState(0);
   return (
     <ScrollView
       style={{
@@ -36,7 +37,8 @@ const MyOrderScreen = () => {
             borderRadius: 50,
             justifyContent: 'center',
             alignItems: 'center',
-          }}>
+          }}
+          onPress={()=> setClicktab(0)}>
           <Text style={{color: '#FFF'}}>Upcoming</Text>
         </TouchableOpacity>
 
@@ -48,7 +50,9 @@ const MyOrderScreen = () => {
             borderRadius: 50,
             justifyContent: 'center',
             alignItems: 'center',
-          }}>
+          }}
+          onPress={()=> setClicktab(1)}
+          >
           <Text style={{color: '#FE724C'}}>History</Text>
         </TouchableOpacity>
       </View>
