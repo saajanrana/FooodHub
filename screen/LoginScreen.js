@@ -165,10 +165,10 @@ const LoginScreen = ({navigation}) => {
       console.log('Error fetching data: ' + error.toString());
     } else {
   
-      console.log('resutl>>>>>',result);
-           const email = result?.email;
-          const password =result?.email.charAt(0).toUpperCase()+email.slice(1,3)+'goo1';
-          console.log('hueee>>>>',email,password);
+      // console.log('resutl>>>>>',result);
+      //      const email = result?.email;
+      //     const password =result?.email.charAt(0).toUpperCase()+email.slice(1,3)+'goo1';
+      //     console.log('hueee>>>>',email,password);
           try {
             const response = await fetch(`${url}api/login`, {
               method: 'POST',
@@ -232,7 +232,7 @@ const LoginScreen = ({navigation}) => {
 
 
 
-  console.log('eror>>>',errors);
+  // console.log('eror>>>',errors);
 
   return (
     <View>

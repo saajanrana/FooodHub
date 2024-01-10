@@ -20,6 +20,7 @@ import ViewScreen from '../screen/ViewScreen';
 import SplashScreen from '../screen/SplashScreen';
 import { Carticon, HomeIcon, Usericon } from './AppIcons';
 import AllItemScreen from '../screen/AllItemScreen';
+import RestaurantScreen from '../screen/RestaurantScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -117,6 +118,8 @@ const Navigation = () => {
         <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen name="ViewScreen" component={ViewScreen} options={{headerShown: false}} />
         <Stack.Screen name="AllItemScreen" component={AllItemScreen} />
+        <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

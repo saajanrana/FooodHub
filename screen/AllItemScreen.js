@@ -8,7 +8,9 @@ import {
   Image,
   ScrollView,
   TouchableWithoutFeedback,
+  FlatList,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import Shimmer from 'react-native-shimmer-kit';
 
 const AllItemScreen = ({navigation}) => {
@@ -21,7 +23,7 @@ const AllItemScreen = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
       setSimmertime(1);
-    }, 4000);
+    }, 3000);
   }, []);
 
   const viewallitem = [
@@ -756,6 +758,7 @@ const AllItemScreen = ({navigation}) => {
 
   const restaurants = [
     {
+      id:1,
       name: 'Pizza Palace',
       description: 'A pizza haven with a variety of mouthwatering pizzas.',
       rating: 4.5,
@@ -768,6 +771,7 @@ const AllItemScreen = ({navigation}) => {
       ],
     },
     {
+      id:2,
       name: 'Sushi Sensation',
       description: 'Indulge in the finest and freshest sushi delights.',
       rating: 4.9,
@@ -780,6 +784,7 @@ const AllItemScreen = ({navigation}) => {
       ],
     },
     {
+      id:3,
       name: 'Burger Binge',
       description:
         'Serving juicy and mouthwatering burgers for burger enthusiasts.',
@@ -793,6 +798,7 @@ const AllItemScreen = ({navigation}) => {
       ],
     },
     {
+      id:4,
       name: 'Pasta Paradise',
       description: 'Delight in the rich and flavorful world of Italian pasta.',
       rating: 4.8,
@@ -805,6 +811,7 @@ const AllItemScreen = ({navigation}) => {
       ],
     },
     {
+      id:5,
       name: 'Wok Wonders',
       description: 'Savor the taste of authentic Chinese wok dishes.',
       rating: 4.7,
@@ -817,6 +824,7 @@ const AllItemScreen = ({navigation}) => {
       ],
     },
     {
+      id:6,
       name: 'Curry Craze',
       description: 'Experience the bold and aromatic flavors of Indian curry.',
       rating: 4.8,
@@ -834,7 +842,7 @@ const AllItemScreen = ({navigation}) => {
   return (
     <ScrollView style={{backgroundColor: '#FFF', flex: 1}}>
       {simmertime == 0 ? (
-        simmerarr.map(()=>( 
+        simmerarr.map((item)=>( 
         <View
             style={{
               backgroundColor: '#FFF',
@@ -849,7 +857,8 @@ const AllItemScreen = ({navigation}) => {
               flexWrap:'wrap',
               marginTop:20,
               marginLeft:30
-            }}>
+            }}
+            key={item.index}>
             <Shimmer
               width={330}
               height={140}
@@ -933,112 +942,120 @@ const AllItemScreen = ({navigation}) => {
           </View>
 
           {clicktab === 0
-            ? viewallitem.map(item => (
-                <View
-                  key={item?.id}
-                  style={{
-                    flex: 1,
-                    alignItems: 'center',
-                    marginTop: 30,
-                    gap: 30,
-                    marginBottom: 10,
-                  }}>
-                  <TouchableWithoutFeedback
-                    onPress={() =>
-                      navigation.navigate('FoodDetail', {foodId: item?.id})
-                    }>
+            ? 
+               <FlatList data={viewallitem}
+                renderItem={(item)=>
+                    (
                     <View
-                      style={{
-                        backgroundColor: '#FFF',
-                        shadowOpacity: 10,
-                        elevation: 1,
-                        shadowColor: 'light-brown',
-                        borderRadius: 30,
-                        width: '90%',
-                      }}>
-                      <View style={{position: 'relative'}}>
-                        <Image
-                          source={item?.imgsrc}
-                          style={{borderRadius: 30, height: 160, width: '100%'}}
-                        />
-                        <Image
-                          source={require('../assets/likeicons.png')}
-                          style={{position: 'absolute', top: '2%', right: '2%'}}
-                        />
-
-                        <View
-                          style={{
-                            position: 'absolute',
-                            top: '7%',
-                            left: '7%',
-                            flexDirection: 'row',
-                            backgroundColor: 'white',
-                            borderRadius: 20,
-                            padding: '2.5%',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}>
-                          <Text
+                    key={item?.index}
+                    style={{
+                      flex: 1,
+                      alignItems: 'center',
+                      marginTop: 30,
+                      gap: 30,
+                      marginBottom: 10,
+                    }}>
+                    <TouchableWithoutFeedback
+                      onPress={() =>
+                        navigation.navigate('FoodDetail', {foodId: item?.item?.id})
+                      }>
+                      <View
+                        style={{
+                          backgroundColor: '#FFF',
+                          shadowOpacity: 10,
+                          elevation: 1,
+                          shadowColor: 'light-brown',
+                          borderRadius: 30,
+                          width: '90%',
+                        }}>
+                        <View style={{position: 'relative'}}>
+                          <Image
+                            source={item?.item?.imgsrc
+                            }
+                            style={{borderRadius: 30, height:160, width:'100%'}}
+                           
+                          />
+                          <Image
+                            source={require('../assets/likeicons.png')}
+                            style={{position: 'absolute', top: '2%', right: '2%'}}
+                          />
+  
+                          <View
                             style={{
-                              color: '#FE724C',
-                              fontWeight: '600',
-                              fontSize: 18,
+                              position: 'absolute',
+                              top: '7%',
+                              left: '7%',
+                              flexDirection: 'row',
+                              backgroundColor: 'white',
+                              borderRadius: 20,
+                              padding: '2.5%',
+                              alignItems: 'center',
+                              justifyContent: 'center',
                             }}>
-                            $
-                          </Text>
+                            <Text
+                              style={{
+                                color: '#FE724C',
+                                fontWeight: '600',
+                                fontSize: 18,
+                              }}>
+                              $
+                            </Text>
+                            <Text
+                              style={{
+                                color: '#000',
+                                fontWeight: '600',
+                                fontSize: 18,
+                              }}>
+                              {item?.item?.price}
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              position: 'absolute',
+                              bottom: '-12%',
+                              left: '7%',
+                              flexDirection: 'row',
+                              backgroundColor: 'white',
+                              borderRadius: 20,
+                              padding: '2.5%',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}>
+                            <Text
+                              style={{
+                                color: '#000',
+                                fontWeight: '600',
+                                fontSize: 18,
+                              }}>
+                              {item?.item?.rating}
+                            </Text>
+                          </View>
+                        </View>
+                        <TouchableOpacity style={{padding: '5%'}}>
                           <Text
                             style={{
                               color: '#000',
+                              fontSize: 19,
                               fontWeight: '600',
-                              fontSize: 18,
                             }}>
-                            {item?.price}
+                            {item?.item?.foodname}
                           </Text>
-                        </View>
-                        <View
-                          style={{
-                            position: 'absolute',
-                            bottom: '-12%',
-                            left: '7%',
-                            flexDirection: 'row',
-                            backgroundColor: 'white',
-                            borderRadius: 20,
-                            padding: '2.5%',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}>
                           <Text
                             style={{
-                              color: '#000',
-                              fontWeight: '600',
-                              fontSize: 18,
+                              color: '#5B5B5E',
+                              fontSize: 15,
+                              fontWeight: '400',
                             }}>
-                            4.5
+                            {item?.item?.fooddetails}
                           </Text>
-                        </View>
+                        </TouchableOpacity>
                       </View>
-                      <TouchableOpacity style={{padding: '5%'}}>
-                        <Text
-                          style={{
-                            color: '#000',
-                            fontSize: 19,
-                            fontWeight: '600',
-                          }}>
-                          {item?.foodname}
-                        </Text>
-                        <Text
-                          style={{
-                            color: '#5B5B5E',
-                            fontSize: 15,
-                            fontWeight: '400',
-                          }}>
-                          {item?.fooddetails}
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </TouchableWithoutFeedback>
-                </View>
-              ))
+                    </TouchableWithoutFeedback>
+                  </View>
+                )}
+                onEndReachedThreshold={0.1} 
+               />
+             
             : restaurants.map(item => (
                 <View
                   key={item?.id}
@@ -1050,7 +1067,7 @@ const AllItemScreen = ({navigation}) => {
                     marginBottom: 10,
                   }}>
                   <TouchableWithoutFeedback
-                    onPress={() => navigation.navigate('FoodDetail')}>
+                    onPress={() => navigation.navigate('RestaurantScreen',{restId:item.id})}>
                     <View
                       style={{
                         backgroundColor: '#FFF',
@@ -1064,6 +1081,7 @@ const AllItemScreen = ({navigation}) => {
                         <Image
                           source={item?.imgsrc}
                           style={{borderRadius: 30, height: 160, width: '100%'}}
+                        
                         />
                         <Image
                           source={require('../assets/likeicons.png')}
