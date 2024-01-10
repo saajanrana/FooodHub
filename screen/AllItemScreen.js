@@ -838,6 +838,20 @@ const AllItemScreen = ({navigation}) => {
     },
     // ... add more restaurants as needed
   ];
+  const itemsPerPage = 10; // Number of items to load per page
+
+  const [visibleData, setVisibleData] = useState(viewallitem.slice(0, itemsPerPage));
+
+  const loadMoreData = () => {
+    const currentLength = visibleData.length;
+    const newData = viewallitem.slice(currentLength, currentLength + itemsPerPage);
+    setVisibleData([...visibleData, ...newData]);
+    return(
+      <View>
+        <Text>Loading.........</Text>
+      </View>
+    )
+  };
 
   return (
     <ScrollView style={{backgroundColor: '#FFF', flex: 1}}>
@@ -1053,7 +1067,9 @@ const AllItemScreen = ({navigation}) => {
                     </TouchableWithoutFeedback>
                   </View>
                 )}
-                onEndReachedThreshold={0.1} 
+                onEndReached={loadMoreData}
+                onEndReachedThreshold={0.5}
+                 
                />
              
             : restaurants.map(item => (
