@@ -731,7 +731,7 @@ const HomeScreen = props => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: token||usertoken,
+             Authorization: token||usertoken,
           },
         });
 
@@ -757,7 +757,7 @@ const HomeScreen = props => {
     fetchdata();
      
    
-  }, []);
+  }, [props.navigation]);
 
   console.log('userdata>>>>>',user);
   dispatch(profile(user));
