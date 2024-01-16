@@ -12,9 +12,12 @@ import {
 import { useSelector } from 'react-redux';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Modal from 'react-native-modal';
+import { url } from '../components/url';
 
 const MyProfile = (props) => {
   const profiledata = useSelector(state => state.auth.profiledata);
+  const usertoken = useSelector(state => state.auth.usertoken);
+  
   const [filePath, setFilePath] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -35,14 +38,44 @@ const MyProfile = (props) => {
           message: 'App needs camera permission',
         },
       );
-      // If CAMERA Permission is granted
-      // console.log('ingranted>>>>', granted);
       return granted === PermissionsAndroid.RESULTS.GRANTED;
     } catch (err) {
       console.warn(err);
       return false;
     }
   };
+
+
+
+  const profilepicadded = async() =>{
+    try {
+      // Check if an image is selected
+     
+        // Create a form data object to send the image
+       
+        const formData = new FormData();
+          formData.append('profileImage', {
+            uri: selectedImageUri,
+            type: 'image/jpeg',
+            name: 'profile.jpg', // You can customize the file name
+          });
+        const response = await fetch(`${url}api/addimage`, {
+          method: 'PUT',
+          body: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+              Authorization: usertoken,
+          },
+        });
+
+        console.log("res>>>>>",response);
+
+           
+    } catch (error) {
+      console.error('Error updating contact details:', error);
+    }
+       
+  }
 
   const captureImage = async(type) => {
     try {
@@ -58,9 +91,6 @@ const MyProfile = (props) => {
         };
 
         launchCamera(options, response => {
-          console.log('okk3>>>>>>');
-          console.log('Response = ', response);
-
           if (response.didCancel) {
             alert('User cancelled camera picker');
             return;
@@ -68,17 +98,19 @@ const MyProfile = (props) => {
             alert(response.errorMessage);
             return;
           }
-          console.log('base64 -> ', response.base64);
-          console.log('uri -> ', response.uri);
-          console.log('width -> ', response.width);
-          console.log('height -> ', response.height);
-          console.log('fileSize -> ', response.fileSize);
-          console.log('type -> ', response.type);
-          console.log('fileName -> ', response.fileName);
+          // console.log('base64 -> ', response.base64);
+          // console.log('uri -> ', response.uri);
+          // console.log('width -> ', response.width);
+          // console.log('height -> ', response.height);
+          // console.log('fileSize -> ', response.fileSize);
+          // console.log('type -> ', response.type);
+          // console.log('fileName -> ', response.fileName);
           // handleImageResponse(response);
           setFilePath(response);
           const selectedUri = response?.assets[0]?.uri;
+          console.log('img>>>.',response.assets[0]);
           setSelectedImageUri(selectedUri);
+          profilepicadded();
         });
       }
     } catch (error) {
@@ -111,37 +143,49 @@ const MyProfile = (props) => {
           alert(response.errorMessage);
           return;
         }
-        console.log('base64 -> ', response.base64);
-        console.log('uri -> ', response.uri);
-        console.log('width -> ', response.width);
-        console.log('height -> ', response.height);
-        console.log('fileSize -> ', response.fileSize);
-        console.log('type -> ', response.type);
-        console.log('fileName -> ', response.fileName);
+        // console.log('base64 -> ', response.base64);
+        // console.log('uri -> ', response.uri);
+        // console.log('width -> ', response.width);
+        // console.log('height -> ', response.height);
+        // console.log('fileSize -> ', response.fileSize);
+        // console.log('type -> ', response.type);
+        // console.log('fileName -> ', response.fileName);
         // handleImageResponse(response);
         setFilePath(response);
         const selectedUri = response?.assets[0]?.uri;
         setSelectedImageUri(selectedUri);
+        console.log('img>>>.',response.assets[0].uri);
+        profilepicadded();
       });
     } catch (error) {
       console.error('Error choosing file:', error);
     }
   };
 
-  console.log('img>>>>',selectedImageUri);
-  
-  // require('../assets/profile.png')
+
+
   return (
     <ScrollView style={{flex:1,backgroundColor:'#FFFFFF'}}>
       <View style={{alignItems: 'center',marginTop:"4%",gap:10}}>
         <View style={{borderRadius:50,borderWidth:5,borderColor:'#FFFFFF',position:'relative'}}>
           <Image source={(selectedImageUri)?({uri:selectedImageUri}):(require('../assets/profile.png'))} style={{width:100,height:100,borderRadius:50}} />
           <TouchableOpacity style={{position:'absolute',bottom:'-15%',right:'-4%'}} onPress={toggleModal}>
-                    <Image source={require('../assets/cameraicon1.png')}  />
+                    <Image source={require('../assets/cameraicon1.png')}  />     
           </TouchableOpacity>
         </View>
-        <View>
-          <Modal isVisible={isModalVisible}>
+        <View style={{gap:8}}>
+          <Text style={{color: '#000', fontSize: 20, fontWeight: '600',textAlign: 'center'}}>
+          {profiledata?.fullName}
+          </Text>
+          <TouchableOpacity onPress={()=> props.navigation.navigate('EditProfileScreen')}>
+            <Text
+              style={{fontSize: 16, fontWeight: '400', textAlign: 'center',color:'#9796A1'}}>
+              Edit Profile
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <Modal isVisible={isModalVisible}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
             <TouchableOpacity onPress={chooseFile}>
@@ -157,20 +201,6 @@ const MyProfile = (props) => {
           </View>
         </View>
       </Modal>
-
-          </View>
-        <View style={{gap:8}}>
-          <Text style={{color: '#000', fontSize: 20, fontWeight: '600',textAlign: 'center'}}>
-          {profiledata?.fullName}
-          </Text>
-          <TouchableOpacity onPress={()=> props.navigation.navigate('EditProfileScreen')}>
-            <Text
-              style={{fontSize: 16, fontWeight: '400', textAlign: 'center',color:'#9796A1'}}>
-              Edit Profile
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
 
       <View>
         <View style={styles.inputContainer}>

@@ -10,6 +10,7 @@ import {
   FlatList,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { url } from './url';
 
 
 
@@ -95,7 +96,7 @@ const HomeDrawer = (props) => {
       <ScrollView>
         <View style={styles.profileContainer}>
           <View style={styles.profileImageContainer}>
-            <Image source={require('../assets/usericon.png')} style={styles.profileImage} />
+            <Image source={({uri:`${url}${profiledata?.imgurl}`})?({uri:`${url}${profiledata?.imgurl}`}):(require('../assets/profileiconhd.png'))} style={styles.profileImage} />
           </View>
           <View style={styles.profileTextContainer}>
             <Text style={styles.profileName}>{profiledata?.fullName}</Text>
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
   profileImage: {
     height: 80,
     width: 80,
+    borderRadius:50
   },
   profileTextContainer: {
     marginTop: 20,

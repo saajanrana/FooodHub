@@ -83,7 +83,7 @@ const EditProfileScreen = ({navigation}) => {
   console.log('user>>>>',user);
 
     return (
-        <ScrollView>
+        <ScrollView >
         <View style={{justifyContent:"center"}} >
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Full name</Text>
@@ -116,7 +116,7 @@ const EditProfileScreen = ({navigation}) => {
         }  />
           </View>
         </View>
-        <View style={{marginTop:'5%',alignItems:'center'}}>
+        <View style={{marginTop:'5%',alignItems:'center',marginBottom:'5%'}}>
             <TouchableOpacity style={{width:'70%',height:60,backgroundColor:"#FE724C",borderRadius:30,justifyContent:'center',alignItems:'center'}} onPress={changedata}>
                   <Text style={{color:'#FFF',fontSize:15,fontWeight:'600'}}>Save</Text>
             </TouchableOpacity>

@@ -25,6 +25,7 @@ const HomeScreen = props => {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const usertoken = useSelector(state => state.auth.usertoken);
   const dispatch = useDispatch();
+  const profiledata = useSelector(state => state.auth.profiledata);
 
   const setasync = () => {
     AsyncStorage.setItem('isLoggedIn', 'true');
@@ -722,8 +723,6 @@ const HomeScreen = props => {
   ]
   const featurerestdata = viewallitem.filter(item => item.featured === true);
   useEffect(() => {
-
-
     const fetchdata = async () =>{
       console.log('ueeee>>>.',token);
       try {
@@ -757,7 +756,7 @@ const HomeScreen = props => {
     fetchdata();
      
    
-  }, [props.navigation]);
+  }, []);
 
   console.log('userdata>>>>>',user);
   dispatch(profile(user));
@@ -861,7 +860,7 @@ const HomeScreen = props => {
           <TouchableOpacity onPress={()=>props.navigation.navigate('MyProfileScreen')}>
             <Image
               style={styles.profileImage}
-              source={require('../assets/usericon.png')}
+              source={({uri:`${url}${profiledata?.imgurl}`})?({uri:`${url}${profiledata?.imgurl}`}):(require('../assets/profileiconhd.png'))}
             />
           </TouchableOpacity>
         </View>
@@ -958,7 +957,7 @@ const styles = StyleSheet.create({
   profileImage: {
     height: 40,
     width: 40,
-    borderRadius: 10,
+    borderRadius: 15,
   },
   titleContainer: {
     marginLeft: '7%',
