@@ -48,19 +48,17 @@ const MyProfile = (props) => {
 
 
   const profilepicadded = async() =>{
-    try {
-      // Check if an image is selected
-     
-        // Create a form data object to send the image
-       
+    try {  
         const formData = new FormData();
+         console.log('formdata>>>>',formData)
           formData.append('profileImage', {
             uri: selectedImageUri,
             type: 'image/jpeg',
-            name: 'profile.jpg', // You can customize the file name
+            name: 'profile.jpg',
           });
+          console.log('formdata2>>>>',formData)
         const response = await fetch(`${url}api/addimage`, {
-          method: 'PUT',
+          method: 'POST',
           body: formData,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -72,7 +70,7 @@ const MyProfile = (props) => {
 
            
     } catch (error) {
-      console.error('Error updating contact details:', error);
+      console.error('Error updating :', error);
     }
        
   }

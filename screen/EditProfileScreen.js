@@ -65,7 +65,7 @@ const EditProfileScreen = ({navigation}) => {
    
 
       if (response.ok) {
-        console.log('Contact details (including image) updated successfully');
+        console.log('(including image) updated successfully');
       } else {
         console.error('Error fetching user profile:', response.statusText);
       }
