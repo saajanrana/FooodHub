@@ -889,7 +889,6 @@ const HomeScreen = props => {
     </TouchableOpacity>
   );
 
- 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -973,101 +972,98 @@ const HomeScreen = props => {
           </Text>
         </View>
       </View>
-
-
-    
       <View
         style={{
           width: '100%',
-          flexDirection:'row',
-          flexWrap:"wrap",
+          flexDirection: 'row',
+          flexWrap: 'wrap',
           marginLeft: '8%',
 
-         marginTop: '3%',
-         marginBottom:'4%',
+          marginTop: '3%',
+          marginBottom: '4%',
           gap: 10,
         }}>
-     {popularitems.map((item)=>(
-        <View
-        key={item?.id}
-          style={{
-            width: '40%',
-            backgroundColor: '#FFF',
-            shadowOpacity: 10,
-            elevation: 1,
-            shadowColor: 'light-brown',
-            borderRadius: 20,
-            height: 'auto',
-            gap: 10,
-          }}>
-            <TouchableOpacity  onPress={() =>
-        props.navigation.navigate('FoodDetail', {foodId: item?.id})
-      }>
-          
-            <View style={{position: 'relative'}}>
-              <Image
-                source={item?.imgsrc}
-                style={{width: '100%', height: 150, borderRadius: 20}}
-              />
-              <Image
-                source={require('../assets/likeicons.png')}
-                style={{position: 'absolute', top: '1%', right: '-3%'}}
-              />
-              <View
-                style={{
-                  position: 'absolute',
-                  top: '7%',
-                  left: '7%',
-                  flexDirection: 'row',
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: 20,
-                  padding: '2.5%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{color: '#FE724C', fontWeight: '600', fontSize: 18}}>
-                  $
-                </Text>
-                <Text style={{color: '#000', fontWeight: '600', fontSize: 18}}>
-                  {item?.price}
-                </Text>
+        {popularitems.map(item => (
+          <View
+            key={item?.id}
+            style={{
+              width: '40%',
+              backgroundColor: '#FFF',
+              shadowOpacity: 10,
+              elevation: 1,
+              shadowColor: 'light-brown',
+              borderRadius: 20,
+              height: 'auto',
+              gap: 10,
+            }}>
+            <TouchableOpacity
+              onPress={() =>
+                props.navigation.navigate('FoodDetail', {foodId: item?.id})
+              }>
+              <View style={{position: 'relative'}}>
+                <Image
+                  source={item?.imgsrc}
+                  style={{width: '100%', height: 150, borderRadius: 20}}
+                />
+                <Image
+                  source={require('../assets/likeicons.png')}
+                  style={{position: 'absolute', top: '1%', right: '-3%'}}
+                />
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: '7%',
+                    left: '7%',
+                    flexDirection: 'row',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: 20,
+                    padding: '2.5%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={{color: '#FE724C', fontWeight: '600', fontSize: 18}}>
+                    $
+                  </Text>
+                  <Text
+                    style={{color: '#000', fontWeight: '600', fontSize: 18}}>
+                    {item?.price}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    position: 'absolute',
+                    bottom: '-10%',
+                    left: '8%',
+                    flexDirection: 'row',
+                    backgroundColor: 'white',
+                    borderRadius: 20,
+                    padding: '2.5%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={{color: '#000', fontWeight: '600', fontSize: 18}}>
+                    {item?.rating}
+                  </Text>
+                </View>
               </View>
-              <View
-              style={{
-            position: 'absolute',
-            bottom: '-10%',
-            left: '8%',
-            flexDirection: 'row',
-            backgroundColor: 'white',
-            borderRadius: 20,
-            padding: '2.5%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text style={{color: '#000', fontWeight: '600', fontSize: 18}}>
-            {item?.rating}
-          </Text>
-        </View>
-              
-            </View>
-            <View style={{padding:'10%'}}>
-              <Text style={{
-            color: '#000',
-            fontSize: 14,
-            fontStyle: 'normal',
-            fontWeight: '600',
-          }} >{item?.foodname}</Text>
-              <Text>{item?.foodname}</Text>
-            </View>
+              <View style={{padding: '10%'}}>
+                <Text
+                  style={{
+                    color: '#000',
+                    fontSize: 14,
+                    fontStyle: 'normal',
+                    fontWeight: '600',
+                  }}>
+                  {item?.foodname}
+                </Text>
+                <Text>{item?.foodname}</Text>
+              </View>
             </TouchableOpacity>
           </View>
-       
-      
-     ))
-    
-}
-</View>
+        ))}
+      </View>
     </ScrollView>
   );
 };

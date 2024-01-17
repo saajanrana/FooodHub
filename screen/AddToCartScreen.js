@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addfood, removefood, removeitemformcart } from '../context/StoreSlice';
+import { url } from '../components/url';
+
 
 const AddToCartScreen = ({navigation}) => {
   const route = useRoute();
@@ -20,37 +22,8 @@ const AddToCartScreen = ({navigation}) => {
   const totalitem = useSelector(state => state.store.totalitem);
   const Addtocart = useSelector(state => state.store.Addtocart);
   console.log("addeditems>>>>>>",Addtocart);
-  // const [promo,setPromo] = useState('');
-  // const [msgforprmo,setMsgforpromo] = useState();
+  const usertoken = useSelector(state => state.auth.usertoken);
 
-
-
-  // const calculateTotalPrice = () => {
-  //   const foodPrice = userfood?.price * totalitem;
-  //   const taxAndFee = parseFloat(userfood?.taxandfee) || 0;
-  //   const deliveryCost = parseFloat(userfood?.delivery) || 0;
-  //   const alltotalprice = foodPrice + taxAndFee + deliveryCost
-  //   return alltotalprice;
-  // };
-
-  // function  promoverify  () {
-  //   console.log('promocode>>>',promo);
-  //   if(promo === '1234'){
-  //     const afterpromo =   (calculateTotalPrice().toFixed())/2;
-  //     console.log('afterpromo',afterpromo);
-  //     return afterpromo;
-  //   }
-  //   else{
-  //     console.log('hueeeeee');
-
-  //   }
-
-  // }
-  // const finalvalue =  (calculateTotalPrice().toFixed(2));
-  
-
-
-  // console.log('food>>>>',userfood);
 
   console.log('totlaitem>>>>>',totalitem);
 
@@ -73,22 +46,40 @@ const AddToCartScreen = ({navigation}) => {
     dispatch(removeitemformcart(id))
   }
 
-
-  // const calculatedeliverycharges = () =>{
-  //   let delcharage = 0;
-
-  //   Addtocart.forEach((item)=>{
-  //     const delprice = item?.userfood?.delivery ||0;
-
-  //     console.log('price>>>>',delprice)
-  //     delcharage = delcharage+delprice;
-  //   });
-
-  //   return delcharage;
-  // }
     const total = () =>{
-      const totalpriceattocart = calculateSubtotal() +50+100;
+      const totalpriceattocart = calculateSubtotal()+50+100;
       return totalpriceattocart;
+    }
+
+
+
+
+    const cheakout = async() =>{
+
+      let mergedData = {};
+
+      Addtocart.forEach(item => {
+        let foodId = item.userfood.id;
+        let quantity = totalitem[foodId] || 0; // Set quantity to 0 if not found in totalitem
+        mergedData[foodId] = {
+          ...item.userfood,
+          quantity
+        };
+      });
+
+      let jsonData = JSON.stringify(mergedData);
+
+      const response = await fetch(`${url}api/userfood`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+            Authorization: usertoken,
+        },
+        body: jsonData,
+      });
+      const data = await response.json();
+      console.log('data>>>>>>>',data);
+      // navigation.navigate('MyOrderScreen');
     }
 
 
@@ -294,7 +285,7 @@ const AddToCartScreen = ({navigation}) => {
         </View>
       </View>
 
-      <TouchableOpacity style={{backgroundColor:'#FE724C',width:'80%',height:60,borderRadius:30,justifyContent:'center',alignItems:'center',marginBottom:'7%',marginTop:'5%'}} onPress={()=>navigation.navigate('MyOrderScreen')} >
+      <TouchableOpacity style={{backgroundColor:'#FE724C',width:'80%',height:60,borderRadius:30,justifyContent:'center',alignItems:'center',marginBottom:'7%',marginTop:'5%'}} onPress={cheakout} >
                   <Text style={{color:'#FFF',fontSize:15,fontWeight:'600'}}>CHECKOUT</Text>
           </TouchableOpacity>
       </View>
