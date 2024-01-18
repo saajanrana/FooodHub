@@ -707,6 +707,8 @@ const FoodDetailScreen = ({navigation}) => {
   ]
   const userfood = viewallitem.find(item => item.id === foodId);
 
+
+
     
 
 

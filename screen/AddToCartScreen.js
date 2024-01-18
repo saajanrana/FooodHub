@@ -67,7 +67,10 @@ const AddToCartScreen = ({navigation}) => {
         };
       });
 
-      let jsonData = JSON.stringify(mergedData);
+      const valuesArray = Object.values(mergedData);
+  
+
+      let jsonData = JSON.stringify(valuesArray);
 
       const response = await fetch(`${url}api/userfood`,{
         method: 'POST',

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -8,9 +8,47 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import { url } from '../components/url';
+import { useSelector } from 'react-redux';
 
 const MyOrderScreen = () => {
+  
+
+  
   const [clicktab,setClicktab] = useState(0);
+  const usertoken = useSelector(state => state.auth.usertoken);
+
+  const [userfood,setUserfood] = useState();
+
+
+  useEffect(() => {
+    const getFood = async () => {
+      try {
+        const response = await fetch(`${url}api/userfood`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: usertoken,
+          },
+        });
+  
+        if (response.ok) {
+          const userfooddata = await response.json();
+          console.log('userdata fooood >>>>>>>', userfooddata);
+          setUserfood(userfooddata?.data);
+        } else {
+          console.error('Error fetching data:', response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    // Call the function to fetch data
+    getFood();
+  }, []);
+
+   
   return (
     <ScrollView
       style={{
@@ -60,108 +98,112 @@ const MyOrderScreen = () => {
 
       <View style={{alignItems:'center'}}>
 
-      <View
-        style={{
-          marginTop: '5%',
-          backgroundColor: '#FFFFFF',
-          shadowOpacity: 10,
-          elevation: 6,
-          shadowColor: 'light-brown',
-          borderRadius: 20,
-        }}>
-        <View style={{padding:'7%', gap: 10}}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <View
-              style={{
-                width: '30%',
-                height: 80,
-                shadowOpacity: 10,
-                elevation: 6,
-                backgroundColor: '#FFF',
-                shadowColor: 'light-brown',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 20,
-              }}>
-              <Image source={require('../assets/starbuckicon.png')} />
-            </View>
-            <View>
-              <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
-                3 Items
-              </Text>
-              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
-                Starbuck
-              </Text>
-            </View>
-            <View>
-              <Text style={{color: '#FE724C', fontSize: 16, fontWeight: '400'}}>
-                $17.10
-              </Text>
-            </View>
-          </View>
+   {userfood.map((item)=>(
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 10,
-            }}>
-            <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
-              Estimated Arrival
-            </Text>
-            <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
-              Now
-            </Text>
-          </View>
-
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{color: '#000', fontSize: 40, fontWeight: '600'}}>
-                25
-              </Text>
+          key={item?.id}
+          style={{
+            marginTop: '5%',
+            backgroundColor: '#FFFFFF',
+            shadowOpacity: 10,
+            elevation: 6,
+            shadowColor: 'light-brown',
+            borderRadius: 20,
+          }}>
+          <View style={{padding:'7%', gap: 10}}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View
-                style={{alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                <Text style={{color: '#000'}}>min</Text>
+                style={{
+                  width: '30%',
+                  height: 80,
+                  shadowOpacity: 10,
+                  elevation: 6,
+                  backgroundColor: '#FFF',
+                  shadowColor: 'light-brown',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 20,
+                }}>
+                <Image source={item?.imgsrc} style={{width:100,height:80,borderRadius:20}} />
+              </View>
+              <View>
+                <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
+                  3 Items
+                </Text>
+                <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                  Starbuck
+                </Text>
+              </View>
+              <View>
+                <Text style={{color: '#FE724C', fontSize: 16, fontWeight: '400'}}>
+                  ${item?.price}
+                </Text>
               </View>
             </View>
-            <View>
-              <Text style={{color: '#000', fontWeight: '400', fontSize: 14}}>
-                Food on the way
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginTop: 10,
+              }}>
+              <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
+                Estimated Arrival
+              </Text>
+              <Text style={{color: '#9796A1', fontSize: 13, fontWeight: '500'}}>
+                Now
               </Text>
             </View>
-          </View>
-
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#FFF',
-                borderWidth: 1,
-                width: '45%',
-                height: 55,
-                borderRadius: 30,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderColor: '#F1F2F3',
-              }}>
-              <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
-                Cancel
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#FE724C',
-                width: '45%',
-                height: 55,
-                borderRadius: 30,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text style={{color: '#FFF', fontSize: 16, fontWeight: '600'}}>
-                Track Order
-              </Text>
-            </TouchableOpacity>
+  
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={{color: '#000', fontSize: 40, fontWeight: '600'}}>
+                  25
+                </Text>
+                <View
+                  style={{alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+                  <Text style={{color: '#000'}}>min</Text>
+                </View>
+              </View>
+              <View>
+                <Text style={{color: '#000', fontWeight: '400', fontSize: 14}}>
+                  Food on the way
+                </Text>
+              </View>
+            </View>
+  
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: '#FFF',
+                  borderWidth: 1,
+                  width: '45%',
+                  height: 55,
+                  borderRadius: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderColor: '#F1F2F3',
+                }}>
+                <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: '#FE724C',
+                  width: '45%',
+                  height: 55,
+                  borderRadius: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{color: '#FFF', fontSize: 16, fontWeight: '600'}}>
+                  Track Order
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
+   ))  
+}
       </View>
 
       <View style={{marginTop:'7%', marginLeft:'8%'}}>
