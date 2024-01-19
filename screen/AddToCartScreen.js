@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Modal
   
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +24,7 @@ const AddToCartScreen = ({navigation}) => {
   const Addtocart = useSelector(state => state.store.Addtocart);
   console.log("addeditems>>>>>>",Addtocart);
   const usertoken = useSelector(state => state.auth.usertoken);
+  const [openmodal,setOpenmodal] = useState(false);
 
 
   console.log('totlaitem>>>>>',totalitem);
@@ -50,6 +52,10 @@ const AddToCartScreen = ({navigation}) => {
       const totalpriceattocart = calculateSubtotal()+50+100;
       return totalpriceattocart;
     }
+
+
+
+ 
 
 
 
@@ -82,7 +88,10 @@ const AddToCartScreen = ({navigation}) => {
       });
       const data = await response.json();
       console.log('data>>>>>>>',data);
-      // navigation.navigate('MyOrderScreen');
+      if(response.ok){
+        console.log('hue hue hue');
+        navigation.navigate('MyOrderScreen');
+      }
     }
 
 
