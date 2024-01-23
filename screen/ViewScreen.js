@@ -9,6 +9,7 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const ViewScreen = ({navigation}) => {
   const route = useRoute();
@@ -703,30 +704,30 @@ const ViewScreen = ({navigation}) => {
     <ScrollView style={{flex: 1, backgroundColor: '#FFF'}}>
       <ImageBackground
         source={require('../assets/newviewbackpic.jpg')}
-        style={{flex: 1}}>
+        style={{flex:1}}>
         <View
           style={{
             flexDirection: 'column',
             justifyContent: 'space-between',
-            marginTop: '5%',
+            marginTop:responsiveHeight(5),
           }}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={require('../assets/goback.png')} />
           </TouchableOpacity>
-          <View style={{flexWrap: 'wrap', marginLeft: '5%'}}>
-            <Text style={{fontSize: 60, color: '#272D2F', fontWeight: '700'}}>
+          <View style={{flexWrap: 'wrap', marginLeft:responsiveWidth(5)}}>
+            <Text style={{fontSize: responsiveFontSize(7), color: '#272D2F', fontWeight: '700'}}>
               Fast
             </Text>
             <Text
               style={{
-                fontSize: 60,
+                fontSize: responsiveFontSize(7),
                 color: '#FE724C',
                 fontStyle: 'normal',
                 fontWeight: '700',
               }}>
               Food
             </Text>
-            <Text style={{color: '#9796A1', fontSize: 18}}>
+            <Text style={{color: '#9796A1', fontSize:  responsiveFontSize(2)}}>
               80 type of pizza
             </Text>
           </View>
@@ -739,38 +740,39 @@ const ViewScreen = ({navigation}) => {
      (
       viewallitem.map((item)=>{
       return (
-        <View key={item.id} style={{flex: 1, alignItems: 'center', marginTop: 30, gap: 30,marginBottom:10}} >
+        <View key={item.id} style={{flex: 1, alignItems: 'center', marginTop:responsiveHeight(4),marginBottom:responsiveHeight(4)}} >
         <View
           style={{
             backgroundColor: '#FFF',
             shadowOpacity: 10,
             elevation: 1,
             shadowColor: 'light-brown',
-            borderRadius: 30,
+             borderRadius:responsiveWidth(5),
+              width:responsiveWidth(70)
           }}>
           <View style={{position: 'relative'}}>
             <Image
               source={item.imgsrc}
-              style={{borderRadius: 30,height:160,width:'100%'}}
+              style={{borderRadius:responsiveWidth(3),height:responsiveHeight(30),width:responsiveWidth(70)}}
             />
             <Image
               source={require('../assets/likeicons.png')}
-              style={{position: 'absolute', top: '2%', right: '2%'}}
+              style={{position: 'absolute', top:responsiveHeight(2), right:responsiveWidth(2)}}
             />
 
-            <View style={{position: 'absolute', top: '7%', left: '7%',flexDirection:"row",backgroundColor:'white',borderRadius:20,padding:'2.5%',alignItems:'center',justifyContent:'center'}}>
-              <Text style={{color:"#FE724C",fontWeight:'600',fontSize:18}}>$</Text>
-               <Text style={{color:'#000',fontWeight:'600',fontSize:18}}>{item.price}</Text>
+            <View style={{position: 'absolute', top:responsiveHeight(2), left:responsiveWidth(3),flexDirection:"row",backgroundColor:'white',borderRadius:responsiveWidth(10),padding:responsiveWidth(1.4),alignItems:'center',justifyContent:'center'}}>
+              <Text style={{color:"#FE724C",fontWeight:'600',fontSize:responsiveFontSize(1.8)}}>$</Text>
+               <Text style={{color:'#000',fontWeight:'600',fontSize:responsiveFontSize(1.8)}}>{item.price}</Text>
             </View>
-            <View style={{position: 'absolute', bottom: '-12%', left: '7%',flexDirection:"row",backgroundColor:'white',borderRadius:20,padding:'2.5%',alignItems:'center',justifyContent:'center'}}>
-               <Text style={{color:'#000',fontWeight:'600',fontSize:18}}>{item.rating}</Text>
+            <View style={{position: 'absolute', bottom:responsiveHeight(-3), left:responsiveWidth(5),flexDirection:"row",backgroundColor:'white',borderRadius:responsiveWidth(10),padding:responsiveWidth(2),alignItems:'center',justifyContent:'center'}}>
+               <Text style={{color:'#000',fontWeight:'600',fontSize:responsiveFontSize(1.8)}}>{item.rating}</Text>
             </View>
           </View>
-          <TouchableOpacity style={{padding: '5%'}} onPress={()=> navigation.navigate('FoodDetail',{foodId:item?.id})}>
-            <Text style={{color: '#000', fontSize: 19, fontWeight: '600'}}>
+          <TouchableOpacity style={{padding:responsiveWidth(2.5)}} onPress={()=> navigation.navigate('FoodDetail',{foodId:item?.id})}>
+            <Text style={{color: '#000',fontSize:responsiveFontSize(2), fontWeight: '600'}}>
               {item.foodname}
             </Text>
-            <Text style={{color: '#5B5B5E', fontSize: 15, fontWeight: '400'}}>
+            <Text style={{color: '#5B5B5E', fontSize:responsiveFontSize(1.8), fontWeight: '400'}}>
               Chicken,Cheese and pineapple
             </Text>
           </TouchableOpacity>
@@ -781,38 +783,39 @@ const ViewScreen = ({navigation}) => {
      ):(
       userfood.map((item)=>{
         return (
-          <View key={item.id} style={{flex: 1, alignItems: 'center', marginTop: 30, gap: 30,marginBottom:10}} >
+          <View key={item.id} style={{flex: 1, alignItems: 'center', marginTop:responsiveHeight(4),marginBottom:responsiveHeight(4)}} >
           <View
             style={{
               backgroundColor: '#FFF',
               shadowOpacity: 10,
               elevation: 1,
               shadowColor: 'light-brown',
-              borderRadius: 30,
+              borderRadius:responsiveWidth(5),
+              width:responsiveWidth(70)
             }}>
             <View style={{position: 'relative'}}>
               <Image
                 source={item.imgsrc}
-                style={{borderRadius: 30,height:160,width:'100%'}}
+                style={{borderRadius:responsiveWidth(3),height:responsiveHeight(30),width:responsiveWidth(70)}}
               />
               <Image
                 source={require('../assets/likeicons.png')}
-                style={{position: 'absolute', top: '2%', right: '2%'}}
+                style={{position: 'absolute', top:responsiveHeight(2), right:responsiveWidth(2)}}
               />
   
-              <View style={{position: 'absolute', top: '7%', left: '7%',flexDirection:"row",backgroundColor:'white',borderRadius:20,padding:'2.5%',alignItems:'center',justifyContent:'center'}}>
-                <Text style={{color:"#FE724C",fontWeight:'600',fontSize:18}}>$</Text>
-                 <Text style={{color:'#000',fontWeight:'600',fontSize:18}}>{item.price}</Text>
+              <View style={{position: 'absolute', top:responsiveHeight(2), left:responsiveWidth(3),flexDirection:"row",backgroundColor:'white',borderRadius:responsiveWidth(10),padding:responsiveWidth(1.4),alignItems:'center',justifyContent:'center'}}>
+                <Text style={{color:"#FE724C",fontWeight:'600',fontSize:responsiveFontSize(1.8)}}>$</Text>
+                 <Text style={{color:'#000',fontWeight:'600',fontSize:responsiveFontSize(1.8)}}>{item.price}</Text>
               </View>
-              <View style={{position: 'absolute', bottom: '-12%', left: '7%',flexDirection:"row",backgroundColor:'white',borderRadius:20,padding:'2.5%',alignItems:'center',justifyContent:'center'}}>
-                 <Text style={{color:'#000',fontWeight:'600',fontSize:18}}>{item.rating}</Text>
+              <View style={{position: 'absolute', bottom:responsiveHeight(-3), left:responsiveWidth(5),flexDirection:"row",backgroundColor:'white',borderRadius:responsiveWidth(10),padding:responsiveWidth(2),alignItems:'center',justifyContent:'center'}}>
+                 <Text style={{color:'#000',fontWeight:'600',fontSize:responsiveFontSize(1.8)}}>{item.rating}</Text>
               </View>
             </View>
-            <TouchableOpacity style={{padding: '5%'}} onPress={()=> navigation.navigate('FoodDetail',{foodId:item?.id})}>
-              <Text style={{color: '#000', fontSize: 19, fontWeight: '600'}}>
+            <TouchableOpacity style={{padding:responsiveWidth(2.5)}} onPress={()=> navigation.navigate('FoodDetail',{foodId:item?.id})}>
+              <Text style={{color: '#000', fontSize:responsiveFontSize(2), fontWeight: '600'}}>
                 {item.foodname}
               </Text>
-              <Text style={{color: '#5B5B5E', fontSize: 15, fontWeight: '400'}}>
+              <Text style={{color: '#5B5B5E', fontSize:responsiveFontSize(1.8), fontWeight: '400'}}>
                 Chicken,Cheese and pineapple
               </Text>
             </TouchableOpacity>

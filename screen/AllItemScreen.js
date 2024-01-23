@@ -9,8 +9,10 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   FlatList,
+  Dimensions
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import Shimmer from 'react-native-shimmer-kit';
 
 const AllItemScreen = ({navigation}) => {
@@ -19,6 +21,19 @@ const AllItemScreen = ({navigation}) => {
   const [simmertime, setSimmertime] = useState(0);
 
   const simmerarr = [0,1,2,3,4,5,6];
+
+  const [tab,setTab] = useState(0);
+
+  const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+const isTablet = screenWidth >= 600
+
+
+// if(screenWidth >=600) {
+//   setTab(1);
+// }
+
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -857,51 +872,60 @@ const AllItemScreen = ({navigation}) => {
     <ScrollView style={{backgroundColor: '#FFF', flex: 1}}>
       {simmertime == 0 ? (
         simmerarr.map((item)=>( 
-        <View
+          <View
+          style={{
+            flex: 1,
+            justifyContent: isTablet ? 'center' : 'center',
+            alignItems: isTablet ? 'center' : 'center',
+            flexDirection: isTablet ? 'row' : 'column',
+            flexWrap: isTablet ? 'wrap' : 'nowrap',
+          }}
+        >
+          <View
             style={{
               backgroundColor: '#FFF',
               shadowOpacity: 10,
               elevation: 1,
               shadowColor: 'light-brown',
-              borderRadius: 30,
-              width: 350,
-              gap: 10,
-              height: 260,
-              padding: 10,
-              flexWrap:'wrap',
-              marginTop:20,
-              marginLeft:30
+              borderRadius: responsiveWidth(5),
+              width: isTablet ? responsiveWidth(35) : responsiveWidth(80),
+              gap: responsiveWidth(1),
+              height: isTablet ? responsiveHeight(50) : responsiveHeight(35),
+              flexWrap: 'wrap',
+              marginTop: responsiveHeight(5),
             }}
-            key={item.index}>
+            key={item.index}
+          >
             <Shimmer
-              width={330}
-              height={140}
-              borderRadius={20}
+              width={isTablet ? responsiveWidth(35) : responsiveWidth(80)}
+              height={isTablet ? responsiveHeight(30) : responsiveHeight(20)}
+              borderRadius={responsiveWidth(5)}
               duration={2000}
               colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
             />
             <Shimmer
-              width={250}
-              height={20}
-              borderRadius={15}
+              width={isTablet ? responsiveWidth(25) : responsiveWidth(70)}
+              height={responsiveHeight(3)}
+              borderRadius={responsiveWidth(5)}
               duration={2000}
               colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
             />
             <Shimmer
-              width={230}
-              height={20}
-              borderRadius={15}
+              width={isTablet ? responsiveWidth(15) : responsiveWidth(60)}
+              height={responsiveHeight(3)}
+              borderRadius={responsiveWidth(5)}
               duration={2000}
               colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
             />
             <Shimmer
-              width={200}
-              height={20}
-              borderRadius={15}
+              width={isTablet ? responsiveWidth(7) : responsiveWidth(50)}
+              height={responsiveHeight(3)}
+              borderRadius={responsiveWidth(5)}
               duration={2000}
               colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
             />
-          </View>))
+          </View>
+        </View>))
        
       ) : (
         <View>
@@ -909,26 +933,27 @@ const AllItemScreen = ({navigation}) => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop: 20,
+              marginTop:responsiveHeight(2),
             }}>
             <View
               style={{
-                borderWidth: 2,
+                borderWidth:responsiveWidth(0.2),
                 borderColor: '#F2EAEA',
                 width: '90%',
-                height: 60,
-                borderRadius: 30,
+                height:responsiveHeight(9),
+                borderRadius:responsiveWidth(10),
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '1%',
+                padding:responsiveWidth(1),
+                
               }}>
               <TouchableOpacity
                 style={{
                   backgroundColor: clicktab === 0 ? '#FE724C' : '#FFF',
-                  width: '50%',
-                  height: 50,
-                  borderRadius: 50,
+                  width:responsiveWidth(40),
+                  height: responsiveHeight(8),
+                  borderRadius:responsiveWidth(10),
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -941,9 +966,9 @@ const AllItemScreen = ({navigation}) => {
               <TouchableOpacity
                 style={{
                   backgroundColor: clicktab === 0 ? '#FFF' : '#FE724C',
-                  width: '50%',
-                  height: 50,
-                  borderRadius: 50,
+                  width: responsiveWidth(40),
+                  height:responsiveHeight(8),
+                  borderRadius:responsiveWidth(10),
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -957,36 +982,42 @@ const AllItemScreen = ({navigation}) => {
 
           {clicktab === 0
             ? 
+            <View 
+             style={{ 
+              flex:1,
+              marginTop:responsiveHeight(3),
+              marginBottom:responsiveHeight(4),
+              borderWidth:2,
+              flexDirection:(screenWidth>=600)?'row':'column'
+              
+            
+            }}
+            >
                <FlatList data={viewallitem}
                 renderItem={(item)=>
                     (
-                    <View
-                    key={item?.index}
-                    style={{
-                      flex: 1,
-                      alignItems: 'center',
-                      marginTop: 30,
-                      gap: 30,
-                      marginBottom: 10,
-                    }}>
+              <View style={{marginTop:responsiveHeight(3)}}>
                     <TouchableWithoutFeedback
                       onPress={() =>
                         navigation.navigate('FoodDetail', {foodId: item?.item?.id})
-                      }>
+                      }
+                    
+                      >
                       <View
                         style={{
                           backgroundColor: '#FFF',
                           shadowOpacity: 10,
                           elevation: 1,
                           shadowColor: 'light-brown',
-                          borderRadius: 30,
-                          width: '90%',
+                          borderRadius:responsiveWidth(2),
+                          width:isTablet?responsiveWidth(40):responsiveWidth(90),
+                         
                         }}>
                         <View style={{position: 'relative'}}>
                           <Image
                             source={item?.item?.imgsrc
                             }
-                            style={{borderRadius: 30, height:160, width:'100%'}}
+                            style={{borderRadius:responsiveWidth(2), height:160, width:'100%'}}
                            
                           />
                           <Image
@@ -1065,12 +1096,14 @@ const AllItemScreen = ({navigation}) => {
                         </TouchableOpacity>
                       </View>
                     </TouchableWithoutFeedback>
-                  </View>
+                    </View>
+                
                 )}
                 onEndReached={loadMoreData}
                 onEndReachedThreshold={0.5}
                  
                />
+          </View>
              
             : restaurants.map(item => (
                 <View

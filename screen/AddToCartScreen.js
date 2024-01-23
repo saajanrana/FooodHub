@@ -172,7 +172,7 @@ const AddToCartScreen = ({navigation}) => {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-          <TextInput placeholder="Promo Code" style={{marginLeft:responsiveHeight(3)}} />
+          <TextInput placeholder="Promo Code" style={{marginLeft:responsiveHeight(3),fontSize:responsiveFontSize(1.6)}} />
           <TouchableOpacity
             style={{
               backgroundColor: '#FE724C',
@@ -183,28 +183,27 @@ const AddToCartScreen = ({navigation}) => {
               alignItems: 'center',
               marginRight:responsiveWidth(2),
             }}   >
-            <Text style={{color: '#FFF',fontSize:responsiveFontSize(1)}}>Apply</Text>
+            <Text style={{color: '#FFF',fontSize:responsiveFontSize(1.6)}}>Apply</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      <View style={{gap:20,width:'90%',marginTop:'7%'}}>
+      <View style={{gap:responsiveWidth(1.4),width:responsiveWidth(90),marginTop:responsiveHeight(5)}}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             borderBottomColor:'#F1F2F3',
-            borderBottomWidth:2,
-            gap:10,
+            borderBottomWidth:responsiveWidth(0.2),
             flexWrap:'wrap'
           }}>
           <View>
-            <Text style={{color: '#000', fontSize: 16, fontWeight: '400'}}>
+            <Text style={{color: '#000', fontSize: responsiveFontSize(1.8), fontWeight: '400'}}>
               Subtotal
             </Text>
           </View>
           <View style={{flexDirection: 'row',justifyContent:"space-between",}}>
-            <Text style={{color: '#000', fontSize: 19, fontWeight: '500'}}>
+            <Text style={{color: '#000', fontSize: responsiveFontSize(1.8), fontWeight: '500'}}>
             {calculateSubtotal()}
             </Text>
             {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400' ,}}>
@@ -218,18 +217,17 @@ const AddToCartScreen = ({navigation}) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             borderBottomColor:'#F1F2F3',
-            borderBottomWidth:2,
-            gap:10,
+            borderBottomWidth:responsiveWidth(0.2),
             flexWrap:'wrap'
           }}>
           <View>
-            <Text style={{color: '#000', fontSize: 16, fontWeight: '400'}}>
+            <Text style={{color: '#000', fontSize: responsiveFontSize(1.8), fontWeight: '400'}}>
               Tax and Fees
             </Text>
           </View>
 
           <View style={{flexDirection: 'row'}}>
-            <Text style={{color: '#000', fontSize: 19, fontWeight: '500'}}>
+            <Text style={{color: '#000', fontSize: responsiveFontSize(1.8), fontWeight: '500'}}>
               {/* {calculatedeliverycharges()} */}00
             </Text>
             {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400'}}>
@@ -244,18 +242,18 @@ const AddToCartScreen = ({navigation}) => {
             justifyContent: 'space-between',
            
             borderBottomColor:'#F1F2F3',
-            borderBottomWidth:2,
-            gap:10,
+            borderBottomWidth:responsiveWidth(0.2),
+           
             flexWrap:'wrap'
           }}>
           <View>
-            <Text style={{color: '#000', fontSize: 16, fontWeight: '400'}}>
+            <Text style={{color: '#000', fontSize: responsiveFontSize(1.8), fontWeight: '400'}}>
               Delivery
             </Text>
           </View>
 
           <View style={{flexDirection: 'row'}}>
-            <Text style={{color: '#000', fontSize: 19, fontWeight: '500'}}>
+            <Text style={{color: '#000', fontSize:responsiveFontSize(1.8), fontWeight: '500'}}>
               {/* ${userfood?.delivery} */}00
             </Text>
             {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400'}}>
@@ -269,12 +267,12 @@ const AddToCartScreen = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            gap:10,
+           
             flexWrap:'wrap'
            
           }}>
-          <View style={{flexDirection:'row',gap:10}}>
-            <Text style={{color: '#000', fontSize: 16, fontWeight: '400'}}>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{color: '#000', fontSize:responsiveFontSize(1.8), fontWeight: '400'}}>
               Total
             </Text>
             {/* <Text style={{color:'#BEBEBE',fontSize:14,fontWeight:'300',}}>
@@ -283,7 +281,7 @@ const AddToCartScreen = ({navigation}) => {
           </View>
 
           <View style={{flexDirection: 'row'}}>
-            <Text style={{color: '#000', fontSize: 19, fontWeight: '500'}}>
+            <Text style={{color: '#000', fontSize:responsiveFontSize(1.8), fontWeight: '500'}}>
               {/* ${finalvalue} */} {calculateSubtotal()}
             </Text>
             {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400'}}>
@@ -293,8 +291,8 @@ const AddToCartScreen = ({navigation}) => {
         </View>
       </View>
 
-      <TouchableOpacity style={{backgroundColor:'#FE724C',width:'80%',height:60,borderRadius:30,justifyContent:'center',alignItems:'center',marginBottom:'7%',marginTop:'5%'}} onPress={cheakout} >
-                  <Text style={{color:'#FFF',fontSize:15,fontWeight:'600'}}>CHECKOUT</Text>
+      <TouchableOpacity style={{backgroundColor:'#FE724C',width:responsiveWidth(80),height:responsiveHeight(8),borderRadius:responsiveWidth(10),justifyContent:'center',alignItems:'center',marginBottom:responsiveHeight(7),marginTop:responsiveHeight(5)}} onPress={cheakout} >
+                  <Text style={{color:'#FFF',fontSize:responsiveFontSize(1.5),fontWeight:'600'}}>CHECKOUT</Text>
           </TouchableOpacity>
       </View>
       
