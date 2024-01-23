@@ -16,6 +16,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {url} from '../components/url';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {profile} from '../context/AuthSlice';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
+
 
 const HomeScreen = props => {
   const [token, setToken] = useState();
@@ -863,13 +869,15 @@ const HomeScreen = props => {
     </TouchableOpacity>
   );
   const renderfeaturerest = ({item}) => (
+
     <TouchableOpacity
-      style={styles.featuredRestaurantContainerr}
       onPress={() =>
         props.navigation.navigate('FoodDetail', {foodId: item?.id})
       }>
+        <View style={styles.featuredRestaurantContainerr}>
+      <View style={styles.feimgcontaner}>
       <Image source={item?.imgsrc} style={styles.featuredRestaurantImage} />
-
+      </View>
       <View style={styles.featuredRestaurantDetailsContainer}>
         <Text style={styles.featuredRestaurantName}>{item?.foodname}</Text>
         <View style={styles.featuredRestaurantInfoContainer}>
@@ -878,28 +886,22 @@ const HomeScreen = props => {
         </View>
 
         <Text
-          style={{
-            color: '#8A8E9B',
-            fontSize: 12,
-            fontWeight: '400',
-          }}>
+          style={styles.txt}>
           {item?.tag}
         </Text>
+      </View>
       </View>
     </TouchableOpacity>
   );
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.headerContainer}>
+      {/* <View style={styles.headerContainer}>
         <Header
           onPressMenu={() => props.navigation.openDrawer()}
           isMenu={true}
         />
-        {/* <View style={styles.deliveryInfoContainer}>
-            <Text>Delivery To --</Text>
-            <Text>4102 Pretty View Lane</Text>
-          </View> */}
+       
         <View style={styles.profileImageContainer}>
           <TouchableOpacity
             onPress={() => props.navigation.navigate('MyProfileScreen')}>
@@ -913,7 +915,7 @@ const HomeScreen = props => {
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>What would you like to order</Text>
       </View>
@@ -932,6 +934,7 @@ const HomeScreen = props => {
           />
         </TouchableOpacity>
       </View>
+      <View style={styles.filterContainer}>
 
       <FlatList
         data={fliterdata}
@@ -940,21 +943,24 @@ const HomeScreen = props => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContainerone}
-        style={styles.filterContainer}
+       
       />
+      </View>
 
       <View style={styles.featuredRestaurantsContainer}>
-        <View style={styles.featuredRestaurantsHeader}>
+        
           <Text style={styles.featuredRestaurantsHeaderText}>
             Featured Restaurants
           </Text>
-        </View>
+      
         <TouchableOpacity
           onPress={() => props.navigation.navigate('AllItemScreen')}>
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
       </View>
+    
 
+    <View style={styles.outerflatList}>
       <FlatList
         data={featurerestdata}
         keyExtractor={item => item.key}
@@ -962,40 +968,27 @@ const HomeScreen = props => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContainer}
-        style={styles.outerflatList}
+        
       />
+     </View>
 
+
+   
+     
+    
       <View style={styles.featuredRestaurantsContainer}>
-        <View style={styles.featuredRestaurantsHeader}>
+        
           <Text style={styles.featuredRestaurantsHeaderText}>
             Popular Items
           </Text>
-        </View>
+    
       </View>
       <View
-        style={{
-          width: '100%',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          marginLeft: '8%',
-
-          marginTop: '3%',
-          marginBottom: '4%',
-          gap: 10,
-        }}>
+        style={styles.popcontainer}>
         {popularitems.map(item => (
           <View
             key={item?.id}
-            style={{
-              width: '40%',
-              backgroundColor: '#FFF',
-              shadowOpacity: 10,
-              elevation: 1,
-              shadowColor: 'light-brown',
-              borderRadius: 20,
-              height: 'auto',
-              gap: 10,
-            }}>
+            style={styles.popcontainert}>
             <TouchableOpacity
               onPress={() =>
                 props.navigation.navigate('FoodDetail', {foodId: item?.id})
@@ -1003,7 +996,7 @@ const HomeScreen = props => {
               <View style={{position: 'relative'}}>
                 <Image
                   source={item?.imgsrc}
-                  style={{width: '100%', height: 150, borderRadius: 20}}
+                  style={styles.popimg}
                 />
                 <Image
                   source={require('../assets/likeicons.png')}
@@ -1050,12 +1043,7 @@ const HomeScreen = props => {
               </View>
               <View style={{padding: '10%'}}>
                 <Text
-                  style={{
-                    color: '#000',
-                    fontSize: 14,
-                    fontStyle: 'normal',
-                    fontWeight: '600',
-                  }}>
+                  style={styles.poptxto}>
                   {item?.foodname}
                 </Text>
                 <Text>{item?.foodname}</Text>
@@ -1072,56 +1060,59 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FCFCFD',
     flex: 1,
+    height:responsiveHeight(100),
+    width:responsiveWidth(100),
+  
   },
 
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: '3%',
-    // padding:'5%',
-  },
-  deliveryInfoContainer: {},
-  profileImageContainer: {
-    marginTop: '5%',
-    marginRight: '7%',
+    alignItems:'center',
+    marginLeft:responsiveWidth(3),
+    marginRight:responsiveHeight(3)
   },
   profileImage: {
-    height: 40,
-    width: 40,
-    borderRadius: 15,
+    height:responsiveHeight(6),
+    width: responsiveWidth(10.4),
+    borderRadius:responsiveWidth(3),
   },
   titleContainer: {
-    marginLeft: '7%',
+    marginLeft:responsiveWidth(7),
   },
   titleText: {
     color: '#323643',
     fontWeight: '800',
-    fontSize: 30,
+    fontSize:responsiveFontSize(4.8),
   },
   searchContainer: {
+  
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: '7%',
-    marginRight: '7%',
-    marginTop: '3%',
+    gap:responsiveWidth(7),
+    width:responsiveWidth(100),
+    paddingLeft:responsiveWidth(7),
+    
+    paddingRight:responsiveWidth(7),
+    marginTop: responsiveHeight(2),
   },
   inputContainer: {
-    borderWidth: 1,
+    borderWidth:responsiveWidth(0.2),
     borderColor: '#EFEFEF',
-    width: '70%',
-    height: 65,
+    width:responsiveWidth(68),
+    height:responsiveHeight(9),
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius:responsiveWidth(2.2),
   },
   inputText: {
     color: '#9AA0B4',
-    fontSize: 14,
+    fontSize:responsiveFontSize(2),
     fontWeight: '400',
-    marginLeft: 10,
+    marginLeft:responsiveWidth(2.5),
   },
   filterIconContainer: {
-    height: 65,
-    width: '20%',
+    height:responsiveHeight(8),
+    width:responsiveWidth(20),
   },
   filterIcon: {
     // width: '100%',
@@ -1129,87 +1120,102 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     // marginLeft: 20,
-    marginTop: '3%',
-    width: '100%',
-    height: '30%',
+    alignItems:'center',
+    
+    marginTop:responsiveHeight(2),
+    width:responsiveWidth(100),
+    height: responsiveHeight(21),
   },
 
   flatListContainerone: {
-    paddingLeft: '7%',
-    paddingRight: '7%',
-    gap: 12,
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingLeft:responsiveWidth(7),
+    paddingRight:responsiveWidth(7),
+    gap:responsiveHeight(2),
+    alignItems:'center',
   },
   flatListContainer: {
-    paddingLeft: '7%',
-    paddingRight: '7%',
-    gap: 12,
-    flexGrow: 1,
+    paddingLeft:responsiveWidth(7),
+    paddingRight:responsiveWidth(7),
+    gap:responsiveWidth(5),
+    
+
+
   },
   outerflatList: {
-    width: '100%',
-    height: '60%',
+  
+    width: responsiveWidth(100),
+    height:responsiveHeight(50),
   },
   featuredRestaurantsContainer: {
-    marginTop: '4%',
+    marginTop: responsiveHeight(4),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: '7%',
-    marginRight: '7%',
+    marginLeft:responsiveWidth(7),
+    marginRight:responsiveWidth(7),
+    
   },
-  featuredRestaurantsHeader: {},
   featuredRestaurantsHeaderText: {
     color: '#323643',
-    fontSize: 18,
+    fontSize:responsiveFontSize(2.4),
     fontWeight: '600',
   },
   viewAllText: {
     color: '#F56844',
     fontWeight: '400',
-    fontSize: 14,
-    marginTop: '3%',
+    fontSize:responsiveFontSize(1.8),
   },
   featuredRestaurantContainerr: {
-    flex: 1,
-    width: 300,
-    height: 300,
-    borderRadius: 20,
-    marginTop: 15,
+    
+    width:responsiveWidth(70),
+    height:responsiveHeight(100),
+    borderRadius:responsiveWidth(2),
+    marginTop:responsiveHeight(2),
+    
   },
   featuredRestaurantImageContainer: {
-    width: 500,
-    height: '45%',
+    width:responsiveWidth(70),
+    height:responsiveHeight(70),
+  },
+  feimgcontaner:{
+      width:responsiveWidth(70),
+      height:responsiveHeight(30),
+      borderTopLeftRadius:responsiveWidth(2),
+      borderTopRightRadius:responsiveWidth(2),
+
   },
   featuredRestaurantImage: {
-    width: '100%',
-    height: '50%',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+ 
+    width:responsiveWidth(70),
+    height:responsiveHeight(30),
+    borderTopLeftRadius:responsiveWidth(2),
+    borderTopRightRadius:responsiveWidth(2),
+    resizeMode:'cover',
+    
   },
   featuredRestaurantDetailsContainer: {
+   
     backgroundColor: '#FFF',
-    padding: 10,
-    paddingBottom: 0,
-    width: '100%',
-    height: '50%',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    paddingLeft:responsiveWidth(3),
+    paddingBottom: responsiveHeight(0),
+    width:responsiveWidth(100),
+    height:responsiveHeight(30),
+    borderBottomLeftRadius: responsiveWidth(20),
+    borderBottomRightRadius:responsiveWidth(20),
+    
   },
   featuredRestaurantName: {
     color: '#000',
-    fontSize: 15,
+    fontSize: responsiveFontSize(2.5),
     fontWeight: '600',
   },
   featuredRestaurantInfoContainer: {
     flexDirection: 'row',
-    gap: 10,
+    gap: responsiveWidth(10),
     justifyContent: 'space-between',
   },
   featuredRestaurantInfoText: {
     color: '#7E8392',
-    fontSize: 12,
+    fontSize: responsiveFontSize(1.5),
     fontWeight: '400',
   },
   featuredRestaurantCategoryContainer: {
@@ -1225,6 +1231,50 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     textAlign: 'center',
   },
+  txt:{
+    color: '#8A8E9B',
+    fontSize: responsiveFontSize(1.4),
+    fontWeight: '400',
+  },
+  popcontainer:{
+    width:responsiveWidth(100),
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginLeft: responsiveWidth(8),
+
+    marginTop: responsiveHeight(3),
+    marginBottom: responsiveHeight(4),
+    gap:responsiveWidth(3)
+  },
+  popcontainert:{
+    width: responsiveWidth(40),
+    backgroundColor: '#FFF',
+    shadowOpacity: 10,
+    elevation: 1,
+    shadowColor: 'light-brown',
+    borderRadius:responsiveWidth(2),
+    height:responsiveHeight(35),
+    gap:responsiveWidth(10),
+  },
+  popimg:{
+    width:'auto', 
+    height:responsiveHeight(20), 
+    borderRadius:responsiveWidth(2)
+  
+  },
+  poptxto:{
+    color: '#000',
+    fontSize:responsiveFontSize(1.5),
+    fontStyle: 'normal',
+    fontWeight: '600',
+  }
+
+
+
+
+  
+
+
 });
 
 export default HomeScreen;

@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { addfood, removefood, removeitemformcart } from '../context/StoreSlice';
 import { url } from '../components/url';
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 
 const AddToCartScreen = ({navigation}) => {
@@ -96,41 +97,35 @@ const AddToCartScreen = ({navigation}) => {
 
 
   return (
-    <ScrollView style={{backgroundColor: '#FFF',flex:1,width:'100vw'}}>
-      <View style={{alignItems:'center',width:'100vw',justifyContent:"center"}}>
-     { Addtocart.map((item,id)=>{
+    <ScrollView style={styles.maincontainer}>
+      <View style={styles.secondcontainer}>
+       { Addtocart.map((item,id)=>{
       return(
         <View key={id}
-        style={{
-          flexDirection: 'row',
-          marginTop:'5%',
-          width:'90%',
-          gap:10,
-          alignItems:"center"
-        }}>
-        <View style={{height: 100, width:'28%', borderRadius: 20}}>
+        style={styles.cartitemdiv}>
+        <View style={styles.itemimg}>
           <Image
             source={item?.userfood?.imgsrc}
-            style={{height: '100%', width: '100%', borderRadius: 20}}
+            style={styles.itemimgsty}
           />
         </View>
-        <View style={{gap:8,width:'70%'}}>
-          <View style={{justifyContent:'space-between',flexDirection:'row'}} >
-              <Text style={{color: '#000', fontSize: 18, fontWeight: '800'}}>
+        <View style={styles.cartitemdata}>
+          <View style={styles.itmefooddata} >
+              <Text style={styles.itmefooddatatxt}>
                 {item?.userfood?.foodname}
                </Text>
-          <TouchableOpacity style={{alignItems:'flex-end'}} onPress={()=>removeitem(item?.userfood?.id)}>
-              <Text style={{color: '#FF3600', fontSize: 18}}>X</Text>
+          <TouchableOpacity style={styles.xbtn} onPress={()=>removeitem(item?.userfood?.id)}>
+              <Text style={styles.xbtntxt}>X</Text>
           </TouchableOpacity>
           </View>
-          <Text style={{color: '#8C8A9D', fontSize: 14, fontWeight: 300}}>
+          <Text style={styles.fooddatatxt}>
             {item?.userfood?.foodname}
           </Text>
           <View style={{flexDirection:'row',justifyContent:'space-between',flexWrap:'wrap'}}>
-          <Text style={{color: '#FE724C', fontSize: 16, fontWeight: '600'}}>
+          <Text style={{color: '#FE724C', fontSize: responsiveFontSize(1.8), fontWeight: '600'}}>
             ${(item?.userfood?.price*(totalitem[item?.userfood?.id] || 0)).toFixed(2)}
           </Text>
-          <View style={{flexDirection:'row',gap:10}}>
+          <View style={{flexDirection:'row',gap:responsiveWidth(1)}}>
             <TouchableOpacity
               style={{
                 width: 29,
@@ -140,7 +135,8 @@ const AddToCartScreen = ({navigation}) => {
                 borderWidth: 1,
                 alignItems: 'center',
                 justifyContent:'center'
-              }}  onPress={()=> dispatch(removefood(item?.userfood?.id))}>
+              }} 
+            onPress={()=> dispatch(removefood(item?.userfood?.id))}>
 
               <Text style={{color: '#FF3600',fontSize:18}}>-</Text>
             </TouchableOpacity>
@@ -164,30 +160,30 @@ const AddToCartScreen = ({navigation}) => {
       </View>
       )})}
 
-      <View style={{marginTop:'7%',justifyContent:"center",alignItems:"center"}}>
+      <View style={{marginTop:responsiveHeight(5),justifyContent:"center",alignItems:"center"}}>
         <View
           style={{
-            borderWidth: 2,
-            width:'80%',
-            height: 70,
-            borderRadius: 40,
+            borderWidth:responsiveWidth(.2),
+            width:responsiveWidth(80),
+            height:responsiveHeight(10),
+            borderRadius:responsiveWidth(10),
             borderColor: '#EEE',
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-          <TextInput placeholder="Promo Code" style={{marginLeft: 30}} />
+          <TextInput placeholder="Promo Code" style={{marginLeft:responsiveHeight(3)}} />
           <TouchableOpacity
             style={{
               backgroundColor: '#FE724C',
-              width: '35%',
-              height: 55,
-              borderRadius: 30,
+              width:responsiveWidth(28),
+              height:responsiveHeight(8),
+              borderRadius:responsiveWidth(10),
               justifyContent: 'center',
               alignItems: 'center',
-              marginRight:'2%',
+              marginRight:responsiveWidth(2),
             }}   >
-            <Text style={{color: '#FFF'}}>Apply</Text>
+            <Text style={{color: '#FFF',fontSize:responsiveFontSize(1)}}>Apply</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -306,6 +302,24 @@ const AddToCartScreen = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  maincontainer:{backgroundColor: '#FFF',flex:1},
+  secondcontainer:{alignItems:'center',justifyContent:"center",flex:1},
+  cartitemdiv:{
+    flexDirection: 'row',
+    marginTop:responsiveHeight(2.5),
+    width:responsiveWidth(90),
+    gap:responsiveWidth(2),
+    alignItems:"center"
+  },
+  itemimg:{height:responsiveHeight(15), width:responsiveWidth(25), borderRadius:responsiveWidth(2)},
+  itemimgsty:{height:responsiveHeight(17), width:responsiveWidth(25), borderRadius:responsiveWidth(2)},
+  cartitemdata:{gap:responsiveHeight(1),width:responsiveWidth(60)},
+  itmefooddata:{justifyContent:'space-between',flexDirection:'row'},
+  itmefooddatatxt:{color: '#000', fontSize:responsiveFontSize(2), fontWeight: '800'},
+  xbtn:{alignItems:'flex-end'},
+  xbtntxt:{color: '#FF3600', fontSize:responsiveFontSize(2)},
+  fooddatatxt:{color: '#8C8A9D', fontSize:responsiveFontSize(1.7), fontWeight: '300'}
+});
 
 export default AddToCartScreen;

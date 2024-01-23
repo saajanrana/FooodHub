@@ -6,6 +6,7 @@ import auth from '@react-native-firebase/auth';
 import { loginUser, usertoken } from '../context/AuthSlice';
 import { useDispatch } from 'react-redux';
 import { LoginManager, AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk-next';
+import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dimensions';
 
 const RegisterScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -338,7 +339,7 @@ const styles = StyleSheet.create({
     alignItems:'flex-start'
   },
   headerText: {
-    fontSize: 30,
+    fontSize:responsiveFontSize(3),
     fontWeight: 'bold',
   },
   inputContainer: {
@@ -348,7 +349,8 @@ const styles = StyleSheet.create({
     
   },
   inputLabel: {
-     marginLeft:"5%"
+     marginLeft:responsiveWidth(3),
+     fontSize:responsiveFontSize(1.9)
   },
   input: {
     borderWidth: 2,
@@ -356,9 +358,11 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 70,
     marginTop:'2%',
-    fontSize: 25,
+    fontSize:responsiveFontSize(2.3),
     borderRadius: 20,
     paddingLeft:'4%',
+    justifyContent:'center',
+    alignItems:'center'
   },
   buttonContainer: {
       marginTop:'6%',
@@ -367,7 +371,7 @@ const styles = StyleSheet.create({
   },
   signupButton: {
     backgroundColor: '#FE724C',
-    width: '80%',
+    width: '70%',
     height: 60,
     borderRadius: 40,
     justifyContent: 'center',
@@ -375,50 +379,52 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
+    fontSize:responsiveFontSize(2)
   },
   loginContainer: {
-    marginLeft: '18%',
-    marginTop: '5%',
+    marginTop:'2%',
+    alignItems:'center',
+    justifyContent:"center",
     flexDirection: 'row',
   },
   loginText: {
     color: 'black',
-    fontSize: 15,
+    fontSize:responsiveFontSize(2),
   },
   signupLink: {
     color: '#FE724C',
-    fontSize: 15,
+    fontSize: responsiveFontSize(1.9),
     marginLeft: '3%',
   },
   divider: {
     marginTop: '5%',
-    marginLeft: '5%',
+   alignItems:'center',
+    justifyContent:"center",
     flexDirection: 'row',
   },
   dividerLine: {
     borderBottomColor: 'black',
     borderBottomWidth: 2,
     width: '30%',
-    marginBottom:'2%',
   },
   dividerText: {
     color: 'black',
-    fontSize: 16,
-    marginLeft: '4%',
-    marginRight: '4%',
+    fontSize:responsiveFontSize(1.8),
+    marginLeft: '1%',
+    marginRight: '1%',
     justifyContent: 'space-between',
   },
   socialButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     margin:'4%'
     
     
   },
   socialButton: {
     backgroundColor: 'white',
-    width: '40%',
-    height: 60,
+    width: '35%',
+    height: 70,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',

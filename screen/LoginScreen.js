@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  ScrollView
 } from 'react-native';
 import {url} from '../components/url';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,6 +15,7 @@ import {beinhome, loginUser, usertoken} from '../context/AuthSlice';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk-next';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -235,7 +237,7 @@ const LoginScreen = ({navigation}) => {
   // console.log('eror>>>',errors);
 
   return (
-    <View>
+    <ScrollView>
       <View style={styles.header}>
         <Text style={styles.headerText}>Log In</Text>
       </View>
@@ -303,54 +305,56 @@ const LoginScreen = ({navigation}) => {
           <Text style={styles.socialButtonText}>Google</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    marginLeft:'10%',
-    marginTop: '5%',
+    marginLeft:responsiveWidth(10),
+    marginTop: responsiveHeight(5),
   },
   headerText: {
-    fontSize: 30,
+    fontSize:responsiveFontSize(3.5),
     fontFamily:'NotoSans-ExtraBold',
   },
   inputContainer: {
-    marginTop: '6%',
-    marginLeft: '6%',
+    marginTop:responsiveHeight(6),
+    marginLeft: responsiveWidth(6),
   },
   inputLabel: {
-    marginLeft: 15,
+    marginLeft:responsiveWidth(2),
     fontFamily:'Roboto-Medium'
   },
   input: {
-    borderWidth: 2,
+    borderWidth:responsiveFontSize(.11),
     borderColor: '#B3B3B3',
-    width: '90%',
-    height: 70,
-    marginTop: 10,
-    fontSize: 25,
-    borderRadius: 20,
-    paddingLeft: 20,
+    width:responsiveWidth(90),
+    height:responsiveHeight(9),
+    marginTop:responsiveHeight(1),
+    fontSize:responsiveFontSize(2.6),
+    borderRadius: responsiveWidth(2),
+    paddingLeft:responsiveWidth(2),
+    fontFamily:'Roboto-Medium'
   },
   forgotPassword: {
-    marginTop: 15,
-    marginLeft: '30%',
+    marginTop:responsiveHeight(1.2),
+    alignItems:'center',
+   
   },
   forgotPasswordText: {
     color: '#FE724C',
-    fontSize: 15,
+    fontSize:responsiveFontSize(1.5),
   },
   buttonContainer: {
-    marginTop: 20,
-    marginLeft: '15%',
+    marginTop:responsiveHeight(2),
+    alignItems:'center'
   },
   loginButton: {
     backgroundColor: '#FE724C',
-    width: '80%',
-    height: 60,
-    borderRadius: 40,
+    width:responsiveWidth(80),
+    height:responsiveHeight(9),
+    borderRadius:responsiveWidth(20),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -358,60 +362,63 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   signupContainer: {
-    marginLeft: '19%',
+    // marginLeft: '19%',
+    alignItems:'center',
+    justifyContent:"center",
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: responsiveHeight(2),
   },
   signupText: {
     color: 'black',
-    fontSize: 15,
+    fontSize:responsiveFontSize(1.4),
   },
   signupLink: {
-    marginLeft: 12,
+    marginLeft:responsiveWidth(1)
   },
   signupLinkText: {
     color: '#FE724C',
-    fontSize: 15,
+    fontSize:responsiveFontSize(1.8),
   },
   divider: {
-    marginTop: 20,
-    marginLeft: '5%',
+    marginTop:responsiveHeight(2),
+    // marginLeft: '5%',
+    justifyContent:"center",
     flexDirection: 'row',
   },
   dividerLine: {
     borderBottomColor: 'black',
-    borderBottomWidth: 2,
-    width: '30%',
-    marginBottom: 8,
+    borderBottomWidth:responsiveWidth(.2),
+    width:responsiveWidth(30),
+    marginBottom:responsiveHeight(1),
   },
   dividerText: {
     color: 'black',
-    fontSize: 16,
-    marginLeft: 14,
-    marginRight: 10,
+    fontSize:responsiveFontSize(1.5),
+    marginLeft: responsiveHeight(1),
+    marginRight:responsiveHeight(1),
     justifyContent: 'space-between',
-  },
+  }, 
   socialButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
+    justifyContent: 'space-evenly',
+    padding:responsiveWidth(2),
   },
   socialButton: {
     backgroundColor: 'white',
-    width: '40%',
-    height: 60,
-    borderRadius: 50,
+    width: responsiveWidth(35),
+    height:responsiveHeight(8),
+    borderRadius:responsiveWidth(15),
     justifyContent: 'center',
     alignItems: 'center',
    flexDirection:'row',
-   gap:8
+   gap:responsiveWidth(1)
   
   },
   socialButtonText: {
     color: 'black',
   },
   error: {
-    marginLeft: 40,
+    marginLeft:responsiveWidth(3),
     color: 'red',
   },
 });
