@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
+
 } from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';

@@ -9,10 +9,14 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   FlatList,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 import Shimmer from 'react-native-shimmer-kit';
 
 const AllItemScreen = ({navigation}) => {
@@ -20,20 +24,17 @@ const AllItemScreen = ({navigation}) => {
 
   const [simmertime, setSimmertime] = useState(0);
 
-  const simmerarr = [0,1,2,3,4,5,6];
+  const simmerarr = [0, 1, 2, 3, 4, 5, 6,7,8,9,10];
 
-  const [tab,setTab] = useState(0);
+  const [tab, setTab] = useState(0);
 
   const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
-const isTablet = screenWidth >= 600
+  const screenHeight = Dimensions.get('window').height;
+  const isTablet = screenWidth >= 600;
 
-
-// if(screenWidth >=600) {
-//   setTab(1);
-// }
-
-
+  // if(screenWidth >=600) {
+  //   setTab(1);
+  // }
 
   useEffect(() => {
     setTimeout(() => {
@@ -773,7 +774,7 @@ const isTablet = screenWidth >= 600
 
   const restaurants = [
     {
-      id:1,
+      id: 1,
       name: 'Pizza Palace',
       description: 'A pizza haven with a variety of mouthwatering pizzas.',
       rating: 4.5,
@@ -786,7 +787,7 @@ const isTablet = screenWidth >= 600
       ],
     },
     {
-      id:2,
+      id: 2,
       name: 'Sushi Sensation',
       description: 'Indulge in the finest and freshest sushi delights.',
       rating: 4.9,
@@ -799,7 +800,7 @@ const isTablet = screenWidth >= 600
       ],
     },
     {
-      id:3,
+      id: 3,
       name: 'Burger Binge',
       description:
         'Serving juicy and mouthwatering burgers for burger enthusiasts.',
@@ -813,7 +814,7 @@ const isTablet = screenWidth >= 600
       ],
     },
     {
-      id:4,
+      id: 4,
       name: 'Pasta Paradise',
       description: 'Delight in the rich and flavorful world of Italian pasta.',
       rating: 4.8,
@@ -826,7 +827,7 @@ const isTablet = screenWidth >= 600
       ],
     },
     {
-      id:5,
+      id: 5,
       name: 'Wok Wonders',
       description: 'Savor the taste of authentic Chinese wok dishes.',
       rating: 4.7,
@@ -839,7 +840,7 @@ const isTablet = screenWidth >= 600
       ],
     },
     {
-      id:6,
+      id: 6,
       name: 'Curry Craze',
       description: 'Experience the bold and aromatic flavors of Indian curry.',
       rating: 4.8,
@@ -855,110 +856,117 @@ const isTablet = screenWidth >= 600
   ];
   const itemsPerPage = 10; // Number of items to load per page
 
-  const [visibleData, setVisibleData] = useState(viewallitem.slice(0, itemsPerPage));
+  const [visibleData, setVisibleData] = useState(
+    viewallitem.slice(0, itemsPerPage),
+  );
 
   const loadMoreData = () => {
     const currentLength = visibleData.length;
-    const newData = viewallitem.slice(currentLength, currentLength + itemsPerPage);
+    const newData = viewallitem.slice(
+      currentLength,
+      currentLength + itemsPerPage,
+    );
     setVisibleData([...visibleData, ...newData]);
-    return(
+    return (
       <View>
         <Text>Loading.........</Text>
       </View>
-    )
+    );
   };
 
   return (
     <ScrollView style={{backgroundColor: '#FFF', flex: 1}}>
-      {simmertime == 0 ? (
-        simmerarr.map((item)=>( 
-          <View
-          style={{
-            flex: 1,
-            justifyContent: isTablet ? 'center' : 'center',
-            alignItems: isTablet ? 'center' : 'center',
-            flexDirection: isTablet ? 'row' : 'column',
-            flexWrap: isTablet ? 'wrap' : 'nowrap',
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: '#FFF',
-              shadowOpacity: 10,
-              elevation: 1,
-              shadowColor: 'light-brown',
-              borderRadius: responsiveWidth(5),
-              width: isTablet ? responsiveWidth(35) : responsiveWidth(80),
-              gap: responsiveWidth(1),
-              height: isTablet ? responsiveHeight(50) : responsiveHeight(35),
-              flexWrap: 'wrap',
-              marginTop: responsiveHeight(5),
-            }}
+      {simmertime == 0 ? (<FlatList
+          data={simmerarr}
+          numColumns={(screenWidth>=600)?(2):(1)}
+          renderItem={ item=>(
+            <View
             key={item.index}
-          >
-            <Shimmer
-              width={isTablet ? responsiveWidth(35) : responsiveWidth(80)}
-              height={isTablet ? responsiveHeight(30) : responsiveHeight(20)}
-              borderRadius={responsiveWidth(5)}
-              duration={2000}
-              colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
-            />
-            <Shimmer
-              width={isTablet ? responsiveWidth(25) : responsiveWidth(70)}
-              height={responsiveHeight(3)}
-              borderRadius={responsiveWidth(5)}
-              duration={2000}
-              colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
-            />
-            <Shimmer
-              width={isTablet ? responsiveWidth(15) : responsiveWidth(60)}
-              height={responsiveHeight(3)}
-              borderRadius={responsiveWidth(5)}
-              duration={2000}
-              colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
-            />
-            <Shimmer
-              width={isTablet ? responsiveWidth(7) : responsiveWidth(50)}
-              height={responsiveHeight(3)}
-              borderRadius={responsiveWidth(5)}
-              duration={2000}
-              colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
-            />
+            style={{
+              flex: 1,
+              justifyContent:'center',
+              alignItems: 'center',
+              marginHorizontal:responsiveWidth(2)
+            }}>
+            <View
+              style={{
+                backgroundColor: '#FFF',
+                shadowOpacity: 10,
+                elevation: 1,
+                shadowColor: 'light-brown',
+                borderRadius:isTablet?responsiveWidth(2): responsiveWidth(5),
+                width: isTablet ? responsiveWidth(35) : responsiveWidth(80),
+                gap: isTablet?responsiveWidth(1.5):responsiveWidth(2),
+                height: isTablet ? responsiveHeight(50) : responsiveHeight(35),
+                marginTop: responsiveHeight(5),
+              }}
+              key={item.index}>
+              <Shimmer
+                width={isTablet ? responsiveWidth(35) : responsiveWidth(80)}
+                height={isTablet ? responsiveHeight(30) : responsiveHeight(20)}
+                borderRadius={isTablet?responsiveWidth(2): responsiveWidth(5)}
+                duration={2000}
+                colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
+              />
+              <Shimmer
+                width={isTablet ? responsiveWidth(30) : responsiveWidth(70)}
+                height={responsiveHeight(3)}
+                borderRadius={responsiveWidth(5)}
+                duration={2000}
+                colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
+              />
+              <Shimmer
+                width={isTablet ? responsiveWidth(25) : responsiveWidth(60)}
+                height={responsiveHeight(3)}
+                borderRadius={responsiveWidth(5)}
+                duration={2000}
+                colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
+              />
+              <Shimmer
+                width={isTablet ? responsiveWidth(20) : responsiveWidth(50)}
+                height={responsiveHeight(3)}
+                borderRadius={responsiveWidth(5)}
+                duration={2000}
+                colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
+              />
+            </View>
           </View>
-        </View>))
+          )
+
+          }
        
-      ) : (
+      />) : (
         <View>
           <View
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop:responsiveHeight(2),
+              marginTop: responsiveHeight(2),
             }}>
             <View
               style={{
-                borderWidth:responsiveWidth(0.2),
+                borderWidth: responsiveWidth(0.2),
                 borderColor: '#F2EAEA',
                 width: '90%',
-                height:responsiveHeight(9),
-                borderRadius:responsiveWidth(10),
+                height: responsiveHeight(10),
+                borderRadius: responsiveWidth(10),
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding:responsiveWidth(1),
-                
+                padding: responsiveWidth(1),
               }}>
               <TouchableOpacity
                 style={{
                   backgroundColor: clicktab === 0 ? '#FE724C' : '#FFF',
-                  width:responsiveWidth(40),
-                  height: responsiveHeight(8),
-                  borderRadius:responsiveWidth(10),
+                  width: responsiveWidth(40),
+                  height: responsiveHeight(9),
+                  borderRadius: responsiveWidth(10),
                   justifyContent: 'center',
                   alignItems: 'center',
+                  
                 }}
                 onPress={() => setClicktab(0)}>
-                <Text style={{color: clicktab === 0 ? '#FFF' : '#FE724C'}}>
+                <Text style={{color: clicktab === 0 ? '#FFF' : '#FE724C',fontSize:responsiveFontSize(2)}}>
                   Food Items
                 </Text>
               </TouchableOpacity>
@@ -967,73 +975,81 @@ const isTablet = screenWidth >= 600
                 style={{
                   backgroundColor: clicktab === 0 ? '#FFF' : '#FE724C',
                   width: responsiveWidth(40),
-                  height:responsiveHeight(8),
-                  borderRadius:responsiveWidth(10),
+                  height: responsiveHeight(9),
+                  borderRadius: responsiveWidth(10),
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
                 onPress={() => setClicktab(1)}>
-                <Text style={{color: clicktab === 0 ? '#FE724C' : '#FFF'}}>
+                <Text style={{color: clicktab === 0 ? '#FE724C' : '#FFF',fontSize:responsiveFontSize(2)}}>
                   Resturents
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
 
-          {clicktab === 0
-            ? 
-            <View 
-             style={{ 
-              flex:1,
-              marginTop:responsiveHeight(3),
-              marginBottom:responsiveHeight(4),
-              borderWidth:2,
-              flexDirection:(screenWidth>=600)?'row':'column'
-              
-            
-            }}
-            >
-               <FlatList data={viewallitem}
-                renderItem={(item)=>
-                    (
-              <View style={{marginTop:responsiveHeight(3)}}>
+          {clicktab === 0 ? (
+            <View
+              style={{
+                flex: 1,
+                marginTop: responsiveHeight(3),
+                marginBottom: responsiveHeight(4),
+                justifyContent:"center",
+                alignItems:'center'
+             
+              }}>
+              <FlatList
+                data={viewallitem}
+                numColumns={(screenWidth>=600)?(2):(1)}
+                renderItem={item => (
+                  <View key={item?.index} style={{marginTop: responsiveHeight(3),marginHorizontal:responsiveWidth(5),marginBottom:responsiveHeight(2)}}>
                     <TouchableWithoutFeedback
                       onPress={() =>
-                        navigation.navigate('FoodDetail', {foodId: item?.item?.id})
-                      }
-                    
-                      >
+                        navigation.navigate('FoodDetail', {
+                          foodId: item?.item?.id,
+                        })
+                      }>
                       <View
                         style={{
                           backgroundColor: '#FFF',
                           shadowOpacity: 10,
                           elevation: 1,
                           shadowColor: 'light-brown',
-                          borderRadius:responsiveWidth(2),
-                          width:isTablet?responsiveWidth(40):responsiveWidth(90),
-                         
+                          borderRadius: responsiveWidth(2),
+                          width: isTablet? responsiveWidth(35):responsiveWidth(90),
+                          
+                          height:(isTablet)?responsiveHeight(50):responsiveHeight(40),
+                          gap:responsiveHeight(1)
+
                         }}>
-                        <View style={{position: 'relative'}}>
+                        <View style={{position: 'relative',borderRadius:responsiveWidth(2),height: responsiveHeight(27),}}>
                           <Image
-                            source={item?.item?.imgsrc
-                            }
-                            style={{borderRadius:responsiveWidth(2), height:160, width:'100%'}}
-                           
+                            source={item?.item?.imgsrc}
+                            style={{
+                              borderRadius: responsiveWidth(2),
+                              height:responsiveHeight(27),
+                              width: responsiveWidth(isTablet?(35):(90)),
+                             
+                            }}
                           />
                           <Image
                             source={require('../assets/likeicons.png')}
-                            style={{position: 'absolute', top: '2%', right: '2%'}}
+                            style={{
+                              position: 'absolute',
+                              top:responsiveHeight(1),
+                              right:responsiveWidth(1),
+                            }}
                           />
-  
+
                           <View
                             style={{
                               position: 'absolute',
-                              top: '7%',
-                              left: '7%',
+                              top:responsiveHeight(2),
+                              left:responsiveWidth(3),
                               flexDirection: 'row',
                               backgroundColor: 'white',
-                              borderRadius: 20,
-                              padding: '2.5%',
+                              borderRadius:responsiveWidth(10),
+                              padding:responsiveWidth(1.2),
                               alignItems: 'center',
                               justifyContent: 'center',
                             }}>
@@ -1041,7 +1057,7 @@ const isTablet = screenWidth >= 600
                               style={{
                                 color: '#FE724C',
                                 fontWeight: '600',
-                                fontSize: 18,
+                                fontSize:responsiveFontSize(2),
                               }}>
                               $
                             </Text>
@@ -1049,7 +1065,7 @@ const isTablet = screenWidth >= 600
                               style={{
                                 color: '#000',
                                 fontWeight: '600',
-                                fontSize: 18,
+                                fontSize:responsiveFontSize(2),
                               }}>
                               {item?.item?.price}
                             </Text>
@@ -1057,11 +1073,11 @@ const isTablet = screenWidth >= 600
                           <View
                             style={{
                               position: 'absolute',
-                              bottom: '-12%',
-                              left: '7%',
+                              bottom:responsiveHeight(-2),
+                              left:responsiveWidth(3),
                               flexDirection: 'row',
                               backgroundColor: 'white',
-                              borderRadius: 20,
+                              borderRadius:responsiveWidth(10),
                               padding: '2.5%',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -1070,17 +1086,17 @@ const isTablet = screenWidth >= 600
                               style={{
                                 color: '#000',
                                 fontWeight: '600',
-                                fontSize: 18,
+                                fontSize:responsiveFontSize(2),
                               }}>
                               {item?.item?.rating}
                             </Text>
                           </View>
                         </View>
-                        <TouchableOpacity style={{padding: '5%'}}>
+                        <TouchableOpacity style={{padding:responsiveWidth(1.2),height:responsiveHeight(50)}}>
                           <Text
                             style={{
                               color: '#000',
-                              fontSize: 19,
+                              fontSize:responsiveFontSize(2),
                               fontWeight: '600',
                             }}>
                             {item?.item?.foodname}
@@ -1088,7 +1104,7 @@ const isTablet = screenWidth >= 600
                           <Text
                             style={{
                               color: '#5B5B5E',
-                              fontSize: 15,
+                              fontSize:responsiveFontSize(isTablet?(1.2):(1.8)),
                               fontWeight: '400',
                             }}>
                             {item?.item?.fooddetails}
@@ -1096,101 +1112,117 @@ const isTablet = screenWidth >= 600
                         </TouchableOpacity>
                       </View>
                     </TouchableWithoutFeedback>
-                    </View>
-                
+                  </View>
                 )}
-                onEndReached={loadMoreData}
-                onEndReachedThreshold={0.5}
-                 
-               />
-          </View>
+              />
+            </View>) 
+            : (
+              <View
+                style={{
+                flex: 1,
+                marginTop: responsiveHeight(3),
+                marginBottom: responsiveHeight(4),
+                justifyContent:"center",
+                alignItems:'center'
              
-            : restaurants.map(item => (
-                <View
-                  key={item?.id}
-                  style={{
-                    flex: 1,
-                    alignItems: 'center',
-                    marginTop: 30,
-                    gap: 30,
-                    marginBottom: 10,
-                  }}>
-                  <TouchableWithoutFeedback
-                    onPress={() => navigation.navigate('RestaurantScreen',{restId:item.id})}>
-                    <View
-                      style={{
-                        backgroundColor: '#FFF',
-                        shadowOpacity: 10,
-                        elevation: 1,
-                        shadowColor: 'light-brown',
-                        borderRadius: 30,
-                        width: '90%',
-                      }}>
-                      <View style={{position: 'relative'}}>
-                        <Image
-                          source={item?.imgsrc}
-                          style={{borderRadius: 30, height: 160, width: '100%'}}
-                        
-                        />
-                        <Image
-                          source={require('../assets/likeicons.png')}
-                          style={{position: 'absolute', top: '2%', right: '2%'}}
-                        />
+              }}>
 
-                        <View
-                          style={{
-                            position: 'absolute',
-                            bottom: '-12%',
-                            left: '7%',
-                            flexDirection: 'row',
-                            backgroundColor: 'white',
-                            borderRadius: 20,
-                            padding: '2.5%',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}>
+              <FlatList
+                data={restaurants}
+                numColumns={(screenWidth>=600)?(2):(1)}
+                renderItem={item => (
+                  <View key={item?.index} style={{marginTop: responsiveHeight(3),marginHorizontal:responsiveWidth(5),marginBottom:responsiveHeight(2)}}>
+                    <TouchableWithoutFeedback
+                      onPress={() =>navigation.navigate('RestaurantScreen',{restId:item?.item?.id})}>
+                      <View
+                        style={{
+                          backgroundColor: '#FFF',
+                          shadowOpacity: 10,
+                          elevation: 1,
+                          shadowColor: 'light-brown',
+                          borderRadius: responsiveWidth(2),
+                          width: isTablet? responsiveWidth(35):responsiveWidth(90),
+                          
+                          height:(isTablet)?responsiveHeight(50):responsiveHeight(40),
+                          gap:responsiveHeight(1)
+
+                        }}>
+                        <View style={{position: 'relative',borderRadius:responsiveWidth(2),height: responsiveHeight(27),}}>
+                          <Image
+                            source={item?.item?.imgsrc}
+                            style={{
+                              borderRadius: responsiveWidth(2),
+                              height:responsiveHeight(27),
+                              width: responsiveWidth(isTablet?(35):(90)),
+                             
+                            }}
+                          />
+                          <Image
+                            source={require('../assets/likeicons.png')}
+                            style={{
+                              position: 'absolute',
+                              top:responsiveHeight(1),
+                              right:responsiveWidth(1),
+                            }}
+                          />
+                          <View
+                            style={{
+                              position: 'absolute',
+                              bottom:responsiveHeight(-2),
+                              left:responsiveWidth(3),
+                              flexDirection: 'row',
+                              backgroundColor: 'white',
+                              borderRadius:responsiveWidth(10),
+                              padding: '2.5%',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}>
+                            <Text
+                              style={{
+                                color: '#000',
+                                fontWeight: '600',
+                                fontSize:responsiveFontSize(2),
+                              }}>
+                              {item?.item?.rating}
+                            </Text>
+                          </View>
+                        </View>
+                        <TouchableOpacity style={{padding:responsiveWidth(1.2),height:responsiveHeight(50),gap:responsiveWidth(0.5)}}>
                           <Text
                             style={{
                               color: '#000',
+                              fontSize:responsiveFontSize(2),
                               fontWeight: '600',
-                              fontSize: 18,
                             }}>
-                            {item?.rating}
+                            {item?.item?.name}
                           </Text>
-                        </View>
+                          <Text
+                            style={{
+                              color: '#5B5B5E',
+                              fontSize:responsiveFontSize(isTablet?(1.2):(1.8)),
+                              fontWeight: '400',
+                            }}>
+                            {item?.item?.description}
+                          </Text>
+                          <Text
+                            style={{
+                              color: '#5B5B5E',
+                              fontSize:responsiveFontSize(isTablet?(1.2):(1.8)),
+                              fontWeight: '400',
+                            }}>
+                            {item?.item?.address}
+                          </Text>
+                        </TouchableOpacity>
                       </View>
-                      <TouchableOpacity style={{padding: '5%'}}>
-                        <Text
-                          style={{
-                            color: '#000',
-                            fontSize: 19,
-                            fontWeight: '600',
-                          }}>
-                          {item?.name}
-                        </Text>
-                        <Text
-                          style={{
-                            color: '#5B5B5E',
-                            fontSize: 15,
-                            fontWeight: '400',
-                          }}>
-                          {item?.description}
-                        </Text>
-                        <Text
-                          style={{
-                            color: '#5B5B5E',
-                            fontSize: 15,
-                            fontWeight: '600',
-                          }}>
-                          {item?.address}
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </TouchableWithoutFeedback>
-                </View>
-              ))}
+                    </TouchableWithoutFeedback>
+                  </View>
+                )}
+              />
+              </View>
+                )}
         </View>
       )}
+
     </ScrollView>
   );
 };
