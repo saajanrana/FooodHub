@@ -900,14 +900,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainimgcontainer: {
-    height: responsiveHeight(40),
+
+    height: responsiveHeight(45),
     width: responsiveWidth(100),
     alignItems: 'center',
     justifyContent: 'center',
   },
   mainimg: {
     flex: 1,
-    height: '100%',
+    height: responsiveHeight(45),
     width: responsiveWidth(90),
     borderRadius: responsiveWidth(2),
     justifyContent: 'center',
