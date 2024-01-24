@@ -8,6 +8,7 @@ import {
   Touchable,
   TouchableOpacity,
   ScrollView,
+  Dimensions
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,6 +26,9 @@ const FoodDetailScreen = ({navigation}) => {
   const totalitem = useSelector(state => state.store.totalitem);
   const route = useRoute();
   const {foodId} = route.params;
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
+  const isTablet = screenWidth >= 600;
 
   console.log('id>>>>', foodId);
 

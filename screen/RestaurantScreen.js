@@ -7,11 +7,16 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Dimensions
 } from 'react-native';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 const RestaurantScreen = ({navigation}) => {
   const route = useRoute();
   const {restId} = route.params;
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
+  const isTablet = screenWidth >= 600;
   const restaurants = [
     {
       id: 1,
@@ -549,45 +554,44 @@ const RestaurantScreen = ({navigation}) => {
   console.log('inside>>>>', itemsinside);
 
   return (
-    <ScrollView>
-      <View style={{marginTop: '5%'}}>
+    <ScrollView style={{flex: 1}}>
+      <View style={{marginTop:responsiveHeight(3)}}>
         <View
           style={{
-            height: 242,
-            width: '100%',
-            borderRadius: 10,
+            height: responsiveHeight(isTablet?60:35),
+            width:responsiveWidth(100),
             justifyContent: 'center',
             alignItems: 'center',
+
+          
           }}>
           <Image
             source={restaurant?.imgsrc}
             style={{
-              height: '100%',
-              width: '90%',
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
+              height:responsiveHeight(isTablet?60:35),
+              width: responsiveWidth(90),
+              borderRadius:responsiveWidth(2),
+              
             }}
           />
         </View>
-        <View style={{paddingLeft: '6%', paddingRight: '6%'}}>
-          <Text style={{color: '#323643', fontSize: 28, fontWeight: '600'}}>
+        <View style={{paddingLeft:responsiveHeight(isTablet?9:3)}}>
+          <Text style={{color: '#323643', fontSize:responsiveFontSize(3.2), fontWeight: '600'}}>
             {restaurant?.name}
           </Text>
         </View>
         <View
           style={{
             flexDirection: 'row',
-            gap: 10,
-            paddingLeft: '6%',
-            paddingRight: '6%',
+            gap:responsiveFontSize(1),
+            paddingLeft:responsiveHeight(isTablet?9:3),
+            
           }}>
           <View>
             <Text
               style={{
                 color: '#111719',
-                fontSize: 14,
+                fontSize:responsiveFontSize(1.6),
                 fontWeight: '600',
               }}>
               4.5
@@ -598,7 +602,7 @@ const RestaurantScreen = ({navigation}) => {
               <Text
                 style={{
                   color: '#FE724C',
-                  fontSize: 13,
+                  fontSize:responsiveFontSize(1.5),
                   fontWeight: '400',
                   textDecorationLine: 'underline',
                   textDecorationColor: '#FE724C',
@@ -610,17 +614,17 @@ const RestaurantScreen = ({navigation}) => {
         </View>
         <View
           style={{
-            paddingLeft: '6%',
-            paddingRight: '6%',
+            paddingLeft:responsiveHeight(isTablet?9:3),
+            
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}></View>
       </View>
-      <View style={{paddingLeft: '6%', paddingRight: '6%', marginTop: '2%'}}>
-        <Text style={{color: '#858992'}}>{restaurant?.description}</Text>
+      <View style={{paddingLeft:responsiveHeight(isTablet?9:3), marginTop:responsiveHeight(1)}}>
+        <Text style={{color: '#858992',fontSize:responsiveFontSize(1.7)}}>{restaurant?.description}</Text>
       </View>
-      <View style={{alignItems: 'center', marginTop: '4%'}}>
-        <Text style={{color: '#000', fontSize: 22, fontWeight: '400'}}>
+      <View style={{alignItems: 'center', marginTop:responsiveHeight(3)}}>
+        <Text style={{color: '#000', fontSize:responsiveFontSize(2.2), fontWeight: '400'}}>
           Food By Restaurant
         </Text>
       </View>
@@ -630,28 +634,29 @@ const RestaurantScreen = ({navigation}) => {
             key={item?.id}
             style={{
               flexDirection: 'row',
-              marginTop: '5%',
-              width: '90%',
-              gap: 10,
+              marginTop:responsiveHeight(3),
+              width:responsiveWidth(90),
+              gap:responsiveWidth(2),
               alignItems: 'center',
+             
             }}
             onPress={() =>
               navigation.navigate('FoodDetail', {foodId: item?.id})
             }>
-            <View style={{height: 100, width: '28%', borderRadius: 20}}>
+            <View style={{height:responsiveHeight(isTablet?30:15), width: responsiveWidth(30), borderRadius:responsiveWidth(2)}}>
               <Image
                 source={item?.imgsrc}
-                style={{height: '100%', width: '100%', borderRadius: 20}}
+                style={{height:responsiveHeight(isTablet?30:15), width:responsiveWidth(30), borderRadius:responsiveWidth(2)}}
               />
             </View>
-            <View style={{gap: 8, width: '70%'}}>
+            <View style={{gap:responsiveWidth(1), width:responsiveWidth(60)}}>
               <View
                 style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-                <Text style={{color: '#000', fontSize: 18, fontWeight: '800'}}>
+                <Text style={{color: '#000', fontSize:responsiveFontSize(2), fontWeight: '800'}}>
                   {item?.foodname}
                 </Text>
               </View>
-              <Text style={{color: '#8C8A9D', fontSize: 14, fontWeight: 300}}>
+              <Text style={{color: '#8C8A9D', fontSize:responsiveFontSize(1.8), fontWeight: 300}}>
                 {item?.fooddetails}
               </Text>
             </View>
