@@ -8,7 +8,7 @@ import {
   Touchable,
   TouchableOpacity,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,6 +20,18 @@ import {
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import Animated, {
+  FadeIn,
+  FadeInLeft,
+  FadeInRight,
+  LightSpeedInRight,
+  ReduceMotion,
+  useAnimatedGestureHandler,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+import {SharesdElement} from '../components/SharedElement';
+import {PanGestureHandler} from 'react-native-gesture-handler';
 
 const FoodDetailScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -30,7 +42,26 @@ const FoodDetailScreen = ({navigation}) => {
   const screenHeight = Dimensions.get('window').height;
   const isTablet = screenWidth >= 600;
 
-  console.log('id>>>>', foodId);
+  const X = useSharedValue(10);
+  const boxValue = useSharedValue(0);
+
+  const animatedGestureHandler = useAnimatedGestureHandler({
+    onActive: e => {
+      if (e.translationX < 0) {
+        X.value = -e.translationX;
+      } else {
+        X.value = e.translationX;
+      }
+    },
+
+    onEnd: () => {
+      if (X.value < 150) {
+        X.value = withSpring(10);
+      } else {
+        X.value = withSpring(240);
+      }
+    },
+  });
 
   const [checked, setChecked] = useState();
 
@@ -769,12 +800,22 @@ const FoodDetailScreen = ({navigation}) => {
     <ScrollView style={styles.maincontainer}>
       <View style={styles.secondcontainer}>
         <View style={styles.mainimgcontainer}>
-          <Image source={userfood?.imgsrc} style={styles.mainimg} />
+          <Animated.Image
+            entering={LightSpeedInRight.delay(300)
+              .randomDelay()
+              .reduceMotion(ReduceMotion.Never)}
+            source={userfood?.imgsrc}
+            style={styles.mainimg}
+          />
         </View>
-        <View style={styles.foodname}>
+        <Animated.View
+          entering={FadeInRight.duration(200).delay(400)}
+          style={styles.foodname}>
           <Text style={styles.foodnametext}>{userfood?.foodname}</Text>
-        </View>
-        <View style={styles.ratingview}>
+        </Animated.View>
+        <Animated.View
+          entering={FadeInRight.duration(200).delay(400)}
+          style={styles.ratingview}>
           <View>
             <Text style={styles.ratingviewtxt}>4.5</Text>
           </View>
@@ -783,8 +824,10 @@ const FoodDetailScreen = ({navigation}) => {
               <Text style={styles.reviewtxt}>See Review</Text>
             </TouchableOpacity>
           </View>
-        </View>
-        <View style={styles.pricecontainer}>
+        </Animated.View>
+        <Animated.View
+          entering={FadeInRight.duration(200).delay(400)}
+          style={styles.pricecontainer}>
           <View style={styles.mainpricediv}>
             <Text style={styles.pricesign}>$</Text>
             <Text style={styles.foodprice}>{userfood?.price}</Text>
@@ -806,13 +849,17 @@ const FoodDetailScreen = ({navigation}) => {
               <Text style={styles.addbtntxt}>+</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </Animated.View>
       </View>
 
-      <View style={styles.fooddetails}>
+      <Animated.View
+        entering={FadeInRight.duration(200).delay(400)}
+        style={styles.fooddetails}>
         <Text style={styles.fooddetailstxt}>{userfood?.fooddetails}</Text>
-      </View>
-      <View style={styles.thirdcontainer}>
+      </Animated.View>
+      <Animated.View
+        entering={FadeInLeft.duration(200).delay(400)}
+        style={styles.thirdcontainer}>
         <View style={styles.choisdiv}>
           <Text style={styles.choisdivtxt}>Choice of Add On</Text>
         </View>
@@ -871,8 +918,8 @@ const FoodDetailScreen = ({navigation}) => {
             </View>
           </RadioButton.Group>
         </View>
-      </View>
-      <View style={styles.addtocartbtn}>
+      </Animated.View>
+      {/* <Animated.View entering={FadeInLeft.duration(200).delay(400)} style={styles.addtocartbtn}>
       <TouchableOpacity
         
         onPress={() => {
@@ -880,11 +927,35 @@ const FoodDetailScreen = ({navigation}) => {
           navigation.navigate('AddToCartScreen', {foodId: userfood?.id});
         }}>
         <Image source={require('../assets/addtocart.png')} />
+        <View style={{width:20,height:20,borderRadius:10,borderWidth:2}}></View>
         <Text
           style={styles.addtocartbtntxt}>
           Add To Cart
         </Text>
       </TouchableOpacity>
+      </Animated.View> */}
+
+      <View
+        style={{justifyContent: 'center', alignItems: 'center', padding: 10}}>
+        <View
+          style={{
+            width: 300,
+            height: 70,
+            backgroundColor: 'orange',
+            justifyContent: 'center',
+          }}>
+          <PanGestureHandler onGestureEvent={animatedGestureHandler}>
+            <Animated.View
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                backgroundColor: '#FFF',
+                position: 'absolute',
+                left: 0,
+              }}></Animated.View>
+          </PanGestureHandler>
+        </View>
       </View>
     </ScrollView>
   );
@@ -900,7 +971,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainimgcontainer: {
-
     height: responsiveHeight(45),
     width: responsiveWidth(100),
     alignItems: 'center',
@@ -1019,14 +1089,17 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: responsiveFontSize(1.5),
   },
-  addtocartbtn:{alignItems:'center',position:"relative",justifyContent:'center'},
-  addtocartbtntxt:{
+  addtocartbtn: {
+    alignItems: 'center',
+    position: 'relative',
+    justifyContent: 'center',
+  },
+  addtocartbtntxt: {
     position: 'absolute',
-    color:'#FFF',
-    top:35,
-    left:90
-
-  }
+    color: '#FFF',
+    top: 35,
+    left: 90,
+  },
 });
 
 export default FoodDetailScreen;

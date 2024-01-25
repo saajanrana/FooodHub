@@ -9,8 +9,9 @@ import {
   ImageBackground,
   ScrollView,
   FlatList,
-  Dimensions
+  Dimensions,
 } from 'react-native';
+import Animated, { LightSpeedInLeft, LightSpeedInRight, ReduceMotion, SlideInDown, SlideInUp } from 'react-native-reanimated';
 import {
   responsiveHeight,
   responsiveWidth,
@@ -762,7 +763,10 @@ const ViewScreen = ({navigation}) => {
       <ImageBackground
         source={require('../assets/newviewbackpic.jpg')}
         style={{flex: 1}}>
-        <View
+        <Animated.View
+        entering={LightSpeedInRight.delay(400)
+          .randomDelay()
+          .reduceMotion(ReduceMotion.Never)}
           style={{
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -793,135 +797,132 @@ const ViewScreen = ({navigation}) => {
               80 type of pizza
             </Text>
           </View>
-        </View>
+        </Animated.View>
       </ImageBackground>
 
-
-
-      <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            marginTop: responsiveHeight(4),
-            marginBottom: responsiveHeight(4),
-         
-          }}
-      >
-        <FlatList 
-           data={userfood}
-           numColumns={(screenWidth>=600)?(2):(1)}
-           renderItem={ item =>(
-                  <View
-                  key={item.index}
+      <Animated.View
+       entering={SlideInDown.delay(400)
+        .randomDelay()
+        .reduceMotion(ReduceMotion.Never)
+        .withInitialValues({ transform: [{ translateY: 420 }] })
+      }
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          marginTop: responsiveHeight(4),
+          marginBottom: responsiveHeight(4),
+        }}>
+        <FlatList
+          data={userfood}
+          numColumns={screenWidth >= 600 ? 2 : 1}
+          renderItem={item => (
+            <View
+              key={item.index}
+              style={{
+                backgroundColor: '#FFF',
+                shadowOpacity: 10,
+                elevation: 1,
+                shadowColor: 'light-brown',
+                borderRadius: responsiveWidth(5),
+                width: responsiveWidth(isTablet ? 40 : 70),
+                marginHorizontal: responsiveWidth(2),
+                marginBottom: responsiveHeight(4),
+              }}>
+              <View style={{position: 'relative'}}>
+                <Image
+                  source={item?.item?.imgsrc}
                   style={{
-                    backgroundColor: '#FFF',
-                    shadowOpacity: 10,
-                    elevation: 1,
-                    shadowColor: 'light-brown',
-                    borderRadius: responsiveWidth(5),
-                    width: responsiveWidth(isTablet?40:70),
-                    marginHorizontal:responsiveWidth(2),
-                    marginBottom:responsiveHeight(4)
-                    
+                    borderRadius: responsiveWidth(3),
+                    height: responsiveHeight(30),
+                    width: responsiveWidth(isTablet ? 40 : 70),
+                  }}
+                />
+                <Image
+                  source={require('../assets/likeicons.png')}
+                  style={{
+                    position: 'absolute',
+                    top: responsiveHeight(2),
+                    right: responsiveWidth(2),
+                  }}
+                />
+
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: responsiveHeight(2),
+                    left: responsiveWidth(3),
+                    flexDirection: 'row',
+                    backgroundColor: 'white',
+                    borderRadius: responsiveWidth(10),
+                    padding: responsiveWidth(1.4),
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}>
-                  <View style={{position: 'relative'}}>
-                    <Image
-                      source={item?.item?.imgsrc}
-                      style={{
-                        borderRadius: responsiveWidth(3),
-                        height: responsiveHeight(30),
-                        width: responsiveWidth(isTablet?40:70),
-                      }}
-                    />
-                    <Image
-                      source={require('../assets/likeicons.png')}
-                      style={{
-                        position: 'absolute',
-                        top: responsiveHeight(2),
-                        right: responsiveWidth(2),
-                      }}
-                    />
-
-                    <View
-                      style={{
-                        position: 'absolute',
-                        top: responsiveHeight(2),
-                        left: responsiveWidth(3),
-                        flexDirection: 'row',
-                        backgroundColor: 'white',
-                        borderRadius: responsiveWidth(10),
-                        padding: responsiveWidth(1.4),
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#FE724C',
-                          fontWeight: '600',
-                          fontSize: responsiveFontSize(1.8),
-                        }}>
-                        $
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#000',
-                          fontWeight: '600',
-                          fontSize: responsiveFontSize(1.8),
-                        }}>
-                        {item?.item?.price}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        position: 'absolute',
-                        bottom: responsiveHeight(isTablet?-5:-2),
-                        left: responsiveWidth(5),
-                        flexDirection: 'row',
-                        backgroundColor: 'white',
-                        borderRadius: responsiveWidth(10),
-                        padding: responsiveWidth(2),
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#000',
-                          fontWeight: '600',
-                          fontSize: responsiveFontSize(1.8),
-                        }}>
-                        {item?.item?.rating}
-                      </Text>
-                    </View>
-                  </View>
-                  <TouchableOpacity
-                    style={{padding: responsiveWidth(2.5)}}
-                    onPress={() =>
-                      navigation.navigate('FoodDetail', {foodId: item?.id})
-                    }>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontSize: responsiveFontSize(2),
-                        fontWeight: '600',
-                      }}>
-                      {item?.item?.foodname}
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#5B5B5E',
-                        fontSize: responsiveFontSize(1.8),
-                        fontWeight: '400',
-                      }}>
-                      Chicken,Cheese and pineapple
-                    </Text>
-                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      color: '#FE724C',
+                      fontWeight: '600',
+                      fontSize: responsiveFontSize(1.8),
+                    }}>
+                    $
+                  </Text>
+                  <Text
+                    style={{
+                      color: '#000',
+                      fontWeight: '600',
+                      fontSize: responsiveFontSize(1.8),
+                    }}>
+                    {item?.item?.price}
+                  </Text>
                 </View>
-
-           )
-           }
-        
+                <View
+                  style={{
+                    position: 'absolute',
+                    bottom: responsiveHeight(isTablet ? -5 : -2),
+                    left: responsiveWidth(5),
+                    flexDirection: 'row',
+                    backgroundColor: 'white',
+                    borderRadius: responsiveWidth(10),
+                    padding: responsiveWidth(2),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      color: '#000',
+                      fontWeight: '600',
+                      fontSize: responsiveFontSize(1.8),
+                    }}>
+                    {item?.item?.rating}
+                  </Text>
+                </View>
+              </View>
+              <TouchableOpacity
+                style={{padding: responsiveWidth(2.5)}}
+                onPress={() =>
+                  navigation.navigate('FoodDetail', {foodId: item?.id})
+                }>
+                <Text
+                  style={{
+                    color: '#000',
+                    fontSize: responsiveFontSize(2),
+                    fontWeight: '600',
+                  }}>
+                  {item?.item?.foodname}
+                </Text>
+                <Text
+                  style={{
+                    color: '#5B5B5E',
+                    fontSize: responsiveFontSize(1.8),
+                    fontWeight: '400',
+                  }}>
+                  Chicken,Cheese and pineapple
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
         />
-      </View>     
+      </Animated.View>
     </ScrollView>
   );
 };

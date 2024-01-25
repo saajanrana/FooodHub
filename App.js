@@ -1,19 +1,19 @@
 
 import Navigation from './components/Navigation';
 import {SafeAreaView} from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import { Provider } from 'react-redux';
 import store from './context/Store';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 
 const App = () => {
   return (
- 
-    <SafeAreaView style={{flex: 1}}>
       <Provider store={store} >
-      <Navigation />
+     <GestureHandlerRootView style={{flex: 1}}>
+              <Navigation />
+      </GestureHandlerRootView>
       </Provider>
-    </SafeAreaView>
-  
   );
 };
 export default App;

@@ -24,6 +24,8 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
+import Animated from 'react-native-reanimated';
+import { SharesdElement } from '../components/SharedElement';
 
 
 const HomeScreen = props => {
@@ -884,7 +886,7 @@ const HomeScreen = props => {
       }>
         <View style={styles.featuredRestaurantContainerr}>
       <View style={styles.feimgcontaner}>
-      <Image source={item?.imgsrc} style={styles.featuredRestaurantImage}  />
+      <Animated.Image source={item?.imgsrc} style={styles.featuredRestaurantImage}    />
       </View>
       <View style={styles.featuredRestaurantDetailsContainer}>
         <Text style={styles.featuredRestaurantName}>{item?.foodname}</Text>
