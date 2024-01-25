@@ -8,8 +8,10 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
+  Dimensions
 
 } from 'react-native';
+
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Header from '../components/Header';
@@ -27,11 +29,16 @@ import {
 const HomeScreen = props => {
   const [token, setToken] = useState();
   const [user, setUser] = useState();
+ 
+
 
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const usertoken = useSelector(state => state.auth.usertoken);
   const dispatch = useDispatch();
   const profiledata = useSelector(state => state.auth.profiledata);
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
+  const isTablet = screenWidth >= 600;
 
   const setasync = () => {
     AsyncStorage.setItem('isLoggedIn', 'true');
@@ -877,7 +884,7 @@ const HomeScreen = props => {
       }>
         <View style={styles.featuredRestaurantContainerr}>
       <View style={styles.feimgcontaner}>
-      <Image source={item?.imgsrc} style={styles.featuredRestaurantImage} />
+      <Image source={item?.imgsrc} style={styles.featuredRestaurantImage}  />
       </View>
       <View style={styles.featuredRestaurantDetailsContainer}>
         <Text style={styles.featuredRestaurantName}>{item?.foodname}</Text>
@@ -897,7 +904,7 @@ const HomeScreen = props => {
 
   return (
     <ScrollView style={styles.container}>
-      {/* <View style={styles.headerContainer}>
+      <View style={styles.headerContainer}>
         <Header
           onPressMenu={() => props.navigation.openDrawer()}
           isMenu={true}
@@ -916,7 +923,7 @@ const HomeScreen = props => {
             />
           </TouchableOpacity>
         </View>
-      </View> */}
+      </View>
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>What would you like to order</Text>
       </View>
@@ -972,11 +979,6 @@ const HomeScreen = props => {
         
       />
      </View>
-
-
-   
-     
-    
       <View style={styles.featuredRestaurantsContainer}>
         
           <Text style={styles.featuredRestaurantsHeaderText}>
@@ -1001,53 +1003,53 @@ const HomeScreen = props => {
                 />
                 <Image
                   source={require('../assets/likeicons.png')}
-                  style={{position: 'absolute', top: '1%', right: '-3%'}}
+                  style={{position: 'absolute', top:responsiveHeight(0), right:responsiveWidth(isTablet?1:-3)}}
                 />
                 <View
                   style={{
                     position: 'absolute',
-                    top: '7%',
-                    left: '7%',
+                    top:responsiveHeight(2),
+                    left:responsiveWidth(2),
                     flexDirection: 'row',
                     backgroundColor: '#FFFFFF',
-                    borderRadius: 20,
-                    padding: '2.5%',
+                    borderRadius:responsiveWidth(10),
+                    padding: responsiveWidth(1),
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
                   <Text
-                    style={{color: '#FE724C', fontWeight: '600', fontSize: 18}}>
+                    style={{color: '#FE724C', fontWeight: '600', fontSize:responsiveFontSize(1.7)}}>
                     $
                   </Text>
                   <Text
-                    style={{color: '#000', fontWeight: '600', fontSize: 18}}>
+                    style={{color: '#000', fontWeight: '600', fontSize:responsiveFontSize(1.7)}}>
                     {item?.price}
                   </Text>
                 </View>
                 <View
                   style={{
                     position: 'absolute',
-                    bottom: '-10%',
-                    left: '8%',
+                    bottom:responsiveHeight(-2.3),
+                    left: responsiveWidth(3),
                     flexDirection: 'row',
                     backgroundColor: 'white',
-                    borderRadius: 20,
-                    padding: '2.5%',
+                    borderRadius:responsiveWidth(10),
+                    padding: responsiveWidth(1),
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
                   <Text
-                    style={{color: '#000', fontWeight: '600', fontSize: 18}}>
+                    style={{color: '#000', fontWeight: '600', fontSize:responsiveFontSize(1.7)}}>
                     {item?.rating}
                   </Text>
                 </View>
               </View>
-              <View style={{padding: '10%'}}>
+              <View style={{padding:responsiveWidth(2.5)}}>
                 <Text
                   style={styles.poptxto}>
                   {item?.foodname}
                 </Text>
-                <Text>{item?.foodname}</Text>
+                <Text style={{fontSize:responsiveFontSize(1.5)}} >{item?.foodname}</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -1265,7 +1267,7 @@ const styles = StyleSheet.create({
   },
   poptxto:{
     color: '#000',
-    fontSize:responsiveFontSize(1.5),
+    fontSize:responsiveFontSize(1.8),
     fontStyle: 'normal',
     fontWeight: '600',
   }

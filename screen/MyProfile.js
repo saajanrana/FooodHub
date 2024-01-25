@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Modal from 'react-native-modal';
 import { url } from '../components/url';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 const MyProfile = (props) => {
   const profiledata = useSelector(state => state.auth.profiledata);
@@ -164,8 +165,8 @@ const MyProfile = (props) => {
 
   return (
     <ScrollView style={{flex:1,backgroundColor:'#FFFFFF'}}>
-      <View style={{alignItems: 'center',marginTop:"4%",gap:10}}>
-        <View style={{borderRadius:50,borderWidth:5,borderColor:'#FFFFFF',position:'relative'}}>
+      <View style={{alignItems: 'center',marginTop:responsiveHeight(2),gap:responsiveWidth(2)}}>
+        <View style={{borderRadius:responsiveWidth(10),borderColor:'#FFFFFF',position:'relative'}}>
           <Image source={(selectedImageUri)?({uri:selectedImageUri}):(require('../assets/profile.png'))} style={{width:100,height:100,borderRadius:50}} />
           <TouchableOpacity style={{position:'absolute',bottom:'-15%',right:'-4%'}} onPress={toggleModal}>
                     <Image source={require('../assets/cameraicon1.png')}  />     
