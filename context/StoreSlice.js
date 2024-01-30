@@ -11,7 +11,7 @@ const storeSlice = createSlice ({
          const itemId = action.payload;
       if (state.totalitem[itemId]) {
 
-      
+        
         state.totalitem[itemId]++;
       } else {
      

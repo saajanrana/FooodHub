@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React,{useEffect} from 'react';
+import React,{memo, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -16,17 +16,20 @@ import { url } from './url';
 
 const HomeDrawer = (props) => {
 
+
+  console.log('homedrawerrender>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>1');
+
   const profiledata = useSelector(state => state.auth.profiledata);
 
-  console.log("profiledata>>>>>>>>>>>>>",profiledata);
+  // console.log("profiledata>>>>>>>>>>>>>",profiledata);
 
 
   const logout = async()=>{
+
+    console.log('logout press>>>>>>>>>>>>>>>>>>>>>>>');
     await AsyncStorage.removeItem('isLoggedIn');
     await AsyncStorage.removeItem('token');
-
     props.navigation.navigate('LoginScreen');
-
   }
 
   
@@ -80,6 +83,7 @@ const HomeDrawer = (props) => {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
+      key={item?.key}
       style={styles.itemContainer}
       onPress={() => props.navigation.navigate(item?.screen)}>
       <View style={styles.iconContainer}>
@@ -91,9 +95,12 @@ const HomeDrawer = (props) => {
     </TouchableOpacity>
   );
 
+
+  console.log('homedrawerrender>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2');
+
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <View>
         <View style={styles.profileContainer}>
           <View style={styles.profileImageContainer}>
             <Image source={({uri:`${url}${profiledata?.imgurl}`})?({uri:`${url}${profiledata?.imgurl}`}):(require('../assets/profileiconhd.png'))} style={styles.profileImage} />
@@ -107,13 +114,13 @@ const HomeDrawer = (props) => {
         <View style={styles.menuContainer}>
           <FlatList
             data={DrawerData}
-            keyExtractor={(item) => item.key}
+            keyExtractor={(item) => item?.key}
             renderItem={renderItem}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.flatListContainer}
           />
         </View>
-      </ScrollView>
+      </View>
 
       <View style={styles.logoutContainer}>
         <TouchableOpacity style={styles.logoutButton} 
@@ -204,4 +211,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeDrawer;
+export default memo(HomeDrawer);

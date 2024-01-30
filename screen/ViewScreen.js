@@ -11,7 +11,13 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import Animated, { LightSpeedInLeft, LightSpeedInRight, ReduceMotion, SlideInDown, SlideInUp } from 'react-native-reanimated';
+import Animated, {
+  LightSpeedInLeft,
+  LightSpeedInRight,
+  ReduceMotion,
+  SlideInDown,
+  SlideInUp,
+} from 'react-native-reanimated';
 import {
   responsiveHeight,
   responsiveWidth,
@@ -764,9 +770,9 @@ const ViewScreen = ({navigation}) => {
         source={require('../assets/newviewbackpic.jpg')}
         style={{flex: 1}}>
         <Animated.View
-        entering={LightSpeedInRight.delay(400)
-          .randomDelay()
-          .reduceMotion(ReduceMotion.Never)}
+          entering={LightSpeedInRight.delay(400)
+            .randomDelay()
+            .reduceMotion(ReduceMotion.Never)}
           style={{
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -801,11 +807,10 @@ const ViewScreen = ({navigation}) => {
       </ImageBackground>
 
       <Animated.View
-       entering={SlideInDown.delay(400)
-        .randomDelay()
-        .reduceMotion(ReduceMotion.Never)
-        .withInitialValues({ transform: [{ translateY: 420 }] })
-      }
+        entering={SlideInDown.delay(400)
+          .randomDelay()
+          .reduceMotion(ReduceMotion.Never)
+          .withInitialValues({transform: [{translateY: 420}]})}
         style={{
           flex: 1,
           alignItems: 'center',
@@ -900,7 +905,7 @@ const ViewScreen = ({navigation}) => {
               <TouchableOpacity
                 style={{padding: responsiveWidth(2.5)}}
                 onPress={() =>
-                  navigation.navigate('FoodDetail', {foodId: item?.id})
+                  navigation.navigate('FoodDetail', {foodId: item?.item?.id})
                 }>
                 <Text
                   style={{

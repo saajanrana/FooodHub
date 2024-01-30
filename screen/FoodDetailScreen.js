@@ -32,8 +32,13 @@ import Animated, {
 } from 'react-native-reanimated';
 import {SharesdElement} from '../components/SharedElement';
 import {PanGestureHandler} from 'react-native-gesture-handler';
+import SlideButton from 'rn-slide-button';
+import SwipeButton from 'rn-swipe-button';
 
 const FoodDetailScreen = ({navigation}) => {
+
+
+  console.log('foooddetailscreenrender>>>>>>>>>>>>>>>>>>>>>>>>>>>1');
   const dispatch = useDispatch();
   const totalitem = useSelector(state => state.store.totalitem);
   const route = useRoute();
@@ -41,29 +46,32 @@ const FoodDetailScreen = ({navigation}) => {
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
   const isTablet = screenWidth >= 600;
-
-  const X = useSharedValue(10);
-  const boxValue = useSharedValue(0);
-
-  const animatedGestureHandler = useAnimatedGestureHandler({
-    onActive: e => {
-      if (e.translationX < 0) {
-        X.value = -e.translationX;
-      } else {
-        X.value = e.translationX;
-      }
-    },
-
-    onEnd: () => {
-      if (X.value < 150) {
-        X.value = withSpring(10);
-      } else {
-        X.value = withSpring(240);
-      }
-    },
-  });
-
   const [checked, setChecked] = useState();
+
+  // const X = useSharedValue(10);
+  // const boxValue = useSharedValue(0);
+
+  // const animatedGestureHandler = useAnimatedGestureHandler({
+  //   onActive: e => {
+  //     if (e.translationX < 0) {
+  //       X.value = -e.translationX;
+  //     } else {
+  //       X.value = e.translationX;
+  //     }
+  //   },
+
+  //   onEnd: () => {
+  //     if (X.value < 150) {
+  //       X.value = withSpring(10);
+  //     } else {
+  //       X.value = withSpring(240);
+  //     }
+  //   },
+  // });
+
+  console.log('foooddetailscreenrender>>>>>>>>>>>>>>>>>>>>>>>>>>>2');
+
+  
 
   const viewallitem = [
     {
@@ -794,7 +802,12 @@ const FoodDetailScreen = ({navigation}) => {
       tag: 'chinese',
     },
   ];
+
+
+  console.log('foooddetailscreenrender>>>>>>>>>>>>>>>>>>>>>>>>>>>2');
   const userfood = viewallitem.find(item => item.id === foodId);
+
+  console.log('foooddetailscreenrender>>>>>>>>>>>>>>>>>>>>>>>>>>>3');
 
   return (
     <ScrollView style={styles.maincontainer}>
@@ -919,6 +932,30 @@ const FoodDetailScreen = ({navigation}) => {
           </RadioButton.Group>
         </View>
       </Animated.View>
+
+      
+
+      <View style={{justifyContent:'center',alignItems:'center'}}>
+      <SwipeButton
+          disabled={false}
+          swipeSuccessThreshold={70}
+          height={50}
+          width={'70%'}
+          title="Add To Cart"
+          titleColor="white"
+          shouldResetAfterSuccess="true"
+          onSwipeSuccess={() => {
+            dispatch(additemtocart({userfood}));
+            navigation.navigate('AddToCartScreen', {foodId: userfood?.id});
+          }}
+          railFillBackgroundColor="#FE724C"
+          railFillBorderColor="#FE724C"
+          thumbIconBackgroundColor="#ffffff"
+          thumbIconBorderColor="##FE724C"
+          railBackgroundColor="#FE724C"
+          railBorderColor="#FE724C"
+        />
+      </View>
       {/* <Animated.View entering={FadeInLeft.duration(200).delay(400)} style={styles.addtocartbtn}>
       <TouchableOpacity
         
@@ -935,7 +972,7 @@ const FoodDetailScreen = ({navigation}) => {
       </TouchableOpacity>
       </Animated.View> */}
 
-      <View
+      {/* <View
         style={{justifyContent: 'center', alignItems: 'center', padding: 10}}>
         <View
           style={{
@@ -956,7 +993,7 @@ const FoodDetailScreen = ({navigation}) => {
               }}></Animated.View>
           </PanGestureHandler>
         </View>
-      </View>
+      </View> */}
     </ScrollView>
   );
 };

@@ -12,6 +12,12 @@ import {
   Dimensions,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import Animated, {
+  FadeInDown,
+  FadeOutDown,
+  LightSpeedInRight,
+  ReduceMotion,
+} from 'react-native-reanimated';
 import {
   responsiveFontSize,
   responsiveHeight,
@@ -24,7 +30,7 @@ const AllItemScreen = ({navigation}) => {
 
   const [simmertime, setSimmertime] = useState(0);
 
-  const simmerarr = [0, 1, 2, 3, 4, 5, 6,7,8,9,10];
+  const simmerarr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const [tab, setTab] = useState(0);
 
@@ -876,68 +882,78 @@ const AllItemScreen = ({navigation}) => {
 
   return (
     <ScrollView style={{backgroundColor: '#FFF', flex: 1}}>
-      {simmertime == 0 ? (<FlatList
+      {simmertime == 0 ? (
+        <FlatList
           data={simmerarr}
-          numColumns={(screenWidth>=600)?(2):(1)}
-          renderItem={ item=>(
+          numColumns={screenWidth >= 600 ? 2 : 1}
+          renderItem={item => (
             <View
-            key={item.index}
-            style={{
-              flex: 1,
-              justifyContent:'center',
-              alignItems: 'center',
-              marginHorizontal:responsiveWidth(2)
-            }}>
-            <View
+              key={item.index}
               style={{
-                backgroundColor: '#FFF',
-                shadowOpacity: 10,
-                elevation: 1,
-                shadowColor: 'light-brown',
-                borderRadius:isTablet?responsiveWidth(2): responsiveWidth(5),
-                width: isTablet ? responsiveWidth(35) : responsiveWidth(80),
-                gap: isTablet?responsiveWidth(1.5):responsiveWidth(2),
-                height: isTablet ? responsiveHeight(50) : responsiveHeight(35),
-                marginTop: responsiveHeight(5),
-              }}
-              key={item.index}>
-              <Shimmer
-                width={isTablet ? responsiveWidth(35) : responsiveWidth(80)}
-                height={isTablet ? responsiveHeight(30) : responsiveHeight(20)}
-                borderRadius={isTablet?responsiveWidth(2): responsiveWidth(5)}
-                duration={2000}
-                colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
-              />
-              <Shimmer
-                width={isTablet ? responsiveWidth(30) : responsiveWidth(70)}
-                height={responsiveHeight(3)}
-                borderRadius={responsiveWidth(5)}
-                duration={2000}
-                colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
-              />
-              <Shimmer
-                width={isTablet ? responsiveWidth(25) : responsiveWidth(60)}
-                height={responsiveHeight(3)}
-                borderRadius={responsiveWidth(5)}
-                duration={2000}
-                colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
-              />
-              <Shimmer
-                width={isTablet ? responsiveWidth(20) : responsiveWidth(50)}
-                height={responsiveHeight(3)}
-                borderRadius={responsiveWidth(5)}
-                duration={2000}
-                colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
-              />
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginHorizontal: responsiveWidth(2),
+              }}>
+              <View
+                style={{
+                  backgroundColor: '#FFF',
+                  shadowOpacity: 10,
+                  elevation: 1,
+                  shadowColor: 'light-brown',
+                  borderRadius: isTablet
+                    ? responsiveWidth(2)
+                    : responsiveWidth(5),
+                  width: isTablet ? responsiveWidth(35) : responsiveWidth(80),
+                  gap: isTablet ? responsiveWidth(1.5) : responsiveWidth(2),
+                  height: isTablet
+                    ? responsiveHeight(50)
+                    : responsiveHeight(35),
+                  marginTop: responsiveHeight(5),
+                }}
+                key={item.index}>
+                <Shimmer
+                  width={isTablet ? responsiveWidth(35) : responsiveWidth(80)}
+                  height={
+                    isTablet ? responsiveHeight(30) : responsiveHeight(20)
+                  }
+                  borderRadius={
+                    isTablet ? responsiveWidth(2) : responsiveWidth(5)
+                  }
+                  duration={2000}
+                  colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
+                />
+                <Shimmer
+                  width={isTablet ? responsiveWidth(30) : responsiveWidth(70)}
+                  height={responsiveHeight(3)}
+                  borderRadius={responsiveWidth(5)}
+                  duration={2000}
+                  colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
+                />
+                <Shimmer
+                  width={isTablet ? responsiveWidth(25) : responsiveWidth(60)}
+                  height={responsiveHeight(3)}
+                  borderRadius={responsiveWidth(5)}
+                  duration={2000}
+                  colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
+                />
+                <Shimmer
+                  width={isTablet ? responsiveWidth(20) : responsiveWidth(50)}
+                  height={responsiveHeight(3)}
+                  borderRadius={responsiveWidth(5)}
+                  duration={2000}
+                  colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
+                />
+              </View>
             </View>
-          </View>
-          )
-
-          }
-       
-      />) : (
+          )}
+        />
+      ) : (
         <View>
-          <View
+          <Animated.View
+            entering={LightSpeedInRight.delay(200)
+              .randomDelay()
+              .reduceMotion(ReduceMotion.Never)}
             style={{
               justifyContent: 'center',
               alignItems: 'center',
@@ -963,10 +979,13 @@ const AllItemScreen = ({navigation}) => {
                   borderRadius: responsiveWidth(10),
                   justifyContent: 'center',
                   alignItems: 'center',
-                  
                 }}
                 onPress={() => setClicktab(0)}>
-                <Text style={{color: clicktab === 0 ? '#FFF' : '#FE724C',fontSize:responsiveFontSize(2)}}>
+                <Text
+                  style={{
+                    color: clicktab === 0 ? '#FFF' : '#FE724C',
+                    fontSize: responsiveFontSize(2),
+                  }}>
                   Food Items
                 </Text>
               </TouchableOpacity>
@@ -981,28 +1000,38 @@ const AllItemScreen = ({navigation}) => {
                   alignItems: 'center',
                 }}
                 onPress={() => setClicktab(1)}>
-                <Text style={{color: clicktab === 0 ? '#FE724C' : '#FFF',fontSize:responsiveFontSize(2)}}>
+                <Text
+                  style={{
+                    color: clicktab === 0 ? '#FE724C' : '#FFF',
+                    fontSize: responsiveFontSize(2),
+                  }}>
                   Resturents
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </Animated.View>
 
           {clicktab === 0 ? (
-            <View
+            <Animated.View
+              entering={FadeInDown.delay(200)}
               style={{
                 flex: 1,
                 marginTop: responsiveHeight(3),
                 marginBottom: responsiveHeight(4),
-                justifyContent:"center",
-                alignItems:'center'
-             
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
               <FlatList
                 data={viewallitem}
-                numColumns={(screenWidth>=600)?(2):(1)}
+                numColumns={screenWidth >= 600 ? 2 : 1}
                 renderItem={item => (
-                  <View key={item?.index} style={{marginTop: responsiveHeight(3),marginHorizontal:responsiveWidth(5),marginBottom:responsiveHeight(2)}}>
+                  <View
+                    key={item?.index}
+                    style={{
+                      marginTop: responsiveHeight(3),
+                      marginHorizontal: responsiveWidth(5),
+                      marginBottom: responsiveHeight(2),
+                    }}>
                     <TouchableWithoutFeedback
                       onPress={() =>
                         navigation.navigate('FoodDetail', {
@@ -1016,40 +1045,47 @@ const AllItemScreen = ({navigation}) => {
                           elevation: 1,
                           shadowColor: 'light-brown',
                           borderRadius: responsiveWidth(2),
-                          width: isTablet? responsiveWidth(35):responsiveWidth(90),
-                          
-                          height:(isTablet)?responsiveHeight(50):responsiveHeight(40),
-                          gap:responsiveHeight(1)
+                          width: isTablet
+                            ? responsiveWidth(35)
+                            : responsiveWidth(90),
 
+                          height: isTablet
+                            ? responsiveHeight(50)
+                            : responsiveHeight(40),
+                          gap: responsiveHeight(1),
                         }}>
-                        <View style={{position: 'relative',borderRadius:responsiveWidth(2),height: responsiveHeight(27),}}>
+                        <View
+                          style={{
+                            position: 'relative',
+                            borderRadius: responsiveWidth(2),
+                            height: responsiveHeight(27),
+                          }}>
                           <Image
                             source={item?.item?.imgsrc}
                             style={{
                               borderRadius: responsiveWidth(2),
-                              height:responsiveHeight(27),
-                              width: responsiveWidth(isTablet?(35):(90)),
-                             
+                              height: responsiveHeight(27),
+                              width: responsiveWidth(isTablet ? 35 : 90),
                             }}
                           />
                           <Image
                             source={require('../assets/likeicons.png')}
                             style={{
                               position: 'absolute',
-                              top:responsiveHeight(1),
-                              right:responsiveWidth(1),
+                              top: responsiveHeight(1),
+                              right: responsiveWidth(1),
                             }}
                           />
 
                           <View
                             style={{
                               position: 'absolute',
-                              top:responsiveHeight(2),
-                              left:responsiveWidth(3),
+                              top: responsiveHeight(2),
+                              left: responsiveWidth(3),
                               flexDirection: 'row',
                               backgroundColor: 'white',
-                              borderRadius:responsiveWidth(10),
-                              padding:responsiveWidth(1.2),
+                              borderRadius: responsiveWidth(10),
+                              padding: responsiveWidth(1.2),
                               alignItems: 'center',
                               justifyContent: 'center',
                             }}>
@@ -1057,7 +1093,7 @@ const AllItemScreen = ({navigation}) => {
                               style={{
                                 color: '#FE724C',
                                 fontWeight: '600',
-                                fontSize:responsiveFontSize(2),
+                                fontSize: responsiveFontSize(2),
                               }}>
                               $
                             </Text>
@@ -1065,7 +1101,7 @@ const AllItemScreen = ({navigation}) => {
                               style={{
                                 color: '#000',
                                 fontWeight: '600',
-                                fontSize:responsiveFontSize(2),
+                                fontSize: responsiveFontSize(2),
                               }}>
                               {item?.item?.price}
                             </Text>
@@ -1073,11 +1109,11 @@ const AllItemScreen = ({navigation}) => {
                           <View
                             style={{
                               position: 'absolute',
-                              bottom:responsiveHeight(-2),
-                              left:responsiveWidth(3),
+                              bottom: responsiveHeight(-2),
+                              left: responsiveWidth(3),
                               flexDirection: 'row',
                               backgroundColor: 'white',
-                              borderRadius:responsiveWidth(10),
+                              borderRadius: responsiveWidth(10),
                               padding: '2.5%',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -1086,17 +1122,21 @@ const AllItemScreen = ({navigation}) => {
                               style={{
                                 color: '#000',
                                 fontWeight: '600',
-                                fontSize:responsiveFontSize(2),
+                                fontSize: responsiveFontSize(2),
                               }}>
                               {item?.item?.rating}
                             </Text>
                           </View>
                         </View>
-                        <TouchableOpacity style={{padding:responsiveWidth(1.2),height:responsiveHeight(50)}}>
+                        <TouchableOpacity
+                          style={{
+                            padding: responsiveWidth(1.2),
+                            height: responsiveHeight(50),
+                          }}>
                           <Text
                             style={{
                               color: '#000',
-                              fontSize:responsiveFontSize(2),
+                              fontSize: responsiveFontSize(2),
                               fontWeight: '600',
                             }}>
                             {item?.item?.foodname}
@@ -1104,7 +1144,9 @@ const AllItemScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#5B5B5E',
-                              fontSize:responsiveFontSize(isTablet?(1.2):(1.8)),
+                              fontSize: responsiveFontSize(
+                                isTablet ? 1.2 : 1.8,
+                              ),
                               fontWeight: '400',
                             }}>
                             {item?.item?.fooddetails}
@@ -1115,25 +1157,34 @@ const AllItemScreen = ({navigation}) => {
                   </View>
                 )}
               />
-            </View>) 
-            : (
-              <View
-                style={{
+            </Animated.View>
+          ) : (
+            <Animated.View
+              entering={FadeInDown.delay(200)}
+              style={{
                 flex: 1,
                 marginTop: responsiveHeight(3),
                 marginBottom: responsiveHeight(4),
-                justifyContent:"center",
-                alignItems:'center'
-             
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
-
               <FlatList
                 data={restaurants}
-                numColumns={(screenWidth>=600)?(2):(1)}
+                numColumns={screenWidth >= 600 ? 2 : 1}
                 renderItem={item => (
-                  <View key={item?.index} style={{marginTop: responsiveHeight(3),marginHorizontal:responsiveWidth(5),marginBottom:responsiveHeight(2)}}>
+                  <View
+                    key={item?.index}
+                    style={{
+                      marginTop: responsiveHeight(3),
+                      marginHorizontal: responsiveWidth(5),
+                      marginBottom: responsiveHeight(2),
+                    }}>
                     <TouchableWithoutFeedback
-                      onPress={() =>navigation.navigate('RestaurantScreen',{restId:item?.item?.id})}>
+                      onPress={() =>
+                        navigation.navigate('RestaurantScreen', {
+                          restId: item?.item?.id,
+                        })
+                      }>
                       <View
                         style={{
                           backgroundColor: '#FFF',
@@ -1141,38 +1192,45 @@ const AllItemScreen = ({navigation}) => {
                           elevation: 1,
                           shadowColor: 'light-brown',
                           borderRadius: responsiveWidth(2),
-                          width: isTablet? responsiveWidth(35):responsiveWidth(90),
-                          
-                          height:(isTablet)?responsiveHeight(50):responsiveHeight(40),
-                          gap:responsiveHeight(1)
+                          width: isTablet
+                            ? responsiveWidth(35)
+                            : responsiveWidth(90),
 
+                          height: isTablet
+                            ? responsiveHeight(50)
+                            : responsiveHeight(40),
+                          gap: responsiveHeight(1),
                         }}>
-                        <View style={{position: 'relative',borderRadius:responsiveWidth(2),height: responsiveHeight(27),}}>
+                        <View
+                          style={{
+                            position: 'relative',
+                            borderRadius: responsiveWidth(2),
+                            height: responsiveHeight(27),
+                          }}>
                           <Image
                             source={item?.item?.imgsrc}
                             style={{
                               borderRadius: responsiveWidth(2),
-                              height:responsiveHeight(27),
-                              width: responsiveWidth(isTablet?(35):(90)),
-                             
+                              height: responsiveHeight(27),
+                              width: responsiveWidth(isTablet ? 35 : 90),
                             }}
                           />
                           <Image
                             source={require('../assets/likeicons.png')}
                             style={{
                               position: 'absolute',
-                              top:responsiveHeight(1),
-                              right:responsiveWidth(1),
+                              top: responsiveHeight(1),
+                              right: responsiveWidth(1),
                             }}
                           />
                           <View
                             style={{
                               position: 'absolute',
-                              bottom:responsiveHeight(-2),
-                              left:responsiveWidth(3),
+                              bottom: responsiveHeight(-2),
+                              left: responsiveWidth(3),
                               flexDirection: 'row',
                               backgroundColor: 'white',
-                              borderRadius:responsiveWidth(10),
+                              borderRadius: responsiveWidth(10),
                               padding: '2.5%',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -1181,17 +1239,22 @@ const AllItemScreen = ({navigation}) => {
                               style={{
                                 color: '#000',
                                 fontWeight: '600',
-                                fontSize:responsiveFontSize(2),
+                                fontSize: responsiveFontSize(2),
                               }}>
                               {item?.item?.rating}
                             </Text>
                           </View>
                         </View>
-                        <TouchableOpacity style={{padding:responsiveWidth(1.2),height:responsiveHeight(50),gap:responsiveWidth(0.5)}}>
+                        <TouchableOpacity
+                          style={{
+                            padding: responsiveWidth(1.2),
+                            height: responsiveHeight(50),
+                            gap: responsiveWidth(0.5),
+                          }}>
                           <Text
                             style={{
                               color: '#000',
-                              fontSize:responsiveFontSize(2),
+                              fontSize: responsiveFontSize(2),
                               fontWeight: '600',
                             }}>
                             {item?.item?.name}
@@ -1199,7 +1262,9 @@ const AllItemScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#5B5B5E',
-                              fontSize:responsiveFontSize(isTablet?(1.2):(1.8)),
+                              fontSize: responsiveFontSize(
+                                isTablet ? 1.2 : 1.8,
+                              ),
                               fontWeight: '400',
                             }}>
                             {item?.item?.description}
@@ -1207,7 +1272,9 @@ const AllItemScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#5B5B5E',
-                              fontSize:responsiveFontSize(isTablet?(1.2):(1.8)),
+                              fontSize: responsiveFontSize(
+                                isTablet ? 1.2 : 1.8,
+                              ),
                               fontWeight: '400',
                             }}>
                             {item?.item?.address}
@@ -1218,11 +1285,10 @@ const AllItemScreen = ({navigation}) => {
                   </View>
                 )}
               />
-              </View>
-                )}
+            </Animated.View>
+          )}
         </View>
       )}
-
     </ScrollView>
   );
 };

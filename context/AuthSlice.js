@@ -33,23 +33,23 @@ const authSlice = createSlice ({
         },
         beinhome:(state,action)=>{
               action.payload;
-              console.log("beinhome>>>",action.payload);
+            //   console.log("beinhome>>>",action.payload);
                if(action.payload==='true'){
-                  console.log("inhome????");
+                //   console.log("inhome????");
                  state.canbeinhome = true;
                }
-               console.log("hueeee>>>",state.canbeinhome);
+            //    console.log("hueeee>>>",state.canbeinhome);
             
         },
         usertoken:(state,action)=>{
               action.payload;
-              console.log('tokeninredux',action.payload);
+            //   console.log('tokeninredux',action.payload);
               state.usertoken = action.payload;
-              console.log("2nd redux>>>>>>>>>>",state.usertoken);
+            //   console.log("2nd redux>>>>>>>>>>",state.usertoken);
         },
         profile:(state,action)=>{
                state.profiledata = action.payload;
-               console.log('data profile>>>>>',state.profiledata);
+            //    console.log('data profile>>>>>',state.profiledata);
         }
     }
 });

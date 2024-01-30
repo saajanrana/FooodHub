@@ -13,6 +13,9 @@ import {useSelector} from 'react-redux';
 import Shimmer from 'react-native-shimmer-kit';
 
 const MyOrderScreen = () => {
+
+
+  console.log('myorderscreen render>>>>>>>>>>>>>>>>>>>>>>>>');
   const [clicktab, setClicktab] = useState(0);
   const usertoken = useSelector(state => state.auth.usertoken);
 
@@ -23,12 +26,16 @@ const MyOrderScreen = () => {
   const simmerarr = [0, 1, 2, 3, 4, 5, 6];
 
   useEffect(() => {
+
+    console.log('render shimmmer>>>>>>>>>>');
     setTimeout(() => {
       setSimmertime(1);
     }, 3000);
-  });
+  },[]);
 
   useEffect(() => {
+
+    console.log('useeffect render in myorderscreen>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     const getFood = async () => {
       try {
         const response = await fetch(`${url}api/userfood`, {
@@ -41,7 +48,8 @@ const MyOrderScreen = () => {
 
         if (response.ok) {
           const userfooddata = await response.json();
-          console.log('userdata fooood >>>>>>>', userfooddata);
+          // console.log('userdata fooood >>>>>>>', userfooddata);
+          console.log('data is send from my order screen>>>>>>>>>>>>>>>>>>>');
           setUserfood(userfooddata?.data);
         } else {
           console.error(
@@ -58,6 +66,10 @@ const MyOrderScreen = () => {
     // Call the function to fetch data
     getFood();
   }, []);
+
+  console.log('myorderscreen render>>>>>>>>>>>>>>>>>>>>>>>>');
+
+
 
   return (
     <ScrollView

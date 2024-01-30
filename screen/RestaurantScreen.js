@@ -551,7 +551,7 @@ const RestaurantScreen = ({navigation}) => {
 
   const restaurant = restaurants.find(item => item?.id === restId);
   const itemsinside = restaurant?.items;
-  console.log('inside>>>>', itemsinside);
+  // console.log('inside>>>>', itemsinside);
 
   return (
     <ScrollView style={{flex: 1}}>
