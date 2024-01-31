@@ -23,7 +23,7 @@ const Carousel = () => {
   const carouseldata = [
     {
       id: 1,
-      image: require('../assets/offerone.jpg'),
+      image: require('../assets/offertwo.jpg'),
     },
     {
       id: 2,
@@ -31,7 +31,7 @@ const Carousel = () => {
     },
     {
       id: 3,
-      image: require('../assets/offerone.jpg'),
+      image: require('../assets/offertwo.jpg'),
     },
   ];
 
@@ -65,7 +65,8 @@ const Carousel = () => {
       <View>
         <Image
           source={item.image}
-          style={{height: responsiveHeight(30), width: responsiveWidth(100)}}
+          resizeMode='contain'
+          style={{height: responsiveHeight(25), width: responsiveWidth(100)}}
         />
       </View>
     );
@@ -80,7 +81,7 @@ const Carousel = () => {
   
 
   return (
-    <View>
+    <View style={{justifyContent:"center",marginTop:responsiveHeight(1),alignItems:'center'}}>
       <FlatList
         data={carouseldata}
         ref={flatlistRef}
@@ -90,7 +91,7 @@ const Carousel = () => {
         horizontal={true}
         pagingEnabled={true}
         onScroll={handleScroll}
-        style={{flex:1,backgroundColor:'white',position:'relative'}}
+        style={{flex:1,position:'relative',width:responsiveWidth(90),}}
 
       />
       <View
@@ -101,7 +102,7 @@ const Carousel = () => {
           justifyContent: 'center',
           gap: responsiveWidth(2),
           marginTop: responsiveHeight(2),
-          bottom:responsiveHeight(1),
+          bottom:responsiveHeight(2),
           left:responsiveWidth(45)
 
         }}>

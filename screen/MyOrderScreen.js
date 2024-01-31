@@ -11,8 +11,9 @@ import {
 import {url} from '../components/url';
 import {useSelector} from 'react-redux';
 import Shimmer from 'react-native-shimmer-kit';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
-const MyOrderScreen = () => {
+const MyOrderScreen = ({navigation}) => {
 
 
   console.log('myorderscreen render>>>>>>>>>>>>>>>>>>>>>>>>');
@@ -76,7 +77,6 @@ const MyOrderScreen = () => {
       style={{
         flex:1,
         backgroundColor: '#FFF',
-        paddingTop: '5%',
         height:'100%'
       }}>
       {simmertime == 0 ? (
@@ -129,12 +129,25 @@ const MyOrderScreen = () => {
         ))
       ) : (
         <>
+        <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(18),paddingLeft:responsiveHeight(2)}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}  style={{marginTop:responsiveHeight(3)}} >
+            <Image 
+             resizeMode='contain'
+            source={require('../assets/goback.png')}
+            />
+         </TouchableOpacity>
+         {
+           clicktab === 0?<Text style={{fontSize:20,color:"black",fontWeight:'700'}}>My Orders</Text>:<Text style={{fontSize:20,color:"black",fontWeight:'700'}}>History</Text>
+         }
+          </View>
           <View
             style={{
-              justifyContent: 'center',
+            
               alignItems: 'center',
              
+             
             }}>
+              
             <View
               style={{
                 borderWidth: 2,
@@ -202,8 +215,9 @@ const MyOrderScreen = () => {
                       elevation: 6,
                       shadowColor: 'light-brown',
                       borderRadius: 20,
+                      marginBottom:responsiveHeight(5)
                     }}>
-                    <View style={{padding: '7%', gap: 10}}>
+                    <View style={{padding: '7%'}}>
                       <View
                         style={{
                           flexDirection: 'row',

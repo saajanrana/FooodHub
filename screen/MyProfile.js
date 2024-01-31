@@ -165,6 +165,16 @@ const MyProfile = (props) => {
 
   return (
     <ScrollView style={{flex:1,backgroundColor:'#FFFFFF'}}>
+
+     <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(15),paddingLeft:responsiveHeight(2)}}>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}  style={{marginTop:responsiveHeight(3)}} >
+            <Image 
+             resizeMode='contain'
+            source={require('../assets/goback.png')}
+            />
+         </TouchableOpacity>
+         <Text style={{fontSize:20,color:"black",fontWeight:'700'}}>My Profile</Text>
+          </View>
       <View style={{alignItems: 'center',marginTop:responsiveHeight(2),gap:responsiveWidth(2)}}>
         <View style={{borderRadius:responsiveWidth(10),borderColor:'#FFFFFF',position:'relative'}}>
           <Image source={(selectedImageUri)?({uri:selectedImageUri}):(require('../assets/profile.png'))} style={{width:100,height:100,borderRadius:50}} />

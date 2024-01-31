@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react';
-import {View, StyleSheet,Text,TextInput,TouchableOpacity,ScrollView} from 'react-native';
+import {View, StyleSheet,Text,TextInput,TouchableOpacity,ScrollView,Image} from 'react-native';
 import { useSelector } from 'react-redux';
 import { url } from '../components/url';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 
 const EditProfileScreen = ({navigation}) => {
@@ -84,6 +85,15 @@ const EditProfileScreen = ({navigation}) => {
 
     return (
         <ScrollView >
+          <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(15),paddingLeft:responsiveHeight(2)}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}  style={{marginTop:responsiveHeight(3)}} >
+            <Image 
+             resizeMode='contain'
+            source={require('../assets/goback.png')}
+            />
+         </TouchableOpacity>
+         <Text style={{fontSize:20,color:"black",fontWeight:'700'}}>Edit Profile</Text>
+          </View>
         <View style={{justifyContent:"center"}} >
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Full name</Text>

@@ -24,8 +24,9 @@ import {
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 import Animated from 'react-native-reanimated';
-import {SharesdElement} from '../components/SharedElement';
+
 import Carousel from '../components/Carousel';
+
 
 const HomeScreen = props => {
   const [user, setUser] = useState();
@@ -34,7 +35,6 @@ const HomeScreen = props => {
 
   const dispatch = useDispatch();
   const profiledata = useSelector(state => state.auth.profiledata);
-
 
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
@@ -821,8 +821,6 @@ const HomeScreen = props => {
 
   const popularitems = viewallitem.filter(item => item?.rating === '4.9');
 
-
-
   useEffect(() => {
     console.log('userdatafetching in home screenn>>>>>>>>>>>>');
     const fetchdata = async () => {
@@ -855,9 +853,9 @@ const HomeScreen = props => {
   console.log('homerender>>>>>>>>>>2');
 
   //
-  useMemo(()=>{
+  useMemo(() => {
     dispatch(profile(user));
-  },[user]);
+  }, [user]);
 
   //
 
@@ -921,177 +919,173 @@ const HomeScreen = props => {
   console.log('homerender>>>>>>>>>>5');
 
   return (
-
-
     <FlatList
-    style={styles.container}
-    //header start
+      style={styles.container}
+      //header start
 
-    
-    ListHeaderComponent={() => (
-      <>
-      <View style={styles.headerContainer}>
-        <Header
-          onPressMenu={() => props.navigation.openDrawer()}
-          isMenu={true}
-        />
-
-        <View style={styles.profileImageContainer}>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('MyProfileScreen')}>
-            <Image
-              style={styles.profileImage}
-              source={
-                {uri: `${url}${profiledata?.imgurl}`}
-                  ? {uri: `${url}${profiledata?.imgurl}`}
-                  : require('../assets/profileiconhd.png')
-              }
+      ListHeaderComponent={() => (
+        <>
+          <View style={styles.headerContainer}>
+            <Header
+              onPressMenu={() => props.navigation.openDrawer()}
+              isMenu={true}
             />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>What would you like to order</Text>
-       </View>
 
-       <View style={styles.searchContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Find for food or restaurant..."
-          style={styles.inputText}
-        />
-      </View>
+            <View style={styles.profileImageContainer}>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('MyProfileScreen')}>
+                <Image
+                  style={styles.profileImage}
+                  source={
+                    {uri: `${url}${profiledata?.imgurl}`}
+                      ? {uri: `${url}${profiledata?.imgurl}`}
+                      : require('../assets/profileiconhd.png')
+                  }
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>What would you like to order</Text>
+          </View>
 
-      <TouchableOpacity style={styles.filterIconContainer}>
-        <Image
-          source={require('../assets/filtericonhd.png')}
-          style={styles.filterIcon}
-        />
-      </TouchableOpacity>
-    </View>
-
-    <View style={styles.filterContainer}>
-      <FlatList
-        data={fliterdata}
-        keyExtractor={item => item?.key}
-        renderItem={renderItem}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.flatListContainerone}
-      />
-    </View>
-
-      <Carousel/>
-
-
-
-    <View style={styles.featuredRestaurantsContainer}>
-      <Text style={styles.featuredRestaurantsHeaderText}>
-        Featured Restaurants
-      </Text>
-
-      <TouchableOpacity
-        onPress={() => props.navigation.navigate('AllItemScreen')}>
-        <Text style={styles.viewAllText}>View All</Text>
-      </TouchableOpacity>
-    </View>
-
-    <View style={styles.outerflatList}>
-      <FlatList
-        data={featurerestdata}
-        keyExtractor={item => item?.id}
-        renderItem={renderfeaturerest}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.flatListContainer}
-      />
-    </View>
-    <View style={styles.featuredRestaurantsContainer}>
-      <Text style={styles.featuredRestaurantsHeaderText}>Popular Items</Text>
-    </View>
-    <View style={styles.popcontainer}>
-      {popularitems.map(item => (
-        <View key={item?.id} style={styles.popcontainert}>
-          <TouchableOpacity
-           key={item?.id}
-            onPress={() =>
-              props.navigation.navigate('FoodDetail', {foodId: item?.id})
-            }>
-            <View style={{position: 'relative'}}>
-              <Image source={item?.imgsrc} style={styles.popimg} />
-              <Image
-                source={require('../assets/likeicons.png')}
-                style={{
-                  position: 'absolute',
-                  top: responsiveHeight(0),
-                  right: responsiveWidth(isTablet ? 1 : -3),
-                }}
+          <View style={styles.searchContainer}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                placeholder="Find for food or restaurant..."
+                style={styles.inputText}
               />
-              <View
-                style={{
-                  position: 'absolute',
-                  top: responsiveHeight(2),
-                  left: responsiveWidth(2),
-                  flexDirection: 'row',
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: responsiveWidth(10),
-                  padding: responsiveWidth(1),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    color: '#FE724C',
-                    fontWeight: '600',
-                    fontSize: responsiveFontSize(1.7),
-                  }}>
-                  $
-                </Text>
-                <Text
-                  style={{
-                    color: '#000',
-                    fontWeight: '600',
-                    fontSize: responsiveFontSize(1.7),
-                  }}>
-                  {item?.price}
-                </Text>
-              </View>
-              <View
-                style={{
-                  position: 'absolute',
-                  bottom: responsiveHeight(-2.3),
-                  left: responsiveWidth(3),
-                  flexDirection: 'row',
-                  backgroundColor: 'white',
-                  borderRadius: responsiveWidth(10),
-                  padding: responsiveWidth(1),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    color: '#000',
-                    fontWeight: '600',
-                    fontSize: responsiveFontSize(1.7),
-                  }}>
-                  {item?.rating}
-                </Text>
-              </View>
             </View>
-            <View style={{padding: responsiveWidth(2.5)}}>
-              <Text style={styles.poptxto}>{item?.foodname}</Text>
-              <Text style={{fontSize: responsiveFontSize(1.5)}}>
-                {item?.foodname}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      ))}
-    </View>
-       </>
-    )}
-    //header end
-  />
+
+            <TouchableOpacity style={styles.filterIconContainer}>
+              <Image
+                source={require('../assets/filtericonhd.png')}
+                style={styles.filterIcon}
+              />
+            </TouchableOpacity>
+          </View>
+          <Carousel />
+
+          <View style={styles.filterContainer}>
+            <FlatList
+              data={fliterdata}
+              keyExtractor={item => item?.key}
+              renderItem={renderItem}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.flatListContainerone}
+            />
+          </View>
+
+          <View style={styles.featuredRestaurantsContainer}>
+            <Text style={styles.featuredRestaurantsHeaderText}>
+              Featured Restaurants
+            </Text>
+
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('AllItemScreen')}>
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.outerflatList}>
+            <FlatList
+              data={featurerestdata}
+              keyExtractor={item => item?.id}
+              renderItem={renderfeaturerest}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.flatListContainer}
+            />
+          </View>
+          <View style={styles.featuredRestaurantsContainer}>
+            <Text style={styles.featuredRestaurantsHeaderText}>
+              Popular Items
+            </Text>
+          </View>
+          <View style={styles.popcontainer}>
+            {popularitems.map(item => (
+              <View key={item?.id} style={styles.popcontainert}>
+                <TouchableOpacity
+                  key={item?.id}
+                  onPress={() =>
+                    props.navigation.navigate('FoodDetail', {foodId: item?.id})
+                  }>
+                  <View style={{position: 'relative'}}>
+                    <Image source={item?.imgsrc} style={styles.popimg} />
+                    <Image
+                      source={require('../assets/likeicons.png')}
+                      style={{
+                        position: 'absolute',
+                        top: responsiveHeight(0),
+                        right: responsiveWidth(isTablet ? 1 : -3),
+                      }}
+                    />
+                    <View
+                      style={{
+                        position: 'absolute',
+                        top: responsiveHeight(2),
+                        left: responsiveWidth(2),
+                        flexDirection: 'row',
+                        backgroundColor: '#FFFFFF',
+                        borderRadius: responsiveWidth(10),
+                        padding: responsiveWidth(1),
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#FE724C',
+                          fontWeight: '600',
+                          fontSize: responsiveFontSize(1.7),
+                        }}>
+                        $
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#000',
+                          fontWeight: '600',
+                          fontSize: responsiveFontSize(1.7),
+                        }}>
+                        {item?.price}
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: responsiveHeight(-2.3),
+                        left: responsiveWidth(3),
+                        flexDirection: 'row',
+                        backgroundColor: 'white',
+                        borderRadius: responsiveWidth(10),
+                        padding: responsiveWidth(1),
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#000',
+                          fontWeight: '600',
+                          fontSize: responsiveFontSize(1.7),
+                        }}>
+                        {item?.rating}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={{padding: responsiveWidth(2.5)}}>
+                    <Text style={styles.poptxto}>{item?.foodname}</Text>
+                    <Text style={{fontSize: responsiveFontSize(1.5)}}>
+                      {item?.foodname}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+        </>
+      )}
+      //header end
+    />
     // <ScrollView style={styles.container}>
     //   <View style={styles.headerContainer}>
     //     <Header
@@ -1247,8 +1241,6 @@ const HomeScreen = props => {
     //     ))}
     //   </View>
     // </ScrollView>
-
-   
   );
 };
 

@@ -69,6 +69,8 @@ const FoodDetailScreen = ({navigation}) => {
   //   },
   // });
 
+  
+
   console.log('foooddetailscreenrender>>>>>>>>>>>>>>>>>>>>>>>>>>>2');
 
   
@@ -811,8 +813,20 @@ const FoodDetailScreen = ({navigation}) => {
 
   return (
     <ScrollView style={styles.maincontainer}>
+       <View style={{height:50,flexDirection:'row',gap:20}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}  >
+            <Image 
+             resizeMode='contain'
+            source={require('../assets/goback.png')}
+            
+            />
+      </TouchableOpacity>
+
+      <Text style={{fontSize:20,fontWeight:'800',color:'black'}}>Item Details</Text>
+      </View>
       <View style={styles.secondcontainer}>
         <View style={styles.mainimgcontainer}>
+        
           <Animated.Image
             entering={LightSpeedInRight.delay(300)
               .randomDelay()
@@ -820,6 +834,15 @@ const FoodDetailScreen = ({navigation}) => {
             source={userfood?.imgsrc}
             style={styles.mainimg}
           />
+          {/* <View style={{width:70,height:50,position:'absolute',top:0,left:20}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}  >
+            <Image 
+             resizeMode='contain'
+            source={require('../assets/goback.png')}
+            
+            />
+      </TouchableOpacity>
+      </View> */}
         </View>
         <Animated.View
           entering={FadeInRight.duration(200).delay(400)}
@@ -1004,8 +1027,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   secondcontainer: {
-    marginTop: responsiveHeight(5),
     flex: 1,
+    marginTop:responsiveHeight(3)
   },
   mainimgcontainer: {
     height: responsiveHeight(45),
@@ -1020,6 +1043,7 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(2),
     justifyContent: 'center',
     alignItems: 'center',
+    position:'relative'
   },
   foodname: {
     paddingLeft: responsiveWidth(6),

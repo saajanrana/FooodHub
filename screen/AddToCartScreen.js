@@ -94,6 +94,15 @@ const AddToCartScreen = ({navigation}) => {
 
   return (
     <ScrollView style={styles.maincontainer}>
+      <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(18),paddingLeft:responsiveHeight(2)}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}  style={{marginTop:responsiveHeight(3)}} >
+            <Image 
+             resizeMode='contain'
+            source={require('../assets/goback.png')}
+            />
+         </TouchableOpacity>
+           <Text style={{fontSize:20,color:"black",fontWeight:'700'}}>Cart Screen</Text>
+          </View>
       <View style={styles.secondcontainer}>
         {Addtocart.map((item, id) => {
           return (

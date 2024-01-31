@@ -25,6 +25,7 @@ import {
 } from 'react-native-responsive-dimensions';
 import Shimmer from 'react-native-shimmer-kit';
 
+
 const AllItemScreen = ({navigation}) => {
   const [clicktab, setClicktab] = useState(0);
 
@@ -950,6 +951,20 @@ const AllItemScreen = ({navigation}) => {
         />
       ) : (
         <View>
+          <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(20),paddingLeft:responsiveHeight(2)}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}  style={{marginTop:responsiveHeight(3)}} >
+            <Image 
+             resizeMode='contain'
+            source={require('../assets/goback.png')}
+            />
+         </TouchableOpacity>
+         {
+        clicktab===0? <Text style={{fontSize:20,fontWeight:'600',color:'black'}}>All Items</Text>:<Text style={{fontSize:20,fontWeight:'600',color:'black'}}>All Restaurant</Text>
+
+}
+
+
+          </View>
           <Animated.View
             entering={LightSpeedInRight.delay(200)
               .randomDelay()
@@ -1021,6 +1036,8 @@ const AllItemScreen = ({navigation}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
+
+
               <FlatList
                 data={viewallitem}
                 numColumns={screenWidth >= 600 ? 2 : 1}

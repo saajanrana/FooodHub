@@ -23,8 +23,9 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
+import Header from '../components/Header';
 
-const ViewScreen = ({navigation}) => {
+const ViewScreen = ({navigation},props) => {
   const route = useRoute();
   const {foodtag} = route.params;
 
@@ -779,7 +780,9 @@ const ViewScreen = ({navigation}) => {
             marginTop: responsiveHeight(5),
           }}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image source={require('../assets/goback.png')} />
+            <Image 
+             resizeMode='contain'
+            source={require('../assets/goback.png')} />
           </TouchableOpacity>
           <View style={{flexWrap: 'wrap', marginLeft: responsiveWidth(5)}}>
             <Text

@@ -111,14 +111,14 @@ const Navigation = () => {
           component={HomeTabNavigator}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="FoodDetail" component={FoodDetailScreen} />
-        <Stack.Screen name="AddToCartScreen" component={AddToCartScreen} />
-        <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
-        <Stack.Screen name="MyProfileScreen" component={MyProfile} />
-        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+        <Stack.Screen name="FoodDetail" component={FoodDetailScreen} options={{headerShown: false}} />
+        <Stack.Screen name="AddToCartScreen" component={AddToCartScreen} options={{headerShown: false}} />
+        <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} options={{headerShown: false}} />
+        <Stack.Screen name="MyProfileScreen" component={MyProfile} options={{headerShown: false}} />
+        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{headerShown: false}} />
         <Stack.Screen name="ViewScreen" component={ViewScreen} options={{headerShown: false}} />
-        <Stack.Screen name="AllItemScreen" component={AllItemScreen} />
-        <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+        <Stack.Screen name="AllItemScreen" component={AllItemScreen} options={{headerShown: false}} />
+        <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{headerShown: false}} />
 
       </Stack.Navigator>
     </NavigationContainer>
