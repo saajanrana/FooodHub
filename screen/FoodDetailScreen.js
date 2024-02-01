@@ -34,6 +34,8 @@ import {SharesdElement} from '../components/SharedElement';
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import SlideButton from 'rn-slide-button';
 import SwipeButton from 'rn-swipe-button';
+import Icon from 'react-native-vector-icons/dist/Ionicons';
+
 
 const FoodDetailScreen = ({navigation}) => {
 
@@ -813,14 +815,14 @@ const FoodDetailScreen = ({navigation}) => {
 
   return (
     <ScrollView style={styles.maincontainer}>
-       <View style={{height:50,flexDirection:'row',gap:20}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}  >
-            <Image 
-             resizeMode='contain'
-            source={require('../assets/goback.png')}
-            
-            />
-      </TouchableOpacity>
+       <View style={{flexDirection:'row',alignItems:'center',gap:80,paddingLeft:10,marginTop:10,marginLeft:20}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}  style={{width:50,backgroundColor: '#FFFFFF',elevation: 5,
+              shadowColor: 'light-brown',
+              borderRadius:20,
+              padding:5
+              }} >
+          <Icon name="chevron-back-sharp" size={35} color="black"/>
+         </TouchableOpacity>
 
       <Text style={{fontSize:20,fontWeight:'800',color:'black'}}>Item Details</Text>
       </View>

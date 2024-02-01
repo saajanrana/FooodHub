@@ -12,6 +12,8 @@ import {url} from '../components/url';
 import {useSelector} from 'react-redux';
 import Shimmer from 'react-native-shimmer-kit';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import Icon from 'react-native-vector-icons/dist/Ionicons';
+
 
 const MyOrderScreen = ({navigation}) => {
 
@@ -129,12 +131,10 @@ const MyOrderScreen = ({navigation}) => {
         ))
       ) : (
         <>
-        <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(18),paddingLeft:responsiveHeight(2)}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}  style={{marginTop:responsiveHeight(3)}} >
-            <Image 
-             resizeMode='contain'
-            source={require('../assets/goback.png')}
-            />
+        <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(18),paddingLeft:responsiveHeight(4)}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}  style={{width:responsiveWidth(11),
+              }} >
+          <Icon name="chevron-back-sharp" size={35} color="black"/>
          </TouchableOpacity>
          {
            clicktab === 0?<Text style={{fontSize:20,color:"black",fontWeight:'700'}}>My Orders</Text>:<Text style={{fontSize:20,color:"black",fontWeight:'700'}}>History</Text>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,24 +7,26 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  PermissionsAndroid
+  PermissionsAndroid,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Modal from 'react-native-modal';
-import { url } from '../components/url';
-import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import {url} from '../components/url';
+import {
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
+import Icon from 'react-native-vector-icons/dist/Ionicons';
 
-const MyProfile = (props) => {
+
+const MyProfile = props => {
   const profiledata = useSelector(state => state.auth.profiledata);
   const usertoken = useSelector(state => state.auth.usertoken);
-  
+
   const [filePath, setFilePath] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
-
-
-
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -46,37 +48,32 @@ const MyProfile = (props) => {
     }
   };
 
+  const profilepicadded = async () => {
+    try {
+      const formData = new FormData();
+      console.log('formdata>>>>', formData);
+      formData.append('profileImage', {
+        uri: selectedImageUri,
+        type: 'image/jpeg',
+        name: 'profile.jpg',
+      });
+      console.log('formdata2>>>>', formData);
+      const response = await fetch(`${url}api/addimage`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: usertoken,
+        },
+      });
 
-
-  const profilepicadded = async() =>{
-    try {  
-        const formData = new FormData();
-         console.log('formdata>>>>',formData)
-          formData.append('profileImage', {
-            uri: selectedImageUri,
-            type: 'image/jpeg',
-            name: 'profile.jpg',
-          });
-          console.log('formdata2>>>>',formData)
-        const response = await fetch(`${url}api/addimage`, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-              Authorization: usertoken,
-          },
-        });
-
-        console.log("res>>>>>",response);
-
-           
+      console.log('res>>>>>', response);
     } catch (error) {
       console.error('Error updating :', error);
     }
-       
-  }
+  };
 
-  const captureImage = async(type) => {
+  const captureImage = async type => {
     try {
       const isCameraPermitted = await requestCameraPermission();
       if (isCameraPermitted) {
@@ -107,7 +104,7 @@ const MyProfile = (props) => {
           // handleImageResponse(response);
           setFilePath(response);
           const selectedUri = response?.assets[0]?.uri;
-          console.log('img>>>.',response.assets[0]);
+          console.log('img>>>.', response.assets[0]);
           setSelectedImageUri(selectedUri);
           profilepicadded();
         });
@@ -117,7 +114,7 @@ const MyProfile = (props) => {
     }
   };
 
-  const chooseFile = async(type) => {
+  const chooseFile = async type => {
     try {
       let options = {
         mediaType: 'photo',
@@ -153,7 +150,7 @@ const MyProfile = (props) => {
         setFilePath(response);
         const selectedUri = response?.assets[0]?.uri;
         setSelectedImageUri(selectedUri);
-        console.log('img>>>.',response.assets[0].uri);
+        console.log('img>>>.', response.assets[0].uri);
         profilepicadded();
       });
     } catch (error) {
@@ -161,42 +158,74 @@ const MyProfile = (props) => {
     }
   };
 
-
-
   return (
-    <ScrollView style={{flex:1,backgroundColor:'#FFFFFF'}}>
-
-     <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(15),paddingLeft:responsiveHeight(2)}}>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}  style={{marginTop:responsiveHeight(3)}} >
-            <Image 
-             resizeMode='contain'
-            source={require('../assets/goback.png')}
-            />
+    <ScrollView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+      <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(18),paddingLeft:responsiveHeight(4)}}>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}  style={{width:responsiveWidth(11),backgroundColor: '#FFFFFF',elevation: 5,
+              shadowColor: 'light-brown',
+              borderRadius:responsiveWidth(4),
+              padding:responsiveWidth(1)
+              }} >
+          <Icon name="chevron-back-sharp" size={35} color="black"/>
          </TouchableOpacity>
-         <Text style={{fontSize:20,color:"black",fontWeight:'700'}}>My Profile</Text>
-          </View>
-      <View style={{alignItems: 'center',marginTop:responsiveHeight(2),gap:responsiveWidth(2)}}>
-        <View style={{borderRadius:responsiveWidth(10),borderColor:'#FFFFFF',position:'relative'}}>
-          <Image source={(selectedImageUri)?({uri:selectedImageUri}):(require('../assets/profile.png'))} style={{width:100,height:100,borderRadius:50}} />
-          <TouchableOpacity style={{position:'absolute',bottom:'-15%',right:'-4%'}} onPress={toggleModal}>
-                    <Image source={require('../assets/cameraicon1.png')}  />     
+        <Text style={{fontSize: 20, color: 'black', fontWeight: '700'}}>
+          My Profile
+        </Text>
+      </View>
+      <View
+        style={{
+          alignItems: 'center',
+          marginTop: responsiveHeight(2),
+          gap: responsiveWidth(2),
+        }}>
+        <View
+          style={{
+            borderRadius: responsiveWidth(10),
+            borderColor: '#FFFFFF',
+            position: 'relative',
+          }}>
+          <Image
+            source={
+              selectedImageUri
+                ? {uri: selectedImageUri}
+                : require('../assets/profile.png')
+            }
+            style={{width: 100, height: 100, borderRadius: 50}}
+          />
+          <TouchableOpacity
+            style={{position: 'absolute', bottom: '-15%', right: '-4%'}}
+            onPress={toggleModal}>
+            <Image source={require('../assets/cameraicon1.png')} />
           </TouchableOpacity>
         </View>
-        <View style={{gap:8}}>
-          <Text style={{color: '#000', fontSize: 20, fontWeight: '600',textAlign: 'center'}}>
-          {profiledata?.fullName}
+        <View style={{gap: 8}}>
+          <Text
+            style={{
+              color: '#000',
+              fontSize: 20,
+              fontWeight: '600',
+              textAlign: 'center',
+            }}>
+            {profiledata?.fullName}
           </Text>
-          <TouchableOpacity onPress={()=> props.navigation.navigate('EditProfileScreen')}>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('EditProfileScreen')}>
             <Text
-              style={{fontSize: 16, fontWeight: '400', textAlign: 'center',color:'#9796A1'}}>
+              style={{
+                fontSize: 16,
+                fontWeight: '400',
+                textAlign: 'center',
+                color: '#9796A1',
+              }}>
               Edit Profile
             </Text>
           </TouchableOpacity>
         </View>
       </View>
       <Modal isVisible={isModalVisible}>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View
+            style={{backgroundColor: 'white', padding: 20, borderRadius: 10}}>
             <TouchableOpacity onPress={chooseFile}>
               <Text>Select Image</Text>
             </TouchableOpacity>
@@ -206,7 +235,6 @@ const MyProfile = (props) => {
             <TouchableOpacity onPress={toggleModal}>
               <Text>cancle</Text>
             </TouchableOpacity>
-            
           </View>
         </View>
       </Modal>
@@ -214,15 +242,27 @@ const MyProfile = (props) => {
       <View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Full name</Text>
-          <TextInput style={styles.input} placeholder={profiledata?.fullName} placeholderTextColor={"#111719"}/>
+          <TextInput
+            style={styles.input}
+            placeholder={profiledata?.fullName}
+            placeholderTextColor={'#111719'}
+          />
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>E-mail</Text>
-          <TextInput style={styles.input} placeholder={profiledata?.email} placeholderTextColor={"#111719"} />
+          <TextInput
+            style={styles.input}
+            placeholder={profiledata?.email}
+            placeholderTextColor={'#111719'}
+          />
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Phone Number</Text>
-          <TextInput style={styles.input} placeholder={profiledata?.phone}  placeholderTextColor={"#111719"} />
+          <TextInput
+            style={styles.input}
+            placeholder={profiledata?.phone}
+            placeholderTextColor={'#111719'}
+          />
         </View>
       </View>
     </ScrollView>
@@ -232,14 +272,14 @@ const MyProfile = (props) => {
 const styles = StyleSheet.create({
   inputContainer: {
     marginTop: '4%',
-    flexDirection:'column',
-    marginLeft:'8%'
+    flexDirection: 'column',
+    marginLeft: '8%',
   },
   inputLabel: {
-    fontSize:16,
-    fontWeight:"400",
-     textAlign:'left',
-     marginLeft:'4%'
+    fontSize: 16,
+    fontWeight: '400',
+    textAlign: 'left',
+    marginLeft: '4%',
   },
   input: {
     borderWidth: 2,
@@ -249,9 +289,7 @@ const styles = StyleSheet.create({
     marginTop: '3%',
     fontSize: 20,
     borderRadius: 15,
-    paddingLeft:'5%',
-    
-    
+    paddingLeft: '5%',
   },
 });
 

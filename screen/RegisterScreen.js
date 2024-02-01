@@ -6,7 +6,9 @@ import auth from '@react-native-firebase/auth';
 import { loginUser, usertoken } from '../context/AuthSlice';
 import { useDispatch } from 'react-redux';
 import { LoginManager, AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk-next';
-import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dimensions';
+import { responsiveFontSize, responsiveWidth,responsiveHeight } from 'react-native-responsive-dimensions';
+import Signupwithbtn from '../components/Signupwithbtn';
+import FormInput from '../components/FormInput';
 
 const RegisterScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -47,13 +49,6 @@ const RegisterScreen = ({ navigation }) => {
 
 
 const signIn = async () => {
-
-
-
-
-
-
-  
   try {
     console.log('Before checking Play Services');
     await GoogleSignin.hasPlayServices();
@@ -237,30 +232,16 @@ const onFacebookButtonPress = async () => {
   }
 };
 
-// const signefb = async () =>{
-//      const cred = onFacebookButtonPress();
-//      console.log('cred>>>>>',cred);
-// }
-
-
-
-
-
-
-
-  
-
-
 
   console.log('error>>>',errors);
   return (
-    <ScrollView>
+    <ScrollView >
       <View style={styles.header}>
         <Text style={styles.headerText}>Sign Up</Text>
       </View>
 
-      <View>
-        <View style={styles.inputContainer}>
+      <View style={{marginBottom:responsiveHeight(5)}}>
+        {/* <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Full name</Text>
           <TextInput style={styles.input} 
             onChangeText={(text)=>setFullName(text)}
@@ -270,8 +251,27 @@ const onFacebookButtonPress = async () => {
         </View>
         <View style={{alignItems:'flex-start',marginLeft:'9%',width:'80%'}}>
         {errors.fullName && <Text style={styles.error}>{errors.fullName}</Text>}
-        </View>
-                  <View style={styles.inputContainer}>
+        </View> */}
+
+        <FormInput label={'Full Name'}
+          onChangeText={text => setFullName(text)}
+          value={fullName}
+          placeholder={'Enter your name'}
+          error={errors?.fullName}  />
+
+          <FormInput label={'Email'}
+          onChangeText={text => setEmail(text)}
+          value={email}
+          placeholder={'Enter your email'}
+          error={errors?.email || errors?.message}  />
+
+          <FormInput label={'Password'}
+          value={password}
+          onChangeText={text => setPassword(text)}
+          placeholder={'Enter your password'}
+          error={errors?.password}  />
+
+      {/* <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Email</Text>
           <TextInput style={styles.input}
           onChangeText={(text)=>setEmail(text)}
@@ -283,8 +283,8 @@ const onFacebookButtonPress = async () => {
         <View style={{alignItems:'flex-start',marginLeft:'9%',width:'80%'}}>
         {errors.email && <Text style={styles.error}>{errors.email}</Text>}
           {errors.message&& <Text style={styles.error}>{errors.message}</Text>}
-        </View>
-        <View style={styles.inputContainer}>
+        </View> */}
+        {/* <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Password</Text>
           <TextInput style={styles.input}
            onChangeText={(text)=>setPassword(text)}
@@ -294,7 +294,7 @@ const onFacebookButtonPress = async () => {
         </View>
         <View style={{alignItems:'flex-start',marginLeft:'9%',width:'80%'}}>
         {errors.password && <Text style={styles.error}>{errors.password}</Text>}
-        </View>
+        </View> */}
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.signupButton}
@@ -306,28 +306,13 @@ const onFacebookButtonPress = async () => {
 
         <View style={styles.loginContainer}>
           <Text style={styles.loginText}>Already have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
-            <Text style={styles.signupLink}>Sign In</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')} style={styles.signupLink}>
+            <Text style={styles.signupLinkText}>Sign In</Text>
           </TouchableOpacity>
         </View>
+        <Signupwithbtn onFacebookPress={onFacebookButtonPress} onGooglePress={signIn} txt={'sign in'}  />
       </View>
-
-      <View style={styles.divider}>
-        <View style={styles.dividerLine}></View>
-        <Text style={styles.dividerText}>sign in with</Text>
-        <View style={styles.dividerLine}></View>
-      </View>
-
-      <View style={styles.socialButtonsContainer}>
-        <TouchableOpacity style={styles.socialButton} onPress={onFacebookButtonPress}>
-          <Image source={require('../assets/fbicon.png')}  style={{height: 40,width:40}}  />
-          <Text style={styles.socialButtonText}>Facebook</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialButton} onPress={signIn}>
-        <Image source={require('../assets/googleicon.png')}  style={{height: 40,width:40}}  />
-          <Text style={styles.socialButtonText}>Google</Text>
-        </TouchableOpacity>
-      </View>
+      
     </ScrollView>
   );
 };
@@ -339,30 +324,9 @@ const styles = StyleSheet.create({
     alignItems:'flex-start'
   },
   headerText: {
-    fontSize:responsiveFontSize(3),
-    fontWeight: 'bold',
-  },
-  inputContainer: {
-    marginTop:'5%',
-    marginLeft: '7%',
-    alignItems:'flex-start'
-    
-  },
-  inputLabel: {
-     marginLeft:responsiveWidth(3),
-     fontSize:responsiveFontSize(1.9)
-  },
-  input: {
-    borderWidth: 2,
-    borderColor: '#B3B3B3',
-    width: '90%',
-    height: 70,
-    marginTop:'2%',
-    fontSize:responsiveFontSize(2.3),
-    borderRadius: 20,
-    paddingLeft:'4%',
-    justifyContent:'center',
-    alignItems:'center'
+    fontSize: responsiveFontSize(3.6),
+    fontFamily: 'Gilroy-Bold',
+    color: '#000000',
   },
   buttonContainer: {
       marginTop:'6%',
@@ -371,72 +335,37 @@ const styles = StyleSheet.create({
   },
   signupButton: {
     backgroundColor: '#FE724C',
-    width: '70%',
-    height: 60,
-    borderRadius: 40,
+    width: responsiveWidth(70),
+    height: responsiveHeight(9),
+    borderRadius: responsiveWidth(20),
     justifyContent: 'center',
     alignItems: 'center',
   },
   buttonText: {
     color: 'white',
-    fontSize:responsiveFontSize(2)
+    fontFamily: 'Gilroy-SemiBold',
+    fontSize: responsiveFontSize(2.2),
   },
   loginContainer: {
-    marginTop:'2%',
-    alignItems:'center',
-    justifyContent:"center",
+    alignItems: 'center',
+    justifyContent: 'center',
     flexDirection: 'row',
+    marginTop: responsiveHeight(2),
   },
   loginText: {
-    color: 'black',
-    fontSize:responsiveFontSize(2),
+    color: '#5B5B5E',
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'Gilroy-Medium',
   },
   signupLink: {
+    marginLeft: responsiveWidth(1),
+  },
+  signupLinkText: {
     color: '#FE724C',
-    fontSize: responsiveFontSize(1.9),
-    marginLeft: '3%',
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'Gilroy-Medium',
   },
-  divider: {
-    marginTop: '5%',
-   alignItems:'center',
-    justifyContent:"center",
-    flexDirection: 'row',
-  },
-  dividerLine: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 2,
-    width: '30%',
-  },
-  dividerText: {
-    color: 'black',
-    fontSize:responsiveFontSize(1.8),
-    marginLeft: '1%',
-    marginRight: '1%',
-    justifyContent: 'space-between',
-  },
-  socialButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    margin:'4%'
-    
-    
-  },
-  socialButton: {
-    backgroundColor: 'white',
-    width: '35%',
-    height: 70,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection:'row',
-    gap:8
-  },
-  socialButtonText: {
-    color: 'black',
-  },
-  error: {
-    color: 'red',
-  },
+
 });
 
 export default RegisterScreen;

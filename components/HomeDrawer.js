@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { url } from './url';
+import Icon from 'react-native-vector-icons/dist/Ionicons';
 
 
 
@@ -42,12 +43,14 @@ const HomeDrawer = (props) => {
       name: 'MyOrderScreen',
       src: require('../assets/Document.png'),
       screen: 'MyOrder',
+      icon:"reader-outline"
     },
     {
       key: '2',
       name: 'My Profile',
       src: require('../assets/profileicon.png'),
       screen: 'MyProfileScreen',
+      icon:"person-circle-outline"
     },
     // {
     //   key: '3',
@@ -87,7 +90,8 @@ const HomeDrawer = (props) => {
       style={styles.itemContainer}
       onPress={() => props.navigation.navigate(item?.screen)}>
       <View style={styles.iconContainer}>
-        <Image source={item?.src} style={styles?.icon} />
+        {/* <Image source={item?.src} style={styles?.icon} /> */}
+        <Icon name={item?.icon} size={30} color="gray" />
       </View>
       <View>
         <Text style={styles?.itemText}>{item?.name}</Text>
@@ -127,7 +131,9 @@ const HomeDrawer = (props) => {
          onPress={logout}
         >
           <View style={styles.logoutIconContainer}>
-            <Image source={require('../assets/logoutbutton.png')} style={styles.logoutIcon} />
+          
+          <Icon name="power-sharp" size={30} color="white" />
+
           </View>
           <View>
             <Text style={styles.logoutText}>Log Out</Text>

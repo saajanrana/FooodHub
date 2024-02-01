@@ -24,6 +24,8 @@ import {
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 import Header from '../components/Header';
+import Icon from 'react-native-vector-icons/dist/Ionicons';
+
 
 const ViewScreen = ({navigation},props) => {
   const route = useRoute();
@@ -779,10 +781,8 @@ const ViewScreen = ({navigation},props) => {
             justifyContent: 'space-between',
             marginTop: responsiveHeight(5),
           }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image 
-             resizeMode='contain'
-            source={require('../assets/goback.png')} />
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{marginLeft:responsiveWidth(8)}}  >
+          <Icon name="chevron-back-sharp" size={40} color="black"/>
           </TouchableOpacity>
           <View style={{flexWrap: 'wrap', marginLeft: responsiveWidth(5)}}>
             <Text

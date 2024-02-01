@@ -5,5 +5,6 @@ module.exports = {
     android: {},
   },
   assets: ['./assets/fonts'],
-  plugins: ['react-native-reanimated/plugin']
+  plugins: ['react-native-reanimated/plugin'],
+  
 }

@@ -26,6 +26,7 @@ import {
 import Animated from 'react-native-reanimated';
 
 import Carousel from '../components/Carousel';
+import Icon from 'react-native-vector-icons/dist/Ionicons';
 
 
 const HomeScreen = props => {
@@ -958,10 +959,7 @@ const HomeScreen = props => {
             </View>
 
             <TouchableOpacity style={styles.filterIconContainer}>
-              <Image
-                source={require('../assets/filtericonhd.png')}
-                style={styles.filterIcon}
-              />
+            <Icon name="options-outline" size={50} color="#FE724C" />
             </TouchableOpacity>
           </View>
           <Carousel />
@@ -1275,9 +1273,10 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: responsiveWidth(7),
+    gap:responsiveWidth(2),
     width: responsiveWidth(100),
     paddingLeft: responsiveWidth(7),
+    
 
     paddingRight: responsiveWidth(7),
     marginTop: responsiveHeight(2),
@@ -1299,6 +1298,8 @@ const styles = StyleSheet.create({
   filterIconContainer: {
     height: responsiveHeight(8),
     width: responsiveWidth(20),
+    alignItems:'center',
+    justifyContent:"center"
   },
   filterIcon: {
     // width: '100%',

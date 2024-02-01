@@ -1,34 +1,24 @@
 import React from 'react';
 import {View, StyleSheet,TouchableOpacity,Image} from 'react-native';
 import { responsiveWidth, responsiveHeight} from 'react-native-responsive-dimensions';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 const Header = (props) => {
     return (
         <>
             {props?.isMenu && (
-            <TouchableOpacity onPress={props?.onPressMenu}>
-              <Image
-                source={require('../assets/drawericon.png')}
-                resizeMode='contain'
-                style={{width:responsiveWidth(22),height:responsiveHeight(12),marginTop:responsiveHeight(1.7), }}
-              />
+            <TouchableOpacity onPress={props?.onPressMenu} style={{
+              marginTop:10,
+              backgroundColor: '#FFFFFF',
+              elevation: 5,
+              shadowColor: 'light-brown',
+              borderRadius:responsiveWidth(4),
+              marginLeft:responsiveWidth(3),
+              padding:responsiveWidth(2)
+            }}>
+              <Icon name="sort" size={35} color="black" />
             </TouchableOpacity>
             )}
-            {props?.isBack && (
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          onPress={props?.onPressBack}>
-          <Image
-            source={require('../assets/goback.png')}
-            resizeMode="contain"
-            style={{width: 40, height: 40}}
-          />
-        </TouchableOpacity>
-      )}
           </>
     );
 }
