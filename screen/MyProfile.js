@@ -8,17 +8,18 @@ import {
   TextInput,
   ScrollView,
   PermissionsAndroid,
+  Dimensions,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Modal from 'react-native-modal';
 import {url} from '../components/url';
 import {
+  responsiveFontSize,
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import Icon from 'react-native-vector-icons/dist/Ionicons';
-
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 const MyProfile = props => {
   const profiledata = useSelector(state => state.auth.profiledata);
@@ -27,6 +28,9 @@ const MyProfile = props => {
   const [filePath, setFilePath] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
+
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -159,70 +163,55 @@ const MyProfile = props => {
   };
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
-      <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(18),paddingLeft:responsiveHeight(4)}}>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}  style={{width:responsiveWidth(11),backgroundColor: '#FFFFFF',elevation: 5,
-              shadowColor: 'light-brown',
-              borderRadius:responsiveWidth(4),
-              padding:responsiveWidth(1)
-              }} >
-          <Icon name="chevron-back-sharp" size={35} color="black"/>
-         </TouchableOpacity>
-        <Text style={{fontSize: 20, color: 'black', fontWeight: '700'}}>
-          My Profile
-        </Text>
-      </View>
-      <View
-        style={{
-          alignItems: 'center',
-          marginTop: responsiveHeight(2),
-          gap: responsiveWidth(2),
-        }}>
-        <View
-          style={{
-            borderRadius: responsiveWidth(10),
-            borderColor: '#FFFFFF',
-            position: 'relative',
-          }}>
-          <Image
-            source={
-              selectedImageUri
-                ? {uri: selectedImageUri}
-                : require('../assets/profile.png')
-            }
-            style={{width: 100, height: 100, borderRadius: 50}}
+    <ScrollView style={styles.maincontainer}>
+      {/* <View style={styles.headercontainer}>
+        <TouchableOpacity
+          onPress={() => props.snavigation.goBack()}
+          style={styles.headertouchbtn}>
+          <Icon name="chevron-back-sharp" style={styles.backbtn} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headertxt}>My Profile</Text>
+      </View> */}
+      <View>
+        <Image
+          source={require('../assets/profilescreenbg.png')}
+          style={styles.profileibg}
+        />
+        <TouchableOpacity
+          onPress={() => props.snavigation.goBack()}
+          style={styles.headertouchbtn}>
+          <Icon
+            name="arrow-back-ios"
+            style={styles.backbtn}
+            color="black"
           />
-          <TouchableOpacity
-            style={{position: 'absolute', bottom: '-15%', right: '-4%'}}
-            onPress={toggleModal}>
-            <Image source={require('../assets/cameraicon1.png')} />
-          </TouchableOpacity>
-        </View>
-        <View style={{gap: 8}}>
-          <Text
-            style={{
-              color: '#000',
-              fontSize: 20,
-              fontWeight: '600',
-              textAlign: 'center',
-            }}>
-            {profiledata?.fullName}
-          </Text>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('EditProfileScreen')}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '400',
-                textAlign: 'center',
-                color: '#9796A1',
-              }}>
-              Edit Profile
-            </Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
+        <View style={styles.profilecontainer}>
+          <View style={styles.profileimgcontainer}>
+            <Image
+              source={
+                selectedImageUri
+                  ? {uri: selectedImageUri}
+                  : require('../assets/newprofile.jpg')
+              }
+              style={styles.profileimg}
+              
+            />
+            <TouchableOpacity style={styles.camerabtn} onPress={toggleModal}>
+              <Icon name="add-a-photo" color="gray" style={styles.cameraicon} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.profilecontainertow}>
+            <Text style={styles.profilename}>{profiledata?.fullName}</Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('EditProfileScreen')}>
+              <Text style={styles.edittxt}>Edit Profile</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-      <Modal isVisible={isModalVisible}>
+
+      {/* <Modal isVisible={isModalVisible}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <View
             style={{backgroundColor: 'white', padding: 20, borderRadius: 10}}>
@@ -237,9 +226,9 @@ const MyProfile = props => {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
 
-      <View>
+      
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Full name</Text>
           <TextInput
@@ -264,32 +253,113 @@ const MyProfile = props => {
             placeholderTextColor={'#111719'}
           />
         </View>
-      </View>
+      
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  maincontainer: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  headercontainer: {
+    height: responsiveHeight(8),
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: responsiveWidth(10),
+
+    borderWidth: 2,
+  },
+  headertouchbtn: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
+    height: responsiveHeight(7),
+    borderRadius: responsiveWidth(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: responsiveHeight(2),
+    left: responsiveWidth(12),
+  },
+  headertxt: {
+    fontSize: 20,
+    color: 'black',
+    fontWeight: '700',
+  },
+  backbtn: {
+    marginLeft:responsiveWidth(2),
+    fontSize: responsiveFontSize(4),
+  },
+  profileibg: {
+    flex: 1,
+    width: responsiveWidth(100),
+    height: responsiveHeight(30),
+    position: 'relative',
+  },
+  profilecontainer: {
+  
+    width:responsiveWidth(25),
+    alignItems: 'center',
+    gap: responsiveWidth(2),
+    position: 'absolute',
+    left: responsiveWidth(30),
+    bottom: responsiveHeight(-2),
+  },
+  profileimgcontainer: {
+    borderRadius: responsiveWidth(25),
+    borderColor: '#FFFFFF',
+    position: 'relative',
+  },
+  profileimg: {
+    width: responsiveWidth(Dimensions.get('window').width >= 600?25:25),
+    height: responsiveHeight(Dimensions.get('window').width >= 600?18:13),
+    borderRadius:responsiveWidth(10),
+  },
+  profilecontainertow: {gap: 8},
+  cameraicon:{
+    fontSize:responsiveFontSize(4)
+  },
+
+  camerabtn: {position: 'absolute', bottom:responsiveHeight(0), right:responsiveWidth(-1)},
+  profilename: {
+    color: '#000',
+    fontSize:responsiveFontSize(3),
+    fontFamily:'Gilroy-Bold',
+    textAlign: 'center',
+  },
+  edittxt: {
+    fontSize:responsiveFontSize(1.8),
+    fontFamily:'Gilroy-Regular',
+    textAlign: 'center',
+    color: '#9796A1',
+  },
   inputContainer: {
-    marginTop: '4%',
+   
+    marginTop:responsiveHeight(3),
     flexDirection: 'column',
-    marginLeft: '8%',
+    marginLeft:responsiveWidth(5),
+    marginRight:responsiveWidth(5)
   },
   inputLabel: {
-    fontSize: 16,
-    fontWeight: '400',
-    textAlign: 'left',
-    marginLeft: '4%',
+    fontSize:responsiveFontSize(2.5),
+    fontFamily:'Gilroy-SemiBold',
+    marginLeft:responsiveWidth(1)
+    
   },
   input: {
-    borderWidth: 2,
+    borderWidth: responsiveFontSize(0.11),
     borderColor: '#B3B3B3',
-    width: '90%',
-    height: 70,
-    marginTop: '3%',
-    fontSize: 20,
-    borderRadius: 15,
-    paddingLeft: '5%',
+    width: responsiveWidth(90),
+    height: responsiveHeight(9),
+    marginTop: responsiveHeight(1),
+    fontSize: responsiveFontSize(2.4),
+    borderRadius: responsiveWidth(2),
+    paddingLeft: responsiveWidth(5),
+    fontFamily: 'Gilroy-Medium',
+    color: 'black',
   },
 });
 

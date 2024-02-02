@@ -30,12 +30,18 @@ const Navigation = () => {
   console.log("in navaigation",canbeinhome);
   // Drawernavigator
   const Drawer = createDrawerNavigator();
+
+  
   const HomeScreenDrawer = props => {
     return (
       <Drawer.Navigator drawerContent={props => <HomeDrawer {...props} />}>
         <Drawer.Screen
           name="HomeTabs"
-          options={{headerShown: false
+          options={{ headerShown: false,
+            drawerStyle :{
+              width:'60%',
+            }
+            
           }}
           component={HomeScreen}
         />
