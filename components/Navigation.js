@@ -21,6 +21,7 @@ import SplashScreen from '../screen/SplashScreen';
 import { Carticon, HomeIcon, Usericon } from './AppIcons';
 import AllItemScreen from '../screen/AllItemScreen';
 import RestaurantScreen from '../screen/RestaurantScreen';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -34,7 +35,8 @@ const Navigation = () => {
       <Drawer.Navigator drawerContent={props => <HomeDrawer {...props} />}>
         <Drawer.Screen
           name="HomeTabs"
-          options={{headerShown: false}}
+          options={{headerShown: false
+          }}
           component={HomeScreen}
         />
       </Drawer.Navigator>
@@ -49,16 +51,21 @@ const Navigation = () => {
     return (
       <Tab.Navigator
         initialRouteName={'HomeScreen'}
-        screenOptions={{
-    
-        }}>
+       >
         <Tab.Screen
           name="HomeScreen"
           component={HomeScreenDrawer}
+        
           options={{
             tabBarShowLabel: false,
             headerShown: false,
             tabBarIcon: item => <HomeIcon item={item} />,
+            
+            tabBarStyle:{
+              height:responsiveHeight(7),
+              width:responsiveWidth(100),
+              
+            }
           }}
         />
         <Tab.Screen
@@ -68,6 +75,10 @@ const Navigation = () => {
             tabBarShowLabel: false,
             headerShown: false,
             tabBarIcon: item => <Carticon item={item} />,
+            tabBarStyle:{
+              height:responsiveHeight(7),
+              width:responsiveWidth(100)
+            }
           }}
         />
         <Tab.Screen
@@ -77,6 +88,10 @@ const Navigation = () => {
             tabBarShowLabel: false,
             headerShown: false,
             tabBarIcon: item => <Usericon item={item} />,
+            tabBarStyle:{
+              height:responsiveHeight(7),
+              width:responsiveWidth(100)
+            }
           }}
         />
       </Tab.Navigator>

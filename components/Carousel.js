@@ -1,4 +1,4 @@
-import React, {useEffect, useState,useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {View, StyleSheet, Text, Image, Dimensions} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {
@@ -7,18 +7,11 @@ import {
 } from 'react-native-responsive-dimensions';
 
 const Carousel = () => {
-
-    const flatlistRef = useRef();
+  const flatlistRef = useRef();
 
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
   const [activeindex, setActiveindex] = useState(0);
-
-
-
-
-
-
 
   const carouseldata = [
     {
@@ -35,11 +28,7 @@ const Carousel = () => {
     },
   ];
 
-
-
   //
-
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -64,8 +53,8 @@ const Carousel = () => {
     return (
       <View>
         <Image
-          source={item.image}
-          resizeMode='contain'
+          source={item?.image}
+          resizeMode="cover"
           style={{height: responsiveHeight(25), width: responsiveWidth(100)}}
         />
       </View>
@@ -78,10 +67,8 @@ const Carousel = () => {
     setActiveindex(index);
   };
 
-  
-
   return (
-    <View style={{justifyContent:"center",marginTop:responsiveHeight(1),alignItems:'center'}}>
+    <View style={styles.maincontainer}>
       <FlatList
         data={carouseldata}
         ref={flatlistRef}
@@ -91,40 +78,19 @@ const Carousel = () => {
         horizontal={true}
         pagingEnabled={true}
         onScroll={handleScroll}
-        style={{flex:1,position:'relative',width:responsiveWidth(90),}}
-
+        style={styles.listcontainer}
       />
       <View
-        style={{
-          position:'absolute',
-          alignItems: 'center',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          gap: responsiveWidth(2),
-          marginTop: responsiveHeight(2),
-          bottom:responsiveHeight(2),
-          left:responsiveWidth(45)
-
-        }}>
+        style={styles.viewone}>
         {carouseldata.map((dot, index) =>
           activeindex === index ? (
             <View
               key={index}
-              style={{
-                width: responsiveWidth(5),
-                height: responsiveHeight(0.5),
-                borderRadius: responsiveWidth(1),
-                backgroundColor: '#FE724C',
-              }}></View>
+              style={styles.viewtow}></View>
           ) : (
             <View
               key={index}
-              style={{
-                width: responsiveWidth(1),
-                height: responsiveHeight(0.5),
-                borderRadius: responsiveWidth(.5),
-                backgroundColor: 'gray',
-              }}></View>
+              style={styles.viewthree}></View>
           ),
         )}
       </View>
@@ -132,6 +98,39 @@ const Carousel = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  maincontainer: {
+    justifyContent: 'center',
+    marginTop: responsiveHeight(3),
+    alignItems: 'center',
+    justifyContent:"center"
+   
+  },
+  listcontainer: {
+    width: responsiveWidth(90),
+  },
+  viewone:{
+    position: 'absolute',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: responsiveWidth(2),
+    marginTop: responsiveHeight(2),
+    bottom: responsiveHeight(2),
+    left: responsiveWidth(45),
+  },
+  viewtow:{
+    width: responsiveWidth(5),
+    height: responsiveHeight(0.5),
+    borderRadius: responsiveWidth(1),
+    backgroundColor: '#FE724C',
+  },
+  viewthree:{
+    width: responsiveWidth(1),
+    height: responsiveHeight(0.5),
+    borderRadius: responsiveWidth(0.5),
+    backgroundColor: 'gray',
+  }
+});
 
 export default Carousel;
