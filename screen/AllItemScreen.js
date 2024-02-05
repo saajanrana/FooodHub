@@ -861,11 +861,13 @@ const AllItemScreen = ({navigation}) => {
     },
     // ... add more restaurants as needed
   ];
+
   const itemsPerPage = 10; // Number of items to load per page
 
   const [visibleData, setVisibleData] = useState(
     viewallitem.slice(0, itemsPerPage),
   );
+
 
   const loadMoreData = () => {
     const currentLength = visibleData.length;
@@ -959,7 +961,7 @@ const AllItemScreen = ({navigation}) => {
             />
          </TouchableOpacity>
          {
-        clicktab===0? <Text style={{fontSize:20,fontWeight:'600',color:'black'}}>All Items</Text>:<Text style={{fontSize:20,fontWeight:'600',color:'black'}}>All Restaurant</Text>
+        clicktab===0? <Text style={{fontSize:responsiveFontSize(3),fontFamily:'Gilroy-Bold',color:'black'}}>All Items</Text>:<Text style={{fontSize:responsiveFontSize(3),fontFamily:'Gilroy-Bold',color:'black'}}>All Restaurant</Text>
 
 }
 
@@ -999,7 +1001,8 @@ const AllItemScreen = ({navigation}) => {
                 <Text
                   style={{
                     color: clicktab === 0 ? '#FFF' : '#FE724C',
-                    fontSize: responsiveFontSize(2),
+                    fontSize: responsiveFontSize(2.5),
+                    fontFamily:'Gilroy-Bold'
                   }}>
                   Food Items
                 </Text>
@@ -1018,7 +1021,8 @@ const AllItemScreen = ({navigation}) => {
                 <Text
                   style={{
                     color: clicktab === 0 ? '#FE724C' : '#FFF',
-                    fontSize: responsiveFontSize(2),
+                    fontSize: responsiveFontSize(2.5),
+                    fontFamily:'Gilroy-Bold'
                   }}>
                   Resturents
                 </Text>
@@ -1109,16 +1113,16 @@ const AllItemScreen = ({navigation}) => {
                             <Text
                               style={{
                                 color: '#FE724C',
-                                fontWeight: '600',
-                                fontSize: responsiveFontSize(2),
+                                fontFamily:'Gilroy-Medium',
+                                fontSize: responsiveFontSize(2.5),
                               }}>
                               $
                             </Text>
                             <Text
                               style={{
                                 color: '#000',
-                                fontWeight: '600',
-                                fontSize: responsiveFontSize(2),
+                                fontFamily:'Gilroy-SemiBold',
+                                fontSize: responsiveFontSize(2.7),
                               }}>
                               {item?.item?.price}
                             </Text>
@@ -1139,7 +1143,7 @@ const AllItemScreen = ({navigation}) => {
                               style={{
                                 color: '#000',
                                 fontWeight: '600',
-                                fontSize: responsiveFontSize(2),
+                                fontSize: responsiveFontSize(2.7),
                               }}>
                               {item?.item?.rating}
                             </Text>

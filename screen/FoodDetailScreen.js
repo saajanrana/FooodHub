@@ -34,7 +34,7 @@ import {SharesdElement} from '../components/SharedElement';
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import SlideButton from 'rn-slide-button';
 import SwipeButton from 'rn-swipe-button';
-import Icon from 'react-native-vector-icons/dist/Ionicons';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 
 const FoodDetailScreen = ({navigation}) => {
@@ -815,20 +815,21 @@ const FoodDetailScreen = ({navigation}) => {
 
   return (
     <ScrollView style={styles.maincontainer}>
-       <View style={{flexDirection:'row',alignItems:'center',gap:80,paddingLeft:10,marginTop:10,marginLeft:20}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}  style={{width:50,backgroundColor: '#FFFFFF',elevation: 5,
-              shadowColor: 'light-brown',
-              borderRadius:20,
-              padding:5
-              }} >
-          <Icon name="chevron-back-sharp" size={35} color="black"/>
-         </TouchableOpacity>
+       <View style={styles.headercontainer}>
+       <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.headertouchbtn}>
+          <Icon
+            name="arrow-back-ios"
+            style={styles.backbtn}
+            color="black"
+          />
+        </TouchableOpacity>
 
-      <Text style={{fontSize:20,fontWeight:'800',color:'black'}}>Item Details</Text>
+         <Text style={styles.headertxt}>Item Details</Text>
       </View>
       <View style={styles.secondcontainer}>
         <View style={styles.mainimgcontainer}>
-        
           <Animated.Image
             entering={LightSpeedInRight.delay(300)
               .randomDelay()
@@ -872,9 +873,10 @@ const FoodDetailScreen = ({navigation}) => {
           </View>
           <View style={styles.addtocartdiv}>
             <TouchableOpacity
-              style={styles.removebtndiv}
+             
               onPress={() => dispatch(removefood(userfood?.id))}>
-              <Text style={styles.removebtntxt}>-</Text>
+              {/* <Text style={styles.removebtntxt}>-</Text> */}
+              <Icon name="remove-circle" color='red'style={styles.removebtntxt} />
             </TouchableOpacity>
 
             <Text style={styles.totolitemtxt}>
@@ -882,9 +884,8 @@ const FoodDetailScreen = ({navigation}) => {
             </Text>
 
             <TouchableOpacity
-              style={styles.addbtndiv}
               onPress={() => dispatch(addfood(userfood?.id))}>
-              <Text style={styles.addbtntxt}>+</Text>
+              <Icon name="add-circle" color='red'style={styles.removebtntxt} />
             </TouchableOpacity>
           </View>
         </Animated.View>
@@ -918,7 +919,7 @@ const FoodDetailScreen = ({navigation}) => {
                   <Text style={styles.optionpricetxt}>+$2.30</Text>
                 </View>
                 <View>
-                  <RadioButton color="#FE724C" value="first" />
+                  <RadioButton color="#FE724C" value="first" style={styles.optionlastbtn} />
                 </View>
               </View>
             </View>
@@ -1030,7 +1031,7 @@ const styles = StyleSheet.create({
   },
   secondcontainer: {
     flex: 1,
-    marginTop:responsiveHeight(3)
+    marginTop:responsiveHeight(2)
   },
   mainimgcontainer: {
     height: responsiveHeight(45),
@@ -1049,11 +1050,12 @@ const styles = StyleSheet.create({
   },
   foodname: {
     paddingLeft: responsiveWidth(6),
+
   },
   foodnametext: {
     color: '#323643',
-    fontSize: responsiveFontSize(3),
-    fontWeight: '600',
+    fontSize: responsiveFontSize(3.5),
+    fontFamily:'Gilroy-Bold'
   },
   ratingview: {
     flexDirection: 'row',
@@ -1062,13 +1064,13 @@ const styles = StyleSheet.create({
   },
   ratingviewtxt: {
     color: '#111719',
-    fontSize: responsiveFontSize(1.7),
-    fontWeight: '600',
+    fontSize: responsiveFontSize(2.2),
+    fontFamily:'Gilroy-Medium'
   },
   reviewtxt: {
     color: '#FE724C',
-    fontSize: responsiveFontSize(1.5),
-    fontWeight: '400',
+    fontSize: responsiveFontSize(2),
+    fontFamily:'Gilroy-Medium',
     textDecorationLine: 'underline',
     textDecorationColor: '#FE724C',
   },
@@ -1081,13 +1083,13 @@ const styles = StyleSheet.create({
   mainpricediv: {flexDirection: 'row'},
   pricesign: {
     color: '#FE724C',
-    fontSize: responsiveFontSize(1.8),
-    fontWeight: '500',
+    fontSize: responsiveFontSize(2.2),
+    fontFamily:'Gilroy-Medium'
   },
   foodprice: {
     color: '#FE724C',
-    fontSize: responsiveFontSize(2.5),
-    fontWeight: '600',
+    fontSize: responsiveFontSize(2.8),
+    fontFamily:'Gilroy-SemiBold'
   },
   addtocartdiv: {
     flexDirection: 'row',
@@ -1103,10 +1105,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   removebtntxt: {
-    color: 'white',
+    fontSize:responsiveFontSize(6)
+
   },
-  totolitemtxt: {color: 'black', fontSize: 28, fontWeight: '600'},
-  addbtndiv: {
+  totolitemtxt: {
+    color: 'black',
+    textAlign:'center',
+    marginTop:responsiveHeight(0.5),
+    fontSize:responsiveFontSize(4.5), 
+    fontFamily:'Gilroy-Bold'
+  },
+     addbtndiv: {
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
@@ -1124,15 +1133,15 @@ const styles = StyleSheet.create({
   },
   fooddetailstxt: {
     color: '#858992',
-    fontSize: responsiveFontSize(1.9),
-    fontWeight: '400',
+    fontSize: responsiveFontSize(2.5),
+    fontFamily:'Gilroy-Bold'
   },
   thirdcontainer: {marginTop: responsiveHeight(2)},
   choisdiv: {marginLeft: responsiveWidth(6)},
   choisdivtxt: {
     color: '#323643',
-    fontSize: responsiveFontSize(2.2),
-    fontWeight: '600',
+    fontSize: responsiveFontSize(2.5),
+    fontFamily:'Gilroy-Bold'
   },
   radiobtndiv: {
     marginTop: responsiveHeight(1),
@@ -1143,14 +1152,14 @@ const styles = StyleSheet.create({
   optiondiv: {flexDirection: 'row', justifyContent: 'space-between'},
   optiontxt: {
     color: '#000',
-    fontSize: responsiveFontSize(1.6),
-    fontWeight: '400',
+    fontSize: responsiveFontSize(2),
+    fontFamily:'Gilroy-Bold'
   },
   optionpricediv: {flexDirection: 'row', justifyContent: 'space-between'},
   optionpricetxt: {
     color: '#000',
-    fontWeight: '400',
-    fontSize: responsiveFontSize(1.5),
+    fontFamily:'Gilroy-Bold',
+    fontSize: responsiveFontSize(2),
   },
   addtocartbtn: {
     alignItems: 'center',
@@ -1163,6 +1172,31 @@ const styles = StyleSheet.create({
     top: 35,
     left: 90,
   },
+  headercontainer:{
+  flexDirection:'row',
+  alignItems:'center',
+  paddingLeft:responsiveWidth(5),
+  marginTop:responsiveHeight(2)
+},
+  headertouchbtn: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
+    height: responsiveHeight(6),
+    borderRadius: responsiveWidth(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    
+  },
+  backbtn: {
+    marginLeft:responsiveWidth(2),
+    fontSize: responsiveFontSize(4),
+  },
+  headertxt:{ fontSize:responsiveFontSize(3),fontFamily:'Gilroy-Bold',color:'black',textAlign:"center",marginLeft:responsiveWidth(15)},
+  optionlastbtn:{
+   
+  }
 });
 
 export default FoodDetailScreen;

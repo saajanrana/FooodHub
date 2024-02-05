@@ -178,7 +178,7 @@ const MyProfile = props => {
           style={styles.profileibg}
         />
         <TouchableOpacity
-          onPress={() => props.snavigation.goBack()}
+          onPress={() => props.navigation.goBack()}
           style={styles.headertouchbtn}>
           <Icon
             name="arrow-back-ios"
@@ -211,10 +211,10 @@ const MyProfile = props => {
         </View>
       </View>
 
-      {/* <Modal isVisible={isModalVisible}>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+       <Modal isVisible={isModalVisible}>
+        <View style={styles.modalview}>
           <View
-            style={{backgroundColor: 'white', padding: 20, borderRadius: 10}}>
+            style={styles.modalviewtwo}>
             <TouchableOpacity onPress={chooseFile}>
               <Text>Select Image</Text>
             </TouchableOpacity>
@@ -226,7 +226,7 @@ const MyProfile = props => {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal> */}
+      </Modal> 
 
       
         <View style={styles.inputContainer}>
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     shadowColor: 'light-brown',
     width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
-    height: responsiveHeight(7),
+    height: responsiveHeight(6),
     borderRadius: responsiveWidth(2.5),
     alignItems: 'center',
     justifyContent: 'center',
@@ -361,6 +361,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Gilroy-Medium',
     color: 'black',
   },
+  modalview:{flex: 1, justifyContent: 'center', alignItems: 'center'},
+  modalviewtwo:{backgroundColor: 'white',paddingTop:responsiveHeight(2),paddingLeft:responsiveWidth(9), borderRadius:responsiveWidth(5),width:responsiveWidth(40),height:responsiveHeight(10)}
 });
 
 export default MyProfile;

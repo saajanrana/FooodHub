@@ -41,7 +41,9 @@ const LoginScreen = ({navigation}) => {
   const [errors, setErrors] = useState();
 
   const handleLogin = async () => {
+    
     try {
+      
       const response = await fetch(`${url}api/login`, {
         method: 'POST',
         headers: {
@@ -52,7 +54,7 @@ const LoginScreen = ({navigation}) => {
 
       const data = await response.json();
 
-      // console.log('data>>>>>', data);
+    
       if (response.ok) {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
         console.log('Login successful');

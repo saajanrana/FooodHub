@@ -789,7 +789,7 @@ const ViewScreen = ({navigation},props) => {
               style={{
                 fontSize: responsiveFontSize(7),
                 color: '#272D2F',
-                fontWeight: '700',
+                fontFamily:'Gilroy-Bold'
               }}>
               Fast
             </Text>
@@ -797,12 +797,12 @@ const ViewScreen = ({navigation},props) => {
               style={{
                 fontSize: responsiveFontSize(7),
                 color: '#FE724C',
-                fontStyle: 'normal',
-                fontWeight: '700',
+                fontFamily:'Gilroy-Bold'
+                
               }}>
               Food
             </Text>
-            <Text style={{color: '#9796A1', fontSize: responsiveFontSize(2)}}>
+            <Text style={{color: '#9796A1', fontSize: responsiveFontSize(2.5),fontFamily:'Gilroy-Medium'}}>
               80 type of pizza
             </Text>
           </View>
@@ -869,16 +869,16 @@ const ViewScreen = ({navigation},props) => {
                   <Text
                     style={{
                       color: '#FE724C',
-                      fontWeight: '600',
-                      fontSize: responsiveFontSize(1.8),
+                      fontFamily:'Gilroy-SemiBold',
+                      fontSize: responsiveFontSize(2),
                     }}>
                     $
                   </Text>
                   <Text
                     style={{
                       color: '#000',
-                      fontWeight: '600',
-                      fontSize: responsiveFontSize(1.8),
+                      fontFamily:'Gilroy-SemiBold',
+                      fontSize: responsiveFontSize(2.2),
                     }}>
                     {item?.item?.price}
                   </Text>
@@ -890,7 +890,7 @@ const ViewScreen = ({navigation},props) => {
                     left: responsiveWidth(5),
                     flexDirection: 'row',
                     backgroundColor: 'white',
-                    borderRadius: responsiveWidth(10),
+                    borderRadius: responsiveWidth(5),
                     padding: responsiveWidth(2),
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -898,11 +898,12 @@ const ViewScreen = ({navigation},props) => {
                   <Text
                     style={{
                       color: '#000',
-                      fontWeight: '600',
-                      fontSize: responsiveFontSize(1.8),
+                      fontFamily:'Gilroy-Bold',
+                      fontSize: responsiveFontSize(2),
                     }}>
                     {item?.item?.rating}
                   </Text>
+                   <Icon name='star-sharp' color='yellow'/>
                 </View>
               </View>
               <TouchableOpacity
@@ -913,16 +914,16 @@ const ViewScreen = ({navigation},props) => {
                 <Text
                   style={{
                     color: '#000',
-                    fontSize: responsiveFontSize(2),
-                    fontWeight: '600',
+                    fontSize: responsiveFontSize(2.6),
+                    fontFamily:'Gilroy-Bold'
                   }}>
                   {item?.item?.foodname}
                 </Text>
                 <Text
                   style={{
                     color: '#5B5B5E',
-                    fontSize: responsiveFontSize(1.8),
-                    fontWeight: '400',
+                    fontSize: responsiveFontSize(2),
+                    fontFamily:'Gilroy-Medium'
                   }}>
                   Chicken,Cheese and pineapple
                 </Text>
