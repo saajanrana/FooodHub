@@ -50,12 +50,13 @@ const HomeDrawer = props => {
       screen: 'MyProfileScreen',
       icon: 'person-circle-outline',
     },
-    // {
-    //   key: '3',
-    //   name: 'Delivery Address',
-    //   src: require('../assets/Location.png'),
-    //   screen: 'DeliveryAddress',
-    // },
+    {
+      key: '3',
+      name: 'Location',
+      src: require('../assets/Location.png'),
+      screen: 'LocationScreen',
+      icon: 'map-outline',
+    },
     // {
     //   key: '4',
     //   name: 'Payment Methods',

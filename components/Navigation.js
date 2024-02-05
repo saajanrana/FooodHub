@@ -140,6 +140,7 @@ const Navigation = () => {
         <Stack.Screen name="ViewScreen" component={ViewScreen} options={{headerShown: false}} />
         <Stack.Screen name="AllItemScreen" component={AllItemScreen} options={{headerShown: false}} />
         <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{headerShown: false}} />
+        <Stack.Screen name="LocationScreen" component={MyLocationScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>
