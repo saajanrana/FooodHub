@@ -11,22 +11,43 @@ import {
 
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
+import MapViewDirections from 'react-native-maps-directions';
 
 const MyLocationScreen = () => {
-  // const [long,setLong] = useState(0);
-  // const [lat,setLat] = useState(0);
-  // const [alt,setAlt] = useState(0);
 
-  const [location, setLocation] = useState([]);
+
   const mapViewRef = React.createRef();
 
-  const [cord, setCord] = useState({
-    latitude: 19.076090,
-    longitude: 72.877426,
-  });
+
+  // const [state,setState] = useState({
+  //   pickupCords:{
+  //     latitude:30.7046,
+  //     longitude:76.7179,
+  //     latitudeDelta: 0.0922,
+  //     longitudeDelta: 0.0421,
+  //   },
+  //   droplocationCors:{
+  //     latitude: 30.188493,
+  //   longitude: 78.050678,
+  //     latitudeDelta: 0.0922,
+  //     longitudeDelta: 0.0421,
+  //   }
+  // });
+
+  // const {pickupCords,droplocationCors} = state;
+
+  const [cord, setCord] = useState();
+  const initial = {
+    latitude:30.7046,
+    longitude:76.7179,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  };
 
   useEffect(() => {
     requestLocationPermission();
+    getLocation();
+    console.log('hue>>>');
   }, []);
   const requestLocationPermission = async () => {
     try {
@@ -57,22 +78,22 @@ const MyLocationScreen = () => {
       position => {
         console.log(position);
         const {latitude, longitude, accuracy, altitude} = position.coords;
-        console.log('lat>>', latitude);
-
+      
+        // console.log('mylocation>>>',position);
        
             mapViewRef.current.animateToRegion({
               latitude:latitude,
               longitude:longitude,
-              latitudeDelta: 0.04,
-              longitudeDelta: 0.04,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
             });
       
             setCord({
               latitude:latitude,
               longitude:longitude,
-            })
-         
-        
+            });  
+
+            console.log('hola>>>');
       },
       error => {
         console.log(error.code, error.message);
@@ -83,26 +104,26 @@ const MyLocationScreen = () => {
 
   
 
-  console.log('hue>>>', location.length < 0);
+
   return (
     <View style={{flex: 1}}>
       <MapView
-        ref={mapViewRef}
-        style={{height: '80%', width: '100%'}}
-        initialRegion={{
-          latitude: 19.076090,
-          longitude: 72.877426,
-          latitudeDelta: 0.04,
-          longitudeDelta: 0.04,
-        }}>
-        <Marker
-          coordinate={cord}
-          title="Your Location"
-          description="You are here"
-        />
+      ref={mapViewRef}
+        style={{height: '100%', width: '100%'}}
+        initialRegion={initial}> 
+      
+ 
+
+
+  <Marker
+    
+    coordinate={cord?cord:initial}
+  />
+
+
       </MapView>
 
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+      {/* <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableOpacity
           style={{
             width: 100,
@@ -119,7 +140,7 @@ const MyLocationScreen = () => {
           <Text style={{color: 'white'}}>Get current location</Text>
         </TouchableOpacity>
         
-      </View>
+      </View> */}
     </View>
   );
 };
