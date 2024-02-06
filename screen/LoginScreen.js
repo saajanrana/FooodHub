@@ -54,13 +54,14 @@ const LoginScreen = ({navigation}) => {
 
       const data = await response.json();
 
-    
+      console.log('hola>>>>>>>>>');
       if (response.ok) {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
         console.log('Login successful');
         // await AsyncStorage.setItem('token',data.token);
         dispatch(loginUser('usercanlogin'));
         dispatch(usertoken(data.token));
+       
         navigation.replace('HomeDrawer');
       } else {
         setErrors(data);
@@ -208,26 +209,30 @@ const LoginScreen = ({navigation}) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.maincontainer}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Log In</Text>
       </View>
 
-      <View>
+      <View style={styles.secondcontainer}>
+        <View style={styles.formcontainer}>
         <FormInput
           label={'Email'}
           value={email}
           onChangeText={text => setEmail(text)}
           placeholder={'Enter your email'}
-          error={errors?.errors?.email || errors?.message1}
+          error={errors?.error1}
+          
         />
         <FormInput
           label={'Password'}
           value={password}
           onChangeText={text => setPassword(text)}
           placeholder={'Enter your password'}
-          error={errors?.errors?.password || errors?.message2}
+          error={errors?.error2}
+          
         />
+        </View>
         <View style={styles.forgotPassword}>
           <TouchableOpacity>
             <Text style={styles.forgotPasswordText}>Forgot password?</Text>
@@ -236,14 +241,14 @@ const LoginScreen = ({navigation}) => {
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.buttonText}>LOGIN</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.signupContainer}>
           <Text style={styles.signupText}>Don't have an account?</Text>
           <TouchableOpacity
             style={styles.signupLink}
-            onPress={() => navigation.navigate('Register')}>
+            onPress={() => { setErrors({});  navigation.navigate('Register')}}>
             <Text style={styles.signupLinkText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
@@ -258,14 +263,24 @@ const LoginScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  maincontainer:{
+    flex:1
+  },
   header: {
-    marginLeft: responsiveWidth(10),
+    marginLeft: responsiveWidth(6),
     marginTop: responsiveHeight(5),
   },
   headerText: {
-    fontSize: responsiveFontSize(3.6),
-    fontFamily: 'Gilroy-Bold',
+    fontSize: responsiveFontSize(5),
+    fontFamily: 'Gilroy-ExtraBold',
     color: '#000000',
+  },
+  secondcontainer:{
+    marginTop:responsiveHeight(5),
+  },
+  formcontainer:{
+    
+     gap:responsiveHeight(2.5)
   },
   forgotPassword: {
     marginTop: responsiveHeight(3),
@@ -273,7 +288,7 @@ const styles = StyleSheet.create({
   },
   forgotPasswordText: {
     color: '#FE724C',
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveFontSize(2.5),
     fontFamily: 'Gilroy-Medium',
   },
   buttonContainer: {
@@ -291,7 +306,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontFamily: 'Gilroy-SemiBold',
-    fontSize: responsiveFontSize(2.2),
+    fontSize: responsiveFontSize(3),
   },
   signupContainer: {
     alignItems: 'center',
@@ -301,7 +316,7 @@ const styles = StyleSheet.create({
   },
   signupText: {
     color: '#5B5B5E',
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveFontSize(2.5),
     fontFamily: 'Gilroy-Medium',
   },
   signupLink: {
@@ -309,7 +324,7 @@ const styles = StyleSheet.create({
   },
   signupLinkText: {
     color: '#FE724C',
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveFontSize(2.5),
     fontFamily: 'Gilroy-Medium',
   },
 });

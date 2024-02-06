@@ -1026,6 +1026,7 @@ const HomeScreen = props => {
             keyExtractor={item => item?.id}
             renderItem={renderpopularitem}
             numColumns={2}
+           
           
       />
   
@@ -1218,14 +1219,15 @@ const styles = StyleSheet.create({
   
   popcontainer:{
     
-    marginHorizontal:responsiveWidth(5),
-    marginVertical:responsiveHeight(2),
-    width: responsiveWidth(40),
+    marginLeft:responsiveWidth(4),
+    marginVertical:responsiveHeight(1),
+    width: responsiveWidth(44),
     backgroundColor: '#FFF',
     shadowOpacity: 10,
     elevation: 1,
     shadowColor: 'light-brown',
     borderRadius: responsiveWidth(2),
+    
     
    
   },

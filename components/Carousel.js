@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
    
   },
   listcontainer: {
-    width: responsiveWidth(90),
+    width: responsiveWidth(100),
   },
   viewone:{
     position: 'absolute',

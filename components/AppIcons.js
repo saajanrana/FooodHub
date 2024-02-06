@@ -8,7 +8,7 @@ export const HomeIcon = ({item}) => {
     const {focused, size} = item;
     return (
       <View style={styles.homeiconcontainer}>
-        { focused?<Icon name="home"  color="red" style={styles.homeicon} />:<Icon name="home"  color="#767F9D" style={styles.homeicon} />
+        { focused?<Icon name="home"  color="#FE724C" style={styles.homeicon} />:<Icon name="home"  color="#767F9D" style={styles.homeicon} />
         }
           </View>
     );
@@ -18,7 +18,7 @@ export const HomeIcon = ({item}) => {
     const {focused, size} = item;
     return (
       <View style={styles.homeiconcontainer}>
-        { focused?<Icon name="shopping-bag" style={styles.homeicon} color="red" />
+        { focused?<Icon name="shopping-bag" style={styles.homeicon} color="#FE724C" />
           :<Icon name="shopping-bag" style={styles.homeicon} color="#767F9D" />
         }
           </View>
@@ -33,7 +33,7 @@ export const HomeIcon = ({item}) => {
     return (
       <View style={styles.homeiconcontainer}>
         {
-         focused?<Icon name="account-circle" style={styles.homeicon} color="red" />:<Icon name="account-circle" style={styles.homeicon} color="#767F9D" />
+         focused?<Icon name="account-circle" style={styles.homeicon} color="#FE724C" />:<Icon name="account-circle" style={styles.homeicon} color="#767F9D" />
 
         }
           </View>

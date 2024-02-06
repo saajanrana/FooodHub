@@ -126,9 +126,9 @@ const HomeDrawer = props => {
         <View style={styles.logoutIconContainer}>
           <Icon name="power-sharp" style={styles.iconsize} color="white" />
         </View>
-        <View>
+        
           <Text style={styles.logoutText}>Log Out</Text>
-        </View>
+        
       </TouchableOpacity>
     </View>
   );
@@ -172,18 +172,18 @@ const styles = StyleSheet.create({
   flatListContainer: {
     marginLeft: responsiveWidth(1),
     marginTop: responsiveHeight(5),
-    gap: responsiveHeight(2),
+    gap: responsiveHeight(1),
   },
   itemContainer: {
     flexDirection: 'row',
-    gap: responsiveWidth(2),
+    gap: responsiveWidth(3),
+    alignItems:'center',
+    
   },
 
   itemText: {
     color: '#000',
-    fontSize: responsiveFontSize(
-      Dimensions.get('window').width >= 600 ? 1.4 : 2,
-    ),
+    fontSize: responsiveFontSize(2),
   },
 
   logoutButton: {
@@ -191,20 +191,20 @@ const styles = StyleSheet.create({
     bottom: responsiveHeight(1),
     left: responsiveWidth(3),
     backgroundColor: '#FE724C',
-    width: responsiveWidth(25),
-    height: responsiveHeight(7),
+    width: responsiveWidth(30),
+    height: responsiveHeight(8),
     borderRadius: responsiveWidth(10),
     flexDirection: 'row',
     justifyContent: 'center', 
     alignItems: 'center',
   },
   logoutText: {
-    fontSize: responsiveFontSize(1.8),
+    fontSize: responsiveFontSize(2),
     color: 'white',
     fontFamily: 'Gilroy-Medium',
   },
   iconsize: {
-    fontSize: responsiveFontSize(Dimensions.get('window').width >= 600 ? 3 : 4),
+    fontSize: responsiveFontSize(4),
   },
 });
 

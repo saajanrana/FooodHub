@@ -13,7 +13,7 @@ const FormInput = ({ label, value, onChangeText, placeholder, error }) => {
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
-            // onFocus={() => setErrors({})}
+            
              value={value}
             
             placeholder={placeholder}
@@ -31,15 +31,15 @@ const FormInput = ({ label, value, onChangeText, placeholder, error }) => {
 
 const styles = StyleSheet.create({
     inputContainer: {
-        marginTop: responsiveHeight(6),
+   
         marginLeft: responsiveWidth(6),
       },
       inputLabel: {
         fontSize: responsiveFontSize(2.2),
         marginLeft: responsiveWidth(0.5),
         fontFamily: 'Gilroy-Regular',
-
         color: '#9796A1',
+        
       },
       input: {
         borderWidth: responsiveFontSize(0.11),
@@ -52,11 +52,10 @@ const styles = StyleSheet.create({
         paddingLeft: responsiveWidth(5),
         fontFamily: 'Gilroy-Medium',
         color: 'black',
-        
       },
       error: {
         marginLeft: responsiveWidth(1),
-        marginTop: responsiveHeight(0.5),
+        marginTop:responsiveHeight(0.5),
         color: 'red',
         fontSize: responsiveFontSize(2),
         fontFamily: 'Gilroy-Medium',
