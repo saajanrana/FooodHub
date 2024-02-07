@@ -895,9 +895,7 @@ const HomeScreen = props => {
     </TouchableOpacity>
   );
 
-
-  const renderpopularitem = ({item}) =>(
-    
+  const renderpopularitem = ({item}) => (
     <TouchableOpacity
       key={item?.id}
       style={styles.popcontainer}
@@ -910,35 +908,21 @@ const HomeScreen = props => {
           source={require('../assets/likeicons.png')}
           style={styles.poplikeicon}
         />
-        <View
-          style={styles.poppricecontainer}>
-          <Text
-            style={styles.pop$sign}>
-            $
-          </Text>
-          <Text
-            style={styles.popprice}>
-            {item?.price}
-          </Text>
+        <View style={styles.poppricecontainer}>
+          <Text style={styles.pop$sign}>$</Text>
+          <Text style={styles.popprice}>{item?.price}</Text>
         </View>
-        <View
-          style={styles.popratingcontainer}>
-          <Text
-            style={styles.poprating}>
-            {item?.rating}
-          </Text>
-          <Icon  name="star-sharp" color="#FFC529" style={styles.starticon} />
+        <View style={styles.popratingcontainer}>
+          <Text style={styles.poprating}>{item?.rating}</Text>
+          <Icon name="star-sharp" color="#FFC529" style={styles.starticon} />
+          <Text>(25+)</Text>
         </View>
       </View>
       <View style={styles.popdetails}>
         <Text style={styles.poptxto}>{item?.foodname}</Text>
-        <Text style={styles.popfoodnametxt}>
-          {item?.foodname}
-        </Text>
+        <Text style={styles.popfoodnametxt}>{item?.foodname}</Text>
       </View>
     </TouchableOpacity>
-
-
   );
 
   return (
@@ -1020,16 +1004,12 @@ const HomeScreen = props => {
         <Text style={styles.featuredRestaurantsHeaderText}>Popular Items</Text>
       </View>
 
-
-      <FlatList 
-            data={popularitems}
-            keyExtractor={item => item?.id}
-            renderItem={renderpopularitem}
-            numColumns={2}
-           
-          
+      <FlatList
+        data={popularitems}
+        keyExtractor={item => item?.id}
+        renderItem={renderpopularitem}
+        numColumns={2}
       />
-  
     </ScrollView>
   );
 };
@@ -1098,9 +1078,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
- 
+
   filterContainer: {
-   
     alignItems: 'center',
     marginTop: responsiveHeight(3),
     width: responsiveWidth(100),
@@ -1140,7 +1119,6 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2),
   },
   featuredRestaurantContainerr: {
-    
     width: responsiveWidth(70),
     height: responsiveHeight(40),
     borderRadius: responsiveWidth(2),
@@ -1153,7 +1131,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 5,
     elevation: 2,
     shadowColor: 'light-brown',
-    gap:responsiveHeight(1),
+    gap: responsiveHeight(1),
   },
   featuredRestaurantImageContainer: {
     width: responsiveWidth(70),
@@ -1175,13 +1153,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     paddingLeft: responsiveWidth(3),
     paddingRight: responsiveWidth(3),
-   
+
     width: responsiveWidth(70),
     height: responsiveHeight(10),
     borderBottomLeftRadius: responsiveWidth(5),
     borderBottomRightRadius: responsiveWidth(5),
-    
-    
   },
   featuredRestaurantName: {
     color: '#000',
@@ -1216,30 +1192,28 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2),
     fontFamily: 'Gilroy-Medium',
   },
-  
-  popcontainer:{
-    
-    marginLeft:responsiveWidth(4),
-    marginVertical:responsiveHeight(1),
+
+  popcontainer: {
+    marginLeft: responsiveWidth(4),
+    marginVertical: responsiveHeight(1),
     width: responsiveWidth(44),
-    backgroundColor: '#FFF',
+    backgroundColor: '#FFFFFF',
     shadowOpacity: 10,
     elevation: 1,
     shadowColor: 'light-brown',
     borderRadius: responsiveWidth(2),
     
     
-   
   },
- 
-  poplikeicon:{
+
+  poplikeicon: {
     position: 'absolute',
-    width:responsiveHeight(8),
-    height:responsiveWidth(12),
+    width: responsiveHeight(8),
+    height: responsiveWidth(12),
     top: responsiveHeight(2),
     right: responsiveWidth(0),
   },
-  poppricecontainer:{
+  poppricecontainer: {
     position: 'absolute',
     top: responsiveHeight(2),
     left: responsiveWidth(2),
@@ -1250,47 +1224,54 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  pop$sign:{
+  pop$sign: {
     color: '#FE724C',
-    fontFamily:'Gilroy-SemiBold',
+    fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(2),
   },
-  popprice:{
+  popprice: {
     color: '#000',
-    fontFamily:'Gilroy-SemiBold',
+    fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(2),
   },
-  popratingcontainer:{
+  popratingcontainer: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
     position: 'absolute',
-    bottom: responsiveHeight(-2.5),
+    bottom: responsiveHeight(-2),
     left: responsiveWidth(3),
     flexDirection: 'row',
-    backgroundColor: 'white',
     borderRadius: responsiveWidth(5),
-    padding: responsiveWidth(1.5),
+    padding: responsiveWidth(2),
     alignItems: 'center',
     justifyContent: 'center',
+    gap:responsiveWidth(1),
+    flexWrap:'wrap',
+    
+
   },
-  poprating:{
+  poprating: {
     color: '#000',
-    fontFamily:'Gilroy-SemiBold',
+    fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(1.7),
   },
-  popdetails:{
-    padding: responsiveWidth(2.5)
+  popdetails: {
+    marginTop:responsiveHeight(1.2),
+    padding: responsiveWidth(2.5),
   },
   popimg: {
     width: 'auto',
     height: responsiveHeight(20),
     borderRadius: responsiveWidth(2),
   },
-  popfoodnametxt:{
-    fontFamily:'Gilroy-Regular',
-    fontSize: responsiveFontSize(1.8)
+  popfoodnametxt: {
+    fontFamily: 'Gilroy-Medium',
+    fontSize: responsiveFontSize(1.8),
   },
   poptxto: {
     color: '#000',
-    fontFamily:'Gilroy-SemiBold',
+    fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(2),
   },
   iconstyl: {
@@ -1303,7 +1284,7 @@ const styles = StyleSheet.create({
     shadowColor: 'light-brown',
     borderRadius: responsiveWidth(10),
     height: responsiveHeight(19),
-    width: responsiveWidth(Dimensions.get('window').width>=600?17:20),
+    width: responsiveWidth(Dimensions.get('window').width >= 600 ? 17 : 20),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -1321,9 +1302,9 @@ const styles = StyleSheet.create({
   filtericon: {
     fontSize: responsiveFontSize(5),
   },
-  starticon:{
-    fontSize:responsiveFontSize(3)
-  }
+  starticon: {
+    fontSize: responsiveFontSize(2),
+  },
 });
 
 export default memo(HomeScreen);

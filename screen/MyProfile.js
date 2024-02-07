@@ -164,15 +164,7 @@ const MyProfile = props => {
 
   return (
     <ScrollView style={styles.maincontainer}>
-      {/* <View style={styles.headercontainer}>
-        <TouchableOpacity
-          onPress={() => props.snavigation.goBack()}
-          style={styles.headertouchbtn}>
-          <Icon name="chevron-back-sharp" style={styles.backbtn} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headertxt}>My Profile</Text>
-      </View> */}
-      <View>
+      <View style={{justifyContent: 'flex-end', alignItems: 'center'}}>
         <Image
           source={require('../assets/profilescreenbg.png')}
           style={styles.profileibg}
@@ -180,11 +172,7 @@ const MyProfile = props => {
         <TouchableOpacity
           onPress={() => props.navigation.goBack()}
           style={styles.headertouchbtn}>
-          <Icon
-            name="arrow-back-ios"
-            style={styles.backbtn}
-            color="black"
-          />
+          <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
         </TouchableOpacity>
         <View style={styles.profilecontainer}>
           <View style={styles.profileimgcontainer}>
@@ -195,7 +183,6 @@ const MyProfile = props => {
                   : require('../assets/newprofile.jpg')
               }
               style={styles.profileimg}
-              
             />
             <TouchableOpacity style={styles.camerabtn} onPress={toggleModal}>
               <Icon name="add-a-photo" color="gray" style={styles.cameraicon} />
@@ -211,10 +198,9 @@ const MyProfile = props => {
         </View>
       </View>
 
-       <Modal isVisible={isModalVisible}>
+      <Modal isVisible={isModalVisible}>
         <View style={styles.modalview}>
-          <View
-            style={styles.modalviewtwo}>
+          <View style={styles.modalviewtwo}>
             <TouchableOpacity onPress={chooseFile}>
               <Text>Select Image</Text>
             </TouchableOpacity>
@@ -226,34 +212,26 @@ const MyProfile = props => {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal> 
+      </Modal>
 
-      
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Full name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={profiledata?.fullName}
-            placeholderTextColor={'#111719'}
-          />
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Full name</Text>
+        <View style={styles.input}>
+          <Text style={styles.inputtxt}>{profiledata?.fullName}</Text>
         </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>E-mail</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={profiledata?.email}
-            placeholderTextColor={'#111719'}
-          />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>E-mail</Text>
+        <View style={styles.input}>
+          <Text style={styles.inputtxt} >{profiledata?.email}</Text>
         </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Phone Number</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={profiledata?.phone}
-            placeholderTextColor={'#111719'}
-          />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Phone Number</Text>
+        <View style={styles.input}>
+          <Text style={styles.inputtxt}>{profiledata?.phone}</Text>
         </View>
-      
+      </View>
     </ScrollView>
   );
 };
@@ -262,14 +240,6 @@ const styles = StyleSheet.create({
   maincontainer: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-  },
-  headercontainer: {
-    height: responsiveHeight(8),
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: responsiveWidth(10),
-
-    borderWidth: 2,
   },
   headertouchbtn: {
     backgroundColor: '#FFFFFF',
@@ -290,64 +260,64 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   backbtn: {
-    marginLeft:responsiveWidth(2),
-    fontSize: responsiveFontSize(4),
+    marginLeft: responsiveWidth(2),
+    fontSize: responsiveFontSize(3),
   },
   profileibg: {
     flex: 1,
     width: responsiveWidth(100),
-    height: responsiveHeight(30),
+    height: responsiveHeight(40),
     position: 'relative',
   },
   profilecontainer: {
-  
-    width:responsiveWidth(25),
     alignItems: 'center',
+    justifyContent: 'center',
     gap: responsiveWidth(2),
     position: 'absolute',
-    left: responsiveWidth(30),
-    bottom: responsiveHeight(-2),
   },
   profileimgcontainer: {
     borderRadius: responsiveWidth(25),
-    borderColor: '#FFFFFF',
+
     position: 'relative',
   },
   profileimg: {
-    width: responsiveWidth(Dimensions.get('window').width >= 600?25:25),
-    height: responsiveHeight(Dimensions.get('window').width >= 600?18:13),
-    borderRadius:responsiveWidth(10),
+    width: responsiveWidth(30),
+    height: responsiveHeight(Dimensions.get('window').width>=600?20: 15),
+    borderRadius:responsiveWidth(50)
+    
   },
   profilecontainertow: {gap: 8},
-  cameraicon:{
-    fontSize:responsiveFontSize(4)
+  cameraicon: {
+    fontSize: responsiveFontSize(4),
   },
 
-  camerabtn: {position: 'absolute', bottom:responsiveHeight(0), right:responsiveWidth(-1)},
+  camerabtn: {
+    position: 'absolute',
+    bottom: responsiveHeight(0),
+    right: responsiveWidth(-1),
+  },
   profilename: {
     color: '#000',
-    fontSize:responsiveFontSize(3),
-    fontFamily:'Gilroy-Bold',
+    fontSize: responsiveFontSize(3),
+    fontFamily: 'Gilroy-Bold',
     textAlign: 'center',
   },
   edittxt: {
-    fontSize:responsiveFontSize(1.8),
-    fontFamily:'Gilroy-Regular',
+    fontSize: responsiveFontSize(2.3),
+    fontFamily: 'Gilroy-bold',
     textAlign: 'center',
     color: '#9796A1',
   },
   inputContainer: {
-   
-    marginTop:responsiveHeight(3),
+    marginTop: responsiveHeight(3),
     flexDirection: 'column',
-    marginLeft:responsiveWidth(5),
-    marginRight:responsiveWidth(5)
+    marginLeft: responsiveWidth(5),
+    marginRight: responsiveWidth(5),
   },
   inputLabel: {
-    fontSize:responsiveFontSize(2.5),
-    fontFamily:'Gilroy-SemiBold',
-    marginLeft:responsiveWidth(1)
-    
+    fontSize: responsiveFontSize(2.5),
+    fontFamily: 'Gilroy-SemiBold',
+    marginLeft: responsiveWidth(1),
   },
   input: {
     borderWidth: responsiveFontSize(0.11),
@@ -355,14 +325,29 @@ const styles = StyleSheet.create({
     width: responsiveWidth(90),
     height: responsiveHeight(9),
     marginTop: responsiveHeight(1),
-    fontSize: responsiveFontSize(2.4),
     borderRadius: responsiveWidth(2),
-    paddingLeft: responsiveWidth(5),
+    paddingLeft: responsiveWidth(3),
     fontFamily: 'Gilroy-Medium',
     color: 'black',
+    justifyContent: 'center',
   },
-  modalview:{flex: 1, justifyContent: 'center', alignItems: 'center'},
-  modalviewtwo:{backgroundColor: 'white',paddingTop:responsiveHeight(2),paddingLeft:responsiveWidth(9), borderRadius:responsiveWidth(5),width:responsiveWidth(40),height:responsiveHeight(10)}
+  inputtxt: {
+    color: '#111719',
+    fontSize: responsiveFontSize(2.4),
+  },
+  modalview: {
+     flex: 1,
+     justifyContent: 'center',
+      alignItems: 'center'
+    },
+  modalviewtwo: {
+    backgroundColor: 'white',
+    paddingTop: responsiveHeight(2),
+    paddingLeft: responsiveWidth(9),
+    borderRadius: responsiveWidth(5),
+    width: responsiveWidth(40),
+    height: responsiveHeight(10),
+  },
 });
 
 export default MyProfile;
