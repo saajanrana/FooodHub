@@ -9,7 +9,9 @@ import {
   ScrollView,
   Dimensions
 } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 const RestaurantScreen = ({navigation}) => {
   const route = useRoute();
@@ -551,11 +553,25 @@ const RestaurantScreen = ({navigation}) => {
 
   const restaurant = restaurants.find(item => item?.id === restId);
   const itemsinside = restaurant?.items;
-  // console.log('inside>>>>', itemsinside);
+  console.log('inside>>>>', itemsinside);
 
   return (
     <ScrollView style={{flex: 1}}>
-      <View style={{marginTop:responsiveHeight(3)}}>
+      <View style={styles.headercontainer}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.headertouchbtn}>
+              <Icon
+                name="arrow-back-ios"
+                style={styles.backbtn}
+                color="black"
+              />
+            </TouchableOpacity>
+
+              <Text style={styles.headertxt}>Restaurant</Text>
+            
+          </View>
+      <View style={{marginTop:responsiveHeight(2)}}>
         <View
           style={{
             height: responsiveHeight(isTablet?60:35),
@@ -575,8 +591,8 @@ const RestaurantScreen = ({navigation}) => {
             }}
           />
         </View>
-        <View style={{paddingLeft:responsiveHeight(isTablet?9:3)}}>
-          <Text style={{color: '#323643', fontSize:responsiveFontSize(3.2), fontWeight: '600'}}>
+        <View style={{paddingLeft:responsiveHeight(isTablet?4:3)}}>
+          <Text style={{color: '#323643', fontSize:responsiveFontSize(3.5),fontFamily:'Gilroy-Bold'}}>
             {restaurant?.name}
           </Text>
         </View>
@@ -584,15 +600,15 @@ const RestaurantScreen = ({navigation}) => {
           style={{
             flexDirection: 'row',
             gap:responsiveFontSize(1),
-            paddingLeft:responsiveHeight(isTablet?9:3),
+            paddingLeft:responsiveHeight(isTablet?4:3),
             
           }}>
           <View>
             <Text
               style={{
                 color: '#111719',
-                fontSize:responsiveFontSize(1.6),
-                fontWeight: '600',
+                fontSize:responsiveFontSize(2),
+                fontFamily:'Gilroy-SemiBold'
               }}>
               4.5
             </Text>
@@ -602,8 +618,8 @@ const RestaurantScreen = ({navigation}) => {
               <Text
                 style={{
                   color: '#FE724C',
-                  fontSize:responsiveFontSize(1.5),
-                  fontWeight: '400',
+                  fontSize:responsiveFontSize(1.8),
+                  fontFamily:'Gilroy-Medium',
                   textDecorationLine: 'underline',
                   textDecorationColor: '#FE724C',
                 }}>
@@ -614,59 +630,93 @@ const RestaurantScreen = ({navigation}) => {
         </View>
         <View
           style={{
-            paddingLeft:responsiveHeight(isTablet?9:3),
+            paddingLeft:responsiveHeight(isTablet?4:3),
             
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}></View>
       </View>
-      <View style={{paddingLeft:responsiveHeight(isTablet?9:3), marginTop:responsiveHeight(1)}}>
-        <Text style={{color: '#858992',fontSize:responsiveFontSize(1.7)}}>{restaurant?.description}</Text>
+      <View style={{paddingLeft:responsiveHeight(isTablet?4:3), marginTop:responsiveHeight(1)}}>
+        <Text style={{color: '#858992',fontSize:responsiveFontSize(2),fontFamily:'Gilroy-Medium'}}>{restaurant?.description}</Text>
       </View>
       <View style={{alignItems: 'center', marginTop:responsiveHeight(3)}}>
-        <Text style={{color: '#000', fontSize:responsiveFontSize(2.2), fontWeight: '400'}}>
+        <Text style={{color: '#000', fontSize:responsiveFontSize(2.5),fontFamily:'Gilroy-SemiBold'}}>
           Food By Restaurant
         </Text>
       </View>
-      {itemsinside.map(item => (
-        <View style={{alignItems: 'center'}}>
-          <TouchableOpacity
-            key={item?.id}
-            style={{
-              flexDirection: 'row',
-              marginTop:responsiveHeight(3),
-              width:responsiveWidth(90),
-              gap:responsiveWidth(2),
-              alignItems: 'center',
-             
-            }}
-            onPress={() =>
-              navigation.navigate('FoodDetail', {foodId: item?.id})
-            }>
-            <View style={{height:responsiveHeight(isTablet?30:15), width: responsiveWidth(30), borderRadius:responsiveWidth(2)}}>
-              <Image
-                source={item?.imgsrc}
-                style={{height:responsiveHeight(isTablet?30:15), width:responsiveWidth(30), borderRadius:responsiveWidth(2)}}
-              />
-            </View>
-            <View style={{gap:responsiveWidth(1), width:responsiveWidth(60)}}>
-              <View
-                style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-                <Text style={{color: '#000', fontSize:responsiveFontSize(2), fontWeight: '800'}}>
-                  {item?.foodname}
-                </Text>
-              </View>
-              <Text style={{color: '#8C8A9D', fontSize:responsiveFontSize(1.8), fontWeight: 300}}>
-                {item?.fooddetails}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      ))}
+
+      <FlatList
+        data={itemsinside}
+        style={{marginTop:responsiveHeight(2),marginBottom:responsiveHeight(1)}}
+        keyExtractor={item => item?.id}
+        renderItem={ item => (
+          <View
+          style={{alignItems:'center',marginBottom:responsiveHeight(2)}} 
+         >
+           <TouchableOpacity
+             key={item?.id}
+             style={{
+               flexDirection: 'row',
+               width:responsiveWidth(90),
+               gap:responsiveWidth(2), 
+             }}
+             onPress={() =>
+               navigation.navigate('FoodDetail', {foodId: item?.item?.id})
+             }>
+             <View style={{height:responsiveHeight(isTablet?15:11), width: responsiveWidth(30), borderRadius:responsiveWidth(2)}}>
+               <Image
+                 source={item?.item?.imgsrc}
+                 style={{height:responsiveHeight(isTablet?15:11), width:responsiveWidth(30), borderRadius:responsiveWidth(2)}}
+               />
+             </View>
+             <View style={{gap:responsiveWidth(1), width:responsiveWidth(60)}}>
+               <View
+                 style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+                 <Text style={{color: '#000', fontSize:responsiveFontSize(2.2),fontFamily:'Gilroy-Bold'}}>
+                   {item?.item?.foodname}
+                 </Text>
+               </View>
+               <Text style={{color: '#8C8A9D', fontSize:responsiveFontSize(2),fontFamily:'Gilroy-Medium'}}>
+                 {item?.item?.fooddetails}
+               </Text>
+             </View>
+           </TouchableOpacity>
+         </View>
+        )}
+      />
+     
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  headercontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(2),
+  },
+  headertouchbtn: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
+    height: responsiveHeight(6),
+    borderRadius: responsiveWidth(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backbtn: {
+    marginLeft: responsiveWidth(2),
+    fontSize: responsiveFontSize(3),
+  },
+  headertxt: {
+    fontSize: responsiveFontSize(3),
+    fontFamily: 'Gilroy-Bold',
+    color: 'black',
+    textAlign: 'center',
+    marginLeft: responsiveWidth(15),
+  },
+});
 
 export default RestaurantScreen;

@@ -12,6 +12,7 @@ import {
   Dimensions,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+
 import Animated, {
   FadeInDown,
   FadeOutDown,
@@ -24,7 +25,7 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import Shimmer from 'react-native-shimmer-kit';
-
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 const AllItemScreen = ({navigation}) => {
   const [clicktab, setClicktab] = useState(0);
@@ -868,6 +869,24 @@ const AllItemScreen = ({navigation}) => {
     viewallitem.slice(0, itemsPerPage),
   );
 
+  function truncateString(inputString) {
+    // Split the input string into an array of words
+    let words = inputString.split(' ');
+
+    // Check if the number of words is greater than the maxLength
+    if (words.length > 10) {
+      // Take the first 20 words and join them into a new string
+      let truncatedString = words.slice(0, 10).join(' ');
+
+      // Append "..........." to the truncated string
+      truncatedString += '...........';
+
+      return truncatedString;
+    } else {
+      // If the number of words is less than or equal to maxLength, return the original string
+      return inputString;
+    }
+  }
 
   const loadMoreData = () => {
     const currentLength = visibleData.length;
@@ -953,19 +972,21 @@ const AllItemScreen = ({navigation}) => {
         />
       ) : (
         <View>
-          <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(20),paddingLeft:responsiveHeight(2)}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}  style={{marginTop:responsiveHeight(3)}} >
-            <Image 
-             resizeMode='contain'
-            source={require('../assets/goback.png')}
-            />
-         </TouchableOpacity>
-         {
-        clicktab===0? <Text style={{fontSize:responsiveFontSize(3),fontFamily:'Gilroy-Bold',color:'black'}}>All Items</Text>:<Text style={{fontSize:responsiveFontSize(3),fontFamily:'Gilroy-Bold',color:'black'}}>All Restaurant</Text>
-
-}
-
-
+          <View style={styles.headercontainer}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.headertouchbtn}>
+              <Icon
+                name="arrow-back-ios"
+                style={styles.backbtn}
+                color="black"
+              />
+            </TouchableOpacity>
+            {clicktab === 0 ? (
+              <Text style={styles.headertxt}>All Items</Text>
+            ) : (
+              <Text style={styles.headertxt}>All Restaurant</Text>
+            )}
           </View>
           <Animated.View
             entering={LightSpeedInRight.delay(200)
@@ -1002,7 +1023,7 @@ const AllItemScreen = ({navigation}) => {
                   style={{
                     color: clicktab === 0 ? '#FFF' : '#FE724C',
                     fontSize: responsiveFontSize(2.5),
-                    fontFamily:'Gilroy-Bold'
+                    fontFamily: 'Gilroy-Bold',
                   }}>
                   Food Items
                 </Text>
@@ -1022,7 +1043,7 @@ const AllItemScreen = ({navigation}) => {
                   style={{
                     color: clicktab === 0 ? '#FE724C' : '#FFF',
                     fontSize: responsiveFontSize(2.5),
-                    fontFamily:'Gilroy-Bold'
+                    fontFamily: 'Gilroy-Bold',
                   }}>
                   Resturents
                 </Text>
@@ -1035,13 +1056,11 @@ const AllItemScreen = ({navigation}) => {
               entering={FadeInDown.delay(200)}
               style={{
                 flex: 1,
-                marginTop: responsiveHeight(3),
+                marginTop: responsiveHeight(1),
                 marginBottom: responsiveHeight(4),
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-
-
               <FlatList
                 data={viewallitem}
                 numColumns={screenWidth >= 600 ? 2 : 1}
@@ -1050,7 +1069,7 @@ const AllItemScreen = ({navigation}) => {
                     key={item?.index}
                     style={{
                       marginTop: responsiveHeight(3),
-                      marginHorizontal: responsiveWidth(5),
+                      marginLeft: responsiveWidth(2),
                       marginBottom: responsiveHeight(2),
                     }}>
                     <TouchableWithoutFeedback
@@ -1067,11 +1086,11 @@ const AllItemScreen = ({navigation}) => {
                           shadowColor: 'light-brown',
                           borderRadius: responsiveWidth(2),
                           width: isTablet
-                            ? responsiveWidth(35)
+                            ? responsiveWidth(45)
                             : responsiveWidth(90),
 
                           height: isTablet
-                            ? responsiveHeight(50)
+                            ? responsiveHeight(40)
                             : responsiveHeight(40),
                           gap: responsiveHeight(1),
                         }}>
@@ -1086,15 +1105,17 @@ const AllItemScreen = ({navigation}) => {
                             style={{
                               borderRadius: responsiveWidth(2),
                               height: responsiveHeight(27),
-                              width: responsiveWidth(isTablet ? 35 : 90),
+                              width: responsiveWidth(isTablet ? 45 : 90),
                             }}
                           />
                           <Image
                             source={require('../assets/likeicons.png')}
                             style={{
                               position: 'absolute',
+                              height:responsiveHeight(8),
+                              width:responsiveWidth(8),
                               top: responsiveHeight(1),
-                              right: responsiveWidth(1),
+                              right: responsiveWidth(2),
                             }}
                           />
 
@@ -1105,48 +1126,39 @@ const AllItemScreen = ({navigation}) => {
                               left: responsiveWidth(3),
                               flexDirection: 'row',
                               backgroundColor: 'white',
-                              borderRadius: responsiveWidth(10),
-                              padding: responsiveWidth(1.2),
+                              borderRadius: responsiveWidth(20),
+                              padding: responsiveWidth(2),
                               alignItems: 'center',
                               justifyContent: 'center',
                             }}>
                             <Text
                               style={{
                                 color: '#FE724C',
-                                fontFamily:'Gilroy-Medium',
-                                fontSize: responsiveFontSize(2.5),
+                                fontFamily: 'Gilroy-Medium',
+                                fontSize: responsiveFontSize(2.2),
                               }}>
                               $
                             </Text>
                             <Text
                               style={{
                                 color: '#000',
-                                fontFamily:'Gilroy-SemiBold',
-                                fontSize: responsiveFontSize(2.7),
+                                fontFamily: 'Gilroy-SemiBold',
+                                fontSize: responsiveFontSize(2.5),
                               }}>
                               {item?.item?.price}
                             </Text>
                           </View>
-                          <View
-                            style={{
-                              position: 'absolute',
-                              bottom: responsiveHeight(-2),
-                              left: responsiveWidth(3),
-                              flexDirection: 'row',
-                              backgroundColor: 'white',
-                              borderRadius: responsiveWidth(10),
-                              padding: '2.5%',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}>
-                            <Text
-                              style={{
-                                color: '#000',
-                                fontWeight: '600',
-                                fontSize: responsiveFontSize(2.7),
-                              }}>
+
+                          <View style={styles.popratingcontainer}>
+                            <Text style={styles.poprating}>
                               {item?.item?.rating}
                             </Text>
+                            <Icon
+                              name="grade"
+                              color="#FFC529"
+                              style={styles.starticon}
+                            />
+                            <Text>(25+)</Text>
                           </View>
                         </View>
                         <TouchableOpacity
@@ -1170,7 +1182,7 @@ const AllItemScreen = ({navigation}) => {
                               ),
                               fontWeight: '400',
                             }}>
-                            {item?.item?.fooddetails}
+                            {truncateString(item?.item?.fooddetails)}
                           </Text>
                         </TouchableOpacity>
                       </View>
@@ -1184,7 +1196,7 @@ const AllItemScreen = ({navigation}) => {
               entering={FadeInDown.delay(200)}
               style={{
                 flex: 1,
-                marginTop: responsiveHeight(3),
+                marginTop: responsiveHeight(1),
                 marginBottom: responsiveHeight(4),
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -1197,7 +1209,7 @@ const AllItemScreen = ({navigation}) => {
                     key={item?.index}
                     style={{
                       marginTop: responsiveHeight(3),
-                      marginHorizontal: responsiveWidth(5),
+                      marginLeft: responsiveWidth(2),
                       marginBottom: responsiveHeight(2),
                     }}>
                     <TouchableWithoutFeedback
@@ -1214,11 +1226,11 @@ const AllItemScreen = ({navigation}) => {
                           shadowColor: 'light-brown',
                           borderRadius: responsiveWidth(2),
                           width: isTablet
-                            ? responsiveWidth(35)
+                            ? responsiveWidth(45)
                             : responsiveWidth(90),
 
                           height: isTablet
-                            ? responsiveHeight(50)
+                            ? responsiveHeight(40)
                             : responsiveHeight(40),
                           gap: responsiveHeight(1),
                         }}>
@@ -1233,44 +1245,37 @@ const AllItemScreen = ({navigation}) => {
                             style={{
                               borderRadius: responsiveWidth(2),
                               height: responsiveHeight(27),
-                              width: responsiveWidth(isTablet ? 35 : 90),
+                              width: responsiveWidth(isTablet ? 45 : 90),
                             }}
                           />
                           <Image
                             source={require('../assets/likeicons.png')}
                             style={{
                               position: 'absolute',
+                              height:responsiveHeight(8),
+                              width:responsiveWidth(8),
                               top: responsiveHeight(1),
-                              right: responsiveWidth(1),
+                              right: responsiveWidth(2),
                             }}
                           />
-                          <View
-                            style={{
-                              position: 'absolute',
-                              bottom: responsiveHeight(-2),
-                              left: responsiveWidth(3),
-                              flexDirection: 'row',
-                              backgroundColor: 'white',
-                              borderRadius: responsiveWidth(10),
-                              padding: '2.5%',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}>
-                            <Text
-                              style={{
-                                color: '#000',
-                                fontWeight: '600',
-                                fontSize: responsiveFontSize(2),
-                              }}>
+
+
+                          <View style={styles.popratingcontainer}>
+                            <Text style={styles.poprating}>
                               {item?.item?.rating}
                             </Text>
+                            <Icon
+                              name="grade"
+                              color="#FFC529"
+                              style={styles.starticon}
+                            />
+                            <Text>(25+)</Text>
                           </View>
                         </View>
                         <TouchableOpacity
                           style={{
                             padding: responsiveWidth(1.2),
                             height: responsiveHeight(50),
-                            gap: responsiveWidth(0.5),
                           }}>
                           <Text
                             style={{
@@ -1288,17 +1293,7 @@ const AllItemScreen = ({navigation}) => {
                               ),
                               fontWeight: '400',
                             }}>
-                            {item?.item?.description}
-                          </Text>
-                          <Text
-                            style={{
-                              color: '#5B5B5E',
-                              fontSize: responsiveFontSize(
-                                isTablet ? 1.2 : 1.8,
-                              ),
-                              fontWeight: '400',
-                            }}>
-                            {item?.item?.address}
+                            {truncateString(item?.item?.description)}
                           </Text>
                         </TouchableOpacity>
                       </View>
@@ -1314,6 +1309,114 @@ const AllItemScreen = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  headercontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(2),
+  },
+  headertouchbtn: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
+    height: responsiveHeight(6),
+    borderRadius: responsiveWidth(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backbtn: {
+    marginLeft: responsiveWidth(2),
+    fontSize: responsiveFontSize(3),
+  },
+  headertxt: {
+    fontSize: responsiveFontSize(3),
+    fontFamily: 'Gilroy-Bold',
+    color: 'black',
+    textAlign: 'center',
+    marginLeft: responsiveWidth(15),
+  },
+  popcontainer: {
+    marginLeft: responsiveWidth(4),
+    marginVertical: responsiveHeight(1),
+    width: responsiveWidth(44),
+    backgroundColor: '#FFFFFF',
+    shadowOpacity: 10,
+    elevation: 1,
+    shadowColor: 'light-brown',
+    borderRadius: responsiveWidth(2),
+  },
+
+  poplikeicon: {
+    position: 'absolute',
+    width: responsiveHeight(8),
+    height: responsiveWidth(12),
+    top: responsiveHeight(2),
+    right: responsiveWidth(0),
+  },
+  poppricecontainer: {
+    position: 'absolute',
+    top: responsiveHeight(2),
+    left: responsiveWidth(2),
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    borderRadius: responsiveWidth(5),
+    padding: responsiveWidth(1.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pop$sign: {
+    color: '#FE724C',
+    fontFamily: 'Gilroy-SemiBold',
+    fontSize: responsiveFontSize(2),
+  },
+  popprice: {
+    color: '#000',
+    fontFamily: 'Gilroy-SemiBold',
+    fontSize: responsiveFontSize(2),
+  },
+  popratingcontainer: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    position: 'absolute',
+    bottom: responsiveHeight(-2),
+    left: responsiveWidth(3),
+    flexDirection: 'row',
+    borderRadius: responsiveWidth(5),
+    padding: responsiveWidth(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: responsiveWidth(1),
+    flexWrap: 'wrap',
+  },
+  poprating: {
+    color: '#000',
+    fontFamily: 'Gilroy-SemiBold',
+    fontSize: responsiveFontSize(1.7),
+  },
+  popdetails: {
+    marginTop: responsiveHeight(1.2),
+    padding: responsiveWidth(2.5),
+  },
+  popimg: {
+    width: 'auto',
+    height: responsiveHeight(20),
+    borderRadius: responsiveWidth(2),
+  },
+  popfoodnametxt: {
+    fontFamily: 'Gilroy-Medium',
+    fontSize: responsiveFontSize(1.8),
+  },
+  poptxto: {
+    color: '#000',
+    fontFamily: 'Gilroy-SemiBold',
+    fontSize: responsiveFontSize(2),
+  },
+  starticon: {
+    fontSize: responsiveFontSize(2),
+  },
+});
 
 export default AllItemScreen;
