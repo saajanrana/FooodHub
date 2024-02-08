@@ -4,8 +4,6 @@ import {
   StyleSheet,
   Image,
   Text,
-  Linking,
-  Touchable,
   TouchableOpacity,
   ScrollView,
   Dimensions,
@@ -19,28 +17,19 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
+
 import Animated, {
   FadeIn,
   FadeInLeft,
   FadeInRight,
   LightSpeedInRight,
   ReduceMotion,
-  useAnimatedGestureHandler,
-  useSharedValue,
-  withSpring,
 } from 'react-native-reanimated';
-import {SharesdElement} from '../components/SharedElement';
-import {PanGestureHandler} from 'react-native-gesture-handler';
-import SlideButton from 'rn-slide-button';
 import SwipeButton from 'rn-swipe-button';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
-
 const FoodDetailScreen = ({navigation}) => {
 
-
-  console.log('foooddetailscreenrender>>>>>>>>>>>>>>>>>>>>>>>>>>>1');
   const dispatch = useDispatch();
   const totalitem = useSelector(state => state.store.totalitem);
   const route = useRoute();
@@ -49,33 +38,6 @@ const FoodDetailScreen = ({navigation}) => {
   const screenHeight = Dimensions.get('window').height;
   const isTablet = screenWidth >= 600;
   const [checked, setChecked] = useState();
-
-  // const X = useSharedValue(10);
-  // const boxValue = useSharedValue(0);
-
-  // const animatedGestureHandler = useAnimatedGestureHandler({
-  //   onActive: e => {
-  //     if (e.translationX < 0) {
-  //       X.value = -e.translationX;
-  //     } else {
-  //       X.value = e.translationX;
-  //     }
-  //   },
-
-  //   onEnd: () => {
-  //     if (X.value < 150) {
-  //       X.value = withSpring(10);
-  //     } else {
-  //       X.value = withSpring(240);
-  //     }
-  //   },
-  // });
-
-  
-
-  console.log('foooddetailscreenrender>>>>>>>>>>>>>>>>>>>>>>>>>>>2');
-
-  
 
   const viewallitem = [
     {
@@ -807,26 +769,18 @@ const FoodDetailScreen = ({navigation}) => {
     },
   ];
 
-
-  console.log('foooddetailscreenrender>>>>>>>>>>>>>>>>>>>>>>>>>>>2');
   const userfood = viewallitem.find(item => item.id === foodId);
-
-  console.log('foooddetailscreenrender>>>>>>>>>>>>>>>>>>>>>>>>>>>3');
 
   return (
     <ScrollView style={styles.maincontainer}>
-       <View style={styles.headercontainer}>
-       <TouchableOpacity
+      <View style={styles.headercontainer}>
+        <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.headertouchbtn}>
-          <Icon
-            name="arrow-back-ios"
-            style={styles.backbtn}
-            color="black"
-          />
+          <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
         </TouchableOpacity>
 
-         <Text style={styles.headertxt}>Item Details</Text>
+        <Text style={styles.headertxt}>Item Details</Text>
       </View>
       <View style={styles.secondcontainer}>
         <View style={styles.mainimgcontainer}>
@@ -837,15 +791,6 @@ const FoodDetailScreen = ({navigation}) => {
             source={userfood?.imgsrc}
             style={styles.mainimg}
           />
-          {/* <View style={{width:70,height:50,position:'absolute',top:0,left:20}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}  >
-            <Image 
-             resizeMode='contain'
-            source={require('../assets/goback.png')}
-            
-            />
-      </TouchableOpacity>
-      </View> */}
         </View>
         <Animated.View
           entering={FadeInRight.duration(200).delay(400)}
@@ -873,19 +818,25 @@ const FoodDetailScreen = ({navigation}) => {
           </View>
           <View style={styles.addtocartdiv}>
             <TouchableOpacity
-             
               onPress={() => dispatch(removefood(userfood?.id))}>
               {/* <Text style={styles.removebtntxt}>-</Text> */}
-              <Icon name="remove-circle" color='red'style={styles.removebtntxt} />
+              <Icon
+                name="remove-circle"
+                color="#FE724C"
+                style={styles.removebtntxt}
+              />
             </TouchableOpacity>
 
             <Text style={styles.totolitemtxt}>
               {totalitem[userfood?.id] || 0}
             </Text>
 
-            <TouchableOpacity
-              onPress={() => dispatch(addfood(userfood?.id))}>
-              <Icon name="add-circle" color='red'style={styles.removebtntxt} />
+            <TouchableOpacity onPress={() => dispatch(addfood(userfood?.id))}>
+              <Icon
+                name="add-circle"
+                color="#FE724C"
+                style={styles.removebtntxt}
+              />
             </TouchableOpacity>
           </View>
         </Animated.View>
@@ -908,67 +859,65 @@ const FoodDetailScreen = ({navigation}) => {
             onValueChange={value => setChecked(value)}
             value={checked}>
             <View style={styles.optiondiv}>
-              <View>
+              <View style={styles.optiondiv2}>
                 <Image source={require('../assets/smalldish1.png')} />
-              </View>
-              <View>
+
                 <Text style={styles.optiontxt}>Pepper Julienned</Text>
               </View>
-              <View style={styles.optionpricediv}>
-                <View>
-                  <Text style={styles.optionpricetxt}>+$2.30</Text>
-                </View>
-                <View>
-                  <RadioButton color="#FE724C" value="first" style={styles.optionlastbtn} />
-                </View>
+
+              <View style={styles.optiondiv2}>
+                <Text style={styles.optionpricetxt}>+$2.30</Text>
+
+                <RadioButton color="#FE724C" value="third" />
               </View>
             </View>
             <View style={styles.optiondiv}>
-              <View>
+              <View style={styles.optiondiv2}>
                 <Image source={require('../assets/smalldish2.png')} />
-              </View>
-              <View>
+
                 <Text style={styles.optiontxt}>Pepper Julienned</Text>
               </View>
-              <View style={styles.optionpricediv}>
-                <View>
-                  <Text style={styles.optionpricetxt}>+$2.30</Text>
-                </View>
-                <View>
-                  <RadioButton color="#FE724C" value="second" />
-                </View>
+
+              <View style={styles.optiondiv2}>
+                <Text style={styles.optionpricetxt}>+$2.30</Text>
+
+                <RadioButton color="#FE724C" value="third" />
               </View>
             </View>
             <View style={styles.optiondiv}>
-              <View>
+              <View style={styles.optiondiv2}>
                 <Image source={require('../assets/smalldish3.png')} />
-              </View>
-              <View>
+
                 <Text style={styles.optiontxt}>Pepper Julienned</Text>
               </View>
-              <View style={styles.optionpricediv}>
-                <View>
-                  <Text style={styles.optionpricetxt}>+$2.30</Text>
-                </View>
-                <View>
-                  <RadioButton color="#FE724C" value="third" />
-                </View>
+
+              <View style={styles.optiondiv2}>
+                <Text style={styles.optionpricetxt}>+$2.30</Text>
+
+                <RadioButton
+                  color="#FE724C"
+                  value="third"
+                  style={styles.optionbtn}
+                />
               </View>
             </View>
           </RadioButton.Group>
         </View>
       </Animated.View>
 
-      
-
-      <View style={{justifyContent:'center',alignItems:'center'}}>
-      <SwipeButton
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: responsiveHeight(2),
+        }}>
+        <SwipeButton
           disabled={false}
-          swipeSuccessThreshold={70}
-          height={50}
-          width={'70%'}
+          height={responsiveHeight(7)}
+          width={responsiveWidth(70)}
           title="Add To Cart"
           titleColor="white"
+          titleFontSize={responsiveFontSize(2.3)}
           shouldResetAfterSuccess="true"
           onSwipeSuccess={() => {
             dispatch(additemtocart({userfood}));
@@ -977,49 +926,12 @@ const FoodDetailScreen = ({navigation}) => {
           railFillBackgroundColor="#FE724C"
           railFillBorderColor="#FE724C"
           thumbIconBackgroundColor="#ffffff"
-          thumbIconBorderColor="##FE724C"
+          thumbIconBorderColor="#FFFFFF"
           railBackgroundColor="#FE724C"
           railBorderColor="#FE724C"
+          styles={styles.swipebtn}
         />
       </View>
-      {/* <Animated.View entering={FadeInLeft.duration(200).delay(400)} style={styles.addtocartbtn}>
-      <TouchableOpacity
-        
-        onPress={() => {
-          dispatch(additemtocart({userfood}));
-          navigation.navigate('AddToCartScreen', {foodId: userfood?.id});
-        }}>
-        <Image source={require('../assets/addtocart.png')} />
-        <View style={{width:20,height:20,borderRadius:10,borderWidth:2}}></View>
-        <Text
-          style={styles.addtocartbtntxt}>
-          Add To Cart
-        </Text>
-      </TouchableOpacity>
-      </Animated.View> */}
-
-      {/* <View
-        style={{justifyContent: 'center', alignItems: 'center', padding: 10}}>
-        <View
-          style={{
-            width: 300,
-            height: 70,
-            backgroundColor: 'orange',
-            justifyContent: 'center',
-          }}>
-          <PanGestureHandler onGestureEvent={animatedGestureHandler}>
-            <Animated.View
-              style={{
-                width: 50,
-                height: 50,
-                borderRadius: 50,
-                backgroundColor: '#FFF',
-                position: 'absolute',
-                left: 0,
-              }}></Animated.View>
-          </PanGestureHandler>
-        </View>
-      </View> */}
     </ScrollView>
   );
 };
@@ -1031,7 +943,7 @@ const styles = StyleSheet.create({
   },
   secondcontainer: {
     flex: 1,
-    marginTop:responsiveHeight(2)
+    marginTop: responsiveHeight(2),
   },
   mainimgcontainer: {
     height: responsiveHeight(45),
@@ -1046,16 +958,15 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(2),
     justifyContent: 'center',
     alignItems: 'center',
-    position:'relative'
+    position: 'relative',
   },
   foodname: {
     paddingLeft: responsiveWidth(6),
-
   },
   foodnametext: {
     color: '#323643',
     fontSize: responsiveFontSize(3.5),
-    fontFamily:'Gilroy-Bold'
+    fontFamily: 'Gilroy-Bold',
   },
   ratingview: {
     flexDirection: 'row',
@@ -1065,12 +976,12 @@ const styles = StyleSheet.create({
   ratingviewtxt: {
     color: '#111719',
     fontSize: responsiveFontSize(2.2),
-    fontFamily:'Gilroy-Medium'
+    fontFamily: 'Gilroy-Medium',
   },
   reviewtxt: {
     color: '#FE724C',
     fontSize: responsiveFontSize(2),
-    fontFamily:'Gilroy-Medium',
+    fontFamily: 'Gilroy-Medium',
     textDecorationLine: 'underline',
     textDecorationColor: '#FE724C',
   },
@@ -1084,12 +995,12 @@ const styles = StyleSheet.create({
   pricesign: {
     color: '#FE724C',
     fontSize: responsiveFontSize(2.2),
-    fontFamily:'Gilroy-Medium'
+    fontFamily: 'Gilroy-Medium',
   },
   foodprice: {
     color: '#FE724C',
     fontSize: responsiveFontSize(2.8),
-    fontFamily:'Gilroy-SemiBold'
+    fontFamily: 'Gilroy-SemiBold',
   },
   addtocartdiv: {
     flexDirection: 'row',
@@ -1105,17 +1016,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   removebtntxt: {
-    fontSize:responsiveFontSize(6)
-
+    fontSize: responsiveFontSize(6),
   },
   totolitemtxt: {
     color: 'black',
-    textAlign:'center',
-    marginTop:responsiveHeight(0.5),
-    fontSize:responsiveFontSize(4.5), 
-    fontFamily:'Gilroy-Bold'
+    textAlign: 'center',
+    marginTop: responsiveHeight(0.5),
+    fontSize: responsiveFontSize(4.5),
+    fontFamily: 'Gilroy-Bold',
   },
-     addbtndiv: {
+  addbtndiv: {
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
@@ -1134,14 +1044,14 @@ const styles = StyleSheet.create({
   fooddetailstxt: {
     color: '#858992',
     fontSize: responsiveFontSize(2.5),
-    fontFamily:'Gilroy-Bold'
+    fontFamily: 'Gilroy-Bold',
   },
   thirdcontainer: {marginTop: responsiveHeight(2)},
   choisdiv: {marginLeft: responsiveWidth(6)},
   choisdivtxt: {
     color: '#323643',
     fontSize: responsiveFontSize(2.5),
-    fontFamily:'Gilroy-Bold'
+    fontFamily: 'Gilroy-Bold',
   },
   radiobtndiv: {
     marginTop: responsiveHeight(1),
@@ -1149,16 +1059,21 @@ const styles = StyleSheet.create({
     paddingLeft: responsiveWidth(6),
     paddingRight: responsiveWidth(6),
   },
-  optiondiv: {flexDirection: 'row', justifyContent: 'space-between'},
+  optiondiv: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: responsiveWidth(1),
+  },
   optiontxt: {
     color: '#000',
     fontSize: responsiveFontSize(2),
-    fontFamily:'Gilroy-Bold'
+    fontFamily: 'Gilroy-Bold',
   },
   optionpricediv: {flexDirection: 'row', justifyContent: 'space-between'},
   optionpricetxt: {
     color: '#000',
-    fontFamily:'Gilroy-Bold',
+    fontFamily: 'Gilroy-Bold',
     fontSize: responsiveFontSize(2),
   },
   addtocartbtn: {
@@ -1172,12 +1087,12 @@ const styles = StyleSheet.create({
     top: 35,
     left: 90,
   },
-  headercontainer:{
-  flexDirection:'row',
-  alignItems:'center',
-  paddingLeft:responsiveWidth(5),
-  marginTop:responsiveHeight(2)
-},
+  headercontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(2),
+  },
   headertouchbtn: {
     backgroundColor: '#FFFFFF',
     elevation: 5,
@@ -1187,16 +1102,24 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(2.5),
     alignItems: 'center',
     justifyContent: 'center',
-    
   },
   backbtn: {
-    marginLeft:responsiveWidth(2),
-    fontSize: responsiveFontSize(4),
+    marginLeft: responsiveWidth(2),
+    fontSize: responsiveFontSize(3),
   },
-  headertxt:{ fontSize:responsiveFontSize(3),fontFamily:'Gilroy-Bold',color:'black',textAlign:"center",marginLeft:responsiveWidth(15)},
-  optionlastbtn:{
-   
-  }
+  headertxt: {
+    fontSize: responsiveFontSize(3),
+    fontFamily: 'Gilroy-Bold',
+    color: 'black',
+    textAlign: 'center',
+    marginLeft: responsiveWidth(15),
+  },
+  optiondiv2: {
+    flexDirection: 'row',
+    gap: responsiveWidth(2),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default FoodDetailScreen;

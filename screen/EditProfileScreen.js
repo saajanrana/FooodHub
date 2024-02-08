@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Dimensions
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {url} from '../components/url';
@@ -15,10 +16,15 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 const EditProfileScreen = ({navigation}) => {
   const [user, setUser] = useState({});
   const usertoken = useSelector(state => state.auth.usertoken);
+
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
+  const isTablet = screenWidth >= 600;
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -84,28 +90,21 @@ const EditProfileScreen = ({navigation}) => {
 
   return (
     <ScrollView style={styles.maincontainer}>
-      <View
-        style={{
-          height: responsiveHeight(8),
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: responsiveWidth(15),
-          paddingLeft: responsiveHeight(2),
-        }}>
-        <TouchableOpacity
+      <View style={styles.headercontainer}>
+       <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={{marginTop: responsiveHeight(3)}}>
-          <Image
-            resizeMode="contain"
-            source={require('../assets/goback.png')}
+          style={styles.headertouchbtn}>
+          <Icon
+            name="arrow-back-ios"
+            style={styles.backbtn}
+            color="black"
           />
         </TouchableOpacity>
-        <Text style={{fontSize: 20, color: 'black', fontWeight: '700'}}>
-          Edit Profile
-        </Text>
+
+         <Text style={styles.headertxt}>Edit Page</Text>
       </View>
 
-      <View>
+      <View style={{gap:responsiveWidth(3),marginTop:responsiveHeight(2)}}>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>Full name</Text>
         
@@ -116,61 +115,52 @@ const EditProfileScreen = ({navigation}) => {
           />
        
       </View>
-      </View>
-      {/* <View style={{justifyContent: 'center'}}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Full name</Text>
-          <TextInput
-            style={styles.input}
-            value={user?.fullName}
-            onChangeText={text => setUser({...user, fullName: text})}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>E-mail</Text>
-          <TextInput
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>E-mail</Text>
+        
+        <TextInput
             style={styles.input}
             value={user?.email}
             onChangeText={text => setUser({...user, email: text})}
           />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Phone Number</Text>
-          <TextInput
+       
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Phone-No</Text>
+        
+        <TextInput
             style={styles.input}
             value={user?.phone}
             onChangeText={text => setUser({...user, phone: text})}
           />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>City</Text>
-          <TextInput
+       
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>City</Text>
+        
+        <TextInput
             style={styles.input}
             value={user?.city}
             onChangeText={text => setUser({...user, city: text})}
           />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>State</Text>
-          <TextInput
+       
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>State</Text>
+        
+        <TextInput
             style={styles.input}
             value={user?.state}
             onChangeText={text => setUser({...user, state: text})}
           />
-        </View>
-      </View> */}
-      <View style={{marginTop: '5%', alignItems: 'center', marginBottom: '5%'}}>
+       
+      </View>
+      </View>
+      <View style={styles.savebtncontainer}>
         <TouchableOpacity
-          style={{
-            width: '70%',
-            height: 60,
-            backgroundColor: '#FE724C',
-            borderRadius: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          style={styles.savebtn}
           onPress={changedata}>
-          <Text style={{color: '#FFF', fontSize: 15, fontWeight: '600'}}>
+          <Text style={styles.savebtntxt}>
             Save
           </Text>
         </TouchableOpacity>
@@ -184,28 +174,33 @@ const styles = StyleSheet.create({
     flex: 1,
     color: '#FFFFFF',
   },
-  // inputContainer: {
-  //   marginTop: '4%',
-  //   marginLeft: '6%',
-  // },
-  // inputLabel: {
-  //   marginLeft: '3%',
-  // },
-  // input: {
-  //   borderWidth: 1,
-  //   borderColor: '#B3B3B3',
-  //   width: '90%',
-  //   height: 70,
-  //   marginTop: 10,
-  //   fontSize: 20,
-  //   borderRadius: 20,
-  //   paddingLeft: 20,
-  // },
+  headercontainer:{
+    flexDirection:'row',
+    alignItems:'center',
+    paddingLeft:responsiveWidth(5),
+    marginTop:responsiveHeight(2)
+  },
+    headertouchbtn: {
+      backgroundColor: '#FFFFFF',
+      elevation: 5,
+      shadowColor: 'light-brown',
+      width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
+      height: responsiveHeight(6),
+      borderRadius: responsiveWidth(2.5),
+      alignItems: 'center',
+      justifyContent: 'center',
+      
+    },
+    backbtn: {
+      marginLeft:responsiveWidth(2),
+      fontSize: responsiveFontSize(3),
+    },
+    headertxt:{ fontSize:responsiveFontSize(3),fontFamily:'Gilroy-Bold',color:'black',textAlign:"center",marginLeft:responsiveWidth(15)},
+    optionlastbtn:{
+     
+    },
   inputContainer: {
-    marginTop: responsiveHeight(3),
-    flexDirection: 'column',
-    marginLeft: responsiveWidth(5),
-    marginRight: responsiveWidth(5),
+    marginLeft: responsiveWidth(6),
   },
   inputLabel: {
     fontSize: responsiveFontSize(2.5),
@@ -218,16 +213,26 @@ const styles = StyleSheet.create({
     width: responsiveWidth(90),
     height: responsiveHeight(9),
     marginTop: responsiveHeight(1),
+    fontSize: responsiveFontSize(2.4),
     borderRadius: responsiveWidth(2),
-    paddingLeft: responsiveWidth(3),
+    paddingLeft: responsiveWidth(5),
     fontFamily: 'Gilroy-Medium',
     color: 'black',
-    justifyContent: 'center',
   },
   inputtxt: {
     color: '#111719',
     fontSize: responsiveFontSize(2.4),
   },
+  savebtncontainer:{marginTop:responsiveHeight(2),marginBottom:responsiveHeight(1) ,alignItems: 'center'},
+  savebtn:{
+    width:responsiveWidth(60),
+    height: responsiveHeight(7),
+    backgroundColor: '#FE724C',
+    borderRadius:responsiveWidth(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  savebtntxt:{color: '#FFF', fontSize:responsiveFontSize(2.6), fontWeight: '600'}
 });
 
 export default EditProfileScreen;

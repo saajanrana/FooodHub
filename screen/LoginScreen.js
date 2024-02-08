@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginLeft: responsiveWidth(6),
-    marginTop: responsiveHeight(5),
+    marginTop: responsiveHeight(3),
   },
   headerText: {
     fontSize: responsiveFontSize(5),

@@ -94,16 +94,15 @@ const HomeDrawer = props => {
     </TouchableOpacity>
   );
 
-  console.log('homedrawerrender>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2');
+
 
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
         <Image
-          source={
-            {uri: `${url}${profiledata?.imgurl}`}
-              ? {uri: `${url}${profiledata?.imgurl}`}
-              : require('../assets/profileiconhd.png')
+          source={profiledata?.imgurl
+              ? { uri: `${url}${profiledata?.imgurl}` }
+              : require('../assets/newprofile.jpg')
           }
           style={styles.profileImage}
         />

@@ -39,11 +39,12 @@ const HomeScreen = props => {
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
   const isTablet = screenWidth >= 600;
+  const profileimge = require('../assets/profile.png');
 
-  console.log('homerender>>>>>>>>>>1');
+
 
   const setasync = () => {
-    console.log('settingasyncstorage in homescreen>>>>>>>>>>>');
+ 
     AsyncStorage.setItem('isLoggedIn', 'true');
     AsyncStorage.setItem('token', usertoken);
   };
@@ -822,7 +823,7 @@ const HomeScreen = props => {
   const popularitems = viewallitem.filter(item => item?.rating === '4.9');
 
   useEffect(() => {
-    console.log('userdatafetching in home screenn>>>>>>>>>>>>');
+ 
     const fetchdata = async () => {
       try {
         const response = await fetch(`${url}api/profile`, {
@@ -833,11 +834,11 @@ const HomeScreen = props => {
           },
         });
 
-        console.log('userdatafetching in home screenn1>>>>>>>>>>>>');
+      
 
         if (response.ok) {
           const userData = await response.json();
-          console.log('userdatafetching in home screenn2>>>>>>>>>>>>');
+          
           setUser(userData);
         } else {
           console.error('Error fetching user profile:', response.statusText);
@@ -937,11 +938,9 @@ const HomeScreen = props => {
           onPress={() => props.navigation.navigate('MyProfileScreen')}>
           <Image
             style={styles.profileImage}
-            source={
-              {uri: `${url}${profiledata?.imgurl}`}
-                ? {uri: `${url}${profiledata?.imgurl}`}
-                : require('../assets/profileiconhd.png')
-            }
+            source={profiledata?.imgurl
+              ? { uri: `${url}${profiledata?.imgurl}` }
+              : require('../assets/newprofile.jpg')}
           />
         </TouchableOpacity>
       </View>

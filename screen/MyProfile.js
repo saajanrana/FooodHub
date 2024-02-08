@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
     color: '#9796A1',
   },
   inputContainer: {
-    marginTop: responsiveHeight(3),
+    marginTop: responsiveHeight(1),
     flexDirection: 'column',
     marginLeft: responsiveWidth(5),
     marginRight: responsiveWidth(5),
