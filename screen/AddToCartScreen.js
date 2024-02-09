@@ -9,6 +9,7 @@ import {
   TextInput,
   ScrollView,
   Modal,
+  Dimensions,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {addfood, removefood, removeitemformcart} from '../context/StoreSlice';
@@ -18,10 +19,9 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 const AddToCartScreen = ({navigation}) => {
-
-
   console.log('addtocartscreen render>>>>>>>>>1');
   const route = useRoute();
   const {foodId} = route.params;
@@ -35,8 +35,6 @@ const AddToCartScreen = ({navigation}) => {
   // console.log('totlaitem>>>>>', totalitem);
 
   const calculateSubtotal = () => {
-
-    console.log('calculatesubtotal in cart screen>>>>>>>>>>>>>');
     let subtotal = 0;
     Addtocart.forEach(item => {
       const itemId = item?.userfood?.id;
@@ -50,7 +48,6 @@ const AddToCartScreen = ({navigation}) => {
 
   const removeitem = id => {
     dispatch(removeitemformcart(id));
-    console.log('removeitem from cart screen>>>>>>>>>>>>>>>>>>>>');
   };
 
   const total = () => {
@@ -59,8 +56,6 @@ const AddToCartScreen = ({navigation}) => {
   };
 
   const cheakout = async () => {
-
-    console.log('cheakout press render in cart screen>>>>>>>>>>>>');
     let mergedData = {};
     Addtocart.forEach(item => {
       let foodId = item.userfood.id;
@@ -87,26 +82,25 @@ const AddToCartScreen = ({navigation}) => {
     // console.log('data>>>>>>>', data);
     if (response.ok) {
       // console.log('hue hue hue');
-      console.log('cheakout press render in cart screen>>>>>>>>>>>>1');
+
       navigation.navigate('MyOrderScreen');
     }
   };
 
   return (
     <ScrollView style={styles.maincontainer}>
-      <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(18),paddingLeft:responsiveHeight(2)}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}  style={{marginTop:responsiveHeight(3)}} >
-            <Image 
-             resizeMode='contain'
-            source={require('../assets/goback.png')}
-            />
-         </TouchableOpacity>
-           <Text style={{fontSize:20,color:"black",fontWeight:'700'}}>Cart Screen</Text>
-          </View>
+      <View style={styles.headercontainer}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.headertouchbtn}>
+          <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headertxt}>Add To Cart</Text>
+      </View>
       <View style={styles.secondcontainer}>
-        {Addtocart.map((item, id) => {
+        {Addtocart.map(item => {
           return (
-            <View key={id} style={styles.cartitemdiv}>
+            <View key={item?.id} style={styles.cartitemdiv}>
               <View style={styles.itemimg}>
                 <Image
                   source={item?.userfood?.imgsrc}
@@ -121,7 +115,9 @@ const AddToCartScreen = ({navigation}) => {
                   <TouchableOpacity
                     style={styles.xbtn}
                     onPress={() => removeitem(item?.userfood?.id)}>
-                    <Text style={styles.xbtntxt}>X</Text>
+                    <Icon name="close"
+                        color="#FE724C"
+                        style={styles.removebtntxt} />
                   </TouchableOpacity>
                 </View>
                 <Text style={styles.fooddatatxt}>
@@ -136,8 +132,8 @@ const AddToCartScreen = ({navigation}) => {
                   <Text
                     style={{
                       color: '#FE724C',
-                      fontSize: responsiveFontSize(1.8),
-                      fontWeight: '600',
+                      fontSize: responsiveFontSize(2),
+                      fontFamily: 'Gilroy-SemiBold',
                     }}>
                     $
                     {(
@@ -147,34 +143,29 @@ const AddToCartScreen = ({navigation}) => {
                   </Text>
                   <View style={{flexDirection: 'row', gap: responsiveWidth(1)}}>
                     <TouchableOpacity
-                      style={{
-                        width: 29,
-                        height: 29,
-                        borderRadius: 50,
-                        borderColor: '#FF3600',
-                        borderWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
                       onPress={() => dispatch(removefood(item?.userfood?.id))}>
-                      <Text style={{color: '#FF3600', fontSize: 18}}>-</Text>
+                      <Icon
+                        name="remove-circle"
+                        color="#FE724C"
+                        style={styles.removebtntxt}
+                      />
                     </TouchableOpacity>
                     <Text
-                      style={{color: '#000', fontWeight: '600', fontSize: 20}}>
+                      style={{
+                        color: '#000',
+                        fontFamily: 'Gilroy-Bold',
+                        fontSize: responsiveFontSize(2.5),
+                      }}>
                       {totalitem[item?.userfood?.id] ||
                         removeitem(item?.userfood?.id)}
                     </Text>
                     <TouchableOpacity
-                      style={{
-                        width: 29,
-                        height: 29,
-                        borderRadius: 50,
-                        backgroundColor: '#FF3600',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
                       onPress={() => dispatch(addfood(item?.userfood?.id))}>
-                      <Text style={{color: '#FFF', fontSize: 20}}>+</Text>
+                      <Icon
+                        name="add-circle"
+                        color="#FE724C"
+                        style={styles.removebtntxt}
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -204,7 +195,8 @@ const AddToCartScreen = ({navigation}) => {
               placeholder="Promo Code"
               style={{
                 marginLeft: responsiveHeight(3),
-                fontSize: responsiveFontSize(1.6),
+                fontSize: responsiveFontSize(2),
+                fontFamily: 'Gilroy',
               }}
             />
             <TouchableOpacity
@@ -217,7 +209,12 @@ const AddToCartScreen = ({navigation}) => {
                 alignItems: 'center',
                 marginRight: responsiveWidth(2),
               }}>
-              <Text style={{color: '#FFF', fontSize: responsiveFontSize(1.6)}}>
+              <Text
+                style={{
+                  color: '#FFF',
+                  fontSize: responsiveFontSize(2.2),
+                  fontFamily: 'Gilroy-SemiBold',
+                }}>
                 Apply
               </Text>
             </TouchableOpacity>
@@ -226,7 +223,7 @@ const AddToCartScreen = ({navigation}) => {
 
         <View
           style={{
-            gap: responsiveWidth(1.4),
+            gap: responsiveWidth(2),
             width: responsiveWidth(90),
             marginTop: responsiveHeight(5),
           }}>
@@ -235,15 +232,15 @@ const AddToCartScreen = ({navigation}) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               borderBottomColor: '#F1F2F3',
-              borderBottomWidth: responsiveWidth(0.2),
+              borderBottomWidth: responsiveWidth(0.3),
               flexWrap: 'wrap',
             }}>
             <View>
               <Text
                 style={{
                   color: '#000',
-                  fontSize: responsiveFontSize(1.8),
-                  fontWeight: '400',
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'Gilroy-SemiBold',
                 }}>
                 Subtotal
               </Text>
@@ -253,8 +250,8 @@ const AddToCartScreen = ({navigation}) => {
               <Text
                 style={{
                   color: '#000',
-                  fontSize: responsiveFontSize(1.8),
-                  fontWeight: '500',
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'Gilroy-SemiBold',
                 }}>
                 {calculateSubtotal()}
               </Text>
@@ -276,8 +273,8 @@ const AddToCartScreen = ({navigation}) => {
               <Text
                 style={{
                   color: '#000',
-                  fontSize: responsiveFontSize(1.8),
-                  fontWeight: '400',
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'Gilroy-SemiBold',
                 }}>
                 Tax and Fees
               </Text>
@@ -287,8 +284,8 @@ const AddToCartScreen = ({navigation}) => {
               <Text
                 style={{
                   color: '#000',
-                  fontSize: responsiveFontSize(1.8),
-                  fontWeight: '500',
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'Gilroy-SemiBold',
                 }}>
                 {/* {calculatedeliverycharges()} */}00
               </Text>
@@ -312,8 +309,8 @@ const AddToCartScreen = ({navigation}) => {
               <Text
                 style={{
                   color: '#000',
-                  fontSize: responsiveFontSize(1.8),
-                  fontWeight: '400',
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'Gilroy-SemiBold',
                 }}>
                 Delivery
               </Text>
@@ -323,8 +320,8 @@ const AddToCartScreen = ({navigation}) => {
               <Text
                 style={{
                   color: '#000',
-                  fontSize: responsiveFontSize(1.8),
-                  fontWeight: '500',
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'Gilroy-SemiBold',
                 }}>
                 {/* ${userfood?.delivery} */}00
               </Text>
@@ -344,8 +341,8 @@ const AddToCartScreen = ({navigation}) => {
               <Text
                 style={{
                   color: '#000',
-                  fontSize: responsiveFontSize(1.8),
-                  fontWeight: '400',
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'Gilroy-SemiBold',
                 }}>
                 Total
               </Text>
@@ -358,8 +355,8 @@ const AddToCartScreen = ({navigation}) => {
               <Text
                 style={{
                   color: '#000',
-                  fontSize: responsiveFontSize(1.8),
-                  fontWeight: '500',
+                  fontSize: responsiveFontSize(2),
+                  fontFamily: 'Gilroy-SemiBold',
                 }}>
                 {/* ${finalvalue} */} {calculateSubtotal()}
               </Text>
@@ -373,7 +370,7 @@ const AddToCartScreen = ({navigation}) => {
         <TouchableOpacity
           style={{
             backgroundColor: '#FE724C',
-            width: responsiveWidth(80),
+            width: responsiveWidth(70),
             height: responsiveHeight(8),
             borderRadius: responsiveWidth(10),
             justifyContent: 'center',
@@ -385,8 +382,8 @@ const AddToCartScreen = ({navigation}) => {
           <Text
             style={{
               color: '#FFF',
-              fontSize: responsiveFontSize(1.5),
-              fontWeight: '600',
+              fontSize: responsiveFontSize(2.2),
+              fontFamily: 'Gilroy-Bold',
             }}>
             CHECKOUT
           </Text>
@@ -412,7 +409,7 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(2),
   },
   itemimgsty: {
-    height: responsiveHeight(17),
+    height: responsiveHeight(15),
     width: responsiveWidth(25),
     borderRadius: responsiveWidth(2),
   },
@@ -420,15 +417,44 @@ const styles = StyleSheet.create({
   itmefooddata: {justifyContent: 'space-between', flexDirection: 'row'},
   itmefooddatatxt: {
     color: '#000',
-    fontSize: responsiveFontSize(2),
-    fontWeight: '800',
+    fontSize: responsiveFontSize(2.2),
+    fontFamily: 'Gilroy-Bold',
   },
-  xbtn: {alignItems: 'flex-end'},
   xbtntxt: {color: '#FF3600', fontSize: responsiveFontSize(2)},
   fooddatatxt: {
     color: '#8C8A9D',
-    fontSize: responsiveFontSize(1.7),
-    fontWeight: '300',
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'Gilroy-SemiBold',
+  },
+  headercontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(2),
+  },
+  headertouchbtn: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
+    height: responsiveHeight(6),
+    borderRadius: responsiveWidth(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backbtn: {
+    marginLeft: responsiveWidth(2),
+    fontSize: responsiveFontSize(3),
+  },
+  headertxt: {
+    fontSize: responsiveFontSize(3),
+    fontFamily: 'Gilroy-Bold',
+    color: 'black',
+    textAlign: 'center',
+    marginLeft: responsiveWidth(15),
+  },
+  removebtntxt: {
+    fontSize: responsiveFontSize(3.5),
   },
 });
 

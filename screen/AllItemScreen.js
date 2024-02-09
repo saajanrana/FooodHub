@@ -926,16 +926,16 @@ const AllItemScreen = ({navigation}) => {
                   borderRadius: isTablet
                     ? responsiveWidth(2)
                     : responsiveWidth(5),
-                  width: isTablet ? responsiveWidth(35) : responsiveWidth(80),
+                  width: isTablet ? responsiveWidth(45) : responsiveWidth(80),
                   gap: isTablet ? responsiveWidth(1.5) : responsiveWidth(2),
                   height: isTablet
-                    ? responsiveHeight(50)
+                    ? responsiveHeight(45)
                     : responsiveHeight(35),
                   marginTop: responsiveHeight(5),
                 }}
                 key={item.index}>
                 <Shimmer
-                  width={isTablet ? responsiveWidth(35) : responsiveWidth(80)}
+                  width={isTablet ? responsiveWidth(45) : responsiveWidth(80)}
                   height={
                     isTablet ? responsiveHeight(30) : responsiveHeight(20)
                   }
@@ -946,21 +946,21 @@ const AllItemScreen = ({navigation}) => {
                   colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
                 />
                 <Shimmer
-                  width={isTablet ? responsiveWidth(30) : responsiveWidth(70)}
+                  width={isTablet ? responsiveWidth(45) : responsiveWidth(70)}
                   height={responsiveHeight(3)}
                   borderRadius={responsiveWidth(5)}
                   duration={2000}
                   colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
                 />
                 <Shimmer
-                  width={isTablet ? responsiveWidth(25) : responsiveWidth(60)}
+                  width={isTablet ? responsiveWidth(30) : responsiveWidth(60)}
                   height={responsiveHeight(3)}
                   borderRadius={responsiveWidth(5)}
                   duration={2000}
                   colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
                 />
                 <Shimmer
-                  width={isTablet ? responsiveWidth(20) : responsiveWidth(50)}
+                  width={isTablet ? responsiveWidth(25) : responsiveWidth(50)}
                   height={responsiveHeight(3)}
                   borderRadius={responsiveWidth(5)}
                   duration={2000}
@@ -1068,7 +1068,7 @@ const AllItemScreen = ({navigation}) => {
                   <View
                     key={item?.index}
                     style={{
-                      marginTop: responsiveHeight(3),
+                      marginTop: responsiveHeight(1),
                       marginLeft: responsiveWidth(2),
                       marginBottom: responsiveHeight(2),
                     }}>
@@ -1092,7 +1092,7 @@ const AllItemScreen = ({navigation}) => {
                           height: isTablet
                             ? responsiveHeight(40)
                             : responsiveHeight(40),
-                          gap: responsiveHeight(1),
+                          gap: responsiveHeight(1.5),
                         }}>
                         <View
                           style={{
@@ -1143,7 +1143,7 @@ const AllItemScreen = ({navigation}) => {
                               style={{
                                 color: '#000',
                                 fontFamily: 'Gilroy-SemiBold',
-                                fontSize: responsiveFontSize(2.5),
+                                fontSize: responsiveFontSize(2.3),
                               }}>
                               {item?.item?.price}
                             </Text>
@@ -1169,8 +1169,8 @@ const AllItemScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#000',
-                              fontSize: responsiveFontSize(2),
-                              fontWeight: '600',
+                              fontSize: responsiveFontSize(isTablet?2:2.5),
+                              fontFamily:'Gilroy-Bold'
                             }}>
                             {item?.item?.foodname}
                           </Text>
@@ -1180,7 +1180,7 @@ const AllItemScreen = ({navigation}) => {
                               fontSize: responsiveFontSize(
                                 isTablet ? 1.2 : 1.8,
                               ),
-                              fontWeight: '400',
+                             fontFamily:'Gilroy-SemiBold'
                             }}>
                             {truncateString(item?.item?.fooddetails)}
                           </Text>
@@ -1208,7 +1208,7 @@ const AllItemScreen = ({navigation}) => {
                   <View
                     key={item?.index}
                     style={{
-                      marginTop: responsiveHeight(3),
+                     
                       marginLeft: responsiveWidth(2),
                       marginBottom: responsiveHeight(2),
                     }}>
@@ -1232,7 +1232,7 @@ const AllItemScreen = ({navigation}) => {
                           height: isTablet
                             ? responsiveHeight(40)
                             : responsiveHeight(40),
-                          gap: responsiveHeight(1),
+                          gap: responsiveHeight(2),
                         }}>
                         <View
                           style={{
@@ -1280,8 +1280,8 @@ const AllItemScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#000',
-                              fontSize: responsiveFontSize(2),
-                              fontWeight: '600',
+                              fontSize: responsiveFontSize(isTablet?2:2.5),
+                              fontFamily:'Gilroy-Bold'
                             }}>
                             {item?.item?.name}
                           </Text>
@@ -1291,7 +1291,7 @@ const AllItemScreen = ({navigation}) => {
                               fontSize: responsiveFontSize(
                                 isTablet ? 1.2 : 1.8,
                               ),
-                              fontWeight: '400',
+                            fontFamily:'Gilroy-SemiBold',
                             }}>
                             {truncateString(item?.item?.description)}
                           </Text>

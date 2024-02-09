@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     top: responsiveHeight(2),
-    left: responsiveWidth(12),
+    left: responsiveWidth(5),
   },
   headertxt: {
     fontSize: 20,

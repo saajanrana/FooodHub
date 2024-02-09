@@ -7,12 +7,13 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Dimensions
 } from 'react-native';
 import {url} from '../components/url';
 import {useSelector} from 'react-redux';
 import Shimmer from 'react-native-shimmer-kit';
-import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
-import Icon from 'react-native-vector-icons/dist/Ionicons';
+import { responsiveHeight, responsiveWidth,responsiveFontSize } from 'react-native-responsive-dimensions';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 
 const MyOrderScreen = ({navigation}) => {
@@ -131,18 +132,18 @@ const MyOrderScreen = ({navigation}) => {
         ))
       ) : (
         <>
-        <View style={{height:responsiveHeight(8),flexDirection:'row',alignItems:'center',gap:responsiveWidth(18),paddingLeft:responsiveHeight(4)}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}  style={{width:responsiveWidth(11),
-              }} >
-          <Icon name="chevron-back-sharp" size={35} color="black"/>
-         </TouchableOpacity>
-         {
-           clicktab === 0?<Text style={{fontSize:20,color:"black",fontWeight:'700'}}>My Orders</Text>:<Text style={{fontSize:20,color:"black",fontWeight:'700'}}>History</Text>
-         }
-          </View>
+
+     <View style={styles.headercontainer}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.headertouchbtn}>
+          <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
+        </TouchableOpacity>
+       { clicktab === 0? <Text style={styles.headertxt}>My orders</Text>:<Text style={styles.headertxt}>History</Text>}
+      </View>
           <View
             style={{
-            
+              marginTop:responsiveHeight(2),
               alignItems: 'center',
              
              
@@ -150,27 +151,27 @@ const MyOrderScreen = ({navigation}) => {
               
             <View
               style={{
-                borderWidth: 2,
+                borderWidth:responsiveWidth(0.2),
                 borderColor: '#F2EAEA',
-                width: '90%',
-                height: 70,
-                borderRadius: 30,
+                width:responsiveWidth(90),
+                height:responsiveHeight(8),
+                borderRadius:responsiveWidth(20),
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '1%',
+                padding:responsiveWidth(1),
               }}>
               <TouchableOpacity
                 style={{
                   backgroundColor: clicktab === 0 ? '#FE724C' : '#FFF',
-                  width: '50%',
-                  height: 60,
-                  borderRadius: 50,
+                  width:responsiveWidth(45),
+                  height:responsiveHeight(7),
+                  borderRadius:responsiveWidth(20),
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
                 onPress={() => setClicktab(0)}>
-                <Text style={{color: clicktab === 0 ? '#FFF' : '#FE724C'}}>
+                <Text style={{color: clicktab === 0 ? '#FFF' : '#FE724C',fontSize:responsiveFontSize(2.4),fontFamily:'Gilroy-SemiBold'}}>
                   Updates
                 </Text>
               </TouchableOpacity>
@@ -178,14 +179,14 @@ const MyOrderScreen = ({navigation}) => {
               <TouchableOpacity
                 style={{
                   backgroundColor: clicktab === 0 ? '#FFF' : '#FE724C',
-                  width: '50%',
-                  height: 60,
-                  borderRadius: 50,
+                  width:responsiveWidth(45),
+                  height:responsiveHeight(7),
+                  borderRadius:responsiveWidth(20),
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
                 onPress={() => setClicktab(1)}>
-                <Text style={{color: clicktab === 0 ? '#FE724C' : '#FFF'}}>
+                <Text style={{color: clicktab === 0 ? '#FE724C' : '#FFF',fontSize:responsiveFontSize(2.4),fontFamily:'Gilroy-SemiBold'}}>
                   History
                 </Text>
               </TouchableOpacity>
@@ -209,15 +210,16 @@ const MyOrderScreen = ({navigation}) => {
                     key={item?.id}
                     style={{
                       flex:1,
-                      marginTop: '5%',
+                      marginTop:responsiveHeight(2),
                       backgroundColor: '#FFFFFF',
                       shadowOpacity: 10,
                       elevation: 6,
                       shadowColor: 'light-brown',
-                      borderRadius: 20,
-                      marginBottom:responsiveHeight(5)
+                      borderRadius:responsiveWidth(3),
+                      marginBottom:responsiveHeight(5),
+                      
                     }}>
-                    <View style={{padding: '7%'}}>
+                    <View style={{padding:responsiveWidth(5)}}>
                       <View
                         style={{
                           flexDirection: 'row',
@@ -225,35 +227,35 @@ const MyOrderScreen = ({navigation}) => {
                         }}>
                         <View
                           style={{
-                            width: '30%',
-                            height: 80,
+                            width:responsiveWidth(30),
+                            height: responsiveHeight(10),
                             shadowOpacity: 10,
                             elevation: 6,
                             backgroundColor: '#FFF',
                             shadowColor: 'light-brown',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            borderRadius: 20,
+                            borderRadius:responsiveWidth(2),
                           }}>
                           <Image
                             source={item?.imgsrc}
-                            style={{width: 100, height: 80, borderRadius: 20}}
+                            style={{width:responsiveWidth(30), height:responsiveHeight(10), borderRadius:responsiveWidth(2)}}
                           />
                         </View>
                         <View>
                           <Text
                             style={{
                               color: '#9796A1',
-                              fontSize: 13,
-                              fontWeight: '500',
+                              fontSize:responsiveFontSize(2),
+                              fontFamily:'Gilroy-Medium',
                             }}>
                             3 Items
                           </Text>
                           <Text
                             style={{
                               color: '#000',
-                              fontSize: 16,
-                              fontWeight: '600',
+                              fontSize:responsiveFontSize(2),
+                              fontFamily:'Gilroy-SemiBold',
                             }}>
                             Starbuck
                           </Text>
@@ -262,8 +264,8 @@ const MyOrderScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#FE724C',
-                              fontSize: 16,
-                              fontWeight: '400',
+                              fontSize:responsiveFontSize(2),
+                              fontFamily:'Gilroy-SemiBold',
                             }}>
                             ${item?.price}
                           </Text>
@@ -273,21 +275,21 @@ const MyOrderScreen = ({navigation}) => {
                         style={{
                           flexDirection: 'row',
                           justifyContent: 'space-between',
-                          marginTop: 10,
+                          marginTop:responsiveHeight(1),
                         }}>
                         <Text
                           style={{
                             color: '#9796A1',
-                            fontSize: 13,
-                            fontWeight: '500',
+                            fontSize:responsiveFontSize(2),
+                            fontFamily:'Gilroy-SemiBold'
                           }}>
                           Estimated Arrival
                         </Text>
                         <Text
                           style={{
                             color: '#9796A1',
-                            fontSize: 13,
-                            fontWeight: '500',
+                            fontSize:responsiveFontSize(2),
+                            fontFamily:'Gilroy-SemiBold',
                           }}>
                           Now
                         </Text>
@@ -302,8 +304,8 @@ const MyOrderScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#000',
-                              fontSize: 40,
-                              fontWeight: '600',
+                              fontSize:responsiveFontSize(4),
+                            fontFamily:'Gilroy-Bold',
                             }}>
                             25
                           </Text>
@@ -312,15 +314,14 @@ const MyOrderScreen = ({navigation}) => {
                               alignItems: 'flex-end',
                               justifyContent: 'flex-end',
                             }}>
-                            <Text style={{color: '#000'}}>min</Text>
+                            <Text style={{color: '#000', fontSize:responsiveFontSize(2),fontFamily:'Gilroy-SemiBold',}}>min</Text>
                           </View>
                         </View>
                         <View>
                           <Text
                             style={{
                               color: '#000',
-                              fontWeight: '400',
-                              fontSize: 14,
+                              fontSize:responsiveFontSize(2),fontFamily:'Gilroy-SemiBold'
                             }}>
                             Food on the way
                           </Text>
@@ -331,14 +332,16 @@ const MyOrderScreen = ({navigation}) => {
                         style={{
                           flexDirection: 'row',
                           justifyContent: 'space-between',
+                          marginTop:responsiveHeight(1),
+                          gap:responsiveWidth(2)
                         }}>
                         <TouchableOpacity
                           style={{
                             backgroundColor: '#FFF',
                             borderWidth: 1,
-                            width: '45%',
-                            height: 55,
-                            borderRadius: 30,
+                            width:responsiveWidth(40) ,
+                            height:responsiveHeight(7),
+                            borderRadius:responsiveWidth(20),
                             justifyContent: 'center',
                             alignItems: 'center',
                             borderColor: '#F1F2F3',
@@ -346,8 +349,8 @@ const MyOrderScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#000',
-                              fontSize: 16,
-                              fontWeight: '600',
+                              fontSize:responsiveFontSize(2.2),
+                              fontFamily:'Gilroy-Bold',
                             }}>
                             Cancel
                           </Text>
@@ -355,17 +358,17 @@ const MyOrderScreen = ({navigation}) => {
                         <TouchableOpacity
                           style={{
                             backgroundColor: '#FE724C',
-                            width: '45%',
-                            height: 55,
-                            borderRadius: 30,
+                            width:responsiveWidth(40),
+                            height:responsiveHeight(7),
+                            borderRadius:responsiveWidth(20),
                             justifyContent: 'center',
                             alignItems: 'center',
                           }}>
                           <Text
                             style={{
                               color: '#FFF',
-                              fontSize: 16,
-                              fontWeight: '600',
+                              fontSize:responsiveFontSize(2.2),
+                              fontFamily:'Gilroy-Bold',
                             }}>
                             Track Order
                           </Text>
@@ -714,6 +717,34 @@ const MyOrderScreen = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  headercontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(2),
+  },
+  headertouchbtn: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
+    height: responsiveHeight(6),
+    borderRadius: responsiveWidth(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backbtn: {
+    marginLeft: responsiveWidth(2),
+    fontSize: responsiveFontSize(3),
+  },
+  headertxt: {
+    fontSize: responsiveFontSize(3),
+    fontFamily: 'Gilroy-Bold',
+    color: 'black',
+    textAlign: 'center',
+    marginLeft: responsiveWidth(15),
+  },
+});
 
 export default MyOrderScreen;
