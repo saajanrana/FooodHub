@@ -23,6 +23,7 @@ const SplashScreen = ({navigation}) => {
             else{
                 setTimeout(() => {
                     navigation.replace('LoginScreen');
+                    // navigation.replace('LoadingScreen');
                 }, 2000);
                 
             }

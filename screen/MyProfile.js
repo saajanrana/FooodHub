@@ -177,9 +177,8 @@ const MyProfile = props => {
         <View style={styles.profilecontainer}>
           <View style={styles.profileimgcontainer}>
             <Image
-              source={
-                selectedImageUri
-                  ? {uri: selectedImageUri}
+                source={profiledata?.imgurl
+                  ? { uri: `${url}${profiledata?.imgurl}` }
                   : require('../assets/newprofile.jpg')
               }
               style={styles.profileimg}
@@ -190,10 +189,7 @@ const MyProfile = props => {
           </View>
           <View style={styles.profilecontainertow}>
             <Text style={styles.profilename}>{profiledata?.fullName}</Text>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate('EditProfileScreen')}>
-              <Text style={styles.edittxt}>Edit Profile</Text>
-            </TouchableOpacity>
+            
           </View>
         </View>
       </View>
@@ -201,14 +197,14 @@ const MyProfile = props => {
       <Modal isVisible={isModalVisible}>
         <View style={styles.modalview}>
           <View style={styles.modalviewtwo}>
-            <TouchableOpacity onPress={chooseFile}>
-              <Text>Select Image</Text>
+            <TouchableOpacity onPress={chooseFile} style={styles.modaltxtbtn} >
+              <Text style={styles.modaltxt} >Select Image</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={captureImage}>
-              <Text>Open Camera</Text>
+            <TouchableOpacity onPress={captureImage} style={styles.modaltxtbtn}>
+              <Text style={styles.modaltxt}>Open Camera</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={toggleModal}>
-              <Text>cancle</Text>
+            <TouchableOpacity onPress={toggleModal} style={styles.modaltxtbtn}>
+              <Text style={styles.modaltxt}>cancle</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -216,22 +212,32 @@ const MyProfile = props => {
 
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>Full name</Text>
-        <View style={styles.input}>
-          <Text style={styles.inputtxt}>{profiledata?.fullName}</Text>
-        </View>
+        <Text style={styles.inputtxt}>{profiledata?.fullName}</Text>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>E-mail</Text>
-        <View style={styles.input}>
+        
           <Text style={styles.inputtxt} >{profiledata?.email}</Text>
-        </View>
+        
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>Phone Number</Text>
-        <View style={styles.input}>
+       
           <Text style={styles.inputtxt}>{profiledata?.phone}</Text>
-        </View>
+        
       </View>
+      <View style={styles.savebtncontainer}>
+        <TouchableOpacity
+          style={styles.savebtn}
+          onPress={() => props.navigation.navigate('EditProfileScreen')}
+          >
+          <Text style={styles.savebtntxt}>
+          Edit Profile
+          </Text>
+        </TouchableOpacity>
+      </View>
+      
+      
     </ScrollView>
   );
 };
@@ -309,15 +315,17 @@ const styles = StyleSheet.create({
     color: '#9796A1',
   },
   inputContainer: {
-    marginTop: responsiveHeight(1),
-    flexDirection: 'column',
+    marginTop: responsiveHeight(3),
+    flexDirection: 'row',
     marginLeft: responsiveWidth(5),
     marginRight: responsiveWidth(5),
+    justifyContent:'space-between'
   },
   inputLabel: {
     fontSize: responsiveFontSize(2.5),
     fontFamily: 'Gilroy-SemiBold',
     marginLeft: responsiveWidth(1),
+    width:responsiveWidth(40)
   },
   input: {
     borderWidth: responsiveFontSize(0.11),
@@ -329,25 +337,45 @@ const styles = StyleSheet.create({
     paddingLeft: responsiveWidth(3),
     fontFamily: 'Gilroy-Medium',
     color: 'black',
-    justifyContent: 'center',
   },
   inputtxt: {
+    
+    width: responsiveWidth(50),
     color: '#111719',
     fontSize: responsiveFontSize(2.4),
+    fontFamily:'Gilroy-Bold'
+    
   },
   modalview: {
      flex: 1,
      justifyContent: 'center',
-      alignItems: 'center'
+    alignItems: 'center',
+      
     },
   modalviewtwo: {
-    backgroundColor: 'white',
-    paddingTop: responsiveHeight(2),
-    paddingLeft: responsiveWidth(9),
+    backgroundColor: 'rgba(255, 255, 255, 0)',
     borderRadius: responsiveWidth(5),
-    width: responsiveWidth(40),
-    height: responsiveHeight(10),
+    width: responsiveWidth(60),
+    height: responsiveHeight(25),
+    alignItems:'center',
+    justifyContent:'center',
+    gap:responsiveHeight(1),
+  
   },
+  modaltxtbtn:{backgroundColor: '#FFFFFF',
+  elevation: 5,
+  shadowColor: 'light-brown', width:responsiveWidth(50),borderRadius:responsiveWidth(2),alignItems:'center'},
+  modaltxt:{fontSize:responsiveFontSize(3),color:'#000',fontFamily:'Gilroy-Bold'},
+  savebtncontainer:{marginTop:responsiveHeight(3),marginBottom:responsiveHeight(1) ,alignItems: 'center'},
+  savebtn:{
+    width:responsiveWidth(50),
+    height: responsiveHeight(8),
+    backgroundColor: '#FE724C',
+    borderRadius:responsiveWidth(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  savebtntxt:{color: '#FFF', fontSize:responsiveFontSize(2.6), fontWeight: '600'}
 });
 
 export default MyProfile;

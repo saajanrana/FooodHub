@@ -90,41 +90,48 @@ const MyOrderScreen = ({navigation}) => {
               shadowOpacity: 10,
               elevation: 1,
               shadowColor: 'light-brown',
-              borderRadius: 30,
-              width: 350,
-              gap: 10,
-              height: 260,
-              padding: 10,
+              borderRadius:responsiveWidth(5),
+              width:responsiveWidth(80),
+              gap: responsiveWidth(2),
+              height:responsiveHeight(38),
+              padding:responsiveHeight(1.5),
               flexWrap: 'wrap',
-              marginTop: 20,
-              marginLeft: 30,
+              marginTop:responsiveHeight(2),
+              marginLeft: responsiveWidth(7),
             }}
             key={item.index}>
             <Shimmer
-              width={330}
-              height={140}
-              borderRadius={20}
+              width={responsiveWidth(75)}
+              height={responsiveHeight(20)}
+              borderRadius={responsiveWidth(2)}
               duration={2000}
               colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
             />
             <Shimmer
-              width={250}
-              height={20}
-              borderRadius={15}
+              width={responsiveWidth(65)}
+              height={responsiveHeight(2)}
+              borderRadius={responsiveWidth(2)}
               duration={2000}
               colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
             />
             <Shimmer
-              width={230}
-              height={20}
-              borderRadius={15}
+              width={responsiveWidth(55)}
+              height={responsiveHeight(2)}
+              borderRadius={responsiveWidth(2)}
               duration={2000}
               colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
             />
             <Shimmer
-              width={200}
-              height={20}
-              borderRadius={15}
+              width={responsiveWidth(40)}
+              height={responsiveHeight(2)}
+              borderRadius={responsiveWidth(2)}
+              duration={2000}
+              colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
+            />
+            <Shimmer
+              width={responsiveWidth(30)}
+              height={responsiveHeight(2)}
+              borderRadius={responsiveWidth(2)}
               duration={2000}
               colors={['#e1e2e3', '#f0f1f2', '#f0f1f2', '#e1e2e3']}
             />
@@ -164,7 +171,7 @@ const MyOrderScreen = ({navigation}) => {
               <TouchableOpacity
                 style={{
                   backgroundColor: clicktab === 0 ? '#FE724C' : '#FFF',
-                  width:responsiveWidth(45),
+                  width:responsiveWidth(40),
                   height:responsiveHeight(7),
                   borderRadius:responsiveWidth(20),
                   justifyContent: 'center',
@@ -179,7 +186,7 @@ const MyOrderScreen = ({navigation}) => {
               <TouchableOpacity
                 style={{
                   backgroundColor: clicktab === 0 ? '#FFF' : '#FE724C',
-                  width:responsiveWidth(45),
+                  width:responsiveWidth(40),
                   height:responsiveHeight(7),
                   borderRadius:responsiveWidth(20),
                   justifyContent: 'center',

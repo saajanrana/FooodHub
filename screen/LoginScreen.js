@@ -40,10 +40,18 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState();
 
+
+
+  const loader = () =>{
+       useEffect(()=>{
+         setTimeout(() => {
+            
+         },2000);
+       })
+  }
+
   const handleLogin = async () => {
-    
     try {
-      
       const response = await fetch(`${url}api/login`, {
         method: 'POST',
         headers: {
