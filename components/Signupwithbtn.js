@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   socialButton: {
     backgroundColor: 'white',
     width: responsiveWidth(40),
-    height: responsiveHeight(10),
+    height: responsiveHeight(9),
     borderRadius: responsiveWidth(15),
     justifyContent: 'center',
     alignItems: 'center',

@@ -50,9 +50,8 @@ const RegisterScreen = ({navigation}) => {
 
       if (response.ok) {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
-        console.log('Registration successful');
         setErrors({});
-        navigation.navigate('LoginScreen');
+        navigation.navigate('OtpScreen',{email:email});
       } else {
         // Registration failed, parse and set validation errors
         const data = await response.json();
@@ -79,7 +78,7 @@ const RegisterScreen = ({navigation}) => {
         console.log('User signed in with Firebase:>>>>>>>', userverfiydata);
         const emailverified =
           userverfiydata?.additionalUserInfo?.profile?.email_verified;
-        console.log('user data after >>>>>>>>>>>>>>>>>>', user);
+
         console.log(user.name);
         console.log(user.email);
 
@@ -87,7 +86,7 @@ const RegisterScreen = ({navigation}) => {
         const email = user?.email;
         const password =
           user?.email.charAt(0).toUpperCase() + email.slice(1, 3) + 'goo1';
-        console.log('hueee>>>>', fullName, email, password);
+
 
         // setFullName(name);
         // setEmail(mail);
@@ -249,7 +248,7 @@ const RegisterScreen = ({navigation}) => {
     }
   };
 
-  console.log('error>>>', errors);
+
   return (
     <ScrollView style={styles.maincontainer}>
       <View style={styles.header}>
@@ -315,7 +314,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginLeft: responsiveWidth(6),
-    marginTop: responsiveHeight(7),
+    marginTop: responsiveHeight(5),
   },
   headerText: {
     fontSize: responsiveFontSize(5),

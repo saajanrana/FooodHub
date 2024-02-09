@@ -1,0 +1,163 @@
+import {useRoute} from '@react-navigation/native';
+import React, {useRef, useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+  TextInput,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
+
+const OtpScreen = ({navigation}) => {
+  const route = useRoute();
+  const {email} = route?.params;
+
+  const [otp, setOtp] = useState(['', '', '', '']);
+  const otpInputs = useRef([null, null, null, null]);
+  const verifyotp = ['1', '1', '1', '1'];
+
+  const handleOtpInput = (index, value) => {
+    const newOtp = [...otp];
+    newOtp[index] = value;
+
+    setOtp(newOtp);
+    if (value !== '' && index < otpInputs.current.length - 1) {
+      otpInputs.current[index + 1].focus();
+    }
+    if (index === otpInputs.current.length - 1) {
+      const isOtpMatch = newOtp.join('') === verifyotp.join('');
+      if (isOtpMatch) {
+        navigation.navigate('LoginScreen');
+      } else {
+        console.log('OTP did not match');
+      }
+    }
+  };
+
+  return (
+    <ScrollView style={{flex: 1}}>
+      <View
+        style={{
+          flex: 1,
+          marginLeft: responsiveWidth(6),
+          marginRight: responsiveWidth(6),
+        }}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.headertouchbtn}>
+          <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
+        </TouchableOpacity>
+        <View
+          style={{marginTop: responsiveHeight(10), gap: responsiveHeight(1)}}>
+          <Text
+            style={{
+              fontSize: responsiveFontSize(5),
+              fontFamily: 'Gilroy-Bold',
+              color: '#000',
+            }}>
+            Verification Code
+          </Text>
+          <Text
+            style={{
+              fontSize: responsiveFontSize(2.5),
+              fontFamily: 'Gilroy-Medium',
+              color: '#9796A1',
+            }}>
+            Please type the verification code sent to {email}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: responsiveWidth(5),
+            marginTop: responsiveHeight(3),
+            justifyContent: 'space-around',
+          }}>
+          {otp.map((digit, index) => (
+            <TextInput
+              key={index}
+              value={digit}
+              maxLength={1}
+              keyboardType="numeric"
+              style={{
+                borderWidth: responsiveWidth(0.2),
+                borderColor: '#9796A1',
+                width: responsiveWidth(16),
+                height: responsiveHeight(8),
+                borderRadius: responsiveWidth(2),
+                color: '#FE724C',
+                fontSize: responsiveFontSize(4),
+                fontFamily: 'Gilroy-Bold',
+                textAlign: 'center',
+              }}
+              onChangeText={text => handleOtpInput(index, text)}
+              ref={ref => (otpInputs.current[index] = ref)}
+            />
+          ))}
+        </View>
+        <View
+          style={{
+            marginTop: responsiveHeight(2),
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: responsiveFontSize(2),
+              fontFamily: 'Gilroy-SemiBold',
+              color: 'black',
+            }}>
+            I don’t recevie a code!
+          </Text>
+          <TouchableOpacity>
+            <Text
+              style={{
+                color: '#FE724C',
+                fontSize: responsiveFontSize(2),
+                fontFamily: 'Gilroy-SemiBold',
+              }}>
+              {' '}
+              Please resend
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  headertouchbtn: {
+    marginTop: responsiveHeight(5),
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
+    height: responsiveHeight(6),
+    borderRadius: responsiveWidth(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backbtn: {
+    marginLeft: responsiveWidth(2),
+    fontSize: responsiveFontSize(3),
+  },
+  headertxt: {
+    fontSize: responsiveFontSize(3),
+    fontFamily: 'Gilroy-Bold',
+    color: 'black',
+    textAlign: 'center',
+    marginLeft: responsiveWidth(15),
+  },
+});
+
+export default OtpScreen;

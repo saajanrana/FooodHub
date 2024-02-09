@@ -22,6 +22,7 @@ import { Carticon, HomeIcon, Usericon } from './AppIcons';
 import AllItemScreen from '../screen/AllItemScreen';
 import RestaurantScreen from '../screen/RestaurantScreen';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import OtpScreen from '../screen/OtpScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -125,6 +126,11 @@ const Navigation = () => {
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="OtpScreen"
+          component={OtpScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen
