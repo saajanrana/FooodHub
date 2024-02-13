@@ -1,68 +1,53 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  ActivityIndicator,
-  Modal,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet,Image} from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
+import { responsiveHeight, responsiveScreenWidth } from 'react-native-responsive-dimensions';
 
-import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
-import {
-  responsiveFontSize,
-  responsiveHeight,
-  responsiveWidth,
-} from 'react-native-responsive-dimensions';
 
-const AnimatedBtn = Animated.createAnimatedComponent(TouchableOpacity);
+
+const duration = 5000;
+const easing = Easing.bezier(0.25, -0.5, 0.25, 1);
 const LoadingScreen = () => {
-    const spinValue = useSharedValue(0);
+  const sv = useSharedValue(0);
 
-    const startSpinning = () => {
-      spinValue.value = withSpring(360, {}, (isFinished) => {
-        if (isFinished) {
-          spinValue.value = 0; // Reset the rotation to 0 after a complete rotation
-        }
-      });
-    };
-  
-    const animatedStyle = useAnimatedStyle(() => {
-      return {
-        transform: [{ rotate: `${spinValue.value}deg` }],
-      };
-    });
+  React.useEffect(() => {
+    sv.value = withRepeat(withTiming(1, { duration, easing }), -1);
+  }, []);
 
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${sv.value * 360}deg` }],
+  }));
   return (
-    <View style={styles.container}>
-      <Animated.View style={[styles.spinningView, animatedStyle]} />
-      <TouchableOpacity onPress={startSpinning}>
-        <View style={styles.button}>
-          <Text>Start Spinning</Text>
-        </View>
-      </TouchableOpacity>
+    <View style={styles.loadcontainer}>
+      <Animated.Image style={[styles.loadbox, animatedStyle]} source={require('../assets/FooodHub.png')} />
     </View>
   );
-};
+}
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      spinningView: {
-        width: 100,
-        height: 100,
-        backgroundColor: 'blue',
-        borderRadius: 50,
-      },
-      button: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: 'green',
-        borderRadius: 5,
-      },
-});
+
 
 export default LoadingScreen;
+
+
+const styles = StyleSheet.create({
+  loadcontainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height:responsiveHeight(100),
+    width:responsiveScreenWidth(100)
+  },
+  loadbox: {
+    height: 120,
+    width: 120,
+    backgroundColor: '#b58df1',
+    borderRadius: 20,
+  },
+});
+

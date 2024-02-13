@@ -35,32 +35,43 @@ const RegisterScreen = ({navigation}) => {
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const[phone,setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [conpassword,setConpassword] = useState('');
   const [errors, setErrors] = useState({});
+
 
   const handleRegister = async () => {
     try {
+    
       const response = await fetch(`${url}api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({fullName, email, password}),
+        body: JSON.stringify({fullName, email,phone,password,conpassword}),
       });
-
+      const data = await response.json();
       if (response.ok) {
         // Registration successful, handle accordingly (e.g., navigate to another screen)
         setErrors({});
-        navigation.navigate('OtpScreen',{email:email});
-      } else {
-        // Registration failed, parse and set validation errors
-        const data = await response.json();
-        setErrors(data.errors || {message: data.message});
+        navigation.navigate('OtpScreen',{email:email,token:data?.token});
+      } else if(data?.message==="Email already registered."){
+        navigation.navigate('OtpScreen',{email:email,token:data?.token});
+      }
+      
+      else {
+        // Registration failed,parse and set validation errors
+        // const data = await response.json();
+        setErrors(data?.errors || {message: data?.message});
       }
     } catch (error) {
       console.error('Error during registration:', error);
     }
   };
+
+
+
 
   const signIn = async () => {
     try {
@@ -208,6 +219,7 @@ const RegisterScreen = ({navigation}) => {
         } else {
           // Registration failed, parse and set validation errors
           const data = await response.json();
+          console.log('data>>>>',data);
           setErrors(data.errors || {message: data.message});
         }
       } catch (error) {
@@ -240,13 +252,14 @@ const RegisterScreen = ({navigation}) => {
           null,
           getResponseInfo,
         );
-
         new GraphRequestManager().addRequest(processRequest).start();
       }
     } catch (error) {
       console.log('Error during Facebook login: ' + error.message);
     }
   };
+
+  console.log('error>',errors)
 
 
   return (
@@ -263,6 +276,7 @@ const RegisterScreen = ({navigation}) => {
             value={fullName}
             placeholder={'Enter your name'}
             error={errors?.fullName}
+            clearerrors={ ()=>setErrors('')}
           />
 
           <FormInput
@@ -271,6 +285,16 @@ const RegisterScreen = ({navigation}) => {
             value={email}
             placeholder={'Enter your email'}
             error={errors?.email || errors?.message}
+            clearerrors={ ()=>setErrors('')}
+          />
+
+          <FormInput
+            label={'Phone-No'}
+            value={phone}
+            onChangeText={text => setPhone(text)}
+            placeholder={'Enter your phone no.'}
+            error={errors?.phone}
+            clearerrors={ ()=>setErrors('')}
           />
 
           <FormInput
@@ -278,7 +302,16 @@ const RegisterScreen = ({navigation}) => {
             value={password}
             onChangeText={text => setPassword(text)}
             placeholder={'Enter your password'}
-            error={errors?.password}
+            error={errors?.Password || errors?.password}
+            clearerrors={ ()=>setErrors('')}
+          />
+          <FormInput
+            label={'Confirm password'}
+            value={conpassword}
+            onChangeText={text => setConpassword(text)}
+            placeholder={'Re-enter your password'}
+            error={errors?.ConPassword || errors?.conpassword}
+            clearerrors={ ()=>setErrors('')}
           />
         </View>
 
@@ -286,7 +319,7 @@ const RegisterScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.signupButton}
             onPress={handleRegister}>
-            <Text style={styles.buttonText}>SIGN UP</Text>
+            <Text style={styles.buttonText}>SIGN IN</Text>
           </TouchableOpacity>
         </View>
 

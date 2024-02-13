@@ -62,15 +62,13 @@ const LoginScreen = ({navigation}) => {
 
       const data = await response.json();
 
-      console.log('hola>>>>>>>>>');
       if (response.ok) {
-        // Registration successful, handle accordingly (e.g., navigate to another screen)
-        console.log('Login successful');
+
         // await AsyncStorage.setItem('token',data.token);
         dispatch(loginUser('usercanlogin'));
-        dispatch(usertoken(data.token));
-       
-        navigation.replace('HomeDrawer');
+        // dispatch(usertoken(data.token));
+        // navigation.replace('HomeDrawer');
+        navigation.navigate('OtpScreen',{email:email,token:data?.token});
       } else {
         setErrors(data);
       }

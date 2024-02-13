@@ -6,19 +6,17 @@ import {
     responsiveWidth,
   } from 'react-native-responsive-dimensions';
 
-const FormInput = ({ label, value, onChangeText, placeholder, error }) => {
+const FormInput = ({ label, value, onChangeText, placeholder, error,clearerrors }) => {
     return (
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>{label}</Text>
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
-            
-             value={value}
-            
+            value={value}
             placeholder={placeholder}
             placeholderTextColor={'#9796A1'}
-            // value='saajan@gmail.com'
+            onFocus={clearerrors}
           />
           {error && (
             <Text style={styles.error}>

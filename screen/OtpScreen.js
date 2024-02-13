@@ -1,5 +1,5 @@
 import {useRoute} from '@react-navigation/native';
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState,useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -9,21 +9,55 @@ import {
   TouchableOpacity,
   TextInput,
   TouchableWithoutFeedback,
+  Modal
 } from 'react-native';
 import {
   responsiveFontSize,
   responsiveHeight,
+  responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
+import { loginUser, usertoken } from '../context/AuthSlice';
+import { useDispatch } from 'react-redux';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 
+
+
+const duration = 5000;
+const easing = Easing.bezier(0.25, -0.5, 0.25, 1);
 const OtpScreen = ({navigation}) => {
   const route = useRoute();
-  const {email} = route?.params;
+  const {email,token} = route?.params;
+  const dispatch = useDispatch();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [otp, setOtp] = useState(['', '', '', '']);
   const otpInputs = useRef([null, null, null, null]);
   const verifyotp = ['1', '1', '1', '1'];
+
+
+  const sv = useSharedValue(0);
+  useEffect(() => {
+    sv.value = withRepeat(withTiming(1, { duration, easing }), -1);
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${sv.value * 360}deg` }],
+  }));
+
+
+
+  const toggleModal = () => {
+    setModalVisible(true);
+  };
+ 
 
   const handleOtpInput = (index, value) => {
     const newOtp = [...otp];
@@ -36,7 +70,10 @@ const OtpScreen = ({navigation}) => {
     if (index === otpInputs.current.length - 1) {
       const isOtpMatch = newOtp.join('') === verifyotp.join('');
       if (isOtpMatch) {
-        navigation.navigate('LoginScreen');
+        // toggleModal();
+        dispatch(loginUser('usercanlogin'));
+        dispatch(usertoken(token));
+        navigation.replace('HomeDrawer');
       } else {
         console.log('OTP did not match');
       }
@@ -74,7 +111,15 @@ const OtpScreen = ({navigation}) => {
             }}>
             Please type the verification code sent to {email}
           </Text>
+
         </View>
+        {/* <Modal isVisible={modalVisible}>
+        <View style={styles.loadcontainer}>
+          <View  style={styles.loadcontainert}>
+      <Animated.Image style={[styles.loadbox, animatedStyle]} source={require('../assets/FooodHub.png')} />
+      </View>
+    </View>
+      </Modal> */}
         <View
           style={{
             flexDirection: 'row',
@@ -157,6 +202,22 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     marginLeft: responsiveWidth(15),
+  },
+  loadcontainer: {
+    flex: 1,
+    
+    alignItems: 'center',
+    justifyContent: 'center',
+   
+  },
+  loadcontainert:{
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+  },
+  loadbox: {
+    height: 120,
+    width: 120,
+    backgroundColor: '#b58df1',
+    borderRadius: 20,
   },
 });
 
