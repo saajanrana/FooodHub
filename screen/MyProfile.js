@@ -177,8 +177,9 @@ const MyProfile = props => {
         <View style={styles.profilecontainer}>
           <View style={styles.profileimgcontainer}>
             <Image
-                source={profiledata?.imgurl
-                  ? { uri: `${url}${profiledata?.imgurl}` }
+              source={
+                profiledata?.imgurl
+                  ? {uri: `${url}${profiledata?.imgurl}`}
                   : require('../assets/newprofile.jpg')
               }
               style={styles.profileimg}
@@ -188,8 +189,10 @@ const MyProfile = props => {
             </TouchableOpacity>
           </View>
           <View style={styles.profilecontainertow}>
-            <Text style={styles.profilename}>{profiledata?.fullName.charAt(0).toUpperCase() +profiledata?.fullName.slice(1)}</Text>
-            
+            <Text style={styles.profilename}>
+              {profiledata?.fullName.charAt(0).toUpperCase() +
+                profiledata?.fullName.slice(1)}
+            </Text>
           </View>
         </View>
       </View>
@@ -197,8 +200,8 @@ const MyProfile = props => {
       <Modal isVisible={isModalVisible}>
         <View style={styles.modalview}>
           <View style={styles.modalviewtwo}>
-            <TouchableOpacity onPress={chooseFile} style={styles.modaltxtbtn} >
-              <Text style={styles.modaltxt} >Select Image</Text>
+            <TouchableOpacity onPress={chooseFile} style={styles.modaltxtbtn}>
+              <Text style={styles.modaltxt}>Select Image</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={captureImage} style={styles.modaltxtbtn}>
               <Text style={styles.modaltxt}>Open Camera</Text>
@@ -216,40 +219,35 @@ const MyProfile = props => {
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>E-mail</Text>
-        
-          <Text style={styles.inputtxt} >{profiledata?.email}</Text>
-        
+
+        <Text style={styles.inputtxt}>{profiledata?.email}</Text>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>Phone Number</Text>
-       
-          <Text style={styles.inputtxt}>{profiledata?.phone}</Text>
-        
+
+        <Text style={styles.inputtxt}>{profiledata?.phone}</Text>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>City</Text>
-       
-          <Text style={styles.inputtxt}>{(!profiledata?.city)?'plz add your city':profiledata?.city}</Text>
-        
+
+        <Text style={styles.inputtxt}>
+          {!profiledata?.city ? 'plz add your city' : profiledata?.city}
+        </Text>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>State</Text>
-       
-          <Text style={styles.inputtxt}>{(!profiledata?.state)?'plz add your state':profiledata?.state}</Text>
-        
+
+        <Text style={styles.inputtxt}>
+          {!profiledata?.state ? 'plz add your state' : profiledata?.state}
+        </Text>
       </View>
       <View style={styles.savebtncontainer}>
         <TouchableOpacity
           style={styles.savebtn}
-          onPress={() => props.navigation.navigate('EditProfileScreen')}
-          >
-          <Text style={styles.savebtntxt}>
-          Edit Profile
-          </Text>
+          onPress={() => props.navigation.navigate('EditProfileScreen')}>
+          <Text style={styles.savebtntxt}>Edit Profile</Text>
         </TouchableOpacity>
       </View>
-      
-      
     </ScrollView>
   );
 };
@@ -300,9 +298,8 @@ const styles = StyleSheet.create({
   },
   profileimg: {
     width: responsiveWidth(30),
-    height: responsiveHeight(Dimensions.get('window').width>=600?20: 15),
-    borderRadius:responsiveWidth(50)
-    
+    height: responsiveHeight(Dimensions.get('window').width >= 600 ? 20 : 15),
+    borderRadius: responsiveWidth(50),
   },
   profilecontainertow: {gap: 8},
   cameraicon: {
@@ -331,13 +328,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: responsiveWidth(5),
     marginRight: responsiveWidth(5),
-    justifyContent:'space-between'
+    justifyContent: 'space-between',
   },
   inputLabel: {
     fontSize: responsiveFontSize(2.5),
     fontFamily: 'Gilroy-SemiBold',
     marginLeft: responsiveWidth(1),
-    width:responsiveWidth(40)
+    width: responsiveWidth(40),
   },
   input: {
     borderWidth: responsiveFontSize(0.11),
@@ -351,42 +348,56 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   inputtxt: {
-    
     width: responsiveWidth(50),
     color: '#111719',
     fontSize: responsiveFontSize(2.4),
-    fontFamily:'Gilroy-Bold'
-    
+    fontFamily: 'Gilroy-Bold',
   },
   modalview: {
-     flex: 1,
-     justifyContent: 'center',
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-      
-    },
+  },
   modalviewtwo: {
     backgroundColor: 'rgba(255, 255, 255, 0)',
     borderRadius: responsiveWidth(5),
     width: responsiveWidth(60),
     height: responsiveHeight(25),
-    alignItems:'center',
-    justifyContent:'center',
-    gap:responsiveHeight(1),
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: responsiveHeight(1),
   },
-  modaltxtbtn:{backgroundColor: '#FFFFFF',
-  elevation: 5,
-  shadowColor: 'light-brown', width:responsiveWidth(50),borderRadius:responsiveWidth(2),alignItems:'center'},
-  modaltxt:{fontSize:responsiveFontSize(3),color:'#000',fontFamily:'Gilroy-Bold'},
-  savebtncontainer:{marginTop:responsiveHeight(3),marginBottom:responsiveHeight(1) ,alignItems: 'center'},
-  savebtn:{
-    width:responsiveWidth(50),
+  modaltxtbtn: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    width: responsiveWidth(50),
+    borderRadius: responsiveWidth(2),
+    alignItems: 'center',
+  },
+  modaltxt: {
+    fontSize: responsiveFontSize(3),
+    color: '#000',
+    fontFamily: 'Gilroy-Bold',
+  },
+  savebtncontainer: {
+    marginTop: responsiveHeight(3),
+    marginBottom: responsiveHeight(1),
+    alignItems: 'center',
+  },
+  savebtn: {
+    width: responsiveWidth(50),
     height: responsiveHeight(8),
     backgroundColor: '#FE724C',
-    borderRadius:responsiveWidth(10),
+    borderRadius: responsiveWidth(10),
     justifyContent: 'center',
     alignItems: 'center',
   },
-  savebtntxt:{color: '#FFF', fontSize:responsiveFontSize(2.6), fontWeight: '600'}
+  savebtntxt: {
+    color: '#FFF',
+    fontSize: responsiveFontSize(2.6),
+    fontWeight: '600',
+  },
 });
 
 export default MyProfile;

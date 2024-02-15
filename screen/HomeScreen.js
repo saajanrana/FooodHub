@@ -9,10 +9,12 @@ import {
   FlatList,
   ScrollView,
   Dimensions,
+  Modal,
+  TouchableOpacity,
+  TextInput
 } from 'react-native';
 
-import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+
 import Header from '../components/Header';
 import {useDispatch, useSelector} from 'react-redux';
 import {url} from '../components/url';
@@ -30,26 +32,43 @@ import Icon from 'react-native-vector-icons/dist/Ionicons';
 import LoadingScreen from './LoadingScreen';
 
 const HomeScreen = props => {
-  const [loadingg,setLoadingg] = useState(true);
+  const [loadingg, setLoadingg] = useState(true);
   const [user, setUser] = useState();
+
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const usertoken = useSelector(state => state.auth.usertoken);
 
   const dispatch = useDispatch();
   const profiledata = useSelector(state => state.auth.profiledata);
+  const [FilterModalVisible, setFilterModalVisible] = useState(false);
+
+  const openFilterModal = () => {
+    setFilterModalVisible(true);
+  };
+
+  const closeFilterModal = () => {
+    setFilterModalVisible(false);
+  };
+
+  const handleFilterOptionSelected = option => {
+    // Handle the selected filter option
+    console.log('Selected Filter Option:', option);
+
+    // Close the modal after selecting an option
+    closeFilterModal();
+  };
 
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
   const isTablet = screenWidth >= 600;
   const profileimge = require('../assets/profile.png');
 
-
- const loading  = () =>{
+  const loading = () => {
     setInterval(() => {
       setLoadingg(false);
     }, 1000);
- }
- loading();
+  };
+  loading();
 
   const setasync = () => {
     AsyncStorage.setItem('isLoggedIn', 'true');
@@ -818,7 +837,6 @@ const HomeScreen = props => {
   const popularitems = viewallitem.filter(item => item?.rating === '4.9');
 
   useEffect(() => {
- 
     const fetchdata = async () => {
       try {
         const response = await fetch(`${url}api/profile`, {
@@ -829,11 +847,9 @@ const HomeScreen = props => {
           },
         });
 
-      
-
         if (response.ok) {
           const userData = await response.json();
-          
+
           setUser(userData);
         } else {
           console.error('Error fetching user profile:', response.statusText);
@@ -923,96 +939,171 @@ const HomeScreen = props => {
 
   return (
     <>
-    {
-      (loadingg)?<LoadingScreen /> :
-    <ScrollView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Header
-          onPressMenu={() => props.navigation.openDrawer()}
-          isMenu={true}
-        />
+      {loadingg ? (
+        <LoadingScreen />
+      ) : (
+        <ScrollView style={styles.container}>
+          <View style={styles.headerContainer}>
+            <Header
+              onPressMenu={() => props.navigation.openDrawer()}
+              isMenu={true}
+            />
 
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('MyProfileScreen')}>
-          <Image
-          resizeMode='contain'
-            style={styles.profileImage}
-            source={profiledata?.imgurl
-              ? { uri: `${url}${profiledata?.imgurl}` }
-              : require('../assets/newprofile.jpg')}
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('MyProfileScreen')}>
+              <Image
+                resizeMode="contain"
+                style={styles.profileImage}
+                source={
+                  profiledata?.imgurl
+                    ? {uri: `${url}${profiledata?.imgurl}`}
+                    : require('../assets/newprofile.jpg')
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>What would you like to order</Text>
+          </View>
+
+          <View style={styles.searchContainer}>
+            <View style={styles.inputContainer}>
+              <Icon name="search" color="#767F9D" style={styles.iconstyl} />
+              <TextInput
+                placeholder="Find for food or restaurant..."
+                style={styles.inputText}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={styles.filterIconContainer}
+              onPress={openFilterModal}>
+              <Icon
+                name="options-outline"
+                style={styles.filtericon}
+                color="#FE724C"
+              />
+            </TouchableOpacity>
+
+            <Modal
+              visible={FilterModalVisible}
+              animationType="slide"
+              transparent={true}
+              onRequestClose={closeFilterModal}>
+              <View style={styles.modalContainer}>
+                <View style={styles.modalContent}>
+                  <View style={styles.modalheader}>
+                    <TouchableOpacity
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: responsiveWidth(1),
+                      }}>
+                      <Icon
+                        name="filter-outline"
+                        color="#FE724C"
+                        style={styles.modalfiltericon}
+                      />
+                      <Text style={styles.modalhedtxt}>Filter</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={()=>setFilterModalVisible(false)}>
+                      <Icon name="close" color="#FE724C" style={styles.closebtn} />
+                    </TouchableOpacity>
+                  </View>
+                  
+                  <View style={styles.modalsmain}>
+                      <Text style={styles.modalsmaintxt}>Category</Text>
+                      <View style={styles.modalcat}>
+                          <TouchableOpacity style={styles.modalcattxtc}  onPress={()=>{setFilterModalVisible(false),props.navigation.navigate('ViewScreen', {foodtag:'indian'})}}>
+                            <Text style={styles.modalcattxt}>Assian</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.modalcattxtc} onPress={()=>{setFilterModalVisible(false),props.navigation.navigate('ViewScreen', {foodtag:'burger'})}}>
+                            <Text style={styles.modalcattxt}>Burger</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.modalcattxtc} onPress={()=>{setFilterModalVisible(false),props.navigation.navigate('ViewScreen', {foodtag:'chinese'})}}>
+                            <Text style={styles.modalcattxt}>Donat</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.modalcattxtc} onPress={()=>{setFilterModalVisible(false),props.navigation.navigate('ViewScreen', {foodtag:'mexican'})}}>
+                            <Text style={styles.modalcattxt}>Maxican</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.modalcattxtc} onPress={()=>{setFilterModalVisible(false),props.navigation.navigate('ViewScreen', {foodtag:'pizaa'})}}>
+                            <Text style={styles.modalcattxt}>Pizaa</Text>
+                          </TouchableOpacity>
+                      </View>
+                  </View>
+                  <View style={styles.modalsmain}>
+                      <Text style={styles.modalsmaintxt}>Short By</Text>
+                      <View style={styles.modalcat}>
+                          <TouchableOpacity style={styles.modalcattxtc}>
+                            <Text style={styles.modalcattxt}>Price</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.modalcattxtc}>
+                            <Text style={styles.modalcattxt}>Name</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.modalcattxtc}>
+                            <Text style={styles.modalcattxt}>Time/Date</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.modalcattxtc}>
+                            <Text style={styles.modalcattxt}>Rating</Text>
+                          </TouchableOpacity>
+                          
+                      </View>
+                  </View>
+                </View>
+              </View>
+            </Modal>
+          </View>
+
+          <Carousel />
+
+          <View style={styles.filterContainer}>
+            <FlatList
+              data={fliterdata}
+              keyExtractor={item => item?.key}
+              renderItem={renderItem}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.flatListContainerone}
+            />
+          </View>
+
+          <View style={styles.featuredRestaurantsContainer}>
+            <Text style={styles.featuredRestaurantsHeaderText}>
+              Featured Restaurants
+            </Text>
+
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('AllItemScreen')}>
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+          </View>
+
+          <FlatList
+            data={featurerestdata}
+            keyExtractor={item => item?.id}
+            renderItem={renderfeaturerest}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.flatListContainer}
           />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>What would you like to order</Text>
-      </View>
 
-      <View style={styles.searchContainer}>
-        <View style={styles.inputContainer}>
-          <Icon name="search" color="#767F9D" style={styles.iconstyl} />
-          <TextInput
-            placeholder="Find for food or restaurant..."
-            style={styles.inputText}
+          <View style={styles.featuredRestaurantsContainer}>
+            <Text style={styles.featuredRestaurantsHeaderText}>
+              Popular Items
+            </Text>
+          </View>
+
+          <FlatList
+            data={popularitems}
+            keyExtractor={item => item?.id}
+            renderItem={renderpopularitem}
+            numColumns={2}
+            style={styles.popmaincontainer}
           />
-        </View>
-
-        <TouchableOpacity style={styles.filterIconContainer}>
-          <Icon
-            name="options-outline"
-            style={styles.filtericon}
-            color="#FE724C"
-          />
-        </TouchableOpacity>
-      </View>
-
-      <Carousel />
-
-      <View style={styles.filterContainer}>
-        <FlatList
-          data={fliterdata}
-          keyExtractor={item => item?.key}
-          renderItem={renderItem}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.flatListContainerone}
-        />
-      </View>
-
-      <View style={styles.featuredRestaurantsContainer}>
-        <Text style={styles.featuredRestaurantsHeaderText}>
-          Featured Restaurants
-        </Text>
-
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('AllItemScreen')}>
-          <Text style={styles.viewAllText}>View All</Text>
-        </TouchableOpacity>
-      </View>
-
-      <FlatList
-        data={featurerestdata}
-        keyExtractor={item => item?.id}
-        renderItem={renderfeaturerest}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.flatListContainer}
-      />
-
-      <View style={styles.featuredRestaurantsContainer}>
-        <Text style={styles.featuredRestaurantsHeaderText}>Popular Items</Text>
-      </View>
-
-      <FlatList
-        data={popularitems}
-        keyExtractor={item => item?.id}
-        renderItem={renderpopularitem}
-        numColumns={2}
-        style={styles.popmaincontainer}
-      />
-    </ScrollView>
-}
+        </ScrollView>
+      )}
     </>
-
   );
 };
 
@@ -1195,25 +1286,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Gilroy-Medium',
   },
 
-
-  popmaincontainer:{
-    
-    marginLeft:responsiveWidth(6),
-
+  popmaincontainer: {
+    marginLeft: responsiveWidth(6),
   },
   popcontainer: {
-   
     width: responsiveWidth(44),
     backgroundColor: '#FFFFFF',
     shadowOpacity: 10,
     elevation: 1,
     shadowColor: 'light-brown',
-    marginHorizontal:responsiveWidth(1),
-    marginVertical:responsiveHeight(1),
+    marginHorizontal: responsiveWidth(1),
+    marginVertical: responsiveHeight(1),
     borderRadius: responsiveWidth(2),
-
-    
-    
   },
 
   poplikeicon: {
@@ -1230,7 +1314,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
     borderRadius: responsiveWidth(5),
-    height:responsiveHeight(5),
+    height: responsiveHeight(5),
     width: responsiveWidth(16),
     alignItems: 'center',
     justifyContent: 'center',
@@ -1246,34 +1330,31 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2),
   },
   popratingcontainer: {
-  
-    height:responsiveHeight(4),
-    width:responsiveWidth(16),
+    height: responsiveHeight(4),
+    width: responsiveWidth(16),
     backgroundColor: '#FFFFFF',
     elevation: 5,
     shadowColor: 'light-brown',
     position: 'absolute',
     bottom: responsiveHeight(-2),
     left: responsiveWidth(3),
-    flexDirection:'row',
+    flexDirection: 'row',
     borderRadius: responsiveWidth(5),
-    justifyContent:'center',
-    alignItems:'center',
-    gap:responsiveWidth(1),
-    flexWrap:'wrap',
-    paddingTop:responsiveHeight(0.7)
-
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: responsiveWidth(1),
+    flexWrap: 'wrap',
+    paddingTop: responsiveHeight(0.7),
   },
   poprating: {
-
     color: '#000',
     fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(1.4),
   },
   popdetails: {
-    marginTop:responsiveHeight(1.2),
+    marginTop: responsiveHeight(1.2),
     padding: responsiveWidth(2.5),
-    gap:responsiveWidth(1.5)
+    gap: responsiveWidth(1.5),
   },
   popimg: {
     width: 'auto',
@@ -1289,7 +1370,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(2),
   },
-  ratingrev:{fontFamily:'Gilroy-Regular',fontSize:responsiveFontSize(1.2)},
+  ratingrev: {fontFamily: 'Gilroy-Regular', fontSize: responsiveFontSize(1.2)},
   iconstyl: {
     fontSize: responsiveFontSize(4),
   },
@@ -1320,6 +1401,76 @@ const styles = StyleSheet.create({
   },
   starticon: {
     fontSize: responsiveFontSize(1.3),
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    height: responsiveHeight(50),
+    width: responsiveWidth(100),
+    borderTopLeftRadius: responsiveWidth(4),
+    borderTopRightRadius: responsiveWidth(4),
+    elevation: 10,
+    paddingLeft: responsiveWidth(5),
+    paddingRight: responsiveWidth(5),
+  },
+  modalsmain: {
+    marginTop:responsiveHeight(1)
+  },
+  modalsmaintxt: {
+    color: 'black',
+    fontSize: responsiveFontSize(2),
+    fontFamily:'Gilroy-SemiBold'
+  },
+  modalcat:{
+      marginTop:responsiveHeight(1),
+      flexWrap:'wrap',
+      flexDirection:'row',
+      gap:responsiveWidth(2)
+  },
+  modalcattxtc:{
+    width:responsiveWidth(20),
+    height:responsiveHeight(6),
+    borderColor:'#FE724C',
+    justifyContent:'center',
+    alignItems:'center',
+    borderRadius:responsiveWidth(5),
+    shadowColor: "gray",
+    backgroundColor:'#ffffff',
+shadowOffset: {
+	width: 0,
+	height: 7,
+},
+shadowOpacity: 0.43,
+shadowRadius: 9.51,
+
+elevation: 10,
+  },
+  modalcattxt:{
+    fontFamily:'Gilroy-SemiBold',
+    fontSize:responsiveFontSize(1.8),
+    color:'#000'
+
+  },
+  closebtn: {
+    fontSize: responsiveFontSize(2.5),
+  },
+  modalheader: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: responsiveHeight(2),
+  },
+  modalfiltericon: {
+    fontSize: responsiveFontSize(2.5),
+  },
+  modalhedtxt: {
+    fontSize: responsiveFontSize(2.5),
+    color: 'black',
+    fontFamily:'Gilroy-Medium'
   },
 });
 
