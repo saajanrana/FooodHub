@@ -791,6 +791,11 @@ const FoodDetailScreen = ({navigation}) => {
             source={userfood?.imgsrc}
             style={styles.mainimg}
           />
+          
+            <Animated.Image entering={LightSpeedInRight.delay(300)
+              .randomDelay()
+              .reduceMotion(ReduceMotion.Never)} style={styles.likebtn}  source={require('../assets/likeicons.png')} />
+          
         </View>
         <Animated.View
           entering={FadeInRight.duration(200).delay(400)}
@@ -800,14 +805,15 @@ const FoodDetailScreen = ({navigation}) => {
         <Animated.View
           entering={FadeInRight.duration(200).delay(400)}
           style={styles.ratingview}>
-          <View>
+            <Icon name='star' style={styles.icon}  color="yellow" />
+          
             <Text style={styles.ratingviewtxt}>4.5</Text>
-          </View>
-          <View>
+            <Text style={styles.revcount}>(30+)</Text>
+          
             <TouchableOpacity>
               <Text style={styles.reviewtxt}>See Review</Text>
             </TouchableOpacity>
-          </View>
+          
         </Animated.View>
         <Animated.View
           entering={FadeInRight.duration(200).delay(400)}
@@ -868,7 +874,7 @@ const FoodDetailScreen = ({navigation}) => {
               <View style={styles.optiondiv2}>
                 <Text style={styles.optionpricetxt}>+$2.30</Text>
 
-                <RadioButton color="#FE724C" value="third" />
+                <RadioButton color="#FE724C" value="first" />
               </View>
             </View>
             <View style={styles.optiondiv}>
@@ -881,7 +887,7 @@ const FoodDetailScreen = ({navigation}) => {
               <View style={styles.optiondiv2}>
                 <Text style={styles.optionpricetxt}>+$2.30</Text>
 
-                <RadioButton color="#FE724C" value="third" />
+                <RadioButton color="#FE724C" value="second" />
               </View>
             </View>
             <View style={styles.optiondiv}>
@@ -946,14 +952,16 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(2),
   },
   mainimgcontainer: {
-    height: responsiveHeight(45),
+    height: responsiveHeight(30),
     width: responsiveWidth(100),
     alignItems: 'center',
     justifyContent: 'center',
+    position:'relative'
   },
   mainimg: {
     flex: 1,
-    height: responsiveHeight(45),
+    resizeMode:'cover',
+    height: responsiveHeight(100),
     width: responsiveWidth(90),
     borderRadius: responsiveWidth(2),
     justifyContent: 'center',
@@ -970,17 +978,23 @@ const styles = StyleSheet.create({
   },
   ratingview: {
     flexDirection: 'row',
-    gap: responsiveWidth(1.3),
+    gap: responsiveWidth(2),
     paddingLeft: responsiveWidth(6),
+    alignItems:'center'
   },
   ratingviewtxt: {
     color: '#111719',
-    fontSize: responsiveFontSize(2.2),
-    fontFamily: 'Gilroy-Medium',
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'Gilroy-SemiBold',
   },
+  revcount:{
+  fontSize:responsiveFontSize(1.3),
+  fontFamily:'Gilroy-Medium'
+  },
+  
   reviewtxt: {
     color: '#FE724C',
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveFontSize(1.8),
     fontFamily: 'Gilroy-Medium',
     textDecorationLine: 'underline',
     textDecorationColor: '#FE724C',
@@ -990,12 +1004,16 @@ const styles = StyleSheet.create({
     paddingRight: responsiveWidth(6),
     flexDirection: 'row',
     justifyContent: 'space-between',
+
+    alignItems:'flex-end'
+
   },
-  mainpricediv: {flexDirection: 'row'},
+  mainpricediv: {flexDirection: 'row',gap:responsiveWidth(0.5)},
   pricesign: {
     color: '#FE724C',
-    fontSize: responsiveFontSize(2.2),
+    fontSize: responsiveFontSize(2),
     fontFamily: 'Gilroy-Medium',
+    marginTop:responsiveHeight(0.70)
   },
   foodprice: {
     color: '#FE724C',
@@ -1005,24 +1023,17 @@ const styles = StyleSheet.create({
   addtocartdiv: {
     flexDirection: 'row',
     gap: responsiveWidth(4),
-    marginTop: responsiveHeight(1),
+   
   },
-  removebtndiv: {
-    height: 40,
-    width: 40,
-    borderRadius: 50,
-    backgroundColor: '#FE724C',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+ 
   removebtntxt: {
-    fontSize: responsiveFontSize(6),
+    fontSize: responsiveFontSize(4),
   },
   totolitemtxt: {
     color: 'black',
     textAlign: 'center',
     marginTop: responsiveHeight(0.5),
-    fontSize: responsiveFontSize(4.5),
+    fontSize: responsiveFontSize(3),
     fontFamily: 'Gilroy-Bold',
   },
   addbtndiv: {
@@ -1038,13 +1049,13 @@ const styles = StyleSheet.create({
     color: '#FE724C',
   },
   fooddetails: {
-    marginTop: responsiveHeight(2),
+    marginTop: responsiveHeight(1),
     paddingLeft: responsiveWidth(6),
   },
   fooddetailstxt: {
     color: '#858992',
-    fontSize: responsiveFontSize(2.5),
-    fontFamily: 'Gilroy-Bold',
+    fontSize: responsiveFontSize(2.3),
+    fontFamily: 'Gilroy-Medium',
   },
   thirdcontainer: {marginTop: responsiveHeight(2)},
   choisdiv: {marginLeft: responsiveWidth(6)},
@@ -1058,6 +1069,7 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     paddingLeft: responsiveWidth(6),
     paddingRight: responsiveWidth(6),
+    gap:responsiveHeight(2)
   },
   optiondiv: {
     flexDirection: 'row',
@@ -1068,12 +1080,12 @@ const styles = StyleSheet.create({
   optiontxt: {
     color: '#000',
     fontSize: responsiveFontSize(2),
-    fontFamily: 'Gilroy-Bold',
+    fontFamily: 'Gilroy-SemiBold',
   },
   optionpricediv: {flexDirection: 'row', justifyContent: 'space-between'},
   optionpricetxt: {
     color: '#000',
-    fontFamily: 'Gilroy-Bold',
+    fontFamily: 'Gilroy-Medium',
     fontSize: responsiveFontSize(2),
   },
   addtocartbtn: {
@@ -1120,6 +1132,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  likebtnc:{
+
+  },
+  likebtn:{
+    position:'absolute',
+    top:responsiveHeight(2),
+    right:responsiveWidth(8),
+    height:responsiveHeight(9),
+    width:responsiveHeight(5)
+  },
+  icon:{
+     fontSize:responsiveFontSize(2.5)
+  }
 });
 
 export default FoodDetailScreen;

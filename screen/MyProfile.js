@@ -188,7 +188,7 @@ const MyProfile = props => {
             </TouchableOpacity>
           </View>
           <View style={styles.profilecontainertow}>
-            <Text style={styles.profilename}>{profiledata?.fullName}</Text>
+            <Text style={styles.profilename}>{profiledata?.fullName.charAt(0).toUpperCase() +profiledata?.fullName.slice(1)}</Text>
             
           </View>
         </View>
@@ -224,6 +224,18 @@ const MyProfile = props => {
         <Text style={styles.inputLabel}>Phone Number</Text>
        
           <Text style={styles.inputtxt}>{profiledata?.phone}</Text>
+        
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>City</Text>
+       
+          <Text style={styles.inputtxt}>{(!profiledata?.city)?'plz add your city':profiledata?.city}</Text>
+        
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>State</Text>
+       
+          <Text style={styles.inputtxt}>{(!profiledata?.state)?'plz add your state':profiledata?.state}</Text>
         
       </View>
       <View style={styles.savebtncontainer}>
@@ -360,7 +372,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     gap:responsiveHeight(1),
-  
   },
   modaltxtbtn:{backgroundColor: '#FFFFFF',
   elevation: 5,

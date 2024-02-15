@@ -95,7 +95,7 @@ const AddToCartScreen = ({navigation}) => {
           style={styles.headertouchbtn}>
           <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headertxt}>Add To Cart</Text>
+        <Text style={styles.headertxt}>Cart</Text>
       </View>
       <View style={styles.secondcontainer}>
         {Addtocart.map(item => {
@@ -153,8 +153,9 @@ const AddToCartScreen = ({navigation}) => {
                     <Text
                       style={{
                         color: '#000',
-                        fontFamily: 'Gilroy-Bold',
-                        fontSize: responsiveFontSize(2.5),
+                        fontFamily: 'Gilroy-SemiBold',
+                        fontSize: responsiveFontSize(2),
+                      
                       }}>
                       {totalitem[item?.userfood?.id] ||
                         removeitem(item?.userfood?.id)}
@@ -234,6 +235,7 @@ const AddToCartScreen = ({navigation}) => {
               borderBottomColor: '#F1F2F3',
               borderBottomWidth: responsiveWidth(0.3),
               flexWrap: 'wrap',
+              paddingBottom:responsiveHeight(1.5)
             }}>
             <View>
               <Text
@@ -246,18 +248,18 @@ const AddToCartScreen = ({navigation}) => {
               </Text>
             </View>
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              style={{flexDirection: 'row', justifyContent: 'space-between',gap:responsiveWidth(1)}}>
               <Text
                 style={{
                   color: '#000',
                   fontSize: responsiveFontSize(2),
                   fontFamily: 'Gilroy-SemiBold',
                 }}>
-                {calculateSubtotal()}
+                ${calculateSubtotal()}
               </Text>
-              {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400' ,}}>
+              <Text style={{color: '#9796A1',fontSize:responsiveFontSize(1.6),fontFamily:'Gilroy-Medium'}}>
               USD
-            </Text> */}
+            </Text>
             </View>
           </View>
 
@@ -268,6 +270,7 @@ const AddToCartScreen = ({navigation}) => {
               borderBottomColor: '#F1F2F3',
               borderBottomWidth: responsiveWidth(0.2),
               flexWrap: 'wrap',
+              paddingBottom:responsiveHeight(1.5)
             }}>
             <View>
               <Text
@@ -280,18 +283,18 @@ const AddToCartScreen = ({navigation}) => {
               </Text>
             </View>
 
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row',gap:responsiveWidth(1)}}>
               <Text
                 style={{
                   color: '#000',
                   fontSize: responsiveFontSize(2),
                   fontFamily: 'Gilroy-SemiBold',
                 }}>
-                {/* {calculatedeliverycharges()} */}00
+                $00
               </Text>
-              {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400'}}>
+              <Text style={{color: '#9796A1',fontSize:responsiveFontSize(1.6),fontFamily:'Gilroy-Medium'}}>
               USD
-            </Text> */}
+            </Text>
             </View>
           </View>
 
@@ -302,7 +305,7 @@ const AddToCartScreen = ({navigation}) => {
 
               borderBottomColor: '#F1F2F3',
               borderBottomWidth: responsiveWidth(0.2),
-
+              paddingBottom:responsiveHeight(1.5),
               flexWrap: 'wrap',
             }}>
             <View>
@@ -316,18 +319,18 @@ const AddToCartScreen = ({navigation}) => {
               </Text>
             </View>
 
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row',gap:responsiveWidth(1)}}>
               <Text
                 style={{
                   color: '#000',
                   fontSize: responsiveFontSize(2),
                   fontFamily: 'Gilroy-SemiBold',
                 }}>
-                {/* ${userfood?.delivery} */}00
+                $00
               </Text>
-              {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400'}}>
+              <Text style={{color: '#9796A1',fontSize:responsiveFontSize(1.6),fontFamily:'Gilroy-Medium'}}>
               USD
-            </Text> */}
+            </Text>
             </View>
           </View>
 
@@ -336,8 +339,10 @@ const AddToCartScreen = ({navigation}) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               flexWrap: 'wrap',
+              marginTop:responsiveHeight(0.5)
+           
             }}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row',gap:responsiveFontSize(0.5),alignItems:'center'}}>
               <Text
                 style={{
                   color: '#000',
@@ -346,23 +351,23 @@ const AddToCartScreen = ({navigation}) => {
                 }}>
                 Total
               </Text>
-              {/* <Text style={{color:'#BEBEBE',fontSize:14,fontWeight:'300',}}>
+              <Text style={{color:'#BEBEBE',fontFamily:'Gilroy-Medium',fontSize:responsiveFontSize(1.6)}}>
                 (2 items)
-            </Text> */}
+            </Text>
             </View>
 
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row',gap:responsiveWidth(1)}}>
               <Text
                 style={{
                   color: '#000',
                   fontSize: responsiveFontSize(2),
                   fontFamily: 'Gilroy-SemiBold',
                 }}>
-                {/* ${finalvalue} */} {calculateSubtotal()}
+                ${calculateSubtotal()}
               </Text>
-              {/* <Text style={{color: '#9796A1', fontSize: 14, fontWeight: '400'}}>
+              <Text style={{color: '#9796A1',fontSize:responsiveFontSize(1.6),fontFamily:'Gilroy-Medium'}}>
               USD
-            </Text> */}
+            </Text>
             </View>
           </View>
         </View>
@@ -404,23 +409,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemimg: {
-    height: responsiveHeight(15),
+    height: responsiveHeight(12),
     width: responsiveWidth(25),
     borderRadius: responsiveWidth(2),
   },
   itemimgsty: {
-    height: responsiveHeight(15),
+  
+    height: responsiveHeight(12),
     width: responsiveWidth(25),
     borderRadius: responsiveWidth(2),
   },
-  cartitemdata: {gap: responsiveHeight(1), width: responsiveWidth(60)},
+  cartitemdata: { width: responsiveWidth(60),height:responsiveHeight(12),justifyContent:"space-between"},
   itmefooddata: {justifyContent: 'space-between', flexDirection: 'row'},
   itmefooddatatxt: {
     color: '#000',
     fontSize: responsiveFontSize(2.2),
     fontFamily: 'Gilroy-Bold',
   },
-  xbtntxt: {color: '#FF3600', fontSize: responsiveFontSize(2)},
+  xbtntxt: {color: '#FF3600', fontSize: responsiveFontSize(2.5)},
   fooddatatxt: {
     color: '#8C8A9D',
     fontSize: responsiveFontSize(2),
@@ -454,7 +460,7 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(15),
   },
   removebtntxt: {
-    fontSize: responsiveFontSize(3.5),
+    fontSize: responsiveFontSize(3),
   },
 });
 

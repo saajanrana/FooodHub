@@ -111,6 +111,7 @@ const EditProfileScreen = ({navigation}) => {
         <TextInput
             style={styles.input}
             value={user?.fullName}
+            
             onChangeText={text => setUser({...user, fullName: text})}
           />
        
@@ -121,6 +122,7 @@ const EditProfileScreen = ({navigation}) => {
         <TextInput
             style={styles.input}
             value={user?.email}
+            editable={false}
             onChangeText={text => setUser({...user, email: text})}
           />
        

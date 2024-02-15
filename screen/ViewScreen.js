@@ -24,7 +24,7 @@ import {
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 import Header from '../components/Header';
-import Icon from 'react-native-vector-icons/dist/Ionicons';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 
 const ViewScreen = ({navigation},props) => {
@@ -781,9 +781,11 @@ const ViewScreen = ({navigation},props) => {
             justifyContent: 'space-between',
             marginTop: responsiveHeight(5),
           }}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{marginLeft:responsiveWidth(8)}}  >
-          <Icon name="chevron-back-sharp" size={40} color="black"/>
-          </TouchableOpacity>
+          <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.headertouchbtn}>
+          <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
+        </TouchableOpacity>
           <View style={{flexWrap: 'wrap', marginLeft: responsiveWidth(5)}}>
             <Text
               style={{
@@ -851,13 +853,15 @@ const ViewScreen = ({navigation},props) => {
                     position: 'absolute',
                     top: responsiveHeight(2),
                     right: responsiveWidth(2),
+                    width:responsiveWidth(10),
+                    height:responsiveHeight(8)
                   }}
                 />
 
                 <View
                   style={{
                     position: 'absolute',
-                    top: responsiveHeight(2),
+                    top: responsiveHeight(3),
                     left: responsiveWidth(3),
                     flexDirection: 'row',
                     backgroundColor: 'white',
@@ -883,28 +887,11 @@ const ViewScreen = ({navigation},props) => {
                     {item?.item?.price}
                   </Text>
                 </View>
-                <View
-                  style={{
-                    position: 'absolute',
-                    bottom: responsiveHeight(isTablet ? -5 : -2),
-                    left: responsiveWidth(5),
-                    flexDirection: 'row',
-                    backgroundColor: 'white',
-                    borderRadius: responsiveWidth(5),
-                    padding: responsiveWidth(2),
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text
-                    style={{
-                      color: '#000',
-                      fontFamily:'Gilroy-Bold',
-                      fontSize: responsiveFontSize(2),
-                    }}>
-                    {item?.item?.rating}
-                  </Text>
-                   <Icon name='star-sharp' color='yellow'/>
-                </View>
+                <View style={styles.popratingcontainer}>
+          <Text style={styles.poprating}>{item?.item?.rating}</Text>
+          <Icon name="star" color="#FFC529" style={styles.starticon} />
+          <Text>(25+)</Text>
+        </View>
               </View>
               <TouchableOpacity
                 style={{padding: responsiveWidth(2.5)}}
@@ -936,6 +923,109 @@ const ViewScreen = ({navigation},props) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  headertouchbtn: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    width: responsiveWidth(Dimensions.get('window').width >= 600 ? 10 : 13),
+    height: responsiveHeight(6),
+    borderRadius: responsiveWidth(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft:responsiveWidth(5)
+  },
+  backbtn: {
+    marginLeft: responsiveWidth(2),
+    fontSize: responsiveFontSize(3),
+  },
+  popcontainer: {
+    marginLeft: responsiveWidth(4),
+    marginVertical: responsiveHeight(1),
+    width: responsiveWidth(44),
+    backgroundColor: '#FFFFFF',
+    shadowOpacity: 10,
+    elevation: 1,
+    shadowColor: 'light-brown',
+    borderRadius: responsiveWidth(2),
+    
+    
+  },
+
+  poplikeicon: {
+    position: 'absolute',
+    width: responsiveHeight(8),
+    height: responsiveWidth(12),
+    top: responsiveHeight(2),
+    right: responsiveWidth(0),
+  },
+  poppricecontainer: {
+    position: 'absolute',
+    top: responsiveHeight(2),
+    left: responsiveWidth(2),
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    borderRadius: responsiveWidth(5),
+    padding: responsiveWidth(1.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pop$sign: {
+    color: '#FE724C',
+    fontFamily: 'Gilroy-SemiBold',
+    fontSize: responsiveFontSize(2),
+  },
+  popprice: {
+    color: '#000',
+    fontFamily: 'Gilroy-SemiBold',
+    fontSize: responsiveFontSize(2),
+  },
+  popratingcontainer: {
+    backgroundColor: '#FFFFFF',
+    elevation: 5,
+    shadowColor: 'light-brown',
+    position: 'absolute',
+    bottom: responsiveHeight(-1.5),
+    left: responsiveWidth(3),
+    flexDirection: 'row',
+    borderRadius: responsiveWidth(5),
+    padding: responsiveWidth(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap:responsiveWidth(1),
+    flexWrap:'wrap',
+    
+
+  },
+  poprating: {
+    color: '#000',
+    fontFamily: 'Gilroy-SemiBold',
+    fontSize: responsiveFontSize(1.7),
+  },
+  popdetails: {
+    marginTop:responsiveHeight(1.2),
+    padding: responsiveWidth(2.5),
+  },
+  popimg: {
+    width: 'auto',
+    height: responsiveHeight(20),
+    borderRadius: responsiveWidth(2),
+  },
+  popfoodnametxt: {
+    fontFamily: 'Gilroy-Medium',
+    fontSize: responsiveFontSize(1.8),
+  },
+  poptxto: {
+    color: '#000',
+    fontFamily: 'Gilroy-SemiBold',
+    fontSize: responsiveFontSize(2),
+  },
+  iconstyl: {
+    fontSize: responsiveFontSize(4),
+  },
+  starticon: {
+    fontSize: responsiveFontSize(2),
+  },
+});
 
 export default ViewScreen;

@@ -83,8 +83,9 @@ const MyOrderScreen = ({navigation}) => {
         height:'100%'
       }}>
       {simmertime == 0 ? (
-        simmerarr.map(item => (
+        simmerarr.map((item,index) => (
           <View
+         key={index}
             style={{
               backgroundColor: '#FFF',
               shadowOpacity: 10,
@@ -99,7 +100,7 @@ const MyOrderScreen = ({navigation}) => {
               marginTop:responsiveHeight(2),
               marginLeft: responsiveWidth(7),
             }}
-            key={item.index}>
+            >
             <Shimmer
               width={responsiveWidth(75)}
               height={responsiveHeight(20)}
@@ -207,8 +208,8 @@ const MyOrderScreen = ({navigation}) => {
                 
                 }}>
                   <View style={{padding:20}}>
-                  <Text style={{color:"#000",fontSize:25,fontWeight:'600'}}>You did not get any food food yet </Text>
-                  <Text style={{color:"#000",fontSize:25,fontWeight:'600'}}>Go and take ur food......</Text>
+                  <Text style={{color:"#000",fontSize:responsiveFontSize(2.5),fontFamily:'Gilroy-Bold'}}>You did not get any food food yet </Text>
+                  <Text style={{color:"#000",fontSize:responsiveFontSize(2.5),fontFamily:'Gilroy-Bold'}}>Go and take ur food......</Text>
                 </View>
                 </View>
               ) : (
@@ -388,23 +389,23 @@ const MyOrderScreen = ({navigation}) => {
             </View>
           ) : (
             <>
-              <View style={{marginTop: '7%', marginLeft: '8%'}}>
+              <View style={{marginTop:responsiveHeight(2), marginLeft:responsiveWidth(8)}}>
                 <Text
-                  style={{color: '#111719', fontWeight: '600', fontSize: 18}}>
+                  style={{color: '#111719', fontFamily:'Gilroy-Bold', fontSize:responsiveFontSize(3)}}>
                   Lasted Orders
                 </Text>
               </View>
               <View style={{alignItems: 'center'}}>
                 <View
                   style={{
-                    marginTop: '5%',
+                    marginTop:responsiveHeight(2),
                     backgroundColor: '#FFFFFF',
                     shadowOpacity: 10,
                     elevation: 6,
                     shadowColor: 'light-brown',
-                    borderRadius: 20,
+                    borderRadius:responsiveWidth(2),
                   }}>
-                  <View style={{padding: '5%', gap: 10}}>
+                  <View style={{padding:responsiveWidth(5), gap:responsiveWidth(2)}}>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -412,32 +413,32 @@ const MyOrderScreen = ({navigation}) => {
                       }}>
                       <View
                         style={{
-                          width: '30%',
-                          height: 80,
+                          width: responsiveWidth(20),
+                          height:responsiveHeight(10),
                           shadowOpacity: 10,
                           elevation: 6,
                           backgroundColor: '#FFF',
                           shadowColor: 'light-brown',
                           justifyContent: 'center',
                           alignItems: 'center',
-                          borderRadius: 20,
+                          borderRadius:responsiveWidth(2),
                         }}>
-                        <Image source={require('../assets/subwayicon.png')} />
+                        <Image source={require('../assets/subwayicon.png')} style={{width:responsiveWidth(8),height:responsiveHeight(5)}} resizeMode='contain'/>
                       </View>
                       <View>
                         <Text
                           style={{
                             color: '#9796A1',
-                            fontSize: 13,
-                            fontWeight: '500',
+                            fontSize:responsiveFontSize(2.2),
+                            fontFamily:"Gilroy-Medium"
                           }}>
                           20 jun, 10:30
                         </Text>
                         <Text
                           style={{
                             color: '#000',
-                            fontSize: 16,
-                            fontWeight: '600',
+                            fontSize:responsiveFontSize(2.2),
+                            fontFamily:'Gilroy-Bold'
                           }}>
                           Subway
                         </Text>
@@ -446,8 +447,8 @@ const MyOrderScreen = ({navigation}) => {
                         <Text
                           style={{
                             color: '#FE724C',
-                            fontSize: 16,
-                            fontWeight: '400',
+                            fontSize:responsiveFontSize(2.5),
+                            fontFamily:'Gilroy-SemiBold',
                           }}>
                           $17.10
                         </Text>
@@ -458,14 +459,15 @@ const MyOrderScreen = ({navigation}) => {
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
+                        gap:responsiveWidth(5)
                       }}>
                       <TouchableOpacity
                         style={{
                           backgroundColor: '#FFF',
                           borderWidth: 1,
-                          width: '40%',
-                          height: 55,
-                          borderRadius: 30,
+                          width:responsiveWidth(35),
+                          height:responsiveHeight(6),
+                          borderRadius:responsiveWidth(20),
                           justifyContent: 'center',
                           alignItems: 'center',
                           borderColor: '#F1F2F3',
@@ -473,8 +475,8 @@ const MyOrderScreen = ({navigation}) => {
                         <Text
                           style={{
                             color: '#000',
-                            fontSize: 16,
-                            fontWeight: '600',
+                            fontSize:responsiveFontSize(2.2),
+                            fontFamily:'Gilroy-Bold'
                           }}>
                           Rate
                         </Text>
@@ -482,17 +484,17 @@ const MyOrderScreen = ({navigation}) => {
                       <TouchableOpacity
                         style={{
                           backgroundColor: '#FE724C',
-                          width: '40%',
-                          height: 55,
-                          borderRadius: 30,
+                          width:responsiveWidth(35),
+                          height:responsiveHeight(6),
+                          borderRadius:responsiveWidth(20),
                           justifyContent: 'center',
                           alignItems: 'center',
                         }}>
                         <Text
                           style={{
                             color: '#FFF',
-                            fontSize: 16,
-                            fontWeight: '600',
+                            fontSize:responsiveFontSize(2.2),
+                            fontFamily:'Gilroy-Bold'
                           }}>
                           Re-Order
                         </Text>
@@ -501,17 +503,17 @@ const MyOrderScreen = ({navigation}) => {
                   </View>
                 </View>
               </View>
-              <View style={{alignItems: 'center'}}>
+              <View style={{alignItems: 'center',marginBottom:responsiveHeight(5)}}>
                 <View
                   style={{
-                    marginTop: '5%',
+                    marginTop:responsiveHeight(2),
                     backgroundColor: '#FFFFFF',
                     shadowOpacity: 10,
                     elevation: 6,
                     shadowColor: 'light-brown',
-                    borderRadius: 20,
+                    borderRadius:responsiveWidth(2),
                   }}>
-                  <View style={{padding: '5%', gap: 10}}>
+                  <View style={{padding:responsiveWidth(5), gap:responsiveWidth(2)}}>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -519,32 +521,32 @@ const MyOrderScreen = ({navigation}) => {
                       }}>
                       <View
                         style={{
-                          width: '30%',
-                          height: 80,
+                          width: responsiveWidth(20),
+                          height:responsiveHeight(10),
                           shadowOpacity: 10,
                           elevation: 6,
                           backgroundColor: '#FFF',
                           shadowColor: 'light-brown',
                           justifyContent: 'center',
                           alignItems: 'center',
-                          borderRadius: 20,
+                          borderRadius:responsiveWidth(2),
                         }}>
-                        <Image source={require('../assets/subwayicon.png')} />
+                        <Image source={require('../assets/subwayicon.png')}  />
                       </View>
                       <View>
                         <Text
                           style={{
                             color: '#9796A1',
-                            fontSize: 13,
-                            fontWeight: '500',
+                            fontSize:responsiveFontSize(2.2),
+                            fontFamily:"Gilroy-Medium"
                           }}>
                           20 jun, 10:30
                         </Text>
                         <Text
                           style={{
                             color: '#000',
-                            fontSize: 16,
-                            fontWeight: '600',
+                            fontSize:responsiveFontSize(2.2),
+                            fontFamily:'Gilroy-Bold'
                           }}>
                           Subway
                         </Text>
@@ -553,8 +555,8 @@ const MyOrderScreen = ({navigation}) => {
                         <Text
                           style={{
                             color: '#FE724C',
-                            fontSize: 16,
-                            fontWeight: '400',
+                            fontSize:responsiveFontSize(2.5),
+                            fontFamily:'Gilroy-SemiBold',
                           }}>
                           $17.10
                         </Text>
@@ -565,14 +567,15 @@ const MyOrderScreen = ({navigation}) => {
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
+                        gap:responsiveWidth(5)
                       }}>
                       <TouchableOpacity
                         style={{
                           backgroundColor: '#FFF',
                           borderWidth: 1,
-                          width: '40%',
-                          height: 55,
-                          borderRadius: 30,
+                          width:responsiveWidth(35),
+                          height:responsiveHeight(6),
+                          borderRadius:responsiveWidth(20),
                           justifyContent: 'center',
                           alignItems: 'center',
                           borderColor: '#F1F2F3',
@@ -580,8 +583,8 @@ const MyOrderScreen = ({navigation}) => {
                         <Text
                           style={{
                             color: '#000',
-                            fontSize: 16,
-                            fontWeight: '600',
+                            fontSize:responsiveFontSize(2.2),
+                            fontFamily:'Gilroy-Bold'
                           }}>
                           Rate
                         </Text>
@@ -589,17 +592,17 @@ const MyOrderScreen = ({navigation}) => {
                       <TouchableOpacity
                         style={{
                           backgroundColor: '#FE724C',
-                          width: '40%',
-                          height: 55,
-                          borderRadius: 30,
+                          width:responsiveWidth(35),
+                          height:responsiveHeight(6),
+                          borderRadius:responsiveWidth(20),
                           justifyContent: 'center',
                           alignItems: 'center',
                         }}>
                         <Text
                           style={{
                             color: '#FFF',
-                            fontSize: 16,
-                            fontWeight: '600',
+                            fontSize:responsiveFontSize(2.2),
+                            fontFamily:'Gilroy-Bold'
                           }}>
                           Re-Order
                         </Text>
@@ -608,114 +611,7 @@ const MyOrderScreen = ({navigation}) => {
                   </View>
                 </View>
               </View>
-
-              <View style={{alignItems: 'center', marginBottom: '10%'}}>
-                <View
-                  style={{
-                    marginTop: '5%',
-                    backgroundColor: '#FFFFFF',
-                    shadowOpacity: 10,
-                    elevation: 6,
-                    shadowColor: 'light-brown',
-                    borderRadius: 20,
-                  }}>
-                  <View style={{padding: '5%', gap: 10}}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <View
-                        style={{
-                          width: '30%',
-                          height: 80,
-                          shadowOpacity: 10,
-                          elevation: 6,
-                          backgroundColor: '#FFF',
-                          shadowColor: 'light-brown',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          borderRadius: 20,
-                        }}>
-                        <Image source={require('../assets/subwayicon.png')} />
-                      </View>
-                      <View>
-                        <Text
-                          style={{
-                            color: '#9796A1',
-                            fontSize: 13,
-                            fontWeight: '500',
-                          }}>
-                          20 jun, 10:30
-                        </Text>
-                        <Text
-                          style={{
-                            color: '#000',
-                            fontSize: 16,
-                            fontWeight: '600',
-                          }}>
-                          Subway
-                        </Text>
-                      </View>
-                      <View>
-                        <Text
-                          style={{
-                            color: '#FE724C',
-                            fontSize: 16,
-                            fontWeight: '400',
-                          }}>
-                          $17.10
-                        </Text>
-                      </View>
-                    </View>
-
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <TouchableOpacity
-                        style={{
-                          backgroundColor: '#FFF',
-                          borderWidth: 1,
-                          width: '40%',
-                          height: 55,
-                          borderRadius: 30,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          borderColor: '#F1F2F3',
-                        }}>
-                        <Text
-                          style={{
-                            color: '#000',
-                            fontSize: 16,
-                            fontWeight: '600',
-                          }}>
-                          Rate
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={{
-                          backgroundColor: '#FE724C',
-                          width: '40%',
-                          height: 55,
-                          borderRadius: 30,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <Text
-                          style={{
-                            color: '#FFF',
-                            fontSize: 16,
-                            fontWeight: '600',
-                          }}>
-                          Re-Order
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </View>
-              </View>
+              
             </>
           )}
         </>

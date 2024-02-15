@@ -30,20 +30,97 @@ import {
 import Signupwithbtn from '../components/Signupwithbtn';
 import FormInput from '../components/FormInput';
 
+
 const RegisterScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
-  const[phone,setPhone] = useState('');
+  const [phone,setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [conpassword,setConpassword] = useState('');
   const [errors, setErrors] = useState({});
+  const [showpass,setShowpass] = useState(true);
+  const [showcpass,setShowcpass] = useState(true);
+
+
+
+
+   const nameblur = () =>{
+    let errors = {};
+     fullName.trim();
+    if (!fullName) {
+      errors.fullName = "Please enter your full name.";
+    } else if (!fullName.match(/^[^\d]+$/)) {
+      errors.fullName = "fullname cannot contain numbers.";
+    } else if (fullName.match(/^[^\w]|[^\w\s]|[^\w]$/g)) {
+      errors.fullName = "fullname cannot contain special characters.";
+    }
+    setErrors(errors);
+   }
+
+   const emailblur = () =>{
+    let errors = {};
+    if (!email) {
+      errors.email = "Please enter your email.";
+    } else if (!email.match(/^\S+@\S+\.\S+$/)) {
+      errors.email = "Invalid email format.";
+    }
+    setErrors(errors);
+   }
+
+   const phoneblur = () =>{
+    let errors = {};
+    if(!phone){
+      errors.phone = "Please enter phone no.";
+    }
+    else if (!phone.match(/^[0-9]+$/)) {
+      errors.phone = "Invalid phone no.";
+    }
+
+    setErrors(errors);
+   }
+
+
+   const passblur = () =>{
+    let errors = {};
+    if (!password) {
+      errors.password = "Please enter your password";
+    } else if (
+      !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,100}$/)
+    ) {
+      errors.password =
+        "Password: 6+ characters, mix of uppercase/lowercase letters, and at least one digit.";
+    }
+
+    setErrors(errors);
+   }
+
+   const cpassblur = () =>{
+    let errors = {};
+    if(!conpassword){
+      errors.conpassword = "Please re-enter you password";
+    }
+    else if(!(password === conpassword)){
+      errors.conpassword = "Your confirm password and password did not match";
+    }
+
+    setErrors(errors);
+   }
+
+
+ 
+
+
+
+
+
 
 
   const handleRegister = async () => {
+
+  
     try {
-    
       const response = await fetch(`${url}api/register`, {
         method: 'POST',
         headers: {
@@ -259,7 +336,14 @@ const RegisterScreen = ({navigation}) => {
     }
   };
 
-  console.log('error>',errors)
+  const showhide =() =>{
+    console.log('hinden');
+    setShowpass(!showpass);
+  }
+  const showhidet =() =>{
+    console.log('hinden');
+    setShowcpass(!showcpass);
+  }
 
 
   return (
@@ -272,46 +356,58 @@ const RegisterScreen = ({navigation}) => {
         <View style={styles.formcontainer}>
           <FormInput
             label={'Full Name'}
-            onChangeText={text => setFullName(text)}
+            onChangeText={(text) => {setFullName(text),nameblur()}}
             value={fullName}
             placeholder={'Enter your name'}
             error={errors?.fullName}
-            clearerrors={ ()=>setErrors('')}
+            // clearerrors={ ()=>setErrors('')}
+            blur={nameblur}
+
+
           />
 
           <FormInput
             label={'Email'}
-            onChangeText={text => setEmail(text)}
+            onChangeText={text => {setEmail(text),emailblur()}}
             value={email}
             placeholder={'Enter your email'}
             error={errors?.email || errors?.message}
-            clearerrors={ ()=>setErrors('')}
+            // clearerrors={ ()=>setErrors('')}
+            blur={emailblur}
           />
 
           <FormInput
-            label={'Phone-No'}
+            label={'Phone no'}
             value={phone}
-            onChangeText={text => setPhone(text)}
+            onChangeText={text => {setPhone(text),phoneblur()}}
             placeholder={'Enter your phone no.'}
             error={errors?.phone}
-            clearerrors={ ()=>setErrors('')}
+            // clearerrors={ ()=>setErrors('')}
+            blur={phoneblur}
           />
 
           <FormInput
             label={'Password'}
             value={password}
-            onChangeText={text => setPassword(text)}
+            onChangeText={text => {setPassword(text),passblur()}}
             placeholder={'Enter your password'}
             error={errors?.Password || errors?.password}
-            clearerrors={ ()=>setErrors('')}
+            // clearerrors={ ()=>setErrors('')}
+            showtxt={showpass}
+            showtxtfn={showhide}
+            blur={passblur}
           />
           <FormInput
             label={'Confirm password'}
             value={conpassword}
-            onChangeText={text => setConpassword(text)}
+            onChangeText={text => {setConpassword(text),cpassblur()}}
             placeholder={'Re-enter your password'}
             error={errors?.ConPassword || errors?.conpassword}
-            clearerrors={ ()=>setErrors('')}
+            // clearerrors={ ()=>setErrors('')}
+            showtxt={showcpass}
+            showtxtfn={showhidet}
+            blur={cpassblur}
+            
           />
         </View>
 

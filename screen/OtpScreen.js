@@ -30,34 +30,15 @@ import Animated, {
 
 
 
-const duration = 5000;
-const easing = Easing.bezier(0.25, -0.5, 0.25, 1);
+
 const OtpScreen = ({navigation}) => {
   const route = useRoute();
   const {email,token} = route?.params;
   const dispatch = useDispatch();
-  const [modalVisible, setModalVisible] = useState(false);
-
   const [otp, setOtp] = useState(['', '', '', '']);
   const otpInputs = useRef([null, null, null, null]);
   const verifyotp = ['1', '1', '1', '1'];
 
-
-  const sv = useSharedValue(0);
-  useEffect(() => {
-    sv.value = withRepeat(withTiming(1, { duration, easing }), -1);
-  }, []);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${sv.value * 360}deg` }],
-  }));
-
-
-
-  const toggleModal = () => {
-    setModalVisible(true);
-  };
- 
 
   const handleOtpInput = (index, value) => {
     const newOtp = [...otp];
@@ -70,7 +51,6 @@ const OtpScreen = ({navigation}) => {
     if (index === otpInputs.current.length - 1) {
       const isOtpMatch = newOtp.join('') === verifyotp.join('');
       if (isOtpMatch) {
-        // toggleModal();
         dispatch(loginUser('usercanlogin'));
         dispatch(usertoken(token));
         navigation.replace('HomeDrawer');
@@ -113,13 +93,7 @@ const OtpScreen = ({navigation}) => {
           </Text>
 
         </View>
-        {/* <Modal isVisible={modalVisible}>
-        <View style={styles.loadcontainer}>
-          <View  style={styles.loadcontainert}>
-      <Animated.Image style={[styles.loadbox, animatedStyle]} source={require('../assets/FooodHub.png')} />
-      </View>
-    </View>
-      </Modal> */}
+     
         <View
           style={{
             flexDirection: 'row',

@@ -27,8 +27,10 @@ import Animated from 'react-native-reanimated';
 
 import Carousel from '../components/Carousel';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
+import LoadingScreen from './LoadingScreen';
 
 const HomeScreen = props => {
+  const [loadingg,setLoadingg] = useState(true);
   const [user, setUser] = useState();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const usertoken = useSelector(state => state.auth.usertoken);
@@ -42,9 +44,14 @@ const HomeScreen = props => {
   const profileimge = require('../assets/profile.png');
 
 
+ const loading  = () =>{
+    setInterval(() => {
+      setLoadingg(false);
+    }, 1000);
+ }
+ loading();
 
   const setasync = () => {
- 
     AsyncStorage.setItem('isLoggedIn', 'true');
     AsyncStorage.setItem('token', usertoken);
   };
@@ -106,18 +113,6 @@ const HomeScreen = props => {
       delivery: '1.25',
       featured: false,
       tag: 'pasta',
-    },
-    {
-      id: 5,
-      foodname: 'Grilled Salmon',
-      price: '15.99',
-      fooddetails: 'Freshly grilled salmon with lemon and herbs.',
-      rating: '4.9',
-      imgsrc: require('../assets/dissss1.jpg'),
-      taxandfee: '7.00',
-      delivery: '1.75',
-      featured: false,
-      tag: 'seafood',
     },
     {
       id: 6,
@@ -916,7 +911,7 @@ const HomeScreen = props => {
         <View style={styles.popratingcontainer}>
           <Text style={styles.poprating}>{item?.rating}</Text>
           <Icon name="star-sharp" color="#FFC529" style={styles.starticon} />
-          <Text>(25+)</Text>
+          <Text style={styles.ratingrev}>(25+)</Text>
         </View>
       </View>
       <View style={styles.popdetails}>
@@ -927,6 +922,9 @@ const HomeScreen = props => {
   );
 
   return (
+    <>
+    {
+      (loadingg)?<LoadingScreen /> :
     <ScrollView style={styles.container}>
       <View style={styles.headerContainer}>
         <Header
@@ -937,6 +935,7 @@ const HomeScreen = props => {
         <TouchableOpacity
           onPress={() => props.navigation.navigate('MyProfileScreen')}>
           <Image
+          resizeMode='contain'
             style={styles.profileImage}
             source={profiledata?.imgurl
               ? { uri: `${url}${profiledata?.imgurl}` }
@@ -950,7 +949,7 @@ const HomeScreen = props => {
 
       <View style={styles.searchContainer}>
         <View style={styles.inputContainer}>
-          <Icon name="search" color="767F9D" style={styles.iconstyl} />
+          <Icon name="search" color="#767F9D" style={styles.iconstyl} />
           <TextInput
             placeholder="Find for food or restaurant..."
             style={styles.inputText}
@@ -1008,8 +1007,12 @@ const HomeScreen = props => {
         keyExtractor={item => item?.id}
         renderItem={renderpopularitem}
         numColumns={2}
+        style={styles.popmaincontainer}
       />
     </ScrollView>
+}
+    </>
+
   );
 };
 
@@ -1192,15 +1195,23 @@ const styles = StyleSheet.create({
     fontFamily: 'Gilroy-Medium',
   },
 
+
+  popmaincontainer:{
+    
+    marginLeft:responsiveWidth(6),
+
+  },
   popcontainer: {
-    marginLeft: responsiveWidth(4),
-    marginVertical: responsiveHeight(1),
+   
     width: responsiveWidth(44),
     backgroundColor: '#FFFFFF',
     shadowOpacity: 10,
     elevation: 1,
     shadowColor: 'light-brown',
+    marginHorizontal:responsiveWidth(1),
+    marginVertical:responsiveHeight(1),
     borderRadius: responsiveWidth(2),
+
     
     
   },
@@ -1219,14 +1230,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
     borderRadius: responsiveWidth(5),
-    padding: responsiveWidth(1.5),
+    height:responsiveHeight(5),
+    width: responsiveWidth(16),
     alignItems: 'center',
     justifyContent: 'center',
   },
   pop$sign: {
     color: '#FE724C',
     fontFamily: 'Gilroy-SemiBold',
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveFontSize(1.5),
   },
   popprice: {
     color: '#000',
@@ -1234,30 +1246,34 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2),
   },
   popratingcontainer: {
+  
+    height:responsiveHeight(4),
+    width:responsiveWidth(16),
     backgroundColor: '#FFFFFF',
     elevation: 5,
     shadowColor: 'light-brown',
     position: 'absolute',
     bottom: responsiveHeight(-2),
     left: responsiveWidth(3),
-    flexDirection: 'row',
+    flexDirection:'row',
     borderRadius: responsiveWidth(5),
-    padding: responsiveWidth(2),
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent:'center',
+    alignItems:'center',
     gap:responsiveWidth(1),
     flexWrap:'wrap',
-    
+    paddingTop:responsiveHeight(0.7)
 
   },
   poprating: {
+
     color: '#000',
     fontFamily: 'Gilroy-SemiBold',
-    fontSize: responsiveFontSize(1.7),
+    fontSize: responsiveFontSize(1.4),
   },
   popdetails: {
     marginTop:responsiveHeight(1.2),
     padding: responsiveWidth(2.5),
+    gap:responsiveWidth(1.5)
   },
   popimg: {
     width: 'auto',
@@ -1266,13 +1282,14 @@ const styles = StyleSheet.create({
   },
   popfoodnametxt: {
     fontFamily: 'Gilroy-Medium',
-    fontSize: responsiveFontSize(1.8),
+    fontSize: responsiveFontSize(1.5),
   },
   poptxto: {
     color: '#000',
     fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(2),
   },
+  ratingrev:{fontFamily:'Gilroy-Regular',fontSize:responsiveFontSize(1.2)},
   iconstyl: {
     fontSize: responsiveFontSize(4),
   },
@@ -1302,7 +1319,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(5),
   },
   starticon: {
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveFontSize(1.3),
   },
 });
 

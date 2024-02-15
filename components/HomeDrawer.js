@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
+  Alert,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {url} from './url';
@@ -20,7 +21,7 @@ import {
 } from 'react-native-responsive-dimensions';
 
 const HomeDrawer = props => {
-  console.log('homedrawerrender>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>1');
+
 
   const profiledata = useSelector(state => state.auth.profiledata);
   const screenWidth = Dimensions.get('window').width;
@@ -29,23 +30,40 @@ const HomeDrawer = props => {
   // console.log("profiledata>>>>>>>>>>>>>",profiledata);
 
   const logout = async () => {
-    console.log('logout press>>>>>>>>>>>>>>>>>>>>>>>');
-    await AsyncStorage.removeItem('isLoggedIn');
-    await AsyncStorage.removeItem('token');
-    props.navigation.navigate('LoginScreen');
+  
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          onPress: async () => {
+            console.log('User confirmed logout');
+            await AsyncStorage.removeItem('isLoggedIn');
+            await AsyncStorage.removeItem('token');
+            props.navigation.navigate('LoginScreen');
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   const DrawerData = [
     {
       key: '1',
-      name: 'MyOrderScreen',
+      name: 'Order screen',
       src: require('../assets/Document.png'),
       screen: 'MyOrder',
       icon: 'reader-outline',
     },
     {
       key: '2',
-      name: 'My Profile',
+      name: 'My profile',
       src: require('../assets/profileicon.png'),
       screen: 'MyProfileScreen',
       icon: 'person-circle-outline',
@@ -203,7 +221,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Gilroy-Medium',
   },
   iconsize: {
-    fontSize: responsiveFontSize(4),
+    fontSize: responsiveFontSize(3),
   },
 });
 

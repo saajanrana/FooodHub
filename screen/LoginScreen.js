@@ -39,16 +39,30 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState();
+  const [showpass,setShowpass] = useState(true);
 
 
 
-  const loader = () =>{
-       useEffect(()=>{
-         setTimeout(() => {
-            
-         },2000);
-       })
-  }
+
+  const emailblur = () =>{
+    let errors = {};
+    if (!email) {
+      errors.error1 = "Please enter your email.";
+    } else if (!email.match(/^\S+@\S+\.\S+$/)) {
+      errors.error1 = "Invalid email format.";
+    }
+    setErrors(errors);
+   }
+
+   const passblur = () =>{
+    let errors = {};
+    if (!password) {
+      errors.error2 = "Please enter your password";
+    }
+
+    setErrors(errors);
+   }
+
 
   const handleLogin = async () => {
     try {
@@ -214,6 +228,11 @@ const LoginScreen = ({navigation}) => {
     }
   };
 
+  const showhide =() =>{
+    console.log('hinden');
+    setShowpass(!showpass);
+  }
+
   return (
     <ScrollView style={styles.maincontainer}>
       <View style={styles.header}>
@@ -225,18 +244,20 @@ const LoginScreen = ({navigation}) => {
         <FormInput
           label={'Email'}
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={text => {setEmail(text),emailblur()}}
           placeholder={'Enter your email'}
           error={errors?.error1}
-          
+          blur={emailblur}
         />
         <FormInput
           label={'Password'}
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={text => {setPassword(text),passblur()}}
           placeholder={'Enter your password'}
           error={errors?.error2}
-          
+          showtxt={showpass}
+          showtxtfn={showhide}
+          blur={passblur}
         />
         </View>
         <View style={styles.forgotPassword}>

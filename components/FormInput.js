@@ -1,23 +1,40 @@
 import React from 'react';
 import {View, StyleSheet,Text,TextInput} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
     responsiveFontSize,
     responsiveHeight,
     responsiveWidth,
   } from 'react-native-responsive-dimensions';
+  import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
-const FormInput = ({ label, value, onChangeText, placeholder, error,clearerrors }) => {
+const FormInput = ({ label, value, onChangeText, placeholder, error,clearerrors,showtxt,showtxtfn,blur }) => {
     return (
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>{label}</Text>
+          <View style={styles.scontainer}>
+
+          
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
             value={value}
             placeholder={placeholder}
             placeholderTextColor={'#9796A1'}
-            onFocus={clearerrors}
+            // onPress={blur}
+            // onFocus={blur}
+            secureTextEntry={showtxt}
+            onBlur={blur}
+    
           />
+          {showtxt !== undefined &&((showtxt)?<TouchableOpacity style={styles.hideshow} onPress={showtxtfn}>
+              <Icon name='visibility' style={styles.icons} />
+            </TouchableOpacity>:<TouchableOpacity  style={styles.hideshow} onPress={showtxtfn}>
+            <Icon name='visibility-off' style={styles.icons} />
+            </TouchableOpacity>)
+          }
+         </View>
+       
           {error && (
             <Text style={styles.error}>
                 {error}
@@ -31,7 +48,16 @@ const styles = StyleSheet.create({
     inputContainer: {
    
         marginLeft: responsiveWidth(6),
-      },
+        flexDirection:'column'
+            },
+            scontainer:{
+              width: responsiveWidth(90),
+              height: responsiveHeight(9),
+              borderWidth: responsiveFontSize(0.11),
+              borderColor: '#B3B3B3',
+              marginTop: responsiveHeight(1),
+              borderRadius: responsiveWidth(2),
+            },
       inputLabel: {
         fontSize: responsiveFontSize(2.2),
         marginLeft: responsiveWidth(0.5),
@@ -40,16 +66,28 @@ const styles = StyleSheet.create({
         
       },
       input: {
-        borderWidth: responsiveFontSize(0.11),
-        borderColor: '#B3B3B3',
-        width: responsiveWidth(90),
+       
+        width: responsiveWidth(80),
         height: responsiveHeight(9),
-        marginTop: responsiveHeight(1),
+       
         fontSize: responsiveFontSize(2.4),
-        borderRadius: responsiveWidth(2),
+      
         paddingLeft: responsiveWidth(5),
         fontFamily: 'Gilroy-Medium',
         color: 'black',
+   
+      },
+      hideshow:{
+        position:'absolute',
+        right:responsiveWidth(2),
+        top:responsiveHeight(-6.5)       
+
+        
+      },
+      icons:{
+   
+         fontSize:responsiveFontSize(3),
+        
       },
       error: {
         marginLeft: responsiveWidth(1),
