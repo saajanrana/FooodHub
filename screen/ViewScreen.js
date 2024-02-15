@@ -894,7 +894,7 @@ const ViewScreen = ({navigation},props) => {
         </View>
               </View>
               <TouchableOpacity
-                style={{padding: responsiveWidth(2.5)}}
+                style={{padding: responsiveWidth(2.5),marginTop:responsiveHeight(1)}}
                 onPress={() =>
                   navigation.navigate('FoodDetail', {foodId: item?.item?.id})
                 }>
@@ -909,7 +909,7 @@ const ViewScreen = ({navigation},props) => {
                 <Text
                   style={{
                     color: '#5B5B5E',
-                    fontSize: responsiveFontSize(2),
+                    fontSize: responsiveFontSize(1.8),
                     fontFamily:'Gilroy-Medium'
                   }}>
                   Chicken,Cheese and pineapple
@@ -981,30 +981,34 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2),
   },
   popratingcontainer: {
+  
+    height:responsiveHeight(4),
+    width:responsiveWidth(Dimensions.get('window').width>600?16:22),
     backgroundColor: '#FFFFFF',
     elevation: 5,
     shadowColor: 'light-brown',
     position: 'absolute',
-    bottom: responsiveHeight(-1.5),
+    bottom: responsiveHeight(-2),
     left: responsiveWidth(3),
-    flexDirection: 'row',
+    flexDirection:'row',
     borderRadius: responsiveWidth(5),
-    padding: responsiveWidth(2),
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent:'center',
+    alignItems:'center',
     gap:responsiveWidth(1),
     flexWrap:'wrap',
-    
+    paddingTop:responsiveHeight(0.7)
 
   },
   poprating: {
+
     color: '#000',
     fontFamily: 'Gilroy-SemiBold',
-    fontSize: responsiveFontSize(1.7),
+    fontSize: responsiveFontSize(1.4),
   },
   popdetails: {
     marginTop:responsiveHeight(1.2),
     padding: responsiveWidth(2.5),
+    gap:responsiveWidth(1.5)
   },
   popimg: {
     width: 'auto',
@@ -1013,18 +1017,19 @@ const styles = StyleSheet.create({
   },
   popfoodnametxt: {
     fontFamily: 'Gilroy-Medium',
-    fontSize: responsiveFontSize(1.8),
+    fontSize: responsiveFontSize(1.5),
   },
   poptxto: {
     color: '#000',
     fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(2),
   },
+  ratingrev:{fontFamily:'Gilroy-Regular',fontSize:responsiveFontSize(1.2)},
   iconstyl: {
     fontSize: responsiveFontSize(4),
   },
   starticon: {
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveFontSize(1.5),
   },
 });
 

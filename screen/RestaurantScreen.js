@@ -7,10 +7,14 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import {FlatList} from 'react-native-gesture-handler';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 const RestaurantScreen = ({navigation}) => {
@@ -553,138 +557,196 @@ const RestaurantScreen = ({navigation}) => {
 
   const restaurant = restaurants.find(item => item?.id === restId);
   const itemsinside = restaurant?.items;
-  console.log('inside>>>>', itemsinside);
+
 
   return (
     <ScrollView style={{flex: 1}}>
       <View style={styles.headercontainer}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.headertouchbtn}>
-              <Icon
-                name="arrow-back-ios"
-                style={styles.backbtn}
-                color="black"
-              />
-            </TouchableOpacity>
-
-              <Text style={styles.headertxt}>Restaurant</Text>
-            
-          </View>
-      <View style={{marginTop:responsiveHeight(2)}}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.headertouchbtn}>
+          <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
+        </TouchableOpacity>
+        <View style={{alignItems:'center',justifyContent:'center', width: responsiveWidth(70),}}>
+        <Text style={styles.headertxt}>Restaurant</Text>
+        </View>
+      </View>
+      <View style={{marginTop: responsiveHeight(2)}}>
         <View
           style={{
-            height: responsiveHeight(isTablet?60:35),
-            width:responsiveWidth(100),
+            height: responsiveHeight(isTablet ? 30 : 25),
+            width: responsiveWidth(100),
             justifyContent: 'center',
             alignItems: 'center',
-
-          
           }}>
           <Image
             source={restaurant?.imgsrc}
             style={{
-              height:responsiveHeight(isTablet?60:35),
+              height: responsiveHeight(isTablet ? 30 : 25),
               width: responsiveWidth(90),
-              borderRadius:responsiveWidth(2),
-              
+              borderRadius: responsiveWidth(2),
             }}
           />
         </View>
-        <View style={{paddingLeft:responsiveHeight(isTablet?4:3)}}>
-          <Text style={{color: '#323643', fontSize:responsiveFontSize(3.5),fontFamily:'Gilroy-Bold'}}>
+        <View style={{paddingLeft: responsiveWidth(6)}}>
+          <Text
+            style={{
+              color: '#323643',
+              fontSize: responsiveFontSize(3.5),
+              fontFamily: 'Gilroy-Bold',
+            }}>
             {restaurant?.name}
           </Text>
         </View>
+
         <View
           style={{
             flexDirection: 'row',
-            gap:responsiveFontSize(1),
-            paddingLeft:responsiveHeight(isTablet?4:3),
-            
+            gap: responsiveWidth(1),
+            paddingLeft: responsiveWidth(6),
+            alignItems: 'center',
           }}>
-          <View>
+          <Icon name="star" color="yellow" style={styles.iconstyl} />
+          <Text
+            style={{
+              color: '#111719',
+              fontSize: responsiveFontSize(2),
+              fontFamily: 'Gilroy-SemiBold',
+            }}>
+            4.5
+          </Text>
+
+          <TouchableOpacity>
             <Text
               style={{
-                color: '#111719',
-                fontSize:responsiveFontSize(2),
-                fontFamily:'Gilroy-SemiBold'
+                color: '#FE724C',
+                fontSize: responsiveFontSize(1.8),
+                fontFamily: 'Gilroy-Medium',
+                textDecorationLine: 'underline',
+                textDecorationColor: '#FE724C',
               }}>
-              4.5
+              See Review
             </Text>
-          </View>
-          <View>
-            <TouchableOpacity>
-              <Text
-                style={{
-                  color: '#FE724C',
-                  fontSize:responsiveFontSize(1.8),
-                  fontFamily:'Gilroy-Medium',
-                  textDecorationLine: 'underline',
-                  textDecorationColor: '#FE724C',
-                }}>
-                See Review
-              </Text>
-            </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         </View>
-        <View
+       
+      </View>
+      <View
+        style={{
+          paddingLeft: responsiveWidth(6),
+          marginTop: responsiveHeight(1),
+        }}>
+        <Text
           style={{
-            paddingLeft:responsiveHeight(isTablet?4:3),
-            
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}></View>
+            color: '#858992',
+            fontSize: responsiveFontSize(2),
+            fontFamily: 'Gilroy-Medium',
+          }}>
+          {restaurant?.description}
+        </Text>
       </View>
-      <View style={{paddingLeft:responsiveHeight(isTablet?4:3), marginTop:responsiveHeight(1)}}>
-        <Text style={{color: '#858992',fontSize:responsiveFontSize(2),fontFamily:'Gilroy-Medium'}}>{restaurant?.description}</Text>
-      </View>
-      <View style={{alignItems: 'center', marginTop:responsiveHeight(3)}}>
-        <Text style={{color: '#000', fontSize:responsiveFontSize(2.5),fontFamily:'Gilroy-SemiBold'}}>
+      <View
+        style={{
+          
+          width: responsiveWidth(90),
+          height: responsiveHeight(0.2),
+          backgroundColor: '#000',
+          marginTop: responsiveHeight(1),
+          justifyContent: 'center',
+          alignItems: 'center',
+           marginLeft:responsiveWidth(6)
+        }}></View>
+      <View style={{alignItems: 'center', marginTop: responsiveHeight(1)}}>
+        <Text
+          style={{
+            color: '#000',
+            fontSize: responsiveFontSize(2.5),
+            fontFamily: 'Gilroy-SemiBold',
+          }}>
           Food By Restaurant
         </Text>
       </View>
 
       <FlatList
         data={itemsinside}
-        style={{marginTop:responsiveHeight(2),marginBottom:responsiveHeight(1)}}
+        style={{
+          marginTop: responsiveHeight(2),
+          marginBottom: responsiveHeight(1),
+        }}
         keyExtractor={item => item?.id}
-        renderItem={ item => (
+        renderItem={item => (
           <View
-          style={{alignItems:'center',marginBottom:responsiveHeight(2)}} 
-         >
-           <TouchableOpacity
-             key={item?.id}
-             style={{
-               flexDirection: 'row',
-               width:responsiveWidth(90),
-               gap:responsiveWidth(2), 
-             }}
-             onPress={() =>
-               navigation.navigate('FoodDetail', {foodId: item?.item?.id})
-             }>
-             <View style={{height:responsiveHeight(isTablet?15:11), width: responsiveWidth(30), borderRadius:responsiveWidth(2)}}>
-               <Image
-                 source={item?.item?.imgsrc}
-                 style={{height:responsiveHeight(isTablet?15:11), width:responsiveWidth(30), borderRadius:responsiveWidth(2)}}
-               />
-             </View>
-             <View style={{gap:responsiveWidth(1), width:responsiveWidth(60)}}>
-               <View
-                 style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-                 <Text style={{color: '#000', fontSize:responsiveFontSize(2.2),fontFamily:'Gilroy-Bold'}}>
-                   {item?.item?.foodname}
-                 </Text>
-               </View>
-               <Text style={{color: '#8C8A9D', fontSize:responsiveFontSize(2),fontFamily:'Gilroy-Medium'}}>
-                 {item?.item?.fooddetails}
-               </Text>
-             </View>
-           </TouchableOpacity>
-         </View>
+            style={{alignItems: 'center', marginBottom: responsiveHeight(2)}}>
+            <TouchableOpacity
+              key={item?.id}
+              style={{
+                flexDirection: 'row',
+                width: responsiveWidth(90),
+                gap: responsiveWidth(2),
+              }}
+              onPress={() =>
+                navigation.navigate('FoodDetail', {foodId: item?.item?.id})
+              }>
+              <View
+                style={{
+                  height: responsiveHeight(isTablet ? 17 : 13),
+                  width: responsiveWidth(30),
+                  borderRadius: responsiveWidth(2),
+                }}>
+                <Image
+                  source={item?.item?.imgsrc}
+                  style={{
+                    height: responsiveHeight(isTablet ? 17 : 13),
+                    width: responsiveWidth(30),
+                    borderRadius: responsiveWidth(2),
+                  }}
+                />
+              </View>
+              <View
+                style={{ width: responsiveWidth(60),height: responsiveHeight(isTablet ? 17 : 13)}}>
+                <View
+                  style={{
+                 
+                   
+                    gap:responsiveHeight(1),
+                    flexDirection: 'column',
+                   
+                  }}>
+                  <Text
+                    style={{
+                      color: '#000',
+                      fontSize: responsiveFontSize(2.2),
+                      fontFamily: 'Gilroy-Bold',
+                    }}>
+                    {item?.item?.foodname}
+                  </Text>
+                  <Text
+                  style={{
+                    color: '#8C8A9D',
+                    fontSize: responsiveFontSize(1.8),
+                    fontFamily: 'Gilroy-Medium',
+                  }}>
+                  {item?.item?.fooddetails}
+                </Text>
+                <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                  <View style={{flexDirection:'row'}}>
+                  <Icon name="star" color="yellow" style={styles.staricon} />
+                  <Text style={{fontFamily:'Gilroy-SemiBold',fontSize:responsiveFontSize(1.5),color:'black'}} >4.5</Text>
+                  </View>
+                  <View style={{flexDirection:'row',marginRight:responsiveWidth(7)}}>
+                    <Text style={{fontFamily:'Gilroy-SemiBold',fontSize:responsiveFontSize(1.5),color:'black'}}>$</Text>
+                    <Text style={{fontFamily:'Gilroy-SemiBold',fontSize:responsiveFontSize(1.5),color:'black'}}>10.5</Text>
+                  </View>
+                  
+                  
+                  </View>                
+                </View>
+                
+              </View>
+            </TouchableOpacity>
+          </View>
         )}
       />
-     
     </ScrollView>
   );
 };
@@ -715,8 +777,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Gilroy-Bold',
     color: 'black',
     textAlign: 'center',
-    marginLeft: responsiveWidth(15),
+    
   },
+  iconstyl: {
+    fontSize: responsiveFontSize(2.5),
+  },
+  staricon:{
+    fontSize:responsiveFontSize(2)
+  }
 });
 
 export default RestaurantScreen;

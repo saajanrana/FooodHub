@@ -100,8 +100,9 @@ const EditProfileScreen = ({navigation}) => {
             color="black"
           />
         </TouchableOpacity>
-
+          <View style={styles.headertxtview}>
          <Text style={styles.headertxt}>Edit Page</Text>
+         </View>
       </View>
 
       <View style={{gap:responsiveWidth(3),marginTop:responsiveHeight(2)}}>
@@ -197,7 +198,12 @@ const styles = StyleSheet.create({
       marginLeft:responsiveWidth(2),
       fontSize: responsiveFontSize(3),
     },
-    headertxt:{ fontSize:responsiveFontSize(3),fontFamily:'Gilroy-Bold',color:'black',textAlign:"center",marginLeft:responsiveWidth(15)},
+    headertxtview:{
+      justifyContent:'center',
+      alignItems:'center',
+      width:responsiveWidth(70)
+    },
+    headertxt:{ fontSize:responsiveFontSize(3),fontFamily:'Gilroy-Bold',color:'black',textAlign:"center"},
     optionlastbtn:{
      
     },

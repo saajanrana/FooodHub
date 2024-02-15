@@ -95,7 +95,9 @@ const AddToCartScreen = ({navigation}) => {
           style={styles.headertouchbtn}>
           <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
         </TouchableOpacity>
+        <View style={styles.headertxtview}>
         <Text style={styles.headertxt}>Cart</Text>
+        </View>
       </View>
       <View style={styles.secondcontainer}>
         {Addtocart.map(item => {
@@ -451,6 +453,11 @@ const styles = StyleSheet.create({
   backbtn: {
     marginLeft: responsiveWidth(2),
     fontSize: responsiveFontSize(3),
+  },
+  headertxtview:{
+    justifyContent:'center',
+    alignContent:'center',
+    width: responsiveWidth(60),
   },
   headertxt: {
     fontSize: responsiveFontSize(3),

@@ -982,11 +982,13 @@ const AllItemScreen = ({navigation}) => {
                 color="black"
               />
             </TouchableOpacity>
+            <View style={{alignItems:'center',justifyContent:'center', width: responsiveWidth(70),}}>
             {clicktab === 0 ? (
               <Text style={styles.headertxt}>All Items</Text>
             ) : (
               <Text style={styles.headertxt}>All Restaurant</Text>
             )}
+            </View>
           </View>
           <Animated.View
             entering={LightSpeedInRight.delay(200)
@@ -1121,13 +1123,15 @@ const AllItemScreen = ({navigation}) => {
 
                           <View
                             style={{
+                              height:responsiveHeight(5),
+                              width:responsiveWidth(16),
                               position: 'absolute',
                               top: responsiveHeight(2),
                               left: responsiveWidth(3),
                               flexDirection: 'row',
                               backgroundColor: 'white',
-                              borderRadius: responsiveWidth(20),
-                              padding: responsiveWidth(2),
+                              borderRadius: responsiveWidth(30),
+                             
                               alignItems: 'center',
                               justifyContent: 'center',
                             }}>
@@ -1135,7 +1139,7 @@ const AllItemScreen = ({navigation}) => {
                               style={{
                                 color: '#FE724C',
                                 fontFamily: 'Gilroy-Medium',
-                                fontSize: responsiveFontSize(2.2),
+                                fontSize: responsiveFontSize(2),
                               }}>
                               $
                             </Text>
@@ -1335,7 +1339,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Gilroy-Bold',
     color: 'black',
     textAlign: 'center',
-    marginLeft: responsiveWidth(15),
+    
   },
   popcontainer: {
     marginLeft: responsiveWidth(4),
@@ -1377,45 +1381,45 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2),
   },
   popratingcontainer: {
+  
+    height:responsiveHeight(4),
+    width:responsiveWidth(Dimensions.get('window').width>600?16:22),
     backgroundColor: '#FFFFFF',
     elevation: 5,
     shadowColor: 'light-brown',
     position: 'absolute',
     bottom: responsiveHeight(-2),
     left: responsiveWidth(3),
-    flexDirection: 'row',
+    flexDirection:'row',
     borderRadius: responsiveWidth(5),
-    padding: responsiveWidth(2),
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: responsiveWidth(1),
-    flexWrap: 'wrap',
+    justifyContent:'center',
+    alignItems:'center',
+    gap:responsiveWidth(1),
+    flexWrap:'wrap',
+    paddingTop:responsiveHeight(0.7)
+
   },
   poprating: {
+
     color: '#000',
     fontFamily: 'Gilroy-SemiBold',
-    fontSize: responsiveFontSize(1.7),
+    fontSize: responsiveFontSize(1.4),
   },
   popdetails: {
-    marginTop: responsiveHeight(1.2),
+    marginTop:responsiveHeight(1.2),
     padding: responsiveWidth(2.5),
+    gap:responsiveWidth(1.5)
   },
   popimg: {
     width: 'auto',
     height: responsiveHeight(20),
     borderRadius: responsiveWidth(2),
   },
-  popfoodnametxt: {
-    fontFamily: 'Gilroy-Medium',
-    fontSize: responsiveFontSize(1.8),
-  },
-  poptxto: {
-    color: '#000',
-    fontFamily: 'Gilroy-SemiBold',
-    fontSize: responsiveFontSize(2),
-  },
+ 
+ 
+  
   starticon: {
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveFontSize(1.5),
   },
 });
 

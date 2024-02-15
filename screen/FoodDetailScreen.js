@@ -779,8 +779,9 @@ const FoodDetailScreen = ({navigation}) => {
           style={styles.headertouchbtn}>
           <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
         </TouchableOpacity>
-
+        <View style={styles.headertxtview}>
         <Text style={styles.headertxt}>Item Details</Text>
+        </View>
       </View>
       <View style={styles.secondcontainer}>
         <View style={styles.mainimgcontainer}>
@@ -1119,12 +1120,13 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(2),
     fontSize: responsiveFontSize(3),
   },
+  headertxtview:{alignItems:'center',justifyContent:'center', width: responsiveWidth(70)},
   headertxt: {
     fontSize: responsiveFontSize(3),
     fontFamily: 'Gilroy-Bold',
     color: 'black',
     textAlign: 'center',
-    marginLeft: responsiveWidth(15),
+   
   },
   optiondiv2: {
     flexDirection: 'row',
