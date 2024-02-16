@@ -11,7 +11,8 @@ import {
   Dimensions,
   Modal,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 
@@ -967,13 +968,11 @@ const HomeScreen = props => {
           </View>
 
           <View style={styles.searchContainer}>
-            <View style={styles.inputContainer}>
-              <Icon name="search" color="#767F9D" style={styles.iconstyl} />
-              <TextInput
-                placeholder="Find for food or restaurant..."
-                style={styles.inputText}
-              />
-            </View>
+            <TouchableOpacity  style={styles.inputContainer} onPress={()=> props.navigation.navigate('SearchScreen')}>
+            <Icon name="search" color="#767F9D" style={styles.iconstyl} />
+              <Text style={styles.inputText}>Find for food or restaurant...</Text>
+            </TouchableOpacity>
+            
 
             <TouchableOpacity
               style={styles.filterIconContainer}
@@ -1035,17 +1034,14 @@ const HomeScreen = props => {
                   <View style={styles.modalsmain}>
                       <Text style={styles.modalsmaintxt}>Short By</Text>
                       <View style={styles.modalcat}>
-                          <TouchableOpacity style={styles.modalcattxtc}>
+                          <TouchableOpacity style={styles.modalcattxtc} onPress={()=>{setFilterModalVisible(false),props.navigation.navigate('AllItemScreen',{hvalue:'3'})}}>
                             <Text style={styles.modalcattxt}>Price</Text>
                           </TouchableOpacity>
-                          <TouchableOpacity style={styles.modalcattxtc}>
+                          <TouchableOpacity style={styles.modalcattxtc} onPress={()=>{setFilterModalVisible(false),props.navigation.navigate('AllItemScreen',{hvalue:'2'})}}>
                             <Text style={styles.modalcattxt}>Name</Text>
                           </TouchableOpacity>
-                          <TouchableOpacity style={styles.modalcattxtc}>
-                            <Text style={styles.modalcattxt}>Time/Date</Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity style={styles.modalcattxtc}>
-                            <Text style={styles.modalcattxt}>Rating</Text>
+                          <TouchableOpacity style={styles.modalcattxtc} onPress={()=>{setFilterModalVisible(false),props.navigation.navigate('AllItemScreen',{hvalue:'4'})}}>
+                            <Text style={styles.modalcattxt}>Popular</Text>
                           </TouchableOpacity>
                           
                       </View>
@@ -1074,7 +1070,7 @@ const HomeScreen = props => {
             </Text>
 
             <TouchableOpacity
-              onPress={() => props.navigation.navigate('AllItemScreen')}>
+              onPress={() => props.navigation.navigate('AllItemScreen',{hvalue:'1'})}>
               <Text style={styles.viewAllText}>View All</Text>
             </TouchableOpacity>
           </View>

@@ -1,51 +1,26 @@
-import {useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
+  Dimensions,
+  TouchableOpacity,
   Text,
   Image,
-  TouchableOpacity,
-  ImageBackground,
-  ScrollView,
+  TextInput,
   FlatList,
-  Dimensions,
 } from 'react-native';
-import Animated, {
-  LightSpeedInLeft,
-  LightSpeedInRight,
-  ReduceMotion,
-  SlideInDown,
-  SlideInUp,
-} from 'react-native-reanimated';
+
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
-import Header from '../components/Header';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
-import { Dropdown } from 'react-native-element-dropdown';
+import {useSelector} from 'react-redux';
 
-
-
-const data = [
-  {label: 'All Item', value: '1'},
-  {label: 'Popular', value: '2'},
-  {label: 'Price', value: '3'},
-  {label: 'Name', value: '4'},
-];
-
-
-const ViewScreen = ({navigation},props) => {
-  const route = useRoute();
-  const {foodtag} = route.params;
-  const [value, setValue] = useState('1');
-
-  const screenWidth = Dimensions.get('window').width;
-  const screenHeight = Dimensions.get('window').height;
-  const isTablet = screenWidth >= 600;
-
+const SearchScreen = ({navigation}) => {
+  const profiledata = useSelector(state => state.auth.profiledata);
+  const [searchtxt, setSearchtxt] = useState('');
   const viewallitem = [
     {
       id: 1,
@@ -97,18 +72,6 @@ const ViewScreen = ({navigation},props) => {
       delivery: '1.25',
       featured: false,
       tag: 'pasta',
-    },
-    {
-      id: 5,
-      foodname: 'Grilled Salmon',
-      price: '15.99',
-      fooddetails: 'Freshly grilled salmon with lemon and herbs.',
-      rating: '4.9',
-      imgsrc: require('../assets/dissss1.jpg'),
-      taxandfee: '7.00',
-      delivery: '1.75',
-      featured: false,
-      tag: 'seafood',
     },
     {
       id: 6,
@@ -775,232 +738,219 @@ const ViewScreen = ({navigation},props) => {
       tag: 'chinese',
     },
   ];
+  function truncateString(inputString) {
+    let words = inputString.split(' ');
 
-  const userfood = viewallitem.filter(item => item.tag === foodtag);
+    if (words.length > 10) {
+      let truncatedString = words.slice(0, 10).join(' ');
 
+      truncatedString += '...';
 
-  let renderdata =[];
-  if(value === '1') {
-      renderdata.push(...userfood);
+      return truncatedString;
+    } else {
+      return inputString;
+    }
   }
-  else if(value==='2'){
-   renderdata = userfood.sort((a, b) => b?.rating - a?.rating);
-  }
-  else if(value ==='3'){
-   renderdata = userfood.sort((a, b) => b?.price - a?.price);
-  }
-  else if(value ==='4'){
-   renderdata = userfood.sort((a, b) => a?.foodname?.localeCompare(b?.foodname));
+
+  let filteredData = [];
+  if (searchtxt) {
+    filteredData = viewallitem.filter(item =>
+      item.foodname.toLowerCase().includes(searchtxt.toLowerCase()),
+    );
+  } else {
+    filteredData = '';
   }
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor: '#FFF'}}>
-      <ImageBackground
-      resizeMode='cover'
-        source={require('../assets/newviewbackpic.jpg')}
-        style={{flex: 1}}>
-        <Animated.View
-          entering={LightSpeedInRight.delay(400)
-            .randomDelay()
-            .reduceMotion(ReduceMotion.Never)}
-          style={{
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            marginTop: responsiveHeight(5),
-          }}>
-          <TouchableOpacity
+    <View style={{backgroundColor: '#FCFCFD', flex: 1}}>
+      <View style={styles.headercontainer}>
+        <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.headertouchbtn}>
           <Icon name="arrow-back-ios" style={styles.backbtn} color="black" />
         </TouchableOpacity>
-          <View style={{flexWrap: 'wrap', marginLeft: responsiveWidth(5)}}>
-            <Text
-              style={{
-                fontSize: responsiveFontSize(7),
-                color: '#272D2F',
-                fontFamily:'Gilroy-Bold'
-              }}>
-              Fast
-            </Text>
-            <Text
-              style={{
-                fontSize: responsiveFontSize(7),
-                color: '#FE724C',
-                fontFamily:'Gilroy-Bold'
-                
-              }}>
-              Food
-            </Text>
-            <Text style={{color: '#9796A1', fontSize: responsiveFontSize(2.5),fontFamily:'Gilroy-Medium'}}>
-              80 type of pizza
-            </Text>
-          </View>
-        </Animated.View>
-      </ImageBackground>
-      <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginLeft: responsiveWidth(7),
-              marginRight: responsiveWidth(7),
-              marginTop: responsiveHeight(1),
-            }}>
-            <View style={{flexDirection: 'row', gap: responsiveWidth(3),alignItems:'center'}}>
-              <Text
-                style={{
-                  color: '#000',
-                  fontFamily: 'Gilroy-SemiBold',
-                  fontSize: responsiveFontSize(2.5),
-                }}>
-                Short by:
-              </Text>
-              <Dropdown
-                style={styles.dropdown}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                containerStyle={styles.dropdowncontainer}
-                fontFamily={'Gilroy-SemiBold'}
-                iconStyle={{display:'none'}}
-                minHeight={responsiveHeight(20)}
-                data={data}
-                maxHeight={responsiveHeight(50)}
-                labelField="label"
-                valueField="value"
-                value={value}
-                onChange={item => {
-                  setValue(item.value);
-                }}
-                
-          renderRightIcon={() => (
-            <Icon color="#FE724C" name='expand-more'  style={{fontSize: responsiveFontSize(3)}}/>
-          )}
-              />
-      
-            </View>
 
-            <TouchableOpacity>
-              <Icon
-                name="filter-list"
-                color="#FE724C"
-                style={{fontSize: responsiveFontSize(3)}}
-              />
-            </TouchableOpacity>
-          </View>
+        <Text style={styles.headertxt}>Find your food</Text>
 
-      <Animated.View
-        entering={SlideInDown.delay(400)
-          .randomDelay()
-          .reduceMotion(ReduceMotion.Never)
-          .withInitialValues({transform: [{translateY: 420}]})}
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          marginTop: responsiveHeight(4),
-          marginBottom: responsiveHeight(4),
-        }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('MyProfileScreen')}>
+          <Image
+            style={styles.profileImage}
+            source={
+              profiledata?.imgurl
+                ? {uri: `${url}${profiledata?.imgurl}`}
+                : require('../assets/newprofile.jpg')
+            }
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.inputContainer}>
+        <Icon name="search" color="#767F9D" style={styles.iconstyl} />
+        <TextInput
+          style={styles.inputText}
+          placeholder="Find your food.."
+          value={searchtxt}
+          onChangeText={txt => setSearchtxt(txt)}
+        />
+      </View>
+      {filteredData ? (
         <FlatList
-          data={renderdata}
-          numColumns={screenWidth >= 600 ? 2 : 1}
+          data={filteredData}
+          style={{
+            marginLeft: responsiveWidth(5),
+            marginTop: responsiveHeight(2),
+          }}
           renderItem={item => (
             <View
-              key={item.index}
+              key={item?.index}
               style={{
-                backgroundColor: '#FFF',
-                shadowOpacity: 10,
-                elevation: 1,
-                shadowColor: 'light-brown',
-                borderRadius: responsiveWidth(5),
-                width: responsiveWidth(isTablet ? 40 : 70),
-                marginHorizontal: responsiveWidth(2),
-                marginBottom: responsiveHeight(4),
+                marginTop: responsiveHeight(1),
+                marginLeft: responsiveWidth(2),
+                marginBottom: responsiveHeight(2),
               }}>
-              <View style={{position: 'relative'}}>
-                <Image
-                  source={item?.item?.imgsrc}
-                  style={{
-                    borderRadius: responsiveWidth(3),
-                    height: responsiveHeight(30),
-                    width: responsiveWidth(isTablet ? 40 : 70),
-                  }}
-                />
-                <Image
-                  source={require('../assets/likeicons.png')}
-                  style={{
-                    position: 'absolute',
-                    top: responsiveHeight(2),
-                    right: responsiveWidth(2),
-                    width:responsiveWidth(10),
-                    height:responsiveHeight(8)
-                  }}
-                />
-
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('FoodDetail', {
+                    foodId: item?.item?.id,
+                  })
+                }>
                 <View
                   style={{
-                    position: 'absolute',
-                    top: responsiveHeight(3),
-                    left: responsiveWidth(3),
-                    flexDirection: 'row',
-                    backgroundColor: 'white',
-                    borderRadius: responsiveWidth(10),
-                    padding: responsiveWidth(1.4),
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    backgroundColor: '#FFF',
+                    shadowOpacity: 10,
+                    elevation: 1,
+                    shadowColor: 'light-brown',
+                    borderRadius: responsiveWidth(2),
+                    width: responsiveWidth(90),
+
+                    height: responsiveHeight(40),
+                    gap: responsiveHeight(1.5),
                   }}>
-                  <Text
+                  <View
                     style={{
-                      color: '#FE724C',
-                      fontFamily:'Gilroy-SemiBold',
-                      fontSize: responsiveFontSize(2),
+                      position: 'relative',
+                      borderRadius: responsiveWidth(2),
+                      height: responsiveHeight(27),
                     }}>
-                    $
-                  </Text>
-                  <Text
+                    <Image
+                      source={item?.item?.imgsrc}
+                      style={{
+                        borderRadius: responsiveWidth(2),
+                        height: responsiveHeight(27),
+                        width: responsiveWidth(90),
+                      }}
+                    />
+                    <Image
+                      source={require('../assets/likeicons.png')}
+                      style={{
+                        position: 'absolute',
+                        height: responsiveHeight(8),
+                        width: responsiveWidth(8),
+                        top: responsiveHeight(1),
+                        right: responsiveWidth(2),
+                      }}
+                    />
+
+                    <View
+                      style={{
+                        height: responsiveHeight(5),
+                        width: responsiveWidth(16),
+                        position: 'absolute',
+                        top: responsiveHeight(2),
+                        left: responsiveWidth(3),
+                        flexDirection: 'row',
+                        backgroundColor: 'white',
+                        borderRadius: responsiveWidth(30),
+
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#FE724C',
+                          fontFamily: 'Gilroy-Medium',
+                          fontSize: responsiveFontSize(2),
+                        }}>
+                        $
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#000',
+                          fontFamily: 'Gilroy-SemiBold',
+                          fontSize: responsiveFontSize(2.3),
+                        }}>
+                        {item?.item?.price}
+                      </Text>
+                    </View>
+
+                    <View style={styles.popratingcontainer}>
+                      <Text style={styles.poprating}>{item?.item?.rating}</Text>
+                      <Icon
+                        name="grade"
+                        color="#FFC529"
+                        style={styles.starticon}
+                      />
+                      <Text>(25+)</Text>
+                    </View>
+                  </View>
+                  <View
                     style={{
-                      color: '#000',
-                      fontFamily:'Gilroy-SemiBold',
-                      fontSize: responsiveFontSize(2.2),
+                      padding: responsiveWidth(1.2),
+                      height: responsiveHeight(50),
                     }}>
-                    {item?.item?.price}
-                  </Text>
+                    <Text
+                      style={{
+                        color: '#000',
+                        fontSize: responsiveFontSize(2.5),
+                        fontFamily: 'Gilroy-Bold',
+                      }}>
+                      {item?.item?.foodname}
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#5B5B5E',
+                        fontSize: responsiveFontSize(1.8),
+                        fontFamily: 'Gilroy-SemiBold',
+                      }}>
+                      {truncateString(item?.item?.fooddetails)}
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.popratingcontainer}>
-          <Text style={styles.poprating}>{item?.item?.rating}</Text>
-          <Icon name="star" color="#FFC529" style={styles.starticon} />
-          <Text>(25+)</Text>
-        </View>
-              </View>
-              <TouchableOpacity
-                style={{padding: responsiveWidth(2.5),marginTop:responsiveHeight(1)}}
-                onPress={() =>
-                  navigation.navigate('FoodDetail', {foodId: item?.item?.id})
-                }>
-                <Text
-                  style={{
-                    color: '#000',
-                    fontSize: responsiveFontSize(2.6),
-                    fontFamily:'Gilroy-Bold'
-                  }}>
-                  {item?.item?.foodname}
-                </Text>
-                <Text
-                  style={{
-                    color: '#5B5B5E',
-                    fontSize: responsiveFontSize(1.8),
-                    fontFamily:'Gilroy-Medium'
-                  }}>
-                  Chicken,Cheese and pineapple
-                </Text>
               </TouchableOpacity>
             </View>
           )}
         />
-      </Animated.View>
-    </ScrollView>
+      ) : (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: responsiveHeight(2),
+          }}>
+          <Text
+            style={{
+              fontFamily: 'Gilroy-Bold',
+              fontSize: responsiveFontSize(3),
+              color: '#FE724C',
+            }}>
+            Tab the search button and see what you want to eat
+          </Text>
+        </View>
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  headercontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+
+    marginLeft: responsiveWidth(6),
+    marginRight: responsiveWidth(6),
+    justifyContent: 'space-between',
+    marginTop: responsiveHeight(2),
+  },
   headertouchbtn: {
     backgroundColor: '#FFFFFF',
     elevation: 5,
@@ -1010,11 +960,45 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(2.5),
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft:responsiveWidth(5)
   },
   backbtn: {
     marginLeft: responsiveWidth(2),
     fontSize: responsiveFontSize(3),
+  },
+  headertxt: {
+    fontSize: responsiveFontSize(3),
+    fontFamily: 'Gilroy-Bold',
+    color: 'black',
+    textAlign: 'center',
+  },
+  profileImage: {
+    height: responsiveHeight(7),
+    width: responsiveWidth(12),
+    borderRadius: responsiveWidth(2),
+  },
+  inputContainer: {
+    marginTop: responsiveHeight(1),
+    marginLeft: responsiveWidth(6),
+    marginRight: responsiveWidth(6),
+    borderWidth: responsiveWidth(0.8),
+    borderColor: '#EFEFEF',
+    width: responsiveWidth(90),
+    height: responsiveHeight(9),
+
+    borderRadius: responsiveWidth(2.2),
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: responsiveWidth(5),
+  },
+  inputText: {
+    fontFamily: 'Gilroy-Regular',
+    color: '#9AA0B4',
+    fontSize: responsiveFontSize(2.5),
+    marginLeft: responsiveWidth(2.5),
+    width: responsiveWidth(70),
+  },
+  iconstyl: {
+    fontSize: responsiveFontSize(4),
   },
   popcontainer: {
     marginLeft: responsiveWidth(4),
@@ -1025,8 +1009,6 @@ const styles = StyleSheet.create({
     elevation: 1,
     shadowColor: 'light-brown',
     borderRadius: responsiveWidth(2),
-    
-    
   },
 
   poplikeicon: {
@@ -1058,109 +1040,41 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2),
   },
   popratingcontainer: {
-  
-    height:responsiveHeight(4),
-    width:responsiveWidth(Dimensions.get('window').width>600?16:22),
+    height: responsiveHeight(4),
+    width: responsiveWidth(Dimensions.get('window').width > 600 ? 16 : 22),
     backgroundColor: '#FFFFFF',
     elevation: 5,
     shadowColor: 'light-brown',
     position: 'absolute',
     bottom: responsiveHeight(-2),
     left: responsiveWidth(3),
-    flexDirection:'row',
+    flexDirection: 'row',
     borderRadius: responsiveWidth(5),
-    justifyContent:'center',
-    alignItems:'center',
-    gap:responsiveWidth(1),
-    flexWrap:'wrap',
-    paddingTop:responsiveHeight(0.7)
-
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: responsiveWidth(1),
+    flexWrap: 'wrap',
+    paddingTop: responsiveHeight(0.7),
   },
   poprating: {
-
     color: '#000',
     fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(1.4),
   },
   popdetails: {
-    marginTop:responsiveHeight(1.2),
+    marginTop: responsiveHeight(1.2),
     padding: responsiveWidth(2.5),
-    gap:responsiveWidth(1.5)
+    gap: responsiveWidth(1.5),
   },
   popimg: {
     width: 'auto',
     height: responsiveHeight(20),
     borderRadius: responsiveWidth(2),
   },
-  popfoodnametxt: {
-    fontFamily: 'Gilroy-Medium',
-    fontSize: responsiveFontSize(1.5),
-  },
-  poptxto: {
-    color: '#000',
-    fontFamily: 'Gilroy-SemiBold',
-    fontSize: responsiveFontSize(2),
-  },
-  ratingrev:{fontFamily:'Gilroy-Regular',fontSize:responsiveFontSize(1.2)},
-  iconstyl: {
-    fontSize: responsiveFontSize(4),
-  },
+
   starticon: {
     fontSize: responsiveFontSize(1.5),
   },
-  dropdown: {
-    width: responsiveWidth(30),
-    height: responsiveHeight(5),
-    color:'#EF724C'
-  },
-
-  placeholderStyle: {
-    fontSize: responsiveFontSize(2.5),
-    fontFamily: 'Gilroy-SemiBold',
-    color:'#FE724C'
-  },
-  selectedTextStyle: {
-    fontSize: responsiveFontSize(2.5),
-    fontFamily: 'Gilroy-SemiBold',
-    color:'#FE724C'
-  },
-  dropdowncontainer:{
-    fontSize:responsiveFontSize(2.5),
-    fontFamily:'Gilroy-SemiBold',
-  },
-  dropdown: {
-    width: responsiveWidth(25),
-    height: responsiveHeight(5),
-    color: '#EF724C',
-   
-    alignItems:'center',
-    fontSize:responsiveFontSize(2)
-   
-  },
-
-  placeholderStyle: {
-    fontSize: responsiveFontSize(2),
-    fontFamily: 'Gilroy-SemiBold',
-    color: '#FE724C',
-    alignItems:'center',
-    height:responsiveHeight(5),
-     },
-  selectedTextStyle: {
-    fontSize: responsiveFontSize(2),
-    fontFamily: 'Gilroy-SemiBold',
-    color: '#FE724C',
-    height:responsiveHeight(5),
-    
-
-    marginTop:responsiveHeight(2)
-  },
-  dropdowncontainer: {
-    fontSize: responsiveFontSize(2),
-    fontFamily: 'Gilroy-SemiBold',
-    color: '#FE724C',
-    height:responsiveHeight(5),
-  },
-    
 });
 
-export default ViewScreen;
+export default SearchScreen;

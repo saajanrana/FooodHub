@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -11,6 +12,7 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
 import FastImage from 'react-native-fast-image';
 
 import Animated, {
@@ -27,23 +29,27 @@ import {
 import Shimmer from 'react-native-shimmer-kit';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
+const data = [
+  {label: 'All Item', value: '1'},
+  {label: 'Popular', value: '2'},
+  {label: 'Price', value: '3'},
+  {label: 'Name', value: '4'},
+];
+
 const AllItemScreen = ({navigation}) => {
+  const route = useRoute();
+  const {hvalue} = route.params;
   const [clicktab, setClicktab] = useState(0);
 
   const [simmertime, setSimmertime] = useState(0);
 
-  const simmerarr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
   const [tab, setTab] = useState(0);
+  const [value, setValue] = useState(hvalue);
 
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
   const isTablet = screenWidth >= 600;
-
-  // if(screenWidth >=600) {
-  //   setTab(1);
-  // }
-
+  const simmerarr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   useEffect(() => {
     setTimeout(() => {
       setSimmertime(1);
@@ -864,7 +870,6 @@ const AllItemScreen = ({navigation}) => {
   ];
 
   const itemsPerPage = 10; // Number of items to load per page
-
   const [visibleData, setVisibleData] = useState(
     viewallitem.slice(0, itemsPerPage),
   );
@@ -879,7 +884,7 @@ const AllItemScreen = ({navigation}) => {
       let truncatedString = words.slice(0, 10).join(' ');
 
       // Append "..........." to the truncated string
-      truncatedString += '...........';
+      truncatedString += '...';
 
       return truncatedString;
     } else {
@@ -888,19 +893,29 @@ const AllItemScreen = ({navigation}) => {
     }
   }
 
-  const loadMoreData = () => {
-    const currentLength = visibleData.length;
-    const newData = viewallitem.slice(
-      currentLength,
-      currentLength + itemsPerPage,
+  let renderdata = [];
+  if (value === '1') {
+    renderdata.push(...viewallitem);
+  } else if (value === '2') {
+    renderdata = viewallitem.sort((a, b) => b?.rating - a?.rating);
+  } else if (value === '3') {
+    renderdata = viewallitem.sort((a, b) => b?.price - a?.price);
+  } else if (value === '4') {
+    renderdata = viewallitem.sort((a, b) =>
+      a?.foodname?.localeCompare(b?.foodname),
     );
-    setVisibleData([...visibleData, ...newData]);
-    return (
-      <View>
-        <Text>Loading.........</Text>
-      </View>
-    );
-  };
+  }
+
+  let renderrest = [];
+  if (value === '1') {
+    renderrest.push(...restaurants);
+  } else if (value === '2') {
+    renderrest = restaurants.sort((a, b) => b?.rating - a?.rating);
+  } else if (value === '3') {
+    renderrest = restaurants.sort((a, b) => b?.rating - a?.rating);
+  } else if (value === '4') {
+    renderrest = restaurants.sort((a, b) => a?.name?.localeCompare(b?.name));
+  }
 
   return (
     <ScrollView style={{backgroundColor: '#FFF', flex: 1}}>
@@ -982,12 +997,17 @@ const AllItemScreen = ({navigation}) => {
                 color="black"
               />
             </TouchableOpacity>
-            <View style={{alignItems:'center',justifyContent:'center', width: responsiveWidth(70),}}>
-            {clicktab === 0 ? (
-              <Text style={styles.headertxt}>All Items</Text>
-            ) : (
-              <Text style={styles.headertxt}>All Restaurant</Text>
-            )}
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: responsiveWidth(70),
+              }}>
+              {clicktab === 0 ? (
+                <Text style={styles.headertxt}>All Items</Text>
+              ) : (
+                <Text style={styles.headertxt}>All Restaurant</Text>
+              )}
             </View>
           </View>
           <Animated.View
@@ -1053,6 +1073,69 @@ const AllItemScreen = ({navigation}) => {
             </View>
           </Animated.View>
 
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginLeft: responsiveWidth(7),
+              marginRight: responsiveWidth(7),
+              marginTop: responsiveHeight(1),
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: responsiveWidth(3),
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  color: '#000',
+                  fontFamily: 'Gilroy-SemiBold',
+                  fontSize: responsiveFontSize(2.5),
+                }}>
+                Short by:
+              </Text>
+              <Dropdown
+                style={styles.dropdown}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                containerStyle={styles.dropdowncontainer}
+                fontFamily={'Gilroy-SemiBold'}
+                
+                iconStyle={{display: 'none'}}
+                data={data}
+                minHeight={responsiveHeight(20)}
+                maxHeight={responsiveHeight(100)}
+                labelField="label"
+                valueField="value"
+                value={value}
+              
+                onChange={item => {
+                  setValue(item.value);
+                }}
+                
+                renderRightIcon={() => (
+                  <Icon
+                    color="#FE724C"
+                    name="expand-more"
+                    style={{fontSize: responsiveFontSize(2.5),
+                     
+                    }}
+                  />
+                )}
+              />
+            </View>
+
+            <TouchableOpacity>
+              <Icon
+                name="filter-list"
+                color="#FE724C"
+                style={{fontSize: responsiveFontSize(3)}}
+              />
+            </TouchableOpacity>
+          </View>
+
           {clicktab === 0 ? (
             <Animated.View
               entering={FadeInDown.delay(200)}
@@ -1064,7 +1147,7 @@ const AllItemScreen = ({navigation}) => {
                 alignItems: 'center',
               }}>
               <FlatList
-                data={viewallitem}
+                data={renderdata}
                 numColumns={screenWidth >= 600 ? 2 : 1}
                 renderItem={item => (
                   <View
@@ -1114,8 +1197,8 @@ const AllItemScreen = ({navigation}) => {
                             source={require('../assets/likeicons.png')}
                             style={{
                               position: 'absolute',
-                              height:responsiveHeight(8),
-                              width:responsiveWidth(8),
+                              height: responsiveHeight(8),
+                              width: responsiveWidth(8),
                               top: responsiveHeight(1),
                               right: responsiveWidth(2),
                             }}
@@ -1123,15 +1206,15 @@ const AllItemScreen = ({navigation}) => {
 
                           <View
                             style={{
-                              height:responsiveHeight(5),
-                              width:responsiveWidth(16),
+                              height: responsiveHeight(5),
+                              width: responsiveWidth(16),
                               position: 'absolute',
                               top: responsiveHeight(2),
                               left: responsiveWidth(3),
                               flexDirection: 'row',
                               backgroundColor: 'white',
                               borderRadius: responsiveWidth(30),
-                             
+
                               alignItems: 'center',
                               justifyContent: 'center',
                             }}>
@@ -1173,8 +1256,8 @@ const AllItemScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#000',
-                              fontSize: responsiveFontSize(isTablet?2:2.5),
-                              fontFamily:'Gilroy-Bold'
+                              fontSize: responsiveFontSize(isTablet ? 2 : 2.5),
+                              fontFamily: 'Gilroy-Bold',
                             }}>
                             {item?.item?.foodname}
                           </Text>
@@ -1184,7 +1267,7 @@ const AllItemScreen = ({navigation}) => {
                               fontSize: responsiveFontSize(
                                 isTablet ? 1.2 : 1.8,
                               ),
-                             fontFamily:'Gilroy-SemiBold'
+                              fontFamily: 'Gilroy-SemiBold',
                             }}>
                             {truncateString(item?.item?.fooddetails)}
                           </Text>
@@ -1206,13 +1289,12 @@ const AllItemScreen = ({navigation}) => {
                 alignItems: 'center',
               }}>
               <FlatList
-                data={restaurants}
+                data={renderrest}
                 numColumns={screenWidth >= 600 ? 2 : 1}
                 renderItem={item => (
                   <View
                     key={item?.index}
                     style={{
-                     
                       marginLeft: responsiveWidth(2),
                       marginBottom: responsiveHeight(2),
                     }}>
@@ -1256,13 +1338,12 @@ const AllItemScreen = ({navigation}) => {
                             source={require('../assets/likeicons.png')}
                             style={{
                               position: 'absolute',
-                              height:responsiveHeight(8),
-                              width:responsiveWidth(8),
+                              height: responsiveHeight(8),
+                              width: responsiveWidth(8),
                               top: responsiveHeight(1),
                               right: responsiveWidth(2),
                             }}
                           />
-
 
                           <View style={styles.popratingcontainer}>
                             <Text style={styles.poprating}>
@@ -1284,8 +1365,8 @@ const AllItemScreen = ({navigation}) => {
                           <Text
                             style={{
                               color: '#000',
-                              fontSize: responsiveFontSize(isTablet?2:2.5),
-                              fontFamily:'Gilroy-Bold'
+                              fontSize: responsiveFontSize(isTablet ? 2 : 2.5),
+                              fontFamily: 'Gilroy-Bold',
                             }}>
                             {item?.item?.name}
                           </Text>
@@ -1295,7 +1376,7 @@ const AllItemScreen = ({navigation}) => {
                               fontSize: responsiveFontSize(
                                 isTablet ? 1.2 : 1.8,
                               ),
-                            fontFamily:'Gilroy-SemiBold',
+                              fontFamily: 'Gilroy-SemiBold',
                             }}>
                             {truncateString(item?.item?.description)}
                           </Text>
@@ -1339,7 +1420,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Gilroy-Bold',
     color: 'black',
     textAlign: 'center',
-    
   },
   popcontainer: {
     marginLeft: responsiveWidth(4),
@@ -1381,45 +1461,73 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2),
   },
   popratingcontainer: {
-  
-    height:responsiveHeight(4),
-    width:responsiveWidth(Dimensions.get('window').width>600?16:22),
+    height: responsiveHeight(4),
+    width: responsiveWidth(Dimensions.get('window').width > 600 ? 16 : 22),
     backgroundColor: '#FFFFFF',
     elevation: 5,
     shadowColor: 'light-brown',
     position: 'absolute',
     bottom: responsiveHeight(-2),
     left: responsiveWidth(3),
-    flexDirection:'row',
+    flexDirection: 'row',
     borderRadius: responsiveWidth(5),
-    justifyContent:'center',
-    alignItems:'center',
-    gap:responsiveWidth(1),
-    flexWrap:'wrap',
-    paddingTop:responsiveHeight(0.7)
-
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: responsiveWidth(1),
+    flexWrap: 'wrap',
+    paddingTop: responsiveHeight(0.7),
   },
   poprating: {
-
     color: '#000',
     fontFamily: 'Gilroy-SemiBold',
     fontSize: responsiveFontSize(1.4),
   },
   popdetails: {
-    marginTop:responsiveHeight(1.2),
+    marginTop: responsiveHeight(1.2),
     padding: responsiveWidth(2.5),
-    gap:responsiveWidth(1.5)
+    gap: responsiveWidth(1.5),
   },
   popimg: {
     width: 'auto',
     height: responsiveHeight(20),
     borderRadius: responsiveWidth(2),
   },
- 
- 
-  
+
   starticon: {
     fontSize: responsiveFontSize(1.5),
+  },
+
+  dropdown: {
+    width: responsiveWidth(25),
+    height: responsiveHeight(5),
+    color: '#EF724C',
+   
+    alignItems:'center',
+    fontSize:responsiveFontSize(2)
+   
+  },
+
+  placeholderStyle: {
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'Gilroy-SemiBold',
+    color: '#FE724C',
+    alignItems:'center',
+    height:responsiveHeight(5),
+     },
+  selectedTextStyle: {
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'Gilroy-SemiBold',
+    color: '#FE724C',
+    height:responsiveHeight(5),
+    
+
+    marginTop:responsiveHeight(2)
+  },
+  dropdowncontainer: {
+    fontSize: responsiveFontSize(2),
+    fontFamily: 'Gilroy-SemiBold',
+    color: '#FE724C',
+    height:responsiveHeight(5),
   },
 });
 

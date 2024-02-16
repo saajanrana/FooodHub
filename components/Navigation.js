@@ -24,6 +24,7 @@ import RestaurantScreen from '../screen/RestaurantScreen';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import OtpScreen from '../screen/OtpScreen';
 import LoadingScreen from '../screen/LoadingScreen';
+import SearchScreen from '../screen/SearchScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -148,6 +149,12 @@ const Navigation = () => {
         <Stack.Screen name="AllItemScreen" component={AllItemScreen} options={{headerShown: false}} />
         <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{headerShown: false}} />
         <Stack.Screen name="LocationScreen" component={MyLocationScreen} />
+        <Stack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options={{headerShown: false}}
+          
+        />
         <Stack.Screen
           name="LoadingScreen"
           component={LoadingScreen}
