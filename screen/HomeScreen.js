@@ -953,7 +953,7 @@ const HomeScreen = props => {
             <TouchableOpacity
               onPress={() => props.navigation.navigate('MyProfileScreen')}>
               <Image
-                resizeMode="contain"
+            
                 style={styles.profileImage}
                 source={
                   profiledata?.imgurl

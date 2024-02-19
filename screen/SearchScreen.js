@@ -17,6 +17,7 @@ import {
 } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import {useSelector} from 'react-redux';
+import { url } from '../components/url';
 
 const SearchScreen = ({navigation}) => {
   const profiledata = useSelector(state => state.auth.profiledata);

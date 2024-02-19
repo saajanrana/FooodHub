@@ -82,8 +82,10 @@ const LoginScreen = ({navigation}) => {
         dispatch(loginUser('usercanlogin'));
         // dispatch(usertoken(data.token));
         // navigation.replace('HomeDrawer');
+        console.log('hola');
         navigation.navigate('OtpScreen',{email:email,token:data?.token});
       } else {
+        console.log('hola');
         setErrors(data);
       }
     } catch (error) {

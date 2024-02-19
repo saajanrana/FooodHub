@@ -21,11 +21,16 @@ import {
 } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
+import {RAZORPAY_KEY_ID,RAZORPAY_KEY_SECRET} from '@env';
+import RazorpayCheckout from 'react-native-razorpay';
+
 const AddToCartScreen = ({navigation}) => {
-  console.log('addtocartscreen render>>>>>>>>>1');
+
+
   const route = useRoute();
   const {foodId} = route.params;
   const dispatch = useDispatch();
+  const profiledata = useSelector(state => state.auth.profiledata);
   const totalitem = useSelector(state => state.store.totalitem);
   const Addtocart = useSelector(state => state.store.Addtocart);
   // console.log('addeditems>>>>>>', Addtocart);
@@ -55,6 +60,12 @@ const AddToCartScreen = ({navigation}) => {
     return totalpriceattocart;
   };
 
+
+
+
+
+
+  
   const cheakout = async () => {
     let mergedData = {};
     Addtocart.forEach(item => {
@@ -86,6 +97,37 @@ const AddToCartScreen = ({navigation}) => {
       navigation.navigate('MyOrderScreen');
     }
   };
+
+
+  const price = 500;
+
+  const paymenthandle = () =>{
+    var options = {
+      description: 'The food we want',
+      image: '',
+      currency: 'INR',
+      key: RAZORPAY_KEY_ID,
+      amount:price*100,
+      name: 'Acme Corp',
+      order_id: '',//Replace this with an order_id created using Orders API.
+      prefill: {
+        email: profiledata?.email,
+        contact: profiledata?.phone,
+        name: profiledata?.name
+      },
+      theme: {color: '#53a20e'}
+    }
+    RazorpayCheckout.open(options).then((data) => {
+      // handle success
+      // alert(`Success: ${data.razorpay_payment_id}`);
+      console.log('data>>>>',data);
+    }).catch((error) => {
+      // handle failure
+      alert(`Error: ${error.code} | ${error.description}`);
+    });
+  }
+
+
 
   return (
     <ScrollView style={styles.maincontainer}>
@@ -385,7 +427,7 @@ const AddToCartScreen = ({navigation}) => {
             marginBottom: responsiveHeight(7),
             marginTop: responsiveHeight(5),
           }}
-          onPress={cheakout}>
+          onPress={paymenthandle}>
           <Text
             style={{
               color: '#FFF',
