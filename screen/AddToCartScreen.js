@@ -63,29 +63,24 @@ const AddToCartScreen = ({navigation}) => {
 
 
 
-
-
-  
-  const cheakout = async () => {
+  const finalpay =async(paymentid) =>{
     let mergedData = {};
     Addtocart.forEach(item => {
       let foodId = item.userfood.id;
-      let quantity = totalitem[foodId] || 0; // Set quantity to 0 if not found in totalitem
+      let quantity = totalitem[foodId] || 0; 
       mergedData[foodId] = {
         ...item.userfood,
         quantity,
+        paymentid
       };
     });
-
     const valuesArray = Object.values(mergedData);
-
     let jsonData = JSON.stringify(valuesArray);
-
     const response = await fetch(`${url}api/userfood`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: usertoken,
+         Authorization: usertoken,
       },
       body: jsonData,
     });
@@ -96,36 +91,152 @@ const AddToCartScreen = ({navigation}) => {
 
       navigation.navigate('MyOrderScreen');
     }
+  }
+
+
+
+
+
+
+  
+  const cheakout = async () => {
+
+
+    let paymentdata = {
+       amount:parseFloat(calculateSubtotal()),
+       currency:'INR'
+
+    }
+
+    let finalpaymet = JSON.stringify(paymentdata);
+
+
+    const response = await fetch(`${url}api/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: finalpaymet,
+    });
+    const order = await response.json();
+
+    if (response.ok) {
+
+      RazorpayCheckout.open({
+        key: RAZORPAY_KEY_ID,
+        amount: order.amount.toString(),
+        currency: 'INR',
+        order_id: order.id,
+        // ... other payment details
+      }, (data) => {
+        // Handle success or failure callbacks
+        finalpay(data)
+      }).catch((error) => {
+          alert(`Error: ${error.code} | ${error.description}`);
+        });
+  
+
+
+      
+    //   var options = {
+    //   description: 'The food we want',
+    //   image: '',
+    //   currency: 'INR',
+    //   key: RAZORPAY_KEY_ID,
+    //   amount:(calculateSubtotal())*100,
+    //   name: 'Acme Corp',
+    //   order_id: '',
+    //   prefill: {
+    //     email: profiledata?.email,
+    //     contact: profiledata?.phone,
+    //     name: profiledata?.name
+    //   },
+    //   theme: {color: '#53a20e'}
+    // }
+    // RazorpayCheckout.open(options).then((data) => {
+    //   // handle success
+    //   // alert(`Success: ${data.razorpay_payment_id}`);
+    //   let paymentid = data.razorpay_payment_id;
+    //   finalpay(paymentid);
+    // }).catch((error) => {
+    //   // handle failure
+    //   alert(`Error: ${error.code} | ${error.description}`);
+    // });
+       
+
+
+    }
+
+
+
+    
+
+    // Addtocart.forEach(item => {
+    //   let foodId = item.userfood.id;
+    //   let quantity = totalitem[foodId] || 0; 
+    //   mergedData[foodId] = {
+    //     ...item.userfood,
+    //     quantity,
+    //     paymentid
+    //   };
+    // });
+    // const valuesArray = Object.values(mergedData);
+    // let jsonData = JSON.stringify(valuesArray);
+
+
+    
+
+    
+
+    // const response = await fetch(`${url}api/userfood`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //      Authorization: usertoken,
+    //   },
+    //   body: jsonData,
+    // });
+    // const data = await response.json();
+    // // console.log('data>>>>>>>', data);
+    // if (response.ok) {
+    //   // console.log('hue hue hue');
+
+    //   navigation.navigate('MyOrderScreen');
+    // }
   };
 
 
-  const price = 500;
+ 
 
-  const paymenthandle = () =>{
-    var options = {
-      description: 'The food we want',
-      image: '',
-      currency: 'INR',
-      key: RAZORPAY_KEY_ID,
-      amount:price*100,
-      name: 'Acme Corp',
-      order_id: '',//Replace this with an order_id created using Orders API.
-      prefill: {
-        email: profiledata?.email,
-        contact: profiledata?.phone,
-        name: profiledata?.name
-      },
-      theme: {color: '#53a20e'}
-    }
-    RazorpayCheckout.open(options).then((data) => {
-      // handle success
-      // alert(`Success: ${data.razorpay_payment_id}`);
-      console.log('data>>>>',data);
-    }).catch((error) => {
-      // handle failure
-      alert(`Error: ${error.code} | ${error.description}`);
-    });
-  }
+  // const paymenthandle = () =>{
+
+
+  //   cheakout();
+  //   // var options = {
+  //   //   description: 'The food we want',
+  //   //   image: '',
+  //   //   currency: 'USD',
+  //   //   key: RAZORPAY_KEY_ID,
+  //   //   amount:(calculateSubtotal())*100,
+  //   //   name: 'Acme Corp',
+  //   //   order_id: '',//Replace this with an order_id created using Orders API.
+  //   //   prefill: {
+  //   //     email: profiledata?.email,
+  //   //     contact: profiledata?.phone,
+  //   //     name: profiledata?.name
+  //   //   },
+  //   //   theme: {color: '#53a20e'}
+  //   // }
+  //   // RazorpayCheckout.open(options).then((data) => {
+  //   //   // handle success
+  //   //   // alert(`Success: ${data.razorpay_payment_id}`);
+  //   //   let paymentid = data.razorpay_payment_id;
+  //   //   cheakout(paymentid);
+  //   // }).catch((error) => {
+  //   //   // handle failure
+  //   //   alert(`Error: ${error.code} | ${error.description}`);
+  //   // });
+  // }
 
 
 
@@ -427,7 +538,7 @@ const AddToCartScreen = ({navigation}) => {
             marginBottom: responsiveHeight(7),
             marginTop: responsiveHeight(5),
           }}
-          onPress={paymenthandle}>
+          onPress={cheakout}>
           <Text
             style={{
               color: '#FFF',
